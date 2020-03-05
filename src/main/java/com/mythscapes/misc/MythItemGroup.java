@@ -15,6 +15,7 @@ public class MythItemGroup {
 
         private final Supplier<ItemStack> icon;
 
+
         public ModGroup(final String name, final Supplier<ItemStack> icon) {
             super(name);
             this.icon = icon;

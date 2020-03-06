@@ -20,4 +20,10 @@ public class MythItems {
 
     public static final RegistryObject<BlockItem> CHARGED_LOG_ITEM = ITEMS.register("charged_log", () -> new BlockItem(CHARGED_LOG.get(), defaultProp));
     public static final RegistryObject<BlockItem> CHARGED_PLANKS_ITEM = ITEMS.register("charged_planks", () -> new BlockItem(CHARGED_PLANKS.get(), defaultProp));
+    public static final RegistryObject<BlockItem> CHARGED_WOOD_SLAB_ITEM = ITEMS.register("charged_wood_slab", () -> new BlockItem(CHARGED_WOOD_SLAB.get(), defaultProp));
+    public static final RegistryObject<BlockItem> CHARGED_WOOD_STAIRS_ITEM = ITEMS.register("charged_wood_stairs", () -> new BlockItem(CHARGED_WOOD_STAIRS.get(), defaultProp));
+    public static final RegistryObject<BlockItem> CHARGED_WOOD_FENCE_ITEM = ITEMS.register("charged_wood_fence", () -> new BlockItem(CHARGED_WOOD_FENCE.get(), defaultProp));
+    public static final RegistryObject<BlockItem> CHARGED_WOOD_FENCE_GATE_ITEM = ITEMS.register("charged_wood_fence_gate", () -> new BlockItem(CHARGED_WOOD_FENCE_GATE.get(), defaultProp));
+    public static final RegistryObject<BlockItem> CHARGED_WOOD_PRESSURE_PLATE_ITEM = ITEMS.register("charged_wood_pressure_plate", () -> new BlockItem(CHARGED_WOOD_PRESSURE_PLATE.get(), defaultProp));
+    public static final RegistryObject<BlockItem> CHARGED_WOOD_BUTTON_ITEM = ITEMS.register("charged_wood_button", () -> new BlockItem(CHARGED_WOOD_BUTTON.get(), defaultProp));
 }

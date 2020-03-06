@@ -2,5 +2,11 @@
   "itemGroup.mythscapes": "Mythscapes",
 
   "block.mythscapes.charged_planks": "Charged Planks",
-  "block.mythscapes.charged_log": "Charged Log"
+  "block.mythscapes.charged_log": "Charged Log",
+  "block.mythscapes.charged_wood_slab": "Charged Wood Slab",
+  "block.mythscapes.charged_wood_stairs": "Charged Wood Stairs",
+  "block.mythscapes.charged_wood_fence": "Charged Wood Fence",
+  "block.mythscapes.charged_wood_fence_gate": "Charged Wood Fence Gate",
+  "block.mythscapes.charged_wood_button": "Charged Wood Button",
+  "block.mythscapes.charged_wood_pressure_plate": "Charged Wood Pressure Plate"
 }

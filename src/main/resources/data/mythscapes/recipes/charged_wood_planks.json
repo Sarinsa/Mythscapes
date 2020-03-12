@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "mythscapes:charged_logs"
+    }
+  ],
+  "result": {
+    "item": "mythscapes:charged_wood_planks",
+    "count": 4
+  }
+}

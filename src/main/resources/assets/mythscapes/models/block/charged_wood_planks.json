@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "mythscapes:block/charged_planks"
+    "all": "mythscapes:block/charged_wood_planks"
   }
 }

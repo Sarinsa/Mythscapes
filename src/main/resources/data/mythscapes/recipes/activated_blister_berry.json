@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "mythscapes:blister_berry"
+  },
+  "result": "mythscapes:activated_blister_berry",
+  "experience": 0.3,
+  "cookingtime": 200
+}

@@ -1,6 +1,6 @@
 {
   "parent": "block/template_fence_gate_wall",
   "textures": {
-    "texture": "mythscapes:block/charged_planks"
+    "texture": "mythscapes:block/charged_wood_planks"
   }
 }

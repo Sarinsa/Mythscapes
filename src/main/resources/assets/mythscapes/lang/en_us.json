@@ -1,12 +1,18 @@
 {
   "itemGroup.mythscapes": "Mythscapes",
 
-  "block.mythscapes.charged_planks": "Charged Planks",
+  "block.mythscapes.charged_leaves": "Charged Leaves",
   "block.mythscapes.charged_log": "Charged Log",
+  "block.mythscapes.charged_wood": "Charged Wood",
+  "block.mythscapes.charged_wood_planks": "Charged Wood Planks",
   "block.mythscapes.charged_wood_slab": "Charged Wood Slab",
   "block.mythscapes.charged_wood_stairs": "Charged Wood Stairs",
   "block.mythscapes.charged_wood_fence": "Charged Wood Fence",
   "block.mythscapes.charged_wood_fence_gate": "Charged Wood Fence Gate",
   "block.mythscapes.charged_wood_button": "Charged Wood Button",
-  "block.mythscapes.charged_wood_pressure_plate": "Charged Wood Pressure Plate"
+  "block.mythscapes.charged_wood_pressure_plate": "Charged Wood Pressure Plate",
+  "block.mythscapes.blister_berry_bush": "Blister Berry Bush",
+
+  "item.mythscapes.blister_berry": "Blister Berry",
+  "item.mythscapes.activated_blister_berry": "Activated Blister Berry"
 }

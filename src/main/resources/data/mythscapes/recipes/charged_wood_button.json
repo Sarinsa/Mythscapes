@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "mythscapes:charged_wood_planks"
+    }
+  ],
+  "result": {
+    "item": "mythscapes:charged_wood_button"
+  }
+}

@@ -1,5 +1,6 @@
 package com.mythscapes.common.blocks;
 
+import com.mythscapes.core.Mythscapes;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.Slot;
@@ -31,6 +32,8 @@ public class DoublePlantBlock extends BushBlock {
     public VoxelShape getCollisionShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
         Block block = this.getMainPlantBlock();
         if (block instanceof AbstractHarvestableBlock) {
+            Mythscapes.LOGGER.info("Is instance of");
+            Mythscapes.LOGGER.info(((AbstractHarvestableBlock)block).hasCollision());
             return ((AbstractHarvestableBlock)block).hasCollision() ? VoxelShapes.empty() : VoxelShapes.fullCube();
         }
         return VoxelShapes.fullCube();

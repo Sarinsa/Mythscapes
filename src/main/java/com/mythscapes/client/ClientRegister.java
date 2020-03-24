@@ -1,6 +1,5 @@
 package com.mythscapes.client;
 
-import com.mythscapes.client.renderers.entities.MythBoatRenderer;
 import com.mythscapes.client.renderers.entities.PondSerpentRenderer;
 import com.mythscapes.client.renderers.entities.boats.MythBoatRenderer;
 import com.mythscapes.register.MythBlocks;

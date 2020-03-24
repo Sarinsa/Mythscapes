@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=y": { "model": "mythscapes:block/viridian_stem" },
+    "axis=z": { "model": "mythscapes:block/viridian_stem", "x": 90 },
+    "axis=x": { "model": "mythscapes:block/viridian_stem", "x": 90, "y": 90 }
+  }
+}

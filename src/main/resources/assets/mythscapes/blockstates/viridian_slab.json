@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "mythscapes:block/viridian_slab" },
+    "type=top": { "model": "mythscapes:block/viridian_slab_top" },
+    "type=double": { "model": "mythscapes:block/viridian_planks" }
+  }
+}

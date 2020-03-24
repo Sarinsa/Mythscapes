@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "item": "mythscapes:viridian_stem"
+    }
+  ],
+  "result": {
+    "item": "mythscapes:viridian_planks",
+    "count": 4
+  }
+}

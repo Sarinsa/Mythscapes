@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 
 public class  MythItemGroup {
 
-    public static final ItemGroup MOD_ITEM_GROUP = new ModGroup(Mythscapes.MODID, () -> new ItemStack(MythItems.BLISTER_BERRY.get()));
+    public static final ItemGroup MOD_ITEM_GROUP = new ModGroup(Mythscapes.MODID, () -> new ItemStack(MythItems.BLISTERBERRY.get()));
 
     public static class ModGroup extends ItemGroup {
 

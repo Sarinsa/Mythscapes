@@ -1,7 +1,0 @@
-{
-  "variants": {
-    "age=0": { "model": "mythscapes:block/blister_berry_bush_age_0" },
-    "age=1": { "model": "mythscapes:block/blister_berry_bush_age_1" },
-    "age=2": { "model": "mythscapes:block/blister_berry_bush_age_2" }
-  }
-}

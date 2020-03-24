@@ -1,0 +1,6 @@
+{
+  "parent": "block/button",
+  "textures": {
+    "texture": "mythscapes:block/viridian_planks"
+  }
+}

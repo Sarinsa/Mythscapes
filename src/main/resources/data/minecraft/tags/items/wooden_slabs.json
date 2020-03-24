@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "mythscapes:charged_wood_slab"
+    "mythscapes:charged_wood_slab",
+    "mythscapes:viridian_slab"
   ]
 }

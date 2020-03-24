@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "mythscapes:charged_wood_fence"
+    "mythscapes:charged_wood_fence",
+    "mythscapes:viridian_fence"
   ]
 }

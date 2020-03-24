@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "mythscapes:charged_wood_stairs"
+    "mythscapes:charged_wood_stairs",
+    "mythscapes:viridian_stairs"
   ]
 }

@@ -1,6 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "mythscapes:block/blister_berry_bush_top_age_0"
-  }
-}

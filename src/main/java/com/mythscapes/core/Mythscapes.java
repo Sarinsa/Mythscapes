@@ -8,8 +8,12 @@ import com.mythscapes.register.MythBlocks;
 import com.mythscapes.register.MythEntities;
 import com.mythscapes.register.MythItems;
 import net.minecraft.block.DispenserBlock;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -33,6 +37,8 @@ public class Mythscapes {
     public Mythscapes() {
         INSTANCE = this;
 
+        MinecraftForge.EVENT_BUS.register(this);
+
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverStarting);
@@ -43,23 +49,23 @@ public class Mythscapes {
         MythItems.ITEMS.register(eventBus);
         MythBiomes.BIOMES.register(eventBus);
         MythEntities.ENTITIES.register(eventBus);
-
-        MinecraftForge.EVENT_BUS.register(this);
     }
 
     private void serverStarting(FMLServerAboutToStartEvent event) {
+
+    }
+
+    private void commonSetup(FMLCommonSetupEvent event) {
         // Adding biome entity spawns
-        MythBiomes.biome_list.forEach(BaseBiome::addEntitySpawns);
+        DeferredWorkQueue.runLater(() -> {
+            MythBiomes.biome_list.forEach(BaseBiome::addEntitySpawns);
+        });
         // Register dispenser behaviors
         DispenserBehavior.register();
     }
 
-    private void commonSetup(FMLCommonSetupEvent event) {
-
-    }
-
     private void clientSetup(FMLClientSetupEvent event) {
-        ClientRegister.registerEntityRenderers();
+        ClientRegister.registerEntityRenderers(event.getMinecraftSupplier());
         ClientRegister.setBlockRenderTypes();
     }
 }

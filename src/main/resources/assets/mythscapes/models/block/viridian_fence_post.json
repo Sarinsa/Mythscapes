@@ -1,0 +1,6 @@
+{
+  "parent": "block/fence_post",
+  "textures": {
+    "texture": "mythscapes:block/viridian_planks"
+  }
+}

@@ -11,8 +11,22 @@
   "block.mythscapes.charged_wood_fence_gate": "Charged Wood Fence Gate",
   "block.mythscapes.charged_wood_button": "Charged Wood Button",
   "block.mythscapes.charged_wood_pressure_plate": "Charged Wood Pressure Plate",
-  "block.mythscapes.blister_berry_bush": "Blister Berry Bush",
+  "block.mythscapes.charged_sapling": "Charged Sapling",
+  "block.mythscapes.viridian_stem": "Viridian Stem",
+  "block.mythscapes.viridian_planks": "Viridian Planks",
+  "block.mythscapes.viridian_slab": "Viridian Slab",
+  "block.mythscapes.viridian_stairs": "Viridian Stairs",
+  "block.mythscapes.viridian_fence": "Viridian Fence",
+  "block.mythscapes.viridian_fence_gate": "Viridian Fence Gate",
+  "block.mythscapes.viridian_button": "Viridian Button",
+  "block.mythscapes.viridian_pressure_plate": "Viridian Pressure Plate",
+  "block.mythscapes.blisterberry_thistle": "Blisterberry Thistle",
 
-  "item.mythscapes.blister_berry": "Blister Berry",
-  "item.mythscapes.activated_blister_berry": "Activated Blister Berry"
+  "item.mythscapes.blisterberry": "Blisterberry",
+  "item.mythscapes.activated_blisterberry": "Activated Blisterberry",
+  "item.mythscapes.charged_wood_boat": "Charged Wood Boat",
+  "item.mythscapes.viridian_boat": "Viridian Boat",
+
+  "entity.mythscapes.blisterberry": "Activated Blisterberry",
+  "entity.mythscapes.myth_boat": "Boat"
 }

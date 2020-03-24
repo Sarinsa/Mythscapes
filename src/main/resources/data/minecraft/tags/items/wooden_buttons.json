@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "mythscapes:charged_wood_button"
+    "mythscapes:charged_wood_button",
+    "mythscapes:viridian_button"
   ]
 }

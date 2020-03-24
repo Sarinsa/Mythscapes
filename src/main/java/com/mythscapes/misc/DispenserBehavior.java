@@ -1,40 +1,26 @@
 package com.mythscapes.misc;
 
-import com.mythscapes.common.entities.BlisterBerryEntity;
+import com.mythscapes.common.entities.BlisterberryEntity;
 import com.mythscapes.register.MythItems;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.dispenser.IPosition;
-import net.minecraft.util.Direction;
+import net.minecraft.dispenser.ProjectileDispenseBehavior;
+import net.minecraft.entity.IProjectile;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Util;
 import net.minecraft.world.World;
-
-import java.util.Random;
 
 public class DispenserBehavior {
 
     public static void register() {
-        /*
-        DispenserBlock.registerDispenseBehavior(MythItems.ACTIVATED_BLISTER_BERRY.get(), (blockSource, itemStack) -> {
-            World world = blockSource.getWorld();
-            Random random = world.rand;
-            IPosition position = DispenserBlock.getDispensePosition(blockSource);
-
-            double x = position.getX() + (double)(direction.getXOffset() * 0.3F);
-            double y = position.getY() + (double)(direction.getYOffset() * 0.3F);
-            double z = position.getZ() + (double)(direction.getZOffset() * 0.3F);
-            double xOffset = random.nextGaussian() * 0.05D + (double)direction.getXOffset();
-            double yOffset = random.nextGaussian() * 0.05D + (double)direction.getYOffset();
-            double zOffset = random.nextGaussian() * 0.05D + (double)direction.getZOffset();
-
-            if (!world.isRemote) {
-                BlisterBerryEntity blisterBerryEntity = new BlisterBerryEntity(null, world);
-                blisterBerryEntity.setItem(itemStack);
-                blisterBerryEntity.shoot(playerEntity, playerEntity.rotationPitch, playerEntity.rotationYaw, 0.0F, 1.5F, 1.0F);
-                world.addEntity(blisterBerryEntity);
+        // Activated Blisterberry
+        DispenserBlock.registerDispenseBehavior(MythItems.ACTIVATED_BLISTERBERRY.get(), new ProjectileDispenseBehavior() {
+            @Override
+            protected IProjectile getProjectileEntity(World world, IPosition iPosition, ItemStack itemStack) {
+                return Util.make(new BlisterberryEntity(iPosition.getX(), iPosition.getY(), iPosition.getZ(), world), (entity) -> {
+                    entity.setMotion(1.0f, 1.0f, 0.1f);
+                });
             }
-
-            return itemStack;
         });
-
-         */
     }
 }

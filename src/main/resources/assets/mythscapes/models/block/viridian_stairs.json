@@ -1,0 +1,8 @@
+{
+  "parent": "block/stairs",
+  "textures": {
+    "bottom": "mythscapes:block/viridian_planks",
+    "top": "mythscapes:block/viridian_planks",
+    "side": "mythscapes:block/viridian_planks"
+  }
+}

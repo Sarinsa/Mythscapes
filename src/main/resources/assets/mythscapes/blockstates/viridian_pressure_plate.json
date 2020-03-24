@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "powered=false": { "model": "mythscapes:block/viridian_pressure_plate" },
+    "powered=true": { "model": "mythscapes:block/viridian_pressure_plate_down" }
+  }
+}

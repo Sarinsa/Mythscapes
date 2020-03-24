@@ -1,45 +1,28 @@
 package com.mythscapes.common.items;
 
-import com.mythscapes.common.entities.BlisterBerryEntity;
-import com.mythscapes.misc.MythItemGroup;
+import com.mythscapes.common.entities.BlisterberryEntity;
 import com.mythscapes.register.MythItems;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.SnowballEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.item.SnowballItem;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 public class BlisterBerryItem extends BaseItem {
 
-    private boolean activated;
-
-
-    public BlisterBerryItem(boolean activated) {
-        super(activated ? MythItems.defaultProp : new Item.Properties().group(MythItemGroup.MOD_ITEM_GROUP).food(MythFoods.BLISTER_BERRY));
-        this.activated = activated;
-    }
-
-    public boolean isActivated() {
-        return this.activated;
+    public BlisterBerryItem() {
+        super(new Item.Properties().group(MythItems.itemGroup).maxStackSize(16));
     }
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity playerEntity, Hand hand) {
         ItemStack itemStack = playerEntity.getHeldItem(hand);
 
-        if (!this.isActivated()) {
-            return ActionResult.resultSuccess(itemStack);
-        }
         world.playSound(null, playerEntity.getPosX(), playerEntity.getPosY(), playerEntity.getPosZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 
         if (!world.isRemote) {
-            BlisterBerryEntity blisterBerryEntity = new BlisterBerryEntity(playerEntity, world);
-            blisterBerryEntity.setItem(itemStack);
+            BlisterberryEntity blisterBerryEntity = new BlisterberryEntity(playerEntity, world);
             blisterBerryEntity.shoot(playerEntity, playerEntity.rotationPitch, playerEntity.rotationYaw, 0.0F, 1.5F, 1.0F);
             world.addEntity(blisterBerryEntity);
         }
@@ -47,8 +30,8 @@ public class BlisterBerryItem extends BaseItem {
 
         if (!playerEntity.abilities.isCreativeMode) {
             itemStack.shrink(1);
+            playerEntity.getCooldownTracker().setCooldown(this, 200);
         }
-        playerEntity.getCooldownTracker().setCooldown(this, 200);
         return ActionResult.resultSuccess(itemStack);
     }
 }

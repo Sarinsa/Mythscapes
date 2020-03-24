@@ -7,16 +7,19 @@ import com.mythscapes.common.items.MythBoatItem;
 import com.mythscapes.misc.MythFoods;
 import com.mythscapes.core.Mythscapes;
 import com.mythscapes.misc.MythItemGroup;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.BoatItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.Items;
+import net.minecraft.item.SpawnEggItem;
+import net.minecraft.util.datafix.fixes.ItemSpawnEggSplit;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import static com.mythscapes.register.MythBlocks.*;
-import static com.mythscapes.register.MythBlocks.VIRIDIAN_SLAB;
 
 public class MythItems {
 
@@ -32,6 +35,8 @@ public class MythItems {
     // Items
     public static final RegistryObject<Item> BLISTERBERRY = ITEMS.register("blisterberry", () -> new BaseItem(new Item.Properties().group(itemGroup).food(MythFoods.BLISTERBERRY)));
     public static final RegistryObject<Item> ACTIVATED_BLISTERBERRY = ITEMS.register("activated_blisterberry", BlisterBerryItem::new);
+
+    // public static final RegistryObject<Item> POND_SERPENT_EGG = ITEMS.register("pond_serpent_egg", () -> new SpawnEggItem(MythEntities.POND_SERPENT.get(), 0xFFFF00, 0x0000FF, defaultProp));
 
     // Boat Items
     public static final RegistryObject<Item> CHARGED_WOOD_BOAT = ITEMS.register("charged_wood_boat", () -> new MythBoatItem(MythBoatEntity.Type.CHARGED_WOOD, defaultProp));

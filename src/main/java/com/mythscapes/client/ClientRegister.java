@@ -1,5 +1,7 @@
 package com.mythscapes.client;
 
+import com.mythscapes.client.renderers.entities.MythBoatRenderer;
+import com.mythscapes.client.renderers.entities.PondSerpentRenderer;
 import com.mythscapes.client.renderers.entities.boats.MythBoatRenderer;
 import com.mythscapes.register.MythBlocks;
 import com.mythscapes.register.MythEntities;
@@ -10,14 +12,18 @@ import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 import java.util.function.Supplier;
 
+@OnlyIn(value = Dist.CLIENT)
 public class ClientRegister {
 
     public static void registerEntityRenderers(Supplier<Minecraft> minecraftSupplier) {
         RenderingRegistry.registerEntityRenderingHandler(MythEntities.MYTH_BOAT.get(), MythBoatRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(MythEntities.POND_SERPENT.get(), PondSerpentRenderer::new);
 
         // "2D" entities
         registerNewSpriteRenderer(MythEntities.BLISTERBERRY.get(), minecraftSupplier);

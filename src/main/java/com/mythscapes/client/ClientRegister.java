@@ -1,6 +1,7 @@
 package com.mythscapes.client;
 
 import com.mythscapes.client.renderers.entities.MythBoatRenderer;
+import com.mythscapes.client.renderers.entities.PondSerpentRenderer;
 import com.mythscapes.register.MythBlocks;
 import com.mythscapes.register.MythEntities;
 import net.minecraft.client.Minecraft;
@@ -17,6 +18,7 @@ public class ClientRegister {
     public static void registerEntityRenderers() {
         RenderingRegistry.registerEntityRenderingHandler(MythEntities.MYTH_BOAT.get(), MythBoatRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(MythEntities.BLISTER_BERRY.get(), (rendererManager) -> new SpriteRenderer<>(rendererManager, Minecraft.getInstance().getItemRenderer()));
+        RenderingRegistry.registerEntityRenderingHandler(MythEntities.POND_SERPENT.get(), PondSerpentRenderer::new);
     }
 
     public static void setBlockRenderTypes() {

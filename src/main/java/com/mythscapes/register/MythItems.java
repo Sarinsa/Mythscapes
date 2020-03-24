@@ -1,11 +1,15 @@
 package com.mythscapes.register;
 
+import com.mythscapes.common.entities.PondSerpentEntity;
 import com.mythscapes.common.items.BlisterBerryItem;
 import com.mythscapes.core.Mythscapes;
 import com.mythscapes.misc.MythItemGroup;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.item.SpawnEggItem;
+import net.minecraft.util.datafix.fixes.ItemSpawnEggSplit;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -23,6 +27,8 @@ public class MythItems {
     // Items
     public static final RegistryObject<Item> BLISTER_BERRY = ITEMS.register("blister_berry", () -> new BlisterBerryItem(false));
     public static final RegistryObject<Item> ACTIVATED_BLISTER_BERRY = ITEMS.register("activated_blister_berry", () -> new BlisterBerryItem(true));
+
+    // public static final RegistryObject<Item> POND_SERPENT_EGG = ITEMS.register("pond_serpent_egg", () -> new SpawnEggItem(MythEntities.POND_SERPENT.get(), 0xFFFF00, 0x0000FF, defaultProp));
 
 
     // Block Items

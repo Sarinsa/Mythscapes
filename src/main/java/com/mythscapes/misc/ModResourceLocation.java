@@ -5,7 +5,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class ModResourceLocation extends ResourceLocation {
 
-    protected ModResourceLocation(String path) {
+    public ModResourceLocation(String path) {
         super(Mythscapes.MODID, path);
     }
 }

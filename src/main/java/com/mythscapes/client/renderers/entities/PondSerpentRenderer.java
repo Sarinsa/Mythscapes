@@ -11,6 +11,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 public class PondSerpentRenderer extends MobRenderer<PondSerpentEntity, PondSerpentModel<PondSerpentEntity>> {
+    private static final ResourceLocation[] POND_SERPENT_TEXTURES = {
+            new ModResourceLocation("textures/entity/pond_serpent/pond_serpent_ocean.png"),
+            new ModResourceLocation("textures/entity/pond_serpent/pond_serpent_olympian_mountains.png")
+    };
+
     public PondSerpentRenderer(EntityRendererManager manager) {
         super(manager, new PondSerpentModel<>(), 0.3f);
         //0.3f is the shadow size
@@ -20,6 +25,6 @@ public class PondSerpentRenderer extends MobRenderer<PondSerpentEntity, PondSerp
     @Nonnull
     @Override
     public ResourceLocation getEntityTexture(PondSerpentEntity entity) {
-        return new ModResourceLocation("textures/entity/pond_serpent.png");
+        return POND_SERPENT_TEXTURES[entity.type.ordinal()];
     }
 }

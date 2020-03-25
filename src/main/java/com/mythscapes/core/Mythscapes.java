@@ -3,14 +3,13 @@ package com.mythscapes.core;
 import com.mythscapes.client.ClientRegister;
 import com.mythscapes.common.biomes.BaseBiome;
 import com.mythscapes.misc.DispenserBehavior;
-import com.mythscapes.register.MythBiomes;
-import com.mythscapes.register.MythBlocks;
-import com.mythscapes.register.MythEntities;
-import com.mythscapes.register.MythItems;
+import com.mythscapes.register.*;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DeferredWorkQueue;
@@ -47,20 +46,27 @@ public class Mythscapes {
 
         MythBlocks.BLOCKS.register(eventBus);
         MythItems.ITEMS.register(eventBus);
+        MythSounds.SOUNDS.register(eventBus);
         MythBiomes.BIOMES.register(eventBus);
         MythEntities.ENTITIES.register(eventBus);
+        MythParticles.PARTICLES.register(eventBus);
+        MythEffects.POTION_EFFECTS.register(eventBus);
     }
 
     private void serverStarting(FMLServerAboutToStartEvent event) {
-
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
         // Adding biome entity spawns
-        DeferredWorkQueue.runLater(() -> {
-            MythBiomes.biome_list.forEach(BaseBiome::addEntitySpawns);
-        });
-        // Register dispenser behaviors
+        MythBiomes.biome_list.forEach(BaseBiome::addEntitySpawns);
+
+        // Entity placement
+        MythEntities.registerEntityPlacement();
+
+        // Add biomes to biome manager
+        MythBiomes.addBiomes();
+
+        // Register custom dispenser behaviour
         DispenserBehavior.register();
     }
 

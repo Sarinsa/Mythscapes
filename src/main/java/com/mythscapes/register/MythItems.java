@@ -8,12 +8,8 @@ import com.mythscapes.misc.MythFoods;
 import com.mythscapes.core.Mythscapes;
 import com.mythscapes.misc.MythItemGroup;
 import net.minecraft.entity.EntityType;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.BoatItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.Items;
-import net.minecraft.item.SpawnEggItem;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.item.*;
 import net.minecraft.util.datafix.fixes.ItemSpawnEggSplit;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -31,11 +27,11 @@ public class MythItems {
     public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, Mythscapes.MODID);
 
 
-
     // Items
     public static final RegistryObject<Item> BLISTERBERRY = ITEMS.register("blisterberry", () -> new BaseItem(new Item.Properties().group(itemGroup).food(MythFoods.BLISTERBERRY)));
     public static final RegistryObject<Item> ACTIVATED_BLISTERBERRY = ITEMS.register("activated_blisterberry", BlisterBerryItem::new);
 
+    public static final RegistryObject<Item> POND_SERPENT_FISH_BUCKET = ITEMS.register("pond_serpent_fish_bucket", () -> new FishBucketItem(MythEntities.POND_SERPENT, () -> Fluids.WATER, new Item.Properties().group(itemGroup).maxStackSize(1)));
     // public static final RegistryObject<Item> POND_SERPENT_EGG = ITEMS.register("pond_serpent_egg", () -> new SpawnEggItem(MythEntities.POND_SERPENT.get(), 0xFFFF00, 0x0000FF, defaultProp));
 
     // Boat Items

@@ -24,9 +24,11 @@
 
   "item.mythscapes.blisterberry": "Blisterberry",
   "item.mythscapes.activated_blisterberry": "Activated Blisterberry",
+  "item.mythscapes.pond_serpent_fish_bucket": "Pond Serpent Bucket",
   "item.mythscapes.charged_wood_boat": "Charged Wood Boat",
   "item.mythscapes.viridian_boat": "Viridian Boat",
 
   "entity.mythscapes.blisterberry": "Activated Blisterberry",
-  "entity.mythscapes.myth_boat": "Boat"
+  "entity.mythscapes.myth_boat": "Boat",
+  "entity.mythscapes.pond_serpent": "Pond Serpent"
 }

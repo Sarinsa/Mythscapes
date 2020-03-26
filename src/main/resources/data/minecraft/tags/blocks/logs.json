@@ -2,7 +2,12 @@
   "replace": false,
   "values": [
     "mythscapes:charged_log",
+    "mythscapes:charged_log_stripped",
     "mythscapes:charged_wood",
-    "mythscapes:viridian_stem"
+    "mythscapes:charged_wood_stripped",
+    "mythscapes:viridian_stem",
+    "mythscapes:viridian_stem_stripped",
+    "mythscapes:viridian_wood",
+    "mythscapes:viridian_wood_stripped"
   ]
 }

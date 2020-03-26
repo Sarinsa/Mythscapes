@@ -3,7 +3,9 @@
 
   "block.mythscapes.charged_leaves": "Charged Leaves",
   "block.mythscapes.charged_log": "Charged Log",
+  "block.mythscapes.charged_log_stripped": "Stripped Charged Log",
   "block.mythscapes.charged_wood": "Charged Wood",
+  "block.mythscapes.charged_wood_stripped": "Stripped Charged Wood",
   "block.mythscapes.charged_wood_planks": "Charged Wood Planks",
   "block.mythscapes.charged_wood_slab": "Charged Wood Slab",
   "block.mythscapes.charged_wood_stairs": "Charged Wood Stairs",
@@ -13,6 +15,9 @@
   "block.mythscapes.charged_wood_pressure_plate": "Charged Wood Pressure Plate",
   "block.mythscapes.charged_sapling": "Charged Sapling",
   "block.mythscapes.viridian_stem": "Viridian Stem",
+  "block.mythscapes.viridian_stem_stripped": "Stripped Viridian Stem",
+  "block.mythscapes.viridian_wood": "Viridian Stem",
+  "block.mythscapes.viridian_wood_stripped": "Stripped Viridian Stem",
   "block.mythscapes.viridian_planks": "Viridian Planks",
   "block.mythscapes.viridian_slab": "Viridian Slab",
   "block.mythscapes.viridian_stairs": "Viridian Stairs",
@@ -30,5 +35,8 @@
 
   "entity.mythscapes.blisterberry": "Activated Blisterberry",
   "entity.mythscapes.myth_boat": "Boat",
-  "entity.mythscapes.pond_serpent": "Pond Serpent"
+  "entity.mythscapes.pond_serpent": "Pond Serpent",
+
+  "effect.mythscapes.volatile": "Volatile",
+  "effect.mythscapes.static": "Static"
 }

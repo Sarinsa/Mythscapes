@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "mythscapes:block/stripped_viridian_stem_top",
+    "side": "mythscapes:block/stripped_viridian_stem_side"
+  }
+}

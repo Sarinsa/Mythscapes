@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=y": { "model": "mythscapes:block/charged_wood_stripped" },
+    "axis=z": { "model": "mythscapes:block/charged_wood_stripped", "x": 90 },
+    "axis=x": { "model": "mythscapes:block/charged_wood_stripped", "x": 90, "y": 90 }
+  }
+}

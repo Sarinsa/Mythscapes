@@ -4,16 +4,19 @@ import com.mythscapes.common.entities.MythBoatEntity;
 import com.mythscapes.common.items.BaseItem;
 import com.mythscapes.common.items.BlisterBerryItem;
 import com.mythscapes.common.items.MythBoatItem;
-import com.mythscapes.misc.MythFoods;
 import com.mythscapes.core.Mythscapes;
+import com.mythscapes.misc.MythFoods;
 import com.mythscapes.misc.MythItemGroup;
-import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.*;
-import net.minecraft.util.datafix.fixes.ItemSpawnEggSplit;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.FishBucketItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.function.Supplier;
 
 import static com.mythscapes.register.MythBlocks.*;
 
@@ -26,13 +29,12 @@ public class MythItems {
     // Item Register
     public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, Mythscapes.MODID);
 
-
     // Items
     public static final RegistryObject<Item> BLISTERBERRY = ITEMS.register("blisterberry", () -> new BaseItem(new Item.Properties().group(itemGroup).food(MythFoods.BLISTERBERRY)));
     public static final RegistryObject<Item> ACTIVATED_BLISTERBERRY = ITEMS.register("activated_blisterberry", BlisterBerryItem::new);
 
     public static final RegistryObject<Item> POND_SERPENT_FISH_BUCKET = ITEMS.register("pond_serpent_fish_bucket", () -> new FishBucketItem(MythEntities.POND_SERPENT, () -> Fluids.WATER, new Item.Properties().group(itemGroup).maxStackSize(1)));
-    // public static final RegistryObject<Item> POND_SERPENT_EGG = ITEMS.register("pond_serpent_egg", () -> new SpawnEggItem(MythEntities.POND_SERPENT.get(), 0xFFFF00, 0x0000FF, defaultProp));
+    //public static final RegistryObject<Item> POND_SERPENT_EGG = ITEMS.register("pond_serpent_egg", () -> new SpawnEggItem(MythEntities.POND_SERPENT, 0xFFFF00, 0x0000FF, defaultProp));
 
     // Boat Items
     public static final RegistryObject<Item> CHARGED_WOOD_BOAT = ITEMS.register("charged_wood_boat", () -> new MythBoatItem(MythBoatEntity.Type.CHARGED_WOOD, defaultProp));
@@ -42,6 +44,8 @@ public class MythItems {
     public static final RegistryObject<BlockItem> CHARGED_LEAVES_ITEM = ITEMS.register("charged_leaves", () -> new BlockItem(CHARGED_LEAVES.get(), defaultProp));
     public static final RegistryObject<BlockItem> CHARGED_LOG_ITEM = ITEMS.register("charged_log", () -> new BlockItem(CHARGED_LOG.get(), defaultProp));
     public static final RegistryObject<BlockItem> CHARGED_WOOD_ITEM = ITEMS.register("charged_wood", () -> new BlockItem(CHARGED_WOOD.get(), defaultProp));
+    public static final RegistryObject<BlockItem> CHARGED_LOG_STRIPPED_ITEM = ITEMS.register("charged_log_stripped", () -> new BlockItem(CHARGED_LOG_STRIPPED.get(), defaultProp));
+    public static final RegistryObject<BlockItem> CHARGED_WOOD_STRIPPED_ITEM = ITEMS.register("charged_wood_stripped", () -> new BlockItem(CHARGED_WOOD_STRIPPED.get(), defaultProp));
     public static final RegistryObject<BlockItem> CHARGED_PLANKS_ITEM = ITEMS.register("charged_wood_planks", () -> new BlockItem(CHARGED_PLANKS.get(), defaultProp));
     public static final RegistryObject<BlockItem> CHARGED_WOOD_SLAB_ITEM = ITEMS.register("charged_wood_slab", () -> new BlockItem(CHARGED_WOOD_SLAB.get(), defaultProp));
     public static final RegistryObject<BlockItem> CHARGED_WOOD_STAIRS_ITEM = ITEMS.register("charged_wood_stairs", () -> new BlockItem(CHARGED_WOOD_STAIRS.get(), defaultProp));
@@ -52,6 +56,9 @@ public class MythItems {
     public static final RegistryObject<BlockItem> CHARGED_SAPLING_ITEM = ITEMS.register("charged_sapling", () -> new BlockItem(CHARGED_SAPLING.get(), defaultProp));
 
     public static final RegistryObject<BlockItem> VIRIDIAN_STEM_ITEM = ITEMS.register("viridian_stem", () -> new BlockItem(VIRIDIAN_STEM.get(), defaultProp));
+    public static final RegistryObject<BlockItem> VIRIDIAN_WOOD_ITEM = ITEMS.register("viridian_wood", () -> new BlockItem(VIRIDIAN_WOOD.get(), defaultProp));
+    public static final RegistryObject<BlockItem> VIRIDIAN_STEM_STRIPPED_ITEM = ITEMS.register("viridian_stem_stripped", () -> new BlockItem(VIRIDIAN_STEM_STRIPPED.get(), defaultProp));
+    public static final RegistryObject<BlockItem> VIRIDIAN_WOOD_STRIPPED_ITEM = ITEMS.register("viridian_wood_stripped", () -> new BlockItem(VIRIDIAN_WOOD_STRIPPED.get(), defaultProp));
     public static final RegistryObject<BlockItem> VIRIDIAN_PLANKS_ITEM = ITEMS.register("viridian_planks", () -> new BlockItem(VIRIDIAN_PLANKS.get(), defaultProp));
     public static final RegistryObject<BlockItem> VIRIDIAN_SLAB_ITEM = ITEMS.register("viridian_slab", () -> new BlockItem(VIRIDIAN_SLAB.get(), defaultProp));
     public static final RegistryObject<BlockItem> VIRIDIAN_STAIRS_ITEM = ITEMS.register("viridian_stairs", () -> new BlockItem(VIRIDIAN_STAIRS.get(), defaultProp));

@@ -52,7 +52,7 @@ public class BlisterberryEntity extends ProjectileItemEntity {
                 this.applyEnchantments(thrower, target);
             }
             boolean mobGriefing = ForgeEventFactory.getMobGriefingEvent(world, thrower);
-            world.createExplosion(this, DamageSource.GENERIC, this.getPosX(), this.getPosY(), this.getPosZ(), 2.0f, mobGriefing, Explosion.Mode.NONE);
+            world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), 2.0f, mobGriefing, Explosion.Mode.NONE);
             this.remove();
         }
     }

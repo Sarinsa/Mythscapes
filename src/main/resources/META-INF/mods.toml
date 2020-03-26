@@ -31,7 +31,7 @@ logoFile="examplemod.png" #optional
 credits="The Mythscapes mod dev team" #optional
 
 # A text field displayed in the mod UI
-authors="Radish, Sarinsa, various other peeps (don't know their names)" #optional
+authors="The Mythscapes team" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''

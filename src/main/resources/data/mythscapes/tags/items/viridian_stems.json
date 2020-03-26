@@ -1,5 +1,9 @@
 {
   "replace": false,
   "values": [
+    "mythscapes:viridian_stem",
+    "mythscapes:viridian_stem_stripped",
+    "mythscapes:viridian_wood",
+    "mythscapes:viridian_wood_stripped"
   ]
 }

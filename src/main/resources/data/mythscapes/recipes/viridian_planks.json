@@ -3,7 +3,7 @@
   "group": "planks",
   "ingredients": [
     {
-      "item": "mythscapes:viridian_stem"
+      "tag": "mythscapes:viridian_stems"
     }
   ],
   "result": {

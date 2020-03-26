@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "mythscapes:block/stripped_charged_log_top",
+    "side": "mythscapes:block/stripped_charged_log_side"
+  }
+}

@@ -31,13 +31,13 @@ public class StaticEffect extends MythEffect {
                 if (isInConductiveFluid(target, world))
                     target.attackEntityFrom(MythDamageSources.STATIC_SHOCK, damage);
             }
+            entity.removePotionEffect(this);
         }
     }
 
     @Override
     public boolean isReady(int duration, int amplifier) {
-        int k = (20 * 5);
-        return duration % k == 0;
+        return true;
     }
 
 

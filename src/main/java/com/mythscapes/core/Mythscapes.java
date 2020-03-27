@@ -38,6 +38,7 @@ public class Mythscapes {
 
         MythBlocks.BLOCKS.register(eventBus);
         MythItems.ITEMS.register(eventBus);
+        MythFluids.FLUIDS.register(eventBus);
         MythSounds.SOUNDS.register(eventBus);
         MythBiomes.BIOMES.register(eventBus);
         MythEntities.ENTITIES.register(eventBus);

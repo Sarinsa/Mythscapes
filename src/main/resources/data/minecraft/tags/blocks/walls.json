@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "mythscapes:galvite_wall",
+    "mythscapes:polished_galvite_wall",
+    "mythscapes:polished_galvite_brick_wall",
+    "mythscapes:gilded_galvite_brick_wall",
+    "mythscapes:bejeweled_galvite_brick_wall",
+    "mythscapes:powered_galvite_brick_wall"
+  ]
+}

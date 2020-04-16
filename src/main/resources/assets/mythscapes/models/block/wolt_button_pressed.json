@@ -1,0 +1,6 @@
+{
+  "parent": "block/button_pressed",
+  "textures": {
+    "texture": "mythscapes:block/wolt_planks"
+  }
+}

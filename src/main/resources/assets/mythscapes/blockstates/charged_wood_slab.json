@@ -1,7 +1,0 @@
-{
-  "variants": {
-    "type=bottom": { "model": "mythscapes:block/charged_wood_slab" },
-    "type=top": { "model": "mythscapes:block/charged_wood_slab_top" },
-    "type=double": { "model": "mythscapes:block/charged_wood_planks" }
-  }
-}

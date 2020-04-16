@@ -9,7 +9,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.entity.projectile.SnowballEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.network.IPacket;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
@@ -49,7 +51,6 @@ public class BlisterberryEntity extends ProjectileItemEntity {
             if (result.getType() == RayTraceResult.Type.ENTITY) {
                 Entity target = ((EntityRayTraceResult)result).getEntity();
                 target.attackEntityFrom(DamageSource.causeThrownDamage(this, thrower), 2.0F);
-                this.applyEnchantments(thrower, target);
             }
             boolean mobGriefing = ForgeEventFactory.getMobGriefingEvent(world, thrower);
             world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), 2.0f, mobGriefing, Explosion.Mode.NONE);

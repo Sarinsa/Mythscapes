@@ -3,7 +3,6 @@ package com.mythscapes.common.effects;
 import com.mythscapes.common.damagesource.MythDamageSources;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.EffectType;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -16,7 +15,7 @@ public class VolatileEffect extends MythEffect {
     }
     @Override
     public void performEffect(LivingEntity entity, int amplifier) {
-        if (entity.isBurning() && !entity.isImmuneToFire()) {
+        if (entity.isBurning()) {
             World world = entity.getEntityWorld();
             Vec3d pos = entity.getPositionVec();
 

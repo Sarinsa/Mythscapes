@@ -1,6 +1,7 @@
 package com.mythscapes.misc;
 
 import com.mythscapes.common.entities.BlisterberryEntity;
+import com.mythscapes.common.entities.GlowballEntity;
 import com.mythscapes.register.MythItems;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.dispenser.IPosition;
@@ -18,6 +19,16 @@ public class DispenserBehavior {
             @Override
             protected IProjectile getProjectileEntity(World world, IPosition iPosition, ItemStack itemStack) {
                 return Util.make(new BlisterberryEntity(iPosition.getX(), iPosition.getY(), iPosition.getZ(), world), (entity) -> {
+                    entity.setMotion(1.0f, 1.0f, 0.1f);
+                });
+            }
+        });
+
+        // Glowball
+        DispenserBlock.registerDispenseBehavior(MythItems.GLOWBALL.get(), new ProjectileDispenseBehavior() {
+            @Override
+            protected IProjectile getProjectileEntity(World world, IPosition iPosition, ItemStack itemStack) {
+                return Util.make(new GlowballEntity(iPosition.getX(), iPosition.getY(), iPosition.getZ(), world), (entity) -> {
                     entity.setMotion(1.0f, 1.0f, 0.1f);
                 });
             }

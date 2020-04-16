@@ -3,6 +3,7 @@ package com.mythscapes.register;
 import com.mythscapes.common.biomes.BaseBiome;
 import com.mythscapes.common.biomes.TestBiome;
 import com.mythscapes.core.Mythscapes;
+import net.minecraft.block.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.fml.RegistryObject;
@@ -14,8 +15,8 @@ import java.util.List;
 
 public class MythBiomes {
 
-    public static final DeferredRegister<Biome> BIOMES = new DeferredRegister<>(ForgeRegistries.BIOMES, Mythscapes.MODID);
     public static List<BaseBiome> biome_list = new ArrayList<>();
+    public static final DeferredRegister<Biome> BIOMES = new DeferredRegister<>(ForgeRegistries.BIOMES, Mythscapes.MODID);
 
 
 
@@ -24,6 +25,8 @@ public class MythBiomes {
 
 
     public static void addBiomes() {
-        BiomeManager.addBiome(BiomeManager.BiomeType.COOL, new BiomeManager.BiomeEntry(TEST_BIOME.get(), 20));
+        BiomeManager.addBiome(BiomeManager.BiomeType.COOL, new BiomeManager.BiomeEntry(TEST_BIOME.get(), 10));
+
+        BiomeManager.addSpawnBiome(TEST_BIOME.get());
     }
 }

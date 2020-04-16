@@ -1,0 +1,7 @@
+{
+  "parent": "block/door_top_rh",
+  "textures": {
+    "bottom": "mythscapes:block/wolt_door_bottom",
+    "top": "mythscapes:block/wolt_door_top"
+  }
+}

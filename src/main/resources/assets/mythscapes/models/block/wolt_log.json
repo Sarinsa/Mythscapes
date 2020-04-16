@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "mythscapes:block/wolt_log_top",
+    "side": "mythscapes:block/wolt_log_side"
+  }
+}

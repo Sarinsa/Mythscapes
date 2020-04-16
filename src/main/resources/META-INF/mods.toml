@@ -28,7 +28,7 @@ displayURL="http://example.com/" #optional
 logoFile="examplemod.png" #optional
 
 # A text field displayed in the mod UI
-credits="The Mythscapes mod dev team" #optional
+credits="The Mythscapes team" #optional
 
 # A text field displayed in the mod UI
 authors="The Mythscapes team" #optional

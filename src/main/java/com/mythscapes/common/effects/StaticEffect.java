@@ -1,7 +1,8 @@
 package com.mythscapes.common.effects;
 
 import com.mythscapes.common.damagesource.MythDamageSources;
-import com.mythscapes.misc.MythTags;
+import com.mythscapes.common.tags.MythEntityTags;
+import com.mythscapes.common.tags.MythFluidTags;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.potion.EffectType;
@@ -19,6 +20,9 @@ public class StaticEffect extends MythEffect {
 
     @Override
     public void performEffect(LivingEntity entity, int amplifier) {
+        if (MythEntityTags.ELECTRIC.contains(entity.getType()))
+            return;
+
         World world = entity.getEntityWorld();
         BlockPos pos = entity.getPosition();
 
@@ -43,6 +47,6 @@ public class StaticEffect extends MythEffect {
 
     private boolean isInConductiveFluid(LivingEntity entity, World world) {
         IFluidState fluidState = world.getFluidState(entity.getPosition());
-        return entity.areEyesInFluid(MythTags.CONDUCTIVE) || (!fluidState.isEmpty() && fluidState.isTagged(MythTags.CONDUCTIVE));
+        return entity.areEyesInFluid(MythFluidTags.CONDUCTIVE) || (!fluidState.isEmpty() && fluidState.isTagged(MythFluidTags.CONDUCTIVE));
     }
 }

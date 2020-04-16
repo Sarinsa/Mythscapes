@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "lit=false": { "model": "mythscapes:block/biobulb_lamp" },
+    "lit=true": { "model": "mythscapes:block/biobulb_lamp_on" }
+  }
+}

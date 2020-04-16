@@ -1,0 +1,6 @@
+{
+  "parent": "block/button_inventory",
+  "textures": {
+    "texture": "mythscapes:block/wolt_planks"
+  }
+}

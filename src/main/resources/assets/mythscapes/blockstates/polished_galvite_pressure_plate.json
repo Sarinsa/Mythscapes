@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "powered=false": { "model": "mythscapes:block/polished_galvite_pressure_plate" },
+    "powered=true": { "model": "mythscapes:block/polished_galvite_pressure_plate_down" }
+  }
+}

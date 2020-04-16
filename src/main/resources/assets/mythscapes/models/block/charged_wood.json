@@ -1,7 +1,0 @@
-{
-  "parent": "block/cube_column",
-  "textures": {
-    "end": "mythscapes:block/charged_log_side",
-    "side": "mythscapes:block/charged_log_side"
-  }
-}

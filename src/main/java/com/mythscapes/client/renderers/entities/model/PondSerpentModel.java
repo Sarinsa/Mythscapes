@@ -1,14 +1,18 @@
 package com.mythscapes.client.renderers.entities.model;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.client.renderer.entity.model.CowModel;
 import net.minecraft.client.renderer.entity.model.SegmentedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+@OnlyIn(Dist.CLIENT)
 public class PondSerpentModel<T extends Entity> extends SegmentedModel<T> {
     private final ModelRenderer body1;
     private final ModelRenderer head;

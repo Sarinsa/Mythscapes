@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "powered=false": { "model": "mythscapes:block/wolt_pressure_plate" },
+    "powered=true": { "model": "mythscapes:block/wolt_pressure_plate_down" }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "mythscapes:roasted_biobulb"
+    }
+  },
+  "result": {
+    "item": "mythscapes:roasted_biobulb_cluster",
+    "count": 1
+  }
+}

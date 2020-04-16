@@ -1,0 +1,8 @@
+{
+  "parent": "block/inner_stairs",
+  "textures": {
+    "bottom": "mythscapes:block/galvite",
+    "top": "mythscapes:block/galvite",
+    "side": "mythscapes:block/galvite"
+  }
+}

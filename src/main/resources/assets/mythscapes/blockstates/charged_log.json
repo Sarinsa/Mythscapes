@@ -1,7 +1,0 @@
-{
-  "variants": {
-    "axis=y": { "model": "mythscapes:block/charged_log" },
-    "axis=z": { "model": "mythscapes:block/charged_log", "x": 90 },
-    "axis=x": { "model": "mythscapes:block/charged_log", "x": 90, "y": 90 }
-  }
-}

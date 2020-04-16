@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "mythscapes:wolt_planks"
+    }
+  ],
+  "result": {
+    "item": "mythscapes:wolt_button"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": {
+        "min": 3.0,
+        "max": 10.0,
+        "type": "minecraft:uniform"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 90,
+          "functions": [
+            {
+              "function": "minecraft:set_stew_effect",
+              "effects": [
+                {
+                  "type": "mythscapes:volatile",
+                  "duration": {
+                    "min": 14.0,
+                    "max": 22.0
+                  }
+                },
+                {
+                  "type": "mythscapes:static",
+                  "duration": {
+                    "min": 16.0,
+                    "max": 27.0
+                  }
+                }
+              ]
+            }
+          ],
+          "name": "minecraft:suspicious_stew"
+        }
+      ]
+    }
+  ]
+}

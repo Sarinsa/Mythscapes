@@ -1,0 +1,14 @@
+{
+  "variants": {
+    "age=0": { "model": "mythscapes:block/charged_dandelion" },
+    "age=1": { "model": "mythscapes:block/charged_dandelion" },
+    "age=2": { "model": "mythscapes:block/charged_dandelion" },
+    "age=3": { "model": "mythscapes:block/charged_dandelion" },
+    "age=4": { "model": "mythscapes:block/charged_dandelion" },
+    "age=5": { "model": "mythscapes:block/charged_dandelion" },
+    "age=6": { "model": "mythscapes:block/charged_dandelion" },
+    "age=7": { "model": "mythscapes:block/charged_dandelion" },
+    "age=8": { "model": "mythscapes:block/charged_dandelion" },
+    "age=9": { "model": "mythscapes:block/charged_dandelion_mature" }
+  }
+}

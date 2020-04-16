@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "mythscapes:block/wolt_slab" },
+    "type=top": { "model": "mythscapes:block/wolt_slab_top" },
+    "type=double": { "model": "mythscapes:block/wolt_planks" }
+  }
+}

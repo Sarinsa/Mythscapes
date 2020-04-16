@@ -1,8 +1,0 @@
-{
-  "parent": "block/outer_stairs",
-  "textures": {
-    "bottom": "mythscapes:block/charged_wood_planks",
-    "top": "mythscapes:block/charged_wood_planks",
-    "side": "mythscapes:block/charged_wood_planks"
-  }
-}

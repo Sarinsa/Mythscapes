@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "mythscapes:wolt_logs"
+    }
+  ],
+  "result": {
+    "item": "mythscapes:wolt_planks",
+    "count": 4
+  }
+}

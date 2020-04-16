@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "mythscapes:wolt_log",
+    "mythscapes:wolt_log_stripped",
+    "mythscapes:wolt_wood",
+    "mythscapes:wolt_wood_stripped"
+  ]
+}

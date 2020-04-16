@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "mythscapes:block/polished_galvite_bricks",
+    "top": "mythscapes:block/polished_galvite_bricks",
+    "side": "mythscapes:block/polished_galvite_bricks"
+  }
+}

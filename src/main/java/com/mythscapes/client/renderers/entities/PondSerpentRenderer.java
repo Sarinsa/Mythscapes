@@ -6,10 +6,13 @@ import com.mythscapes.misc.ModResourceLocation;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+@OnlyIn(Dist.CLIENT)
 public class PondSerpentRenderer extends MobRenderer<PondSerpentEntity, PondSerpentModel<PondSerpentEntity>> {
     private static final ResourceLocation[] POND_SERPENT_TEXTURES = {
             new ModResourceLocation("textures/entity/pond_serpent/pond_serpent_ocean.png"),
@@ -25,6 +28,6 @@ public class PondSerpentRenderer extends MobRenderer<PondSerpentEntity, PondSerp
     @Nonnull
     @Override
     public ResourceLocation getEntityTexture(PondSerpentEntity entity) {
-        return POND_SERPENT_TEXTURES[entity.type.ordinal()];
+        return entity.isGreenVariant() ? POND_SERPENT_TEXTURES[1] : POND_SERPENT_TEXTURES[0];
     }
 }

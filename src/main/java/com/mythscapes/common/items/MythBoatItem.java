@@ -1,6 +1,7 @@
 package com.mythscapes.common.items;
 
 import com.mythscapes.common.entities.MythBoatEntity;
+import com.mythscapes.register.MythItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -24,8 +25,8 @@ public class MythBoatItem extends BaseItem {
     private static Predicate<Entity> entityPredicate = EntityPredicates.NOT_SPECTATING.and(Entity::canBeCollidedWith);
     private MythBoatEntity.Type type;
 
-    public MythBoatItem(MythBoatEntity.Type type, Properties properties) {
-        super(properties);
+    public MythBoatItem(MythBoatEntity.Type type) {
+        super(new Item.Properties().group(MythItems.itemGroup).maxStackSize(1));
         this.type = type;
     }
 
@@ -33,12 +34,11 @@ public class MythBoatItem extends BaseItem {
         ItemStack itemStack = playerEntity.getHeldItem(hand);
         RayTraceResult result = rayTrace(world, playerEntity, RayTraceContext.FluidMode.ANY);
 
-        if (result.getType() == net.minecraft.util.math.RayTraceResult.Type.MISS) {
+        if (result.getType() == RayTraceResult.Type.MISS) {
             return ActionResult.resultPass(itemStack);
         }
         else {
             Vec3d look = playerEntity.getLook(1.0F);
-            double lvt_7_1_ = 5.0D;
             List<Entity> entities = world.getEntitiesInAABBexcluding(playerEntity, playerEntity.getBoundingBox().expand(look.scale(5.0D)).grow(1.0D), entityPredicate);
 
             if (!entities.isEmpty()) {
@@ -50,7 +50,7 @@ public class MythBoatItem extends BaseItem {
                     }
                 }
             }
-            if (result.getType() == net.minecraft.util.math.RayTraceResult.Type.BLOCK) {
+            if (result.getType() == RayTraceResult.Type.BLOCK) {
                 MythBoatEntity boatEntity = new MythBoatEntity(world, result.getHitVec().x, result.getHitVec().y, result.getHitVec().z);
                 boatEntity.setBoatType(this.type);
                 boatEntity.rotationYaw = playerEntity.rotationYaw;
@@ -68,7 +68,8 @@ public class MythBoatItem extends BaseItem {
                     playerEntity.addStat(Stats.ITEM_USED.get(this));
                     return ActionResult.resultSuccess(itemStack);
                 }
-            } else {
+            }
+            else {
                 return ActionResult.resultPass(itemStack);
             }
         }

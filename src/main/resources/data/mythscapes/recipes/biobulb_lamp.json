@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " R ",
+    "RBR",
+    " R "
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "B": {
+      "item": "mythscapes:biobulb_cluster"
+    }
+  },
+  "result": {
+    "item": "mythscapes:biobulb_lamp",
+    "count": 1
+  }
+}

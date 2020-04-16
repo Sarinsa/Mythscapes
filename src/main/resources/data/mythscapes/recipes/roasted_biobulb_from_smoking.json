@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "mythscapes:biobulb"
+  },
+  "result": "mythscapes:roasted_biobulb",
+  "experience": 0.35,
+  "cookingtime": 100
+}

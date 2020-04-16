@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "mythscapes:block/galvite",
+    "top": "mythscapes:block/galvite",
+    "side": "mythscapes:block/galvite"
+  }
+}

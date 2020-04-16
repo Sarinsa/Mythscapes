@@ -49,7 +49,7 @@ import java.util.List;
 public class MythBoatEntity extends BoatEntity {
 
     public enum Type {
-        CHARGED_WOOD(MythBlocks.CHARGED_PLANKS.get(), "charged_wood"),
+        WOLT(MythBlocks.WOLT_PLANKS.get(), "wolt"),
         VIRIDIAN(MythBlocks.VIRIDIAN_PLANKS.get(), "viridian");
 
         private final String name;
@@ -98,9 +98,9 @@ public class MythBoatEntity extends BoatEntity {
 
     public Item getItemBoat() {
         switch(this.getMythBoatType()) {
-            case CHARGED_WOOD:
+            case WOLT:
             default:
-                return MythItems.CHARGED_WOOD_BOAT.get();
+                return MythItems.WOLT_BOAT.get();
             case VIRIDIAN:
                 return MythItems.VIRIDIAN_BOAT.get();
         }
@@ -165,7 +165,7 @@ public class MythBoatEntity extends BoatEntity {
         this.dataManager.register(TIME_SINCE_HIT, 0);
         this.dataManager.register(FORWARD_DIRECTION, 1);
         this.dataManager.register(DAMAGE_TAKEN, 0.0F);
-        this.dataManager.register(BOAT_TYPE, Type.CHARGED_WOOD.ordinal());
+        this.dataManager.register(BOAT_TYPE, Type.WOLT.ordinal());
         this.dataManager.register(field_199704_e, false);
         this.dataManager.register(field_199705_f, false);
         this.dataManager.register(ROCKING_TICKS, 0);

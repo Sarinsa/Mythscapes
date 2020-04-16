@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "mythscapes:block/galvite_shingle_slab" },
+    "type=top": { "model": "mythscapes:block/galvite_shingle_slab_top" },
+    "type=double": { "model": "mythscapes:block/galvite_shingles" }
+  }
+}

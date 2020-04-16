@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:guardian",
+    "minecraft:dolphin",
+    "minecraft:squid",
+    "minecraft:cod",
+    "minecraft:salmon",
+    "minecraft:pufferfish",
+    "minecraft:tropical_fish",
+    "mythscapes:pond_serpent"
+  ]
+}

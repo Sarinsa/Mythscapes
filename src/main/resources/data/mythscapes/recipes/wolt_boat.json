@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "boats",
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "mythscapes:wolt_planks"
+    }
+  },
+  "result": {
+    "item": "mythscapes:wolt_boat",
+    "count": 1
+  }
+}

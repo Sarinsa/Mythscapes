@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "mythscapes:block/bejeweled_galvite_brick_slab" },
+    "type=top": { "model": "mythscapes:block/bejeweled_galvite_brick_slab_top" },
+    "type=double": { "model": "mythscapes:block/bejeweled_galvite_brick" }
+  }
+}

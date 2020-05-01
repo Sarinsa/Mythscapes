@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "mythscapes:powered_galvite_bricks"
+    }
+  },
+  "result": {
+    "item": "mythscapes:powered_galvite_brick_slab",
+    "count": 6
+  }
+}

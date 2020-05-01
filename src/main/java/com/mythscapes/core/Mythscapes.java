@@ -4,17 +4,18 @@ import com.mythscapes.client.ClientRegister;
 import com.mythscapes.common.biomes.BaseBiome;
 import com.mythscapes.misc.DispenserBehavior;
 import com.mythscapes.register.*;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tileentity.TileEntity;
+import cpw.mods.modlauncher.api.LamdbaExceptionUtils;
+import net.minecraft.util.Timer;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.server.timings.ForgeTimings;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,16 +31,19 @@ public class Mythscapes {
     // Mod instance
     public static Mythscapes INSTANCE;
 
+
     public Mythscapes() {
         INSTANCE = this;
 
         MinecraftForge.EVENT_BUS.register(this);
-
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverStarting);
-
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        eventBus.addListener(this::commonSetup);
+        eventBus.addListener(this::serverStarting);
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
+            eventBus.addListener(this::clientSetup);
+        });
+
 
         MythBlocks.BLOCKS.register(eventBus);
         MythItems.ITEMS.register(eventBus);
@@ -55,16 +59,16 @@ public class Mythscapes {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-        // Adding biome entity spawns
-        MythBiomes.biome_list.forEach(BaseBiome::addEntitySpawns);
+        MythItems.registerItemInfo();
+        MythBlocks.registerBlockInfo();
 
-        // Entity placement
-        MythEntities.registerEntityPlacement();
-
-        // Add biomes to biome manager
+        MythBiomes.setBiomeEntitySpawns();
         MythBiomes.addBiomes();
 
-        // Register custom dispenser behaviour
+        MythEntities.registerEntityPlacement();
+
+        MythSounds.registerParrotMimics();
+
         DispenserBehavior.register();
     }
 

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "mythscapes:polished_galvite_bricks"
+    }
+  },
+  "result": {
+    "item": "mythscapes:polished_galvite_brick_wall",
+    "count": 6
+  }
+}

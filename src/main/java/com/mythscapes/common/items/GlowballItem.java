@@ -1,6 +1,6 @@
 package com.mythscapes.common.items;
 
-import com.mythscapes.common.entities.GlowballEntity;
+import com.mythscapes.common.entities.projectile.GlowballEntity;
 import com.mythscapes.register.MythItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;

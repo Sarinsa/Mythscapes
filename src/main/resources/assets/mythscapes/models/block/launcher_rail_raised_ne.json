@@ -1,0 +1,6 @@
+{
+  "parent": "block/template_rail_raised_ne",
+  "textures": {
+    "rail": "mythscapes:block/launcher_rail"
+  }
+}

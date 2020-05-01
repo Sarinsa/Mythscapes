@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "mythscapes:static_cotton_block"
+    }
+  },
+  "result": {
+    "item": "mythscapes:static_cotton_layers",
+    "count": 6
+  }
+}

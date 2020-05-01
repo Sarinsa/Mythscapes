@@ -1,11 +1,9 @@
 package com.mythscapes.client.renderers.entities.model;
 
 import com.google.common.collect.ImmutableList;
-import com.mythscapes.common.entities.LionEntity;
-import mcp.MethodsReturnNonnullByDefault;
+import com.mythscapes.common.entities.living.lion.LionEntity;
 import net.minecraft.client.renderer.entity.model.*;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "mythscapes:wolt_fruit"
+    }
+  ],
+  "result": {
+    "item": "mythscapes:wolt_powder"
+  }
+}

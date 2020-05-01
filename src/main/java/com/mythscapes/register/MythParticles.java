@@ -3,15 +3,26 @@ package com.mythscapes.register;
 import com.mythscapes.core.Mythscapes;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.ParticleType;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.function.Supplier;
 
 public class MythParticles {
 
     public static final DeferredRegister<ParticleType<?>> PARTICLES = new DeferredRegister<>(ForgeRegistries.PARTICLE_TYPES, Mythscapes.MODID);
 
-    public static final RegistryObject<BasicParticleType> STATIC_COTTON = PARTICLES.register("static_cotton", () -> new BasicParticleType(false));
-    public static final RegistryObject<BasicParticleType> STATIC_COTTON_FALLING = PARTICLES.register("static_cotton_falling", () -> new BasicParticleType(false));
-    public static final RegistryObject<BasicParticleType> STATIC_COTTON_POOF = PARTICLES.register("static_cotton_poof", () -> new BasicParticleType(true));
+    private static RegistryObject<BasicParticleType> registerBasic(String name, boolean alwaysRender) {
+        return PARTICLES.register(name, () -> new BasicParticleType(alwaysRender));
+    }
+
+    private static RegistryObject<ParticleType<?>> registerParticle(Supplier<ParticleType<?>> type, String name) {
+        return PARTICLES.register(name, type);
+    }
+
+    public static final RegistryObject<BasicParticleType> STATIC_COTTON = registerBasic("static_cotton", false);
+    public static final RegistryObject<BasicParticleType> STATIC_COTTON_FALLING = registerBasic("static_cotton_falling", false);
+    public static final RegistryObject<BasicParticleType> STATIC_COTTON_POOF = registerBasic("static_cotton_poof", true);
 }

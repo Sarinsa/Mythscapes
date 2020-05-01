@@ -32,5 +32,4 @@ public class LiquidSulphurFluidBlock extends FlowingFluidBlock {
             }
         }
     }
-
 }

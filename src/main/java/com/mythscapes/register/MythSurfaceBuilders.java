@@ -17,7 +17,7 @@ public class MythSurfaceBuilders {
 
     public static SurfaceBuilderConfig GRASS_GALVITE_GRAVEL_CONFIG;
 
-    public static SurfaceBuilder<SurfaceBuilderConfig> STATIC_FOREST_TEMP = new StaticForestSurfaceBuilder(SurfaceBuilderConfig::deserialize);
+    public static SurfaceBuilder<SurfaceBuilderConfig> STATIC_FOREST = new StaticForestSurfaceBuilder(SurfaceBuilderConfig::deserialize);
 
     @SubscribeEvent
     public static void initConfigs(RegistryEvent.Register<Item> event) {
@@ -28,7 +28,7 @@ public class MythSurfaceBuilders {
     @SubscribeEvent
     public static void initSurfaceBuilders(RegistryEvent.Register<SurfaceBuilder<?>> event) {
         event.getRegistry().register(
-                register("static_forest", STATIC_FOREST_TEMP)
+                register("static_forest", STATIC_FOREST)
         );
     }
 

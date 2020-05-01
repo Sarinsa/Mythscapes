@@ -1,12 +1,12 @@
 package com.mythscapes.common.items;
 
-import com.mythscapes.common.entities.MythBoatEntity;
+import com.mythscapes.common.entities.misc.MythBoatEntity;
 import com.mythscapes.register.MythItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BoatItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EntityPredicates;
@@ -55,7 +55,7 @@ public class MythBoatItem extends BaseItem {
                 boatEntity.setBoatType(this.type);
                 boatEntity.rotationYaw = playerEntity.rotationYaw;
 
-                if (!world.func_226665_a__(boatEntity, boatEntity.getBoundingBox().grow(-0.1D))) {
+                if (!world.hasNoCollisions(boatEntity, boatEntity.getBoundingBox().grow(-0.1D))) {
                     return ActionResult.resultFail(itemStack);
                 }
                 else {

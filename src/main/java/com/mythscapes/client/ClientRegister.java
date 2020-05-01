@@ -3,6 +3,7 @@ package com.mythscapes.client;
 import com.mythscapes.client.particles.StaticCottonFallingParticle;
 import com.mythscapes.client.particles.StaticCottonParticle;
 import com.mythscapes.client.particles.StaticCottonPoofParticle;
+import com.mythscapes.client.renderers.entities.FishbonesRenderer;
 import com.mythscapes.client.renderers.entities.LionRenderer;
 import com.mythscapes.client.renderers.entities.PondSerpentRenderer;
 import com.mythscapes.client.renderers.entities.boats.MythBoatRenderer;
@@ -58,6 +59,7 @@ public class ClientRegister {
         registerEntityRenderingHandler(MythEntities.MYTH_BOAT.get(), MythBoatRenderer::new);
         registerEntityRenderingHandler(MythEntities.POND_SERPENT.get(), PondSerpentRenderer::new);
         registerEntityRenderingHandler(MythEntities.LION.get(), LionRenderer::new);
+        registerEntityRenderingHandler(MythEntities.FISHBONES.get(), FishbonesRenderer::new);
 
         // "2D" entities / throwables
         registerNewSpriteRenderer(MythEntities.BLISTERBERRY.get(), minecraftSupplier);
@@ -67,11 +69,14 @@ public class ClientRegister {
 
     public static void setBlockRenderTypes() {
         setRenderLayer(MythBlocks.WOLT_SAPLING.get(), RenderType.getCutout());
+        setRenderLayer(MythBlocks.POTTED_WOLT_SAPLING.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.WOLT_DOOR.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.WOLT_TRAPDOOR.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.BLISTERBERRY_THISTLE.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.BLISTERBERRY_THISTLE_TOP.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.CHARGED_DANDELION.get(), RenderType.getCutout());
+        setRenderLayer(MythBlocks.POTTED_CHARGED_DANDELION.get(), RenderType.getCutout());
+        setRenderLayer(MythBlocks.LAUNCHER_RAIL.get(), RenderType.getCutout());
     }
 
     private static <T extends Entity & IRendersAsItem> void registerNewSpriteRenderer(EntityType<T> entityType, Supplier<Minecraft> minecraftSupplier) {

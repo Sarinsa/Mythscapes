@@ -7,6 +7,10 @@ import net.minecraft.tags.Tag;
 
 public class MythFluidTags {
 
-    public static final Tag<Fluid> CONDUCTIVE = FluidTags.getCollection().getOrCreate(new ModResourceLocation("conductive"));
-    public static final Tag<Fluid> SULFUR = FluidTags.getCollection().getOrCreate(new ModResourceLocation("sulfur"));
+    public static final Tag<Fluid> CONDUCTIVE = tag("conductive");
+    public static final Tag<Fluid> SULFUR = tag("sulfur");
+
+    private static Tag<Fluid> tag(String name) {
+        return new FluidTags.Wrapper(new ModResourceLocation(name));
+    }
 }

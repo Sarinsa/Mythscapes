@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#P",
+    "P#"
+  ],
+  "key": {
+    "#": {
+      "item": "mythscapes:galvite"
+    },
+    "P": {
+      "item": "mythscapes:polished_galvite"
+    }
+  },
+  "result": {
+    "item": "mythscapes:galvite_shingles",
+    "count": 4
+  }
+}

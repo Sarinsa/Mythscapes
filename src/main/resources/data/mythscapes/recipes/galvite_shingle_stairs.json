@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "mythscapes:galvite_shingles"
+    }
+  },
+  "result": {
+    "item": "mythscapes:galvite_shingle_stairs",
+    "count": 4
+  }
+}

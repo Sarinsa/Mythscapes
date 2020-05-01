@@ -1,7 +1,7 @@
 package com.mythscapes.client.renderers.entities.boats;
 
 import com.google.common.collect.ImmutableList;
-import com.mythscapes.common.entities.MythBoatEntity;
+import com.mythscapes.common.entities.misc.MythBoatEntity;
 import net.minecraft.client.renderer.entity.model.SegmentedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;

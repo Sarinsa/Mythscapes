@@ -1,0 +1,10 @@
+{
+  "lion_idle": {
+    "category": "entity",
+    "subtitle": "mythscapes.subtitle.lion_idle",
+    "sounds": [
+      "mythscapes:entity/lion/lion_say_0",
+      "mythscapes:entity/lion/lion_say_1"
+    ]
+  }
+}

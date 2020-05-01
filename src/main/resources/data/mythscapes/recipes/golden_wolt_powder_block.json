@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "mythscapes:golden_wolt_powder"
+    }
+  },
+  "result": {
+    "item": "mythscapes:golden_wolt_powder_block"
+  }
+}

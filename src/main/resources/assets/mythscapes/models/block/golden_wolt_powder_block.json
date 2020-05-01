@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "mythscapes:block/golden_wolt_powder_block"
+  }
+}

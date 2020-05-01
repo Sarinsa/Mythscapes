@@ -4,7 +4,6 @@ import com.mythscapes.core.Mythscapes;
 import com.mythscapes.register.MythItems;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 
 import java.util.function.Supplier;
 
@@ -23,7 +22,7 @@ public class  MythItemGroup {
 
         @Override
         public ItemStack createIcon() {
-            return icon.get();
+            return this.icon.get();
         }
     }
 }

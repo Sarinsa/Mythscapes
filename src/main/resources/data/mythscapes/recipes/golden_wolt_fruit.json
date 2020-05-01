@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#F#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:ingots/gold"
+    },
+    "F": {
+      "item": "mythscapes:wolt_fruit"
+    }
+  },
+  "result": {
+    "item": "mythscapes:golden_wolt_fruit"
+  }
+}

@@ -7,6 +7,10 @@ import net.minecraft.tags.Tag;
 
 public class MythEntityTags {
 
-    public static Tag<EntityType<?>> DIES_IN_SULFUR = EntityTypeTags.getCollection().getOrCreate(new ModResourceLocation("dies_in_sulfur"));
-    public static Tag<EntityType<?>> ELECTRIC = EntityTypeTags.getCollection().getOrCreate(new ModResourceLocation("electric"));
+    public static final Tag<EntityType<?>> DIES_IN_SULFUR = tag("dies_in_sulfur");
+    public static final Tag<EntityType<?>> ELECTRIC = tag("electric");
+
+    private static Tag<EntityType<?>> tag(String name) {
+        return new EntityTypeTags.Wrapper(new ModResourceLocation(name));
+    }
 }

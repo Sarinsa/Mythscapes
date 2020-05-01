@@ -1,7 +1,7 @@
 package com.mythscapes.client.renderers.entities;
 
 import com.mythscapes.client.renderers.entities.model.PondSerpentModel;
-import com.mythscapes.common.entities.PondSerpentEntity;
+import com.mythscapes.common.entities.living.pond_serpent.PondSerpentEntity;
 import com.mythscapes.misc.ModResourceLocation;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -28,6 +28,6 @@ public class PondSerpentRenderer extends MobRenderer<PondSerpentEntity, PondSerp
     @Nonnull
     @Override
     public ResourceLocation getEntityTexture(PondSerpentEntity entity) {
-        return entity.isGreenVariant() ? POND_SERPENT_TEXTURES[1] : POND_SERPENT_TEXTURES[0];
+        return entity.isBlueVariant() ? POND_SERPENT_TEXTURES[0] : POND_SERPENT_TEXTURES[1];
     }
 }

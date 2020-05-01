@@ -48,10 +48,9 @@ public class MythCottonArmorType extends MythBaseArmorType {
         return SoundEvents.ITEM_ARMOR_EQUIP_LEATHER;
     }
 
-    @MethodsReturnNonnullByDefault
     @Override
     public Ingredient getRepairMaterial() {
-        return Ingredient.fromItems(MythItems.BIOBULB.get());
+        return Ingredient.fromItems(MythItems.COTTON_HIDE.get());
     }
 
     @Override

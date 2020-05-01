@@ -1,18 +1,13 @@
 package com.mythscapes.common.items;
 
-import com.mythscapes.common.entities.BlisterberryEntity;
+import com.mythscapes.common.entities.projectile.BlisterberryEntity;
 import com.mythscapes.register.MythItems;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
-
-import javax.annotation.Nonnull;
-import java.util.function.Supplier;
 
 public class ActivatedBlisterBerryItem extends BaseItem {
 

@@ -12,11 +12,9 @@ import com.mythscapes.common.blocks.plant.ChargedDandelionBlock;
 import com.mythscapes.common.blocks.wood.MythSaplingBlock;
 import com.mythscapes.common.blocks.wood.tree.ChargedTree;
 import com.mythscapes.core.Mythscapes;
-import com.mythscapes.misc.ModResourceLocation;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.inventory.container.StonecutterContainer;
 import net.minecraft.item.AxeItem;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
@@ -129,6 +127,8 @@ public class MythBlocks {
     public static final RegistryObject<Block> STATIC_COTTON_BLOCK = BLOCKS.register("static_cotton_block", () -> new StaticCottonBlock(Block.Properties.create(Material.WOOL, MaterialColor.WHITE_TERRACOTTA).sound(SoundType.CLOTH).hardnessAndResistance(0.8f)));
     public static final RegistryObject<Block> STATIC_COTTON_LAYERS = BLOCKS.register("static_cotton_layers", () -> new StaticCottonLayersBlock(Block.Properties.create(Material.WOOL, MaterialColor.WHITE_TERRACOTTA).sound(SoundType.CLOTH).hardnessAndResistance(0.8f)));
     public static final RegistryObject<Block> LAUNCHER_RAIL = BLOCKS.register("launcher_rail", () -> new LauncherRailBlock(Block.Properties.create(Material.MISCELLANEOUS).sound(SoundType.METAL).hardnessAndResistance(0.7F).doesNotBlockMovement()));
+    public static final RegistryObject<Block> SNAIL_SHELL_BLOCK = BLOCKS.register("snail_shell_block", () -> new Block(Block.Properties.create(Material.SAND).sound(SoundType.GROUND).hardnessAndResistance(1.0f)));
+    public static final RegistryObject<Block> BEJEWELED_SNAIL_SHELL_BLOCK = BLOCKS.register("bejeweled_snail_shell_block", () -> new Block(Block.Properties.from(SNAIL_SHELL_BLOCK.get())));
 
     //
     // Fluid Blocks

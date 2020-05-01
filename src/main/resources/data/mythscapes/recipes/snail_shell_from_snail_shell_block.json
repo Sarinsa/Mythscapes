@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "mythscapes:snail_shell_block"
+    }
+  ],
+  "result": {
+    "item": "mythscapes:snail_shell",
+    "count": 9
+  }
+}

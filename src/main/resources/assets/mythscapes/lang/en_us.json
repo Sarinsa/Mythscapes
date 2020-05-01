@@ -70,6 +70,10 @@
   "block.mythscapes.static_cotton_block": "Static Cotton Block",
   "block.mythscapes.static_cotton_layers": "Static Cotton Layers",
   "block.mythscapes.launcher_rail": "Launcher Rail",
+  "block.mythscapes.snail_shell_block": "Block of Shells",
+  "block.mythscapes.bejeweled_snail_shell_block": "Bejeweled Block of Shells",
+  "block.mythscapes.potted_charged_dandelion": "Charged Dandelion",
+  "block.mythscapes.potted_wolt_sapling": "Wolt Sapling",
 
   "fluid.mythscapes.liquid_sulfur": "Liquid Sulfur",
   "fluid.mythscapes.flowing_liquid_sulfur": "Liquid Sulfur",
@@ -87,19 +91,16 @@
   "item.mythscapes.pond_serpent_fish_bucket": "Pond Serpent Bucket",
   "item.mythscapes.liquid_sulfur_bucket": "Liquid Sulfur Bucket",
   "item.mythscapes.liquid_sulfur_bottle": "Liquid Sulfur Bottle",
-
   "item.mythscapes.wolt_boat": "Wolt Boat",
   "item.mythscapes.viridian_boat": "Viridian Boat",
-
   "item.mythscapes.static_cotton": "Static Cotton",
+  "item.mythscapes.snail_shell": "Snail Shell",
+  "item.mythscapes.bejeweled_snail_shell": "Bejeweled Snail Shell",
   "item.mythscapes.cotton_hide": "Cotton Hide",
   "item.mythscapes.cotton_hood": "Cotton Hood",
   "item.mythscapes.cotton_coat": "Cotton Coat",
   "item.mythscapes.cotton_pants": "Cotton Pants",
   "item.mythscapes.cotton_boots": "Cotton Boots",
-
-  "item.mythscapes.potted_charged_dandelion": "Charged Dandelion",
-  "item.mythscapes.potted_wolt_sapling": "Wolt Sapling",
 
   "item.mythscapes.pond_serpent_spawn_egg": "Pond Serpent Spawn Egg",
   "item.mythscapes.lion_spawn_egg": "Lion Spawn Egg [WIP]",

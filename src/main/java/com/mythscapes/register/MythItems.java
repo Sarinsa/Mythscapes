@@ -128,8 +128,8 @@ public class MythItems {
     public static final RegistryObject<Item> STATIC_COTTON_BLOCK_ITEM = registerBlockItem("static_cotton_block", STATIC_COTTON_BLOCK);
     public static final RegistryObject<Item> STATIC_COTTON_LAYERS_ITEM = registerBlockItem("static_cotton_layers", STATIC_COTTON_LAYERS);
     public static final RegistryObject<Item> LAUNCHER_RAIL_ITEM = registerBlockItem("launcher_rail", LAUNCHER_RAIL);
-
-
+    public static final RegistryObject<Item> SNAIL_SHELL_BLOCK_ITEM = registerBlockItem("snail_shell_block", SNAIL_SHELL_BLOCK);
+    public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL_BLOCK_ITEM = registerBlockItem("bejeweled_snail_shell_block", BEJEWELED_SNAIL_SHELL_BLOCK);
 
 
     //---------------------------------------------------------------------------------------------------------------------
@@ -151,6 +151,8 @@ public class MythItems {
     public static final RegistryObject<Item> POND_SERPENT_FISH_BUCKET = ITEMS.register("pond_serpent_fish_bucket", () -> new FishBucketItem(MythEntities.POND_SERPENT, () -> Fluids.WATER, new Item.Properties().group(itemGroup).maxStackSize(1)));
     public static final RegistryObject<Item> STATIC_COTTON = ITEMS.register("static_cotton", StaticCottonItem::new);
     public static final RegistryObject<Item> COTTON_HIDE = ITEMS.register("cotton_hide", BaseItem::new);
+    public static final RegistryObject<Item> SNAIL_SHELL = ITEMS.register("snail_shell", BaseItem::new);
+    public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL = ITEMS.register("bejeweled_snail_shell", BaseItem::new);
 
     // Armor
     public static final RegistryObject<Item> COTTON_HOOD = ITEMS.register("cotton_hood", () -> new MythArmorItem(MythArmorTypes.COTTON, EquipmentSlotType.HEAD));

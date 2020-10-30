@@ -3,18 +3,36 @@ package com.mythscapes.common.blocks;
 import com.mythscapes.register.MythParticles;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Random;
 
+
 public class StaticCottonBlock extends Block {
 
     public StaticCottonBlock(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
+        return 60;
+    }
+
+    @Override
+    public int getFireSpreadSpeed(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
+        return 30;
+    }
+
+    @Override
+    public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
+        entityIn.onLivingFall(fallDistance, 0.2F);
     }
 
     @OnlyIn(Dist.CLIENT)

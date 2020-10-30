@@ -1,15 +1,17 @@
 package com.mythscapes.client.particles;
 
 import net.minecraft.client.particle.*;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 public class StaticCottonFallingParticle extends AbstractFadingParticle {
 
     private final float rotationSpeed;
 
-    protected StaticCottonFallingParticle(World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+    protected StaticCottonFallingParticle(ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
         super(world, x, y, z, xSpeed, ySpeed, zSpeed);
         this.motionX *= 0.1F;
         this.motionY *= 0.1F;
@@ -52,7 +54,7 @@ public class StaticCottonFallingParticle extends AbstractFadingParticle {
         }
 
         @Override
-        public Particle makeParticle(BasicParticleType type, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        public Particle makeParticle(BasicParticleType type, ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             StaticCottonFallingParticle particle = new StaticCottonFallingParticle(world, x, y, z, xSpeed, ySpeed, zSpeed);
             particle.selectSpriteRandomly(this.spriteSet);
             return particle;

@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "mythscapes:block/polished_trollstone_pillar_top",
+    "side": "mythscapes:block/polished_trollstone_pillar_side"
+  }
+}

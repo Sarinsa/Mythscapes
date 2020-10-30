@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "mythscapes:block/trollstone",
+    "top": "mythscapes:block/trollstone",
+    "side": "mythscapes:block/trollstone"
+  }
+}

@@ -1,23 +1,20 @@
 package com.mythscapes.common.blocks.plant;
 
 import com.mythscapes.common.tags.MythEntityTags;
-import com.mythscapes.core.Mythscapes;
 import com.mythscapes.register.MythEffects;
 import com.mythscapes.register.MythParticles;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.particle.LargeExplosionParticle;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.monster.CreeperEntity;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.Explosion;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
@@ -26,7 +23,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class ChargedDandelionBlock extends MythFlowerBlock {
+public class ChargedDandelionBlock extends ModFlowerBlock {
 
     public static final IntegerProperty AGE = IntegerProperty.create("age", 0, 1);
     public static final BooleanProperty SPREAD = BooleanProperty.create("spread");
@@ -34,6 +31,16 @@ public class ChargedDandelionBlock extends MythFlowerBlock {
     public ChargedDandelionBlock(Supplier<Effect> effect, int duration, Properties properties) {
         super(effect, duration, properties);
         this.setDefaultState(this.getDefaultState().with(AGE, 0).with(SPREAD, false));
+    }
+
+    @Override
+    public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
+        return 100;
+    }
+
+    @Override
+    public int getFireSpreadSpeed(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
+        return 60;
     }
 
     public boolean isMature(BlockState blockState) {
@@ -46,10 +53,8 @@ public class ChargedDandelionBlock extends MythFlowerBlock {
 
     private boolean attemptSpread(World world, BlockPos pos) {
         List<BlockPos> validPositions = new ArrayList<>();
-        BlockPos[] neighbors = this.getPosSpreadTo(pos);
 
-        for (int i = 0; i < neighbors.length; i++) {
-            BlockPos neighborPos = neighbors[i];
+        for (BlockPos neighborPos : this.getPosSpreadTo(pos)) {
             BlockState neighborState = world.getBlockState(neighborPos);
             if (neighborState.isAir(world, neighborPos) && this.isValidGround(world.getBlockState(neighborPos.down()), world, neighborPos)) {
                 validPositions.add(neighborPos);
@@ -69,13 +74,15 @@ public class ChargedDandelionBlock extends MythFlowerBlock {
         if (isMature(state)) {
             if (entity instanceof LivingEntity) {
                 ((LivingEntity) entity).addPotionEffect(new EffectInstance(MythEffects.STATIC.get(), (20 * 5)));
-                world.setBlockState(pos, this.getDefaultState().with(AGE, 0));
-                world.addParticle(MythParticles.STATIC_COTTON_POOF.get(),
-                        (pos.getX() + state.getOffset(world, pos).getX()) + 0.5d,
-                        pos.getY() + 0.6d,
-                        (pos.getZ() + state.getOffset(world, pos).getZ()) + 0.5d,
-                        2.0f, 2.0f, 2.0f);
-                world.setBlockState(pos, this.getDefaultState().with(SPREAD, true));
+                world.setBlockState(pos, this.getDefaultState().with(AGE, 0).with(SPREAD, true));
+
+                if (!world.isRemote) {
+                    ((ServerWorld) world).spawnParticle(MythParticles.STATIC_COTTON_POOF.get(),
+                            (pos.getX() + state.getOffset(world, pos).getX()) + 0.5d,
+                            (pos.getY() + 0.6d),
+                            (pos.getZ() + state.getOffset(world, pos).getZ()) + 0.5d,
+                            1, 0.0f, 0.0f, 0.0f, 2.0f);
+                }
             }
         }
     }

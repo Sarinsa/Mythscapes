@@ -1,16 +1,20 @@
 package com.mythscapes.common.tags;
 
-import com.mythscapes.misc.ModResourceLocation;
+import com.mythscapes.core.Mythscapes;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 
 public class MythFluidTags {
 
-    public static final Tag<Fluid> CONDUCTIVE = tag("conductive");
-    public static final Tag<Fluid> SULFUR = tag("sulfur");
+    public static final ITag.INamedTag<Fluid> CONDUCTIVE = modTag("conductive");
+    public static final ITag.INamedTag<Fluid> SULFUR = modTag("sulfur");
 
-    private static Tag<Fluid> tag(String name) {
-        return new FluidTags.Wrapper(new ModResourceLocation(name));
+    private static ITag.INamedTag<Fluid> forgeTag(String name) {
+        return FluidTags.makeWrapperTag("forge:" + name);
+    }
+
+    private static ITag.INamedTag<Fluid> modTag(String name) {
+        return FluidTags.makeWrapperTag(Mythscapes.resourceLoc(name).toString());
     }
 }

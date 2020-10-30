@@ -4,9 +4,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.PoweredRailBlock;
 import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import net.minecraftforge.coremod.CoreMod;
 
 public class LauncherRailBlock extends PoweredRailBlock {
 
@@ -17,9 +16,9 @@ public class LauncherRailBlock extends PoweredRailBlock {
     @Override
     public void onMinecartPass(BlockState state, World world, BlockPos pos, AbstractMinecartEntity cart) {
         if (state.get(POWERED)) {
-            Vec3d oldMotion = cart.getMotion();
+            Vector3d oldMotion = cart.getMotion();
             cart.setCanUseRail(false);
-            cart.setMotion(oldMotion.getX(), 1.0d, oldMotion.getZ());
+            cart.setMotion(oldMotion.getX(), 1.0D, oldMotion.getZ());
         }
     }
 }

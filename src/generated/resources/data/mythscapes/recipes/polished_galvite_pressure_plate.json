@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "mythscapes:polished_galvite"
+    }
+  },
+  "result": {
+    "item": "mythscapes:polished_galvite_pressure_plate"
+  }
+}

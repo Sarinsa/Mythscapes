@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "mythscapes:wolt_button",
-    "mythscapes:viridian_button"
+    "mythscapes:wolt_button"
   ]
 }

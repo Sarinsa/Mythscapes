@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "mythscapes:powered_galvite"
+  },
+  "result": "mythscapes:powered_galvite_bricks",
+  "count": 1
+}

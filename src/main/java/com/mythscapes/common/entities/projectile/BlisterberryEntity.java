@@ -39,17 +39,15 @@ public class BlisterberryEntity extends ProjectileItemEntity {
     @Override
     public void onImpact(RayTraceResult result) {
         World world = this.getEntityWorld();
-        LivingEntity thrower = this.getThrower();
+        Entity thrower = this.func_234616_v_();
 
-        if (!world.isRemote) {
-            if (result.getType() == RayTraceResult.Type.ENTITY) {
-                Entity target = ((EntityRayTraceResult)result).getEntity();
-                target.attackEntityFrom(DamageSource.causeThrownDamage(this, thrower), 2.0F);
-            }
-            boolean mobGriefing = ForgeEventFactory.getMobGriefingEvent(world, thrower);
-            world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), 2.0f, mobGriefing, Explosion.Mode.NONE);
-            this.remove();
+        if (result.getType() == RayTraceResult.Type.ENTITY) {
+            Entity target = ((EntityRayTraceResult)result).getEntity();
+            target.attackEntityFrom(DamageSource.causeThrownDamage(this, thrower), 2.0F);
         }
+        boolean mobGriefing = ForgeEventFactory.getMobGriefingEvent(world, thrower);
+        world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), 2.0f, mobGriefing, Explosion.Mode.NONE);
+        this.remove();
     }
 
     @Override

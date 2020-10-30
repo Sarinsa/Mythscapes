@@ -12,14 +12,10 @@ import java.util.function.Supplier;
 
 public class MythParticles {
 
-    public static final DeferredRegister<ParticleType<?>> PARTICLES = new DeferredRegister<>(ForgeRegistries.PARTICLE_TYPES, Mythscapes.MODID);
+    public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Mythscapes.MODID);
 
     private static RegistryObject<BasicParticleType> registerBasic(String name, boolean alwaysRender) {
         return PARTICLES.register(name, () -> new BasicParticleType(alwaysRender));
-    }
-
-    private static RegistryObject<ParticleType<?>> registerParticle(Supplier<ParticleType<?>> type, String name) {
-        return PARTICLES.register(name, type);
     }
 
     public static final RegistryObject<BasicParticleType> STATIC_COTTON = registerBasic("static_cotton", false);

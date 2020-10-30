@@ -37,7 +37,7 @@ public class StaticCottonEntity extends ProjectileItemEntity {
 
     @Override
     protected void onImpact(RayTraceResult result) {
-        if (!world.isRemote && result.getType() == RayTraceResult.Type.ENTITY) {
+        if (result.getType() == RayTraceResult.Type.ENTITY) {
             Entity entity = ((EntityRayTraceResult) result).getEntity();
 
             if (entity instanceof LivingEntity) {

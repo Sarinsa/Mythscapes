@@ -1,10 +1,10 @@
 package com.mythscapes.common.effects;
 
-import com.mythscapes.common.damagesource.MythDamageSources;
+import com.mythscapes.misc.MythDamageSources;
 import com.mythscapes.common.tags.MythEntityTags;
 import com.mythscapes.common.tags.MythFluidTags;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.fluid.IFluidState;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.potion.EffectType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -46,7 +46,7 @@ public class StaticEffect extends MythEffect {
 
 
     private boolean isInConductiveFluid(LivingEntity entity, World world) {
-        IFluidState fluidState = world.getFluidState(entity.getPosition());
+        FluidState fluidState = world.getFluidState(entity.getPosition());
         return entity.areEyesInFluid(MythFluidTags.CONDUCTIVE) || (!fluidState.isEmpty() && fluidState.isTagged(MythFluidTags.CONDUCTIVE));
     }
 }

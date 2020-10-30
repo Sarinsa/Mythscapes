@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "mythscapes:block/bejeweled_snail_shell_block"
+  }
+}

@@ -3,10 +3,8 @@ package com.mythscapes.client;
 import com.mythscapes.client.particles.StaticCottonFallingParticle;
 import com.mythscapes.client.particles.StaticCottonParticle;
 import com.mythscapes.client.particles.StaticCottonPoofParticle;
-import com.mythscapes.client.renderers.entities.FishbonesRenderer;
-import com.mythscapes.client.renderers.entities.LionRenderer;
-import com.mythscapes.client.renderers.entities.PondSerpentRenderer;
-import com.mythscapes.client.renderers.entities.boats.MythBoatRenderer;
+import com.mythscapes.client.renderers.entities.*;
+import com.mythscapes.client.renderers.entities.MythBoatRenderer;
 import com.mythscapes.common.items.MythSpawnEggItem;
 import com.mythscapes.core.Mythscapes;
 import com.mythscapes.register.MythBlocks;
@@ -27,6 +25,7 @@ import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.util.function.Supplier;
 
@@ -36,6 +35,12 @@ import static net.minecraftforge.fml.client.registry.RenderingRegistry.registerE
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Mythscapes.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientRegister {
+
+    @SubscribeEvent
+    public static void registerClient(FMLClientSetupEvent event) {
+        registerEntityRenderers(event.getMinecraftSupplier());
+        setBlockRenderTypes();
+    }
 
     @SubscribeEvent
     public static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
@@ -60,8 +65,9 @@ public class ClientRegister {
         registerEntityRenderingHandler(MythEntities.POND_SERPENT.get(), PondSerpentRenderer::new);
         registerEntityRenderingHandler(MythEntities.LION.get(), LionRenderer::new);
         registerEntityRenderingHandler(MythEntities.FISHBONES.get(), FishbonesRenderer::new);
+        registerEntityRenderingHandler(MythEntities.PYGMY_SNAIL.get(), PygmySnailRenderer::new);
 
-        // "2D" entities / throwables
+        // "2D" entities & throwables
         registerNewSpriteRenderer(MythEntities.BLISTERBERRY.get(), minecraftSupplier);
         registerNewSpriteRenderer(MythEntities.GLOWBALL.get(), minecraftSupplier);
         registerNewSpriteRenderer(MythEntities.STATIC_COTTON.get(), minecraftSupplier);

@@ -2,8 +2,8 @@ package com.mythscapes.client.renderers.entities;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mythscapes.client.renderers.entities.model.FishbonesModel;
-import com.mythscapes.common.entities.living.fishbones.FishbonesEntity;
-import com.mythscapes.misc.ModResourceLocation;
+import com.mythscapes.common.entities.living.FishbonesEntity;
+import com.mythscapes.core.Mythscapes;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -14,7 +14,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class FishbonesRenderer extends MobRenderer<FishbonesEntity, FishbonesModel<FishbonesEntity>> {
 
-    private static final ModResourceLocation TEXTURE = new ModResourceLocation("textures/entity/fishbones/fishbones.png");
+    private static final ResourceLocation TEXTURE = Mythscapes.resourceLoc("textures/entity/fishbones/fishbones.png");
 
     public FishbonesRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new FishbonesModel<>(), 0.5f);

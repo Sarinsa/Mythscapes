@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "mythscapes:wolt_pressure_plate",
-    "mythscapes:viridian_pressure_plate"
+    "mythscapes:wolt_pressure_plate"
   ]
 }

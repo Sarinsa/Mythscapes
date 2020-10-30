@@ -13,7 +13,7 @@ public class MythCottonArmorType extends MythBaseArmorType {
     public int getDurability(EquipmentSlotType slotType) {
         switch (slotType) {
             case HEAD:
-                return 230;
+                return 240;
             case CHEST:
                 return 680;
             case LEGS:
@@ -28,12 +28,11 @@ public class MythCottonArmorType extends MythBaseArmorType {
     public int getDamageReductionAmount(EquipmentSlotType slotType) {
         switch (slotType) {
             case HEAD:
+            case FEET:
                 return 1;
             case CHEST:
             case LEGS:
                 return 2;
-            case FEET:
-                return 1;
         }
         return 0;
     }
@@ -60,6 +59,11 @@ public class MythCottonArmorType extends MythBaseArmorType {
 
     @Override
     public float getToughness() {
+        return 0;
+    }
+
+    @Override
+    public float getKnockbackResistance() {
         return 0;
     }
 }

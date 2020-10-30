@@ -2,14 +2,16 @@ package com.mythscapes.client.particles;
 
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.SpriteTexturedParticle;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
 public abstract class AbstractFadingParticle extends SpriteTexturedParticle {
 
 
-    public AbstractFadingParticle(World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+    public AbstractFadingParticle(ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
         super(world, x, y, z, xSpeed, ySpeed, zSpeed);
     }
 
@@ -29,6 +31,6 @@ public abstract class AbstractFadingParticle extends SpriteTexturedParticle {
 
     public void tick() {
         super.tick();
-        setAlphaF();
+        this.setAlphaF();
     }
 }

@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "mythscapes:wolt_fence",
-    "mythscapes:viridian_fence"
+    "mythscapes:wolt_fence"
   ]
 }

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "mythscapes:wolt_powder_block"
+    }
+  ],
+  "result": {
+    "item": "mythscapes:wolt_powder",
+    "count": 9
+  }
+}

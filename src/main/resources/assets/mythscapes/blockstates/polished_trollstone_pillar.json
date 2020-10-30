@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=y": { "model": "mythscapes:block/polished_trollstone_pillar" },
+    "axis=z": { "model": "mythscapes:block/polished_trollstone_pillar", "x": 90 },
+    "axis=x": { "model": "mythscapes:block/polished_trollstone_pillar", "x": 90, "y": 90 }
+  }
+}

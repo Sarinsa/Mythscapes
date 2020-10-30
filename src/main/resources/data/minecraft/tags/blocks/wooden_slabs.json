@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "mythscapes:wolt_slab",
-    "mythscapes:viridian_slab"
+    "mythscapes:wolt_slab"
   ]
 }

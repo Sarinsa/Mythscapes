@@ -6,6 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.entity.projectile.SnowballEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -54,23 +55,24 @@ public class GlowballEntity extends ProjectileItemEntity {
         if (result.getType() == RayTraceResult.Type.ENTITY) {
             Entity entity = ((EntityRayTraceResult)result).getEntity();
 
-            if (!world.isRemote && entity instanceof LivingEntity) {
+            if (entity instanceof LivingEntity) {
                 LivingEntity target = (LivingEntity)entity;
                 target.addPotionEffect(new EffectInstance(Effects.GLOWING, (20 * 30)));
 
-                EquipmentSlotType slotType = EquipmentSlotType.MAINHAND;
-                if (!target.hasItemInSlot(slotType)) {
-                    slotType = EquipmentSlotType.OFFHAND;
-                }
-                if (target.hasItemInSlot(slotType)) {
-                    ItemStack targetStack = target.getHeldItemMainhand().copy();
-                    LivingEntity thrower = this.getThrower();
-
-                    if (thrower != null) {
-                        world.addEntity(new ItemEntity(world, thrower.getPosX(), thrower.getPosY(), thrower.getPosZ(), targetStack));
+                if (target instanceof PlayerEntity) {
+                    EquipmentSlotType slotType = EquipmentSlotType.MAINHAND;
+                    if (!target.hasItemInSlot(slotType)) {
+                        slotType = EquipmentSlotType.OFFHAND;
                     }
-                    else if (this.posSpawned != null) {
-                        world.addEntity(new ItemEntity(world, this.posSpawned.getX(), this.posSpawned.getY(), this.posSpawned.getZ(), targetStack));
+                    if (target.hasItemInSlot(slotType)) {
+                        ItemStack targetStack = target.getHeldItemMainhand().copy();
+                        Entity thrower = this.func_234616_v_();
+
+                        if (thrower != null) {
+                            world.addEntity(new ItemEntity(world, thrower.getPosX(), thrower.getPosY(), thrower.getPosZ(), targetStack));
+                        } else if (this.posSpawned != null) {
+                            world.addEntity(new ItemEntity(world, this.posSpawned.getX(), this.posSpawned.getY(), this.posSpawned.getZ(), targetStack));
+                        }
                     }
                 }
                 target.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(MythItems.GLOWBALL.get()));

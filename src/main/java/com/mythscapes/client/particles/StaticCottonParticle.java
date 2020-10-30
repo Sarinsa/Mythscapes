@@ -1,15 +1,16 @@
 package com.mythscapes.client.particles;
 
 import net.minecraft.client.particle.*;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
-@OnlyIn(Dist.CLIENT)
 public class StaticCottonParticle extends AbstractFadingParticle {
 
-    public StaticCottonParticle(World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+    public StaticCottonParticle(ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
         super(world, x, y, z, xSpeed, ySpeed, zSpeed);
         this.motionX = (getRandom().nextGaussian() * 0.02) * xSpeed;
         this.motionY = (getRandom().nextGaussian() * 0.02) * ySpeed;
@@ -25,7 +26,7 @@ public class StaticCottonParticle extends AbstractFadingParticle {
         }
 
         @Override
-        public Particle makeParticle(BasicParticleType type, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        public Particle makeParticle(BasicParticleType type, ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             StaticCottonParticle particle = new StaticCottonParticle(world, x, y, z, xSpeed, ySpeed, zSpeed);
             particle.selectSpriteRandomly(this.spriteSet);
             return particle;

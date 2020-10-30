@@ -8,6 +8,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockReader;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public abstract class AbstractHarvestableBlock extends BushBlock implements IGrowable {
     
     private final int maxAge;

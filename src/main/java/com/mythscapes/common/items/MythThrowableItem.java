@@ -1,9 +1,11 @@
 package com.mythscapes.common.items;
 
+import com.mythscapes.misc.MythItemGroup;
 import com.mythscapes.register.MythItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
@@ -14,17 +16,19 @@ import net.minecraft.world.World;
 
 import java.util.function.Supplier;
 
-public class MythThrowableItem<T extends ProjectileItemEntity> extends BaseItem {
+/**
+ * This is intended to be used for simple, generic throwable items.
+ *
+ * @param <T> - The throwable entity class that should be spawned
+ *              when onItemRightBlick() is called.
+ */
+public class MythThrowableItem<T extends ProjectileItemEntity> extends Item {
 
     private final Supplier<EntityType<T>> entityTypeSupplier;
     private int cooldown = 0;
 
-    public MythThrowableItem(Supplier<EntityType<T>> entityTypeSupplier, int maxStackSize) {
-        this(entityTypeSupplier, new Properties().group(MythItems.itemGroup).maxStackSize(maxStackSize));
-    }
-
     public MythThrowableItem(Supplier<EntityType<T>> entityTypeSupplier) {
-        this(entityTypeSupplier, new Properties().group(MythItems.itemGroup).maxStackSize(16));
+        this(entityTypeSupplier, new Properties().group(MythItemGroup.MOD_ITEM_GROUP).maxStackSize(16));
     }
 
     public MythThrowableItem(Supplier<EntityType<T>> entityTypeSupplier, Properties properties) {
@@ -41,8 +45,9 @@ public class MythThrowableItem<T extends ProjectileItemEntity> extends BaseItem 
             return ActionResult.resultPass(itemStack);
         }
         else {
+            entity.setShooter(playerEntity);
             entity.setPosition(playerEntity.getPosX(), playerEntity.getPosYEye() - (double)0.1F, playerEntity.getPosZ());
-            entity.shoot(playerEntity, playerEntity.rotationPitch, playerEntity.rotationYaw, 0.0F, 1.5F, 1.0F);
+            entity.func_234612_a_(playerEntity, playerEntity.rotationPitch, playerEntity.rotationYaw, 0.0F, 1.5F, 1.0F);
             world.addEntity(entity);
             world.playSound(playerEntity, playerEntity.getPosX(), playerEntity.getPosY(), playerEntity.getPosZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
             playerEntity.addStat(Stats.ITEM_USED.get(this));

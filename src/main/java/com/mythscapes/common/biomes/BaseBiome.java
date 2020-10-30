@@ -7,11 +7,11 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.placement.CountRangeConfig;
 import net.minecraft.world.gen.placement.Placement;
 
 import java.util.function.Supplier;
 
+/*
 public abstract class BaseBiome extends Biome {
 
     public BaseBiome(Builder builder) {
@@ -26,7 +26,7 @@ public abstract class BaseBiome extends Biome {
      * Biomes are registered before entities, so
      * any attempts to add entity spawns in the
      * biome constructor will give a NullPointer.
-     */
+
     public abstract void addEntitySpawns();
 
     protected void addOre(OreFeatureConfig.FillerBlockType fillerBlock, BlockState ore, int veinSize, int minY, int maxY) {
@@ -37,3 +37,6 @@ public abstract class BaseBiome extends Biome {
         this.addOre(fillerBlock, ore.get().getDefaultState(), veinSize, minY, maxY);
     }
 }
+*/
+
+

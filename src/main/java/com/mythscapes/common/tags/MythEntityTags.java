@@ -1,16 +1,21 @@
 package com.mythscapes.common.tags;
 
-import com.mythscapes.misc.ModResourceLocation;
+import com.mythscapes.core.Mythscapes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 
 public class MythEntityTags {
 
-    public static final Tag<EntityType<?>> DIES_IN_SULFUR = tag("dies_in_sulfur");
-    public static final Tag<EntityType<?>> ELECTRIC = tag("electric");
+    public static final ITag.INamedTag<EntityType<?>> DIES_IN_SULFUR = modTag("dies_in_sulfur");
+    public static final ITag.INamedTag<EntityType<?>> ELECTRIC = modTag("electric");
+    public static final ITag.INamedTag<EntityType<?>> LION_PREY = modTag("lion_prey");
 
-    private static Tag<EntityType<?>> tag(String name) {
-        return new EntityTypeTags.Wrapper(new ModResourceLocation(name));
+    private static ITag.INamedTag<EntityType<?>> forgeTag(String name) {
+        return EntityTypeTags.getTagById("forge:" + name);
+    }
+
+    private static ITag.INamedTag<EntityType<?>> modTag(String name) {
+        return EntityTypeTags.getTagById(Mythscapes.resourceLoc(name).toString());
     }
 }

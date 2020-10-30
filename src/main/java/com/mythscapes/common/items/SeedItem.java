@@ -1,6 +1,7 @@
 package com.mythscapes.common.items;
 
 import com.mythscapes.common.blocks.plant.AbstractHarvestableBlock;
+import com.mythscapes.misc.MythItemGroup;
 import com.mythscapes.register.MythItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,22 +12,19 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class SeedItem extends BaseItem {
+import java.util.function.Supplier;
 
-    private final AbstractHarvestableBlock plantBlock;
+public class SeedItem extends Item {
 
-    public SeedItem(AbstractHarvestableBlock plant) {
-        super(new Item.Properties().group(MythItems.itemGroup));
+    private final Supplier<AbstractHarvestableBlock> plantBlock;
+
+    public SeedItem(Supplier<AbstractHarvestableBlock> plant, Properties properties) {
+        super(properties);
         this.plantBlock = plant;
     }
 
-    public SeedItem(AbstractHarvestableBlock plantBlock, Properties properties) {
-        super(properties);
-        this.plantBlock = plantBlock;
-    }
-
     public AbstractHarvestableBlock getPlantBlock() {
-        return this.plantBlock;
+        return this.plantBlock.get();
     }
 
     @Override

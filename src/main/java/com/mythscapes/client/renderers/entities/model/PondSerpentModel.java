@@ -12,7 +12,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
-@OnlyIn(Dist.CLIENT)
 public class PondSerpentModel<T extends Entity> extends SegmentedModel<T> {
     private final ModelRenderer body1;
     private final ModelRenderer head;
@@ -28,58 +27,59 @@ public class PondSerpentModel<T extends Entity> extends SegmentedModel<T> {
     public PondSerpentModel() {
         this.textureWidth = 16;
         this.textureHeight = 32;
-        this.head = new ModelRenderer(this, 0, 0);
-        this.head.setRotationPoint(-1.0F, 21.0F, -8.0F);
-        this.head.addBox(0.0F, 0.0F, 0.0F, 2, 2, 3, 0.0F);
 
         this.horn = new ModelRenderer(this, 0, 20);
-        this.horn.setRotationPoint(1.0F, -1.0F, 0.0F);
+        this.horn.setRotationPoint(0.0F, -2.0F, -3.0F);
         this.horn.addBox(0.0F, 0.0F, 0.0F, 0, 1, 1, 0.0F);
-
-        this.body1 = new ModelRenderer(this, 0, 5);
-        this.body1.setRotationPoint(0.0F, 0.0F, 3.0F);
-        this.body1.addBox(0.0F, 0.0F, 0.0F, 2, 2, 3, 0.0F);
-
-        this.rightFin = new ModelRenderer(this, 0, 19);
-        this.rightFin.mirror = true;
-        this.rightFin.setRotationPoint(0.0F, 1.0F, 0.0F);
-        this.rightFin.addBox(0.0F, 0.0F, 0.0F, 0, 1, 3, 0.0F);
-        this.setRotateAngle(rightFin, -0.136659280431156F, -0.136659280431156F, 0.0F);
-
-        this.leftFin = new ModelRenderer(this, 0, 19);
-        this.leftFin.setRotationPoint(2.0F, 1.0F, 0.0F);
-        this.leftFin.addBox(0.0F, 0.0F, 0.0F, 0, 1, 3, 0.0F);
-        this.setRotateAngle(leftFin, -0.136659280431156F, 0.136659280431156F, 0.0F);
 
         this.body2 = new ModelRenderer(this, 0, 10);
         this.body2.setRotationPoint(0.0F, 0.0F, 3.0F);
-        this.body2.addBox(0.0F, 0.0F, 0.0F, 2, 2, 3, 0.0F);
+        this.body2.addBox(-1.0F, -1.0F, 0.0F, 2, 2, 3, 0.0F);
 
-        this.dorsal = new ModelRenderer(this, 0, 16);
-        this.dorsal.setRotationPoint(1.0F, -1.0F, 0.0F);
-        this.dorsal.addBox(0.0F, 0.0F, 0.0F, 0, 1, 3, 0.0F);
-
-        this.body3 = new ModelRenderer(this, 0, 5);
-        this.body3.setRotationPoint(0.0F, 0.0F, 3.0F);
-        this.body3.addBox(0.0F, 0.0F, 0.0F, 2, 2, 3, 0.0F);
+        this.leftFin = new ModelRenderer(this, 0, 19);
+        this.leftFin.setRotationPoint(1.0F, 0.0F, 0.0F);
+        this.leftFin.addBox(0.0F, 0.0F, 0.0F, 0, 1, 3, 0.0F);
+        this.setRotateAngle(leftFin, -0.136659280431156F, 0.136659280431156F, 0.0F);
 
         this.body4 = new ModelRenderer(this, 0, 10);
         this.body4.setRotationPoint(0.0F, 0.0F, 3.0F);
-        this.body4.addBox(0.0F, 0.0F, 0.0F, 2, 2, 3, 0.0F);
+        this.body4.addBox(-1.0F, -1.0F, 0.0F, 2, 2, 3, 0.0F);
+
+        this.rightFin = new ModelRenderer(this, 0, 19);
+        this.rightFin.mirror = true;
+        this.rightFin.setRotationPoint(-1.0F, 0.0F, 0.0F);
+        this.rightFin.addBox(0.0F, 0.0F, 0.0F, 0, 1, 3, 0.0F);
+        this.setRotateAngle(rightFin, -0.136659280431156F, -0.136659280431156F, 0.0F);
 
         this.fluke = new ModelRenderer(this, 0, 12);
         this.fluke.setRotationPoint(1.0F, -1.0F, 0.9F);
-        this.fluke.addBox(0.0F, 0.0F, 0.0F, 0, 3, 3, 0.0F);
+        this.fluke.addBox(-1.0F, -1.0F, 0.0F, 0, 3, 3, 0.0F);
+
+        this.dorsal = new ModelRenderer(this, 0, 16);
+        this.dorsal.setRotationPoint(0.0F, -2.0F, -3.0F);
+        this.dorsal.addBox(0.0F, 0.0F, 0.0F, 0, 1, 3, 0.0F);
+
+        this.head = new ModelRenderer(this, 0, 0);
+        this.head.setRotationPoint(0.0F, 23.0F, -5.0F);
+        this.head.addBox(-1.0F, -1.0F, -3.0F, 2, 2, 3, 0.0F);
+
+        this.body1 = new ModelRenderer(this, 0, 5);
+        this.body1.setRotationPoint(0.0F, 0.0F, 0.0F);
+        this.body1.addBox(-1.0F, -1.0F, 0.0F, 2, 2, 3, 0.0F);
+
+        this.body3 = new ModelRenderer(this, 0, 5);
+        this.body3.setRotationPoint(0.0F, 0.0F, 3.0F);
+        this.body3.addBox(-1.0F, -1.0F, 0.0F, 2, 2, 3, 0.0F);
 
         this.head.addChild(this.horn);
-        this.head.addChild(this.body1);
-        this.body1.addChild(this.rightFin);
-        this.body1.addChild(this.leftFin);
         this.body1.addChild(this.body2);
-        this.body2.addChild(this.dorsal);
-        this.body2.addChild(this.body3);
+        this.body1.addChild(this.leftFin);
         this.body3.addChild(this.body4);
+        this.body1.addChild(this.rightFin);
         this.body4.addChild(this.fluke);
+        this.body2.addChild(this.dorsal);
+        this.head.addChild(this.body1);
+        this.body2.addChild(this.body3);
     }
 
     /**

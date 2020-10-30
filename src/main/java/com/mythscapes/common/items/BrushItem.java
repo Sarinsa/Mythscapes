@@ -1,64 +1,72 @@
 package com.mythscapes.common.items;
 
-import com.mythscapes.common.entities.IBrushable;
+import com.mythscapes.api.IBrushable;
+import com.mythscapes.compat.jei.MythscapesJEI;
+import com.mythscapes.core.Mythscapes;
+import com.mythscapes.register.MythEnchantments;
+import com.mythscapes.register.MythEntities;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.SheepEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.ShearsItem;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 
-public class BrushItem extends BaseItem {
+public class BrushItem extends Item {
 
-    // 7 minute cooldown
-    private static final int cooldownTime = 7 * 20 * 60;
+    // 4 minute cooldown
+    private static final int cooldownTime = 4 * 20 * 60;
 
     public BrushItem(Properties properties) {
         super(properties);
     }
 
     @Override
-    public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
-        if (player.getCooldownTracker().hasCooldown(this))
-            return false;
+    @SuppressWarnings("all")
+    public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
+        if (player.getCooldownTracker().hasCooldown(stack.getItem()))
+            return ActionResultType.FAIL;
 
-        if (entity.getEntityWorld().isRemote) return false;
+        if (entity instanceof TameableEntity) {
+            if (player.isSneaking())
+                return ActionResultType.PASS;
+        }
+        int soothingLevel = EnchantmentHelper.getEnchantmentLevel(MythEnchantments.SOOTHING.get(), stack);
+        int fortuneLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
 
-        // Entities from our mod
-        if (entity instanceof IBrushable) {
-            IBrushable brushable = (IBrushable) entity;
+        if (MythEntities.BRUSHABLES.containsKey(entity.getType())) {
+            IBrushable brushable = MythEntities.BRUSHABLES.get(entity.getType());
 
-            if (!brushable.canBrush()) {
-                return false;
-            }
-            else {
-                if (!brushable.itemDropped().isEmpty()) {
-                    entity.entityDropItem(brushable.itemDropped());
+            if (brushable.canBrush(entity)) {
+                if (!player.getEntityWorld().isRemote && !brushable.itemDropped(fortuneLevel).isEmpty()) {
+                    entity.entityDropItem(brushable.itemDropped(fortuneLevel));
                 }
                 brushable.onBrushed(entity, entity.getEntityWorld());
-                entity.heal(3.0f);
-                player.getCooldownTracker().setCooldown(this, cooldownTime);
-                stack.damageItem(1, entity, e -> e.sendBreakAnimation(hand));
-                return true;
-            }
-        }
-        // Everything else
-        else if (entity instanceof SheepEntity) {
-            if (((SheepEntity)entity).getSheared()) {
-                return false;
-            }
+                entity.addPotionEffect(new EffectInstance(Effects.REGENERATION, ((soothingLevel + 1) * 20 * 2)));
+                player.getEntityWorld().playSound(player, entity.getPosition(), SoundEvents.BLOCK_GRASS_HIT, SoundCategory.PLAYERS, 0.9f, 0.9f);
 
-            entity.entityDropItem(new ItemStack(Items.STRING, (random.nextInt(3) + 1)));
-            entity.heal(3.0f);
-
-            if (!player.abilities.isCreativeMode) {
-                player.getCooldownTracker().setCooldown(this, cooldownTime);
-                stack.damageItem(1, entity, e -> e.sendBreakAnimation(hand));
+                if (!player.abilities.isCreativeMode) {
+                    player.getCooldownTracker().setCooldown(this, cooldownTime);
+                    stack.damageItem(1, entity, e -> e.sendBreakAnimation(hand));
+                }
+                return ActionResultType.SUCCESS;
             }
-            return true;
+            else {
+                return ActionResultType.FAIL;
+            }
         }
         else {
-            return false;
+            return ActionResultType.FAIL;
         }
     }
 }

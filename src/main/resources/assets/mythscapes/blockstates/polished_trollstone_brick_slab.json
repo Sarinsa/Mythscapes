@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "mythscapes:block/polished_trollstone_brick_slab" },
+    "type=top": { "model": "mythscapes:block/polished_trollstone_brick_slab_top" },
+    "type=double": { "model": "mythscapes:block/polished_trollstone_bricks" }
+  }
+}

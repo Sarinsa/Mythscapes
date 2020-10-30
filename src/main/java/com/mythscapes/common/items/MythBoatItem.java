@@ -1,10 +1,10 @@
 package com.mythscapes.common.items;
 
 import com.mythscapes.common.entities.misc.MythBoatEntity;
+import com.mythscapes.misc.MythItemGroup;
 import com.mythscapes.register.MythItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BoatItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Stats;
@@ -14,19 +14,19 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-public class MythBoatItem extends BaseItem {
+public class MythBoatItem extends Item {
 
     private static Predicate<Entity> entityPredicate = EntityPredicates.NOT_SPECTATING.and(Entity::canBeCollidedWith);
     private MythBoatEntity.Type type;
 
     public MythBoatItem(MythBoatEntity.Type type) {
-        super(new Item.Properties().group(MythItems.itemGroup).maxStackSize(1));
+        super(new Item.Properties().group(MythItemGroup.MOD_ITEM_GROUP).maxStackSize(1));
         this.type = type;
     }
 
@@ -38,11 +38,11 @@ public class MythBoatItem extends BaseItem {
             return ActionResult.resultPass(itemStack);
         }
         else {
-            Vec3d look = playerEntity.getLook(1.0F);
+            Vector3d look = playerEntity.getLook(1.0F);
             List<Entity> entities = world.getEntitiesInAABBexcluding(playerEntity, playerEntity.getBoundingBox().expand(look.scale(5.0D)).grow(1.0D), entityPredicate);
 
             if (!entities.isEmpty()) {
-                Vec3d eyePosition = playerEntity.getEyePosition(1.0F);
+                Vector3d eyePosition = playerEntity.getEyePosition(1.0F);
                 for (Entity nextEntity : entities) {
                     AxisAlignedBB axisAlignedBB = nextEntity.getBoundingBox().grow(nextEntity.getCollisionBorderSize());
                     if (axisAlignedBB.contains(eyePosition)) {

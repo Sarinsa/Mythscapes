@@ -23,6 +23,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
@@ -38,7 +39,9 @@ public class BlisterberryThistleBlock extends AbstractHarvestableBlock {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
+    @NotNull
+    @SuppressWarnings("deprecation")
+    public VoxelShape getShape(BlockState state, @NotNull IBlockReader world, @NotNull BlockPos pos, @NotNull ISelectionContext context) {
         return state.get(AGE) > 0 ? SHAPE_1 : SHAPE_0;
     }
 
@@ -48,12 +51,12 @@ public class BlisterberryThistleBlock extends AbstractHarvestableBlock {
     }
 
     @Override
-    int getAge(BlockState state) {
+    int getAge(@NotNull BlockState state) {
         return state.get(AGE);
     }
 
     @Override
-    boolean isMature(BlockState state) {
+    boolean isMature(@NotNull BlockState state) {
         return state.get(AGE) >= getMaxAge();
     }
 
@@ -68,13 +71,15 @@ public class BlisterberryThistleBlock extends AbstractHarvestableBlock {
     }
 
     @Override
-    public boolean isValidGround(BlockState state, IBlockReader world, BlockPos pos) {
+    public boolean isValidGround(@NotNull BlockState state, @NotNull IBlockReader world, @NotNull BlockPos pos) {
         Block block = state.getBlock();
         Mythscapes.LOGGER.info(block.getTranslationKey());
         return block == MythBlocks.WOLT_PLANKS.get();
     }
 
     @Override
+    @NotNull
+    @SuppressWarnings("deprecation")
     public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
         if (this.isMature(state)) {
             if (player.getHeldItem(hand).getItem() == Items.SHEARS) {
@@ -100,6 +105,7 @@ public class BlisterberryThistleBlock extends AbstractHarvestableBlock {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
         // Forge: prevent loading unloaded chunks when checking neighbor's light
         if (!world.isAreaLoaded(pos, 1))

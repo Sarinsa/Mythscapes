@@ -8,7 +8,6 @@ import java.util.Objects;
 
 public abstract class MythEffect extends Effect {
 
-
     public MythEffect(EffectType effectType, int color) {
         super(effectType, color);
     }

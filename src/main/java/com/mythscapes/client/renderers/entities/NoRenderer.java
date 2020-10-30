@@ -6,7 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.loot.LootModifierManager;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class NoRenderer extends EntityRenderer<Entity> {
@@ -17,6 +17,6 @@ public class NoRenderer extends EntityRenderer<Entity> {
 
     @Override
     public ResourceLocation getEntityTexture(Entity entity) {
-        return null;
+        return new ResourceLocation("");
     }
 }

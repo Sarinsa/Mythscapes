@@ -1,11 +1,12 @@
 package com.mythscapes.common.fluids;
 
-import net.minecraft.fluid.IFluidState;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
+import org.jetbrains.annotations.NotNull;
 
 public class LiquidSulphurFluid extends ForgeFlowingFluid {
 
@@ -14,16 +15,15 @@ public class LiquidSulphurFluid extends ForgeFlowingFluid {
     }
 
     @Override
-    public boolean isSource(IFluidState state) {
+    public boolean isSource(@NotNull FluidState state) {
         return false;
     }
 
     @Override
-    public int getLevel(IFluidState state) {
+    public int getLevel(@NotNull FluidState state) {
         return 0;
     }
 
-    @OnlyIn(Dist.CLIENT)
     @Override
     public IParticleData getDripParticleData() {
         return ParticleTypes.DRIPPING_WATER;

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "mythscapes:polished_trollstone"
+    }
+  ],
+  "result": {
+    "item": "mythscapes:polished_trollstone_button"
+  }
+}

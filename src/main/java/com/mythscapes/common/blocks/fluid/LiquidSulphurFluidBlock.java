@@ -2,6 +2,7 @@ package com.mythscapes.common.blocks.fluid;
 
 import com.mythscapes.common.tags.MythEntityTags;
 import com.mythscapes.register.MythEffects;
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.entity.Entity;
@@ -13,8 +14,10 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Supplier;
 
+@ParametersAreNonnullByDefault
 public class LiquidSulphurFluidBlock extends FlowingFluidBlock {
 
     public LiquidSulphurFluidBlock(Supplier<FlowingFluid> fluidSupplier, Properties properties) {
@@ -22,6 +25,7 @@ public class LiquidSulphurFluidBlock extends FlowingFluidBlock {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         if (entity instanceof LivingEntity) {
             ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.HUNGER, (20 * 10)));

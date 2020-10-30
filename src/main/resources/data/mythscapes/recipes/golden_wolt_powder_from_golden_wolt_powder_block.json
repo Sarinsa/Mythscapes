@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "mythscapes:golden_wolt_powder_block"
+    }
+  ],
+  "result": {
+    "item": "mythscapes:golden_wolt_powder",
+    "count": 9
+  }
+}

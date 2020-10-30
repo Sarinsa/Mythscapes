@@ -35,19 +35,13 @@ public class MythItemTagProvider extends ItemTagsProvider {
                 Items.DARK_PRISMARINE,
                 Items.DARK_PRISMARINE_SLAB,
                 Items.DARK_PRISMARINE_STAIRS
-        );
+        )
+                .addOptionalTag(Tags.Items.DUSTS_PRISMARINE.getName())
+                .addOptionalTag(Tags.Items.GEMS_PRISMARINE.getName());
 
         this.getOrCreateBuilder(ItemTags.BOATS).add(
                 MythItems.WOLT_BOAT.get()
                 //MythItems.VIRIDIAN_BOAT.get()
         );
-    }
-
-    @SafeVarargs
-    private final void addFromTag(TagsProvider.Builder<Item> builder, ITag.INamedTag<Item>... tags) {
-        for (ITag.INamedTag<Item> tag : tags) {
-            for (Item item : tag.getAllElements())
-                builder.add(item);
-        }
     }
 }

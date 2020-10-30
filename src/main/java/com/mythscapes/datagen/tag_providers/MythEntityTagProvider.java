@@ -1,15 +1,17 @@
 package com.mythscapes.datagen.tag_providers;
 
 import com.mythscapes.common.tags.MythEntityTags;
+import com.mythscapes.core.Mythscapes;
 import com.mythscapes.register.MythEntities;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.EntityTypeTagsProvider;
 import net.minecraft.entity.EntityType;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class MythEntityTagProvider extends EntityTypeTagsProvider {
 
-    public MythEntityTagProvider(DataGenerator dataGenerator) {
-        super(dataGenerator);
+    public MythEntityTagProvider(DataGenerator dataGenerator, ExistingFileHelper existingFileHelper) {
+        super(dataGenerator, Mythscapes.MODID, existingFileHelper);
     }
 
     @Override

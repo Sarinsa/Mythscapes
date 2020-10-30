@@ -41,7 +41,7 @@ public class MythLootTableProvider extends LootTableProvider {
     }
 
     @Override
-    protected void validate(@Nonnull Map<ResourceLocation, LootTable> map, @Nonnull ValidationTracker validationtracker) {
-        // Not validating
+    protected void validate(Map<ResourceLocation, LootTable> map, ValidationTracker validationtracker) {
+        // NOOP
     }
 }

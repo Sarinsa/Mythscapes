@@ -24,7 +24,7 @@ public class MythEntityLootTableProvider extends EntityLootTables {
     }
 
     @Override
-    protected void registerLootTable(@Nonnull EntityType<?> type, @Nonnull LootTable.Builder table) {
+    protected void registerLootTable(EntityType<?> type, LootTable.Builder table) {
         super.registerLootTable(type, table);
         this.knownEntities.add(type);
     }

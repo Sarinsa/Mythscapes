@@ -18,8 +18,8 @@ import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.loot.conditions.MatchTool;
 import net.minecraft.loot.functions.ApplyBonus;
 import net.minecraft.loot.functions.SetCount;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,7 +37,7 @@ public class MythBlockLootTableProvider extends BlockLootTables {
     private final Set<Block> knownBlocks = new HashSet<>();
 
     @Override
-    protected void registerLootTable(@Nonnull Block block, @Nonnull LootTable.Builder table) {
+    protected void registerLootTable(Block block, LootTable.Builder table) {
         super.registerLootTable(block, table);
         this.knownBlocks.add(block);
     }

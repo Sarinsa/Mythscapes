@@ -46,7 +46,10 @@ public class BlisterberryEntity extends ProjectileItemEntity {
             target.attackEntityFrom(DamageSource.causeThrownDamage(this, thrower), 2.0F);
         }
         boolean mobGriefing = ForgeEventFactory.getMobGriefingEvent(world, thrower);
-        world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), 2.0f, mobGriefing, Explosion.Mode.NONE);
+
+        if (world.isRemote) {
+            world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), 2.0f, mobGriefing, Explosion.Mode.NONE);
+        }
         this.remove();
     }
 

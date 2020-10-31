@@ -22,6 +22,7 @@ import net.minecraft.entity.IRendersAsItem;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -88,5 +89,9 @@ public class ClientRegister {
     private static <T extends Entity & IRendersAsItem> void registerNewSpriteRenderer(EntityType<T> entityType, Supplier<Minecraft> minecraftSupplier) {
         ItemRenderer renderer = minecraftSupplier.get().getItemRenderer();
         RenderingRegistry.registerEntityRenderingHandler(entityType, (rendererManager) -> new SpriteRenderer<>(rendererManager, renderer));
+    }
+
+    public static void registerClientEvents() {
+        MinecraftForge.EVENT_BUS.register(new ClientEvents());
     }
 }

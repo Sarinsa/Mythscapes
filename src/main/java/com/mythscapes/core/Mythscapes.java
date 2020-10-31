@@ -3,11 +3,18 @@ package com.mythscapes.core;
 import com.mythscapes.api.IMythscapesPlugin;
 import com.mythscapes.api.IRegistryHelper;
 import com.mythscapes.api.MythscapesPlugin;
+import com.mythscapes.client.ClientEvents;
+import com.mythscapes.client.ClientRegister;
+import com.mythscapes.common.event.EffectEvents;
+import com.mythscapes.common.event.EntityEvents;
+import com.mythscapes.common.event.TradeEvents;
 import com.mythscapes.misc.DispenserBehavior;
 import com.mythscapes.register.*;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -35,6 +42,12 @@ public class Mythscapes {
 
         eventBus.addListener(this::commonSetup);
         eventBus.addListener(this::loadComplete);
+
+        MinecraftForge.EVENT_BUS.register(new EffectEvents());
+        MinecraftForge.EVENT_BUS.register(new EntityEvents());
+        MinecraftForge.EVENT_BUS.register(new TradeEvents());
+
+        DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientRegister::registerClientEvents);
 
         MythBlocks.BLOCKS.register(eventBus);
         MythItems.ITEMS.register(eventBus);

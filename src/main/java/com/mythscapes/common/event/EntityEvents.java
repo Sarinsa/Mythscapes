@@ -26,16 +26,16 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = Mythscapes.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class EntityEvents {
 
     @SubscribeEvent
-    public static void onGlassBottleClickFluid(PlayerInteractEvent.RightClickBlock event) {
+    public void onGlassBottleClickFluid(PlayerInteractEvent.RightClickBlock event) {
         PlayerEntity player = event.getPlayer();
         World world = event.getWorld();
         ItemStack itemStack = player.getHeldItem(event.getHand());
@@ -71,7 +71,7 @@ public class EntityEvents {
     }
 
     @SubscribeEvent
-    public static void onBucketClickSnail(PlayerInteractEvent.EntityInteractSpecific event) {
+    public void onBucketClickSnail(PlayerInteractEvent.EntityInteractSpecific event) {
         if (event.getTarget() instanceof SnailEntity) {
             SnailEntity snailEntity = (SnailEntity) event.getTarget();
 
@@ -104,7 +104,7 @@ public class EntityEvents {
 
     // Entity AI goal modifying
     @SubscribeEvent
-    public static void editGoalsOnSpawn(LivingSpawnEvent event) {
+    public void editGoalsOnSpawn(LivingSpawnEvent event) {
         LivingEntity entity = event.getEntityLiving();
 
         /*

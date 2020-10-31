@@ -18,19 +18,18 @@ import net.minecraftforge.fml.common.Mod;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Supplier;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Mythscapes.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ClientEvents {
 
-    private static final Supplier<Minecraft> mc = Minecraft::getInstance;
+    private final Supplier<Minecraft> mc = Minecraft::getInstance;
     // Vec3d(R, G, B)
-    public static final Vector3d SULFUR_COLORS = new Vector3d(2.2d, 1.85d, 0.01d);
+    private static final Vector3d SULFUR_COLORS = new Vector3d(2.2d, 1.85d, 0.01d);
 
     private static final ResourceLocation PETRIFIED_HEARTS = Mythscapes.resourceLoc("textures/misc/petrified_hearts.png");
 
 
     // Change the underwater fog color depending on fluid
     @SubscribeEvent
-    public static void onPlayerEyesinLiquid(EntityViewRenderEvent.FogColors event) {
+    public void onPlayerEyesinLiquid(EntityViewRenderEvent.FogColors event) {
         ClientPlayerEntity player = Minecraft.getInstance().player;
         if (player.areEyesInFluid(MythFluidTags.SULFUR)) {
             setFogColor(event, SULFUR_COLORS);
@@ -39,7 +38,7 @@ public class ClientEvents {
 
     // Change fog density depending on fluid
     @SubscribeEvent
-    public static void setFogThickness(EntityViewRenderEvent.FogDensity event) {
+    public void setFogThickness(EntityViewRenderEvent.FogDensity event) {
         ClientPlayerEntity player = Minecraft.getInstance().player;
         if (player.areEyesInFluid(MythFluidTags.SULFUR)) {
             event.setDensity(0.3f);
@@ -48,7 +47,7 @@ public class ClientEvents {
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
-    public static void renderPlayerHearts(RenderGameOverlayEvent.Pre event) {
+    public void renderPlayerHearts(RenderGameOverlayEvent.Pre event) {
         if (event.getType() == RenderGameOverlayEvent.ElementType.HEALTH) {
             if (mc.get().player.isPotionActive(MythEffects.PETRIFIED.get())) {
                 mc.get().getTextureManager().bindTexture(PETRIFIED_HEARTS);
@@ -56,7 +55,7 @@ public class ClientEvents {
         }
     }
 
-    private static void setFogColor(EntityViewRenderEvent.FogColors event, Vector3d colors) {
+    private void setFogColor(EntityViewRenderEvent.FogColors event, Vector3d colors) {
         event.setRed((float) colors.getX());
         event.setGreen((float) colors.getY());
         event.setBlue((float) colors.getZ());

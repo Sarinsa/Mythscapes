@@ -7,7 +7,6 @@ import com.mythscapes.datagen.tag_providers.MythBlockTagProvider;
 import com.mythscapes.datagen.tag_providers.MythEntityTagProvider;
 import com.mythscapes.datagen.tag_providers.MythFluidTagProvider;
 import com.mythscapes.datagen.tag_providers.MythItemTagProvider;
-import net.minecraft.data.BlockStateProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,14 +26,14 @@ public class DataGatherer {
             dataGenerator.addProvider(new MythBlockStateProvider(dataGenerator, existingFileHelper));
         }
         if (event.includeServer()) {
-            MythBlockTagProvider blockTagProvider = new MythBlockTagProvider(dataGenerator, event.getExistingFileHelper());
+            MythBlockTagProvider blockTagProvider = new MythBlockTagProvider(dataGenerator, existingFileHelper);
 
             dataGenerator.addProvider(new MythLootTableProvider(dataGenerator));
             dataGenerator.addProvider(new MythRecipeProvider(dataGenerator));
             dataGenerator.addProvider(blockTagProvider);
             dataGenerator.addProvider(new MythItemTagProvider(dataGenerator, blockTagProvider, existingFileHelper));
-            dataGenerator.addProvider(new MythEntityTagProvider(dataGenerator));
-            dataGenerator.addProvider(new MythFluidTagProvider(dataGenerator));
+            dataGenerator.addProvider(new MythEntityTagProvider(dataGenerator, existingFileHelper));
+            dataGenerator.addProvider(new MythFluidTagProvider(dataGenerator, existingFileHelper));
         }
     }
 }

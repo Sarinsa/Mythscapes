@@ -30,12 +30,16 @@ public class WoltPowderBlock extends Block {
         BlockPos pos = entity.getPosition();
 
         if (!entityWorld.isRemote) {
-            ((ServerWorld)entityWorld).spawnParticle(ParticleTypes.CLOUD, pos.getX() + 0.5d, pos.getY(), pos.getZ() + 0.5d, 14, 0, 0, 0, 0.2f);
+            ((ServerWorld) entityWorld).spawnParticle(ParticleTypes.CLOUD, pos.getX() + 0.5d, pos.getY(), pos.getZ() + 0.5d, 14, 0, 0, 0, 0.2f);
         }
         entityWorld.playSound(entity.getPosX(), entity.getPosY(), entity.getPosZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.9f, 0.1f, false);
+
         Vector3d motion = entity.getMotion();
-        entity.setMotion(this.isGolden()
-                ? new Vector3d(motion.getX(), 1.7, motion.getZ())
-                : new Vector3d(motion.getX(), 1.2, motion.getZ()));
+        double motionY = 1.2D;
+
+        if (this.isGolden()) {
+            motionY = 1.7D;
+        }
+        entity.setMotion(new Vector3d(motion.getX(), motionY, motion.getZ()));
     }
 }

@@ -150,7 +150,7 @@ public class MythLanguageProviderEnglishUS extends MythBaseLangProvider {
         this.addEffect(MythEffects.STATIC, "Static");
         this.addEffect(MythEffects.VOLATILE, "Volatile");
 
-        this.addEnchantment(MythEnchantments.SOOTHING, "Sooting");
+        this.addEnchantment(MythEnchantments.SOOTHING, "Soothing");
 
         this.addSnailType(SnailEntity.SnailType.BOG, "Bog");
         this.addSnailType(SnailEntity.SnailType.FLOWER_FOREST, "Flower Forest");

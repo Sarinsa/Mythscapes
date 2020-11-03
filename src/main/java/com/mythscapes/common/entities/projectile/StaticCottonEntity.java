@@ -36,16 +36,22 @@ public class StaticCottonEntity extends ProjectileItemEntity {
     }
 
     @Override
-    protected void onImpact(RayTraceResult result) {
-        if (result.getType() == RayTraceResult.Type.ENTITY) {
-            Entity entity = ((EntityRayTraceResult) result).getEntity();
+    protected void onEntityHit(EntityRayTraceResult result) {
+        super.onEntityHit(result);
+        Entity entity = result.getEntity();
 
-            if (entity instanceof LivingEntity) {
-                LivingEntity target = (LivingEntity) entity;
-                target.addPotionEffect(new EffectInstance(MythEffects.STATIC.get(), (20 * 5)));
-            }
+        if (entity instanceof LivingEntity) {
+            LivingEntity target = (LivingEntity) entity;
+            target.addPotionEffect(new EffectInstance(MythEffects.STATIC.get(), (20 * 5)));
         }
-        this.remove();
+    }
+
+    @Override
+    protected void onImpact(RayTraceResult result) {
+        super.onImpact(result);
+
+        if (!this.world.isRemote)
+            this.remove();
     }
 
     @Override

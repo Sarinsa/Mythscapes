@@ -1,26 +1,22 @@
 package com.mythscapes.common.items;
 
 import com.mythscapes.api.IBrushable;
-import com.mythscapes.compat.jei.MythscapesJEI;
-import com.mythscapes.core.Mythscapes;
 import com.mythscapes.register.MythEnchantments;
 import com.mythscapes.register.MythEntities;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.ShearsItem;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.world.World;
 
 public class BrushItem extends Item {
 
@@ -46,10 +42,11 @@ public class BrushItem extends Item {
 
         if (MythEntities.BRUSHABLES.containsKey(entity.getType())) {
             IBrushable brushable = MythEntities.BRUSHABLES.get(entity.getType());
+            World world = entity.getEntityWorld();
 
-            if (brushable.canBrush(entity)) {
-                if (!player.getEntityWorld().isRemote && !brushable.itemDropped(fortuneLevel).isEmpty()) {
-                    entity.entityDropItem(brushable.itemDropped(fortuneLevel));
+            if (brushable.canBrush(entity, world)) {
+                if (!world.isRemote && !brushable.itemDropped(entity, fortuneLevel).isEmpty()) {
+                    entity.entityDropItem(brushable.itemDropped(entity, fortuneLevel));
                 }
                 brushable.onBrushed(entity, entity.getEntityWorld());
                 entity.addPotionEffect(new EffectInstance(Effects.REGENERATION, ((soothingLevel + 1) * 20 * 2)));

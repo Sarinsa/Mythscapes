@@ -3,6 +3,7 @@ package com.mythscapes.api;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 public interface IBrushable<T extends LivingEntity> {
 
@@ -15,12 +16,16 @@ public interface IBrushable<T extends LivingEntity> {
      * @return whether this entity can be brushed or not
      *         with given conditions.
      */
-    boolean canBrush(T livingEntity);
+    boolean canBrush(T livingEntity, World world);
 
     /**
-     *@return  ItemStack that should be dropped
-     *         when this entity is brushed.
-     *         Return ItemStack.EMPTY for no drop.
+     * @param fortuneLevel - The fortune enchant level on
+     *                       the brush used.
+     *
+     * @return  ItemStack that should be dropped
+     *          when this entity is brushed.
+     *          Return ItemStack.EMPTY for no drop.
      */
-    ItemStack itemDropped(int fortuneLevel);
+    @NotNull
+    ItemStack itemDropped(T livingEntity, int fortuneLevel);
 }

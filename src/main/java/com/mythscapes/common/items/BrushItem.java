@@ -1,6 +1,7 @@
 package com.mythscapes.common.items;
 
 import com.mythscapes.api.IBrushable;
+import com.mythscapes.core.Mythscapes;
 import com.mythscapes.register.MythEnchantments;
 import com.mythscapes.register.MythEntities;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -45,6 +46,13 @@ public class BrushItem extends Item {
             World world = entity.getEntityWorld();
 
             if (brushable.canBrush(entity, world)) {
+                ItemStack droppedStack = brushable.itemDropped(entity, fortuneLevel);
+
+                if (droppedStack == null) {
+                    droppedStack = ItemStack.EMPTY;
+                    Mythscapes.LOGGER.warn("A brushed entity just tried to drop a null itemstack... Grrrr... (Should be ItemStack.EMPTY)");
+                }
+
                 if (!world.isRemote && !brushable.itemDropped(entity, fortuneLevel).isEmpty()) {
                     entity.entityDropItem(brushable.itemDropped(entity, fortuneLevel));
                 }

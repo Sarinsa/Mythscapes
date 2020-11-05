@@ -1,17 +1,14 @@
 package com.mythscapes.client.renderers.entities;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mythscapes.client.renderers.entities.model.LionModel;
+import com.mythscapes.client.renderers.entities.models.LionModel;
 import com.mythscapes.common.entities.living.LionEntity;
 import com.mythscapes.core.Mythscapes;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class LionRenderer extends MobRenderer<LionEntity, LionModel<LionEntity>> {
 
     private static final ResourceLocation MANELESS = Mythscapes.resourceLoc("textures/entity/lion/lion_maneless.png");

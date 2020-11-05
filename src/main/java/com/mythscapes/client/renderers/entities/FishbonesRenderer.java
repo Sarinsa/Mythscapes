@@ -1,7 +1,7 @@
 package com.mythscapes.client.renderers.entities;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mythscapes.client.renderers.entities.model.FishbonesModel;
+import com.mythscapes.client.renderers.entities.models.FishbonesModel;
 import com.mythscapes.common.entities.living.FishbonesEntity;
 import com.mythscapes.core.Mythscapes;
 import net.minecraft.client.renderer.IRenderTypeBuffer;

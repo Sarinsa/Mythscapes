@@ -1,15 +1,12 @@
 package com.mythscapes.client.renderers.entities;
 
-import com.mythscapes.client.renderers.entities.model.PygmySnailModel;
+import com.mythscapes.client.renderers.entities.models.PygmySnailModel;
 import com.mythscapes.common.entities.living.SnailEntity;
 import com.mythscapes.core.Mythscapes;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class PygmySnailRenderer extends MobRenderer<SnailEntity, PygmySnailModel<SnailEntity>> {
 
     private static final ResourceLocation[] SNAIL_TEXTURES = {

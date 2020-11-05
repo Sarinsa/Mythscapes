@@ -1,17 +1,15 @@
 package com.mythscapes.client.renderers.entities;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mythscapes.client.renderers.entities.model.PondSerpentModel;
+import com.mythscapes.client.renderers.entities.models.PondSerpentModel;
 import com.mythscapes.common.entities.living.PondSerpentEntity;
 import com.mythscapes.core.Mythscapes;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3f;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
+
 public class PondSerpentRenderer extends MobRenderer<PondSerpentEntity, PondSerpentModel<PondSerpentEntity>> {
 
     private static final ResourceLocation[] POND_SERPENT_TEXTURES = {

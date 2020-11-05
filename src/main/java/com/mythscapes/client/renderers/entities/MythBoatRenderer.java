@@ -2,7 +2,7 @@ package com.mythscapes.client.renderers.entities;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.mythscapes.client.renderers.entities.model.MythBoatModel;
+import com.mythscapes.client.renderers.entities.models.MythBoatModel;
 import com.mythscapes.common.entities.misc.MythBoatEntity;
 import com.mythscapes.core.Mythscapes;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -14,11 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 
-@OnlyIn(value = Dist.CLIENT)
 public class MythBoatRenderer extends EntityRenderer<MythBoatEntity> {
 
     //
@@ -74,6 +70,6 @@ public class MythBoatRenderer extends EntityRenderer<MythBoatEntity> {
      */
     @Override
     public ResourceLocation getEntityTexture(MythBoatEntity entity) {
-        return BOAT_TEXTURES[entity.getBoatType().ordinal()];
+        return BOAT_TEXTURES[entity.getMythBoatType().ordinal()];
     }
 }

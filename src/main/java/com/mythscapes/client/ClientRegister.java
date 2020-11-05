@@ -4,7 +4,6 @@ import com.mythscapes.client.particles.StaticCottonFallingParticle;
 import com.mythscapes.client.particles.StaticCottonParticle;
 import com.mythscapes.client.particles.StaticCottonPoofParticle;
 import com.mythscapes.client.renderers.entities.*;
-import com.mythscapes.client.renderers.entities.MythBoatRenderer;
 import com.mythscapes.common.items.MythSpawnEggItem;
 import com.mythscapes.core.Mythscapes;
 import com.mythscapes.register.MythBlocks;
@@ -80,7 +79,6 @@ public class ClientRegister {
         setRenderLayer(MythBlocks.WOLT_DOOR.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.WOLT_TRAPDOOR.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.BLISTERBERRY_THISTLE.get(), RenderType.getCutout());
-        setRenderLayer(MythBlocks.BLISTERBERRY_THISTLE_TOP.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.CHARGED_DANDELION.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.POTTED_CHARGED_DANDELION.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.LAUNCHER_RAIL.get(), RenderType.getCutout());

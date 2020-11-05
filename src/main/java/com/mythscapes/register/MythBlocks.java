@@ -6,7 +6,9 @@ import com.mythscapes.common.blocks.StaticCottonBlock;
 import com.mythscapes.common.blocks.StaticCottonPilesBlock;
 import com.mythscapes.common.blocks.WoltPowderBlock;
 import com.mythscapes.common.blocks.fluid.LiquidSulphurFluidBlock;
-import com.mythscapes.common.blocks.plant.*;
+import com.mythscapes.common.blocks.plant.BlisterberryThistleBlock;
+import com.mythscapes.common.blocks.plant.ChargedDandelionBlock;
+import com.mythscapes.common.blocks.plant.ModLeavesBlock;
 import com.mythscapes.common.blocks.wood.*;
 import com.mythscapes.core.Mythscapes;
 import net.minecraft.block.*;
@@ -133,8 +135,7 @@ public class MythBlocks {
     //
     // Plants
     //
-    public static final RegistryObject<AbstractHarvestableBlock> BLISTERBERRY_THISTLE = BLOCKS.register("blisterberry_thistle", () -> new BlisterberryThistleBlock(2, Block.Properties.create(Material.PLANTS, MaterialColor.BLACK_TERRACOTTA).sound(SoundType.PLANT).hardnessAndResistance(0.0f).tickRandomly().notSolid().doesNotBlockMovement()));
-    public static final RegistryObject<Block> BLISTERBERRY_THISTLE_TOP = BLOCKS.register("blisterberry_thistle_top", () -> new BlisterberryThistleTopBlock(Block.Properties.create(Material.PLANTS, MaterialColor.BLACK_TERRACOTTA).sound(SoundType.PLANT).hardnessAndResistance(0.0f).notSolid().doesNotBlockMovement()));
+    public static final RegistryObject<Block> BLISTERBERRY_THISTLE = BLOCKS.register("blisterberry_thistle", () -> new BlisterberryThistleBlock(Block.Properties.create(Material.PLANTS, MaterialColor.BLACK_TERRACOTTA).sound(SoundType.PLANT).hardnessAndResistance(0.0f).tickRandomly().notSolid().doesNotBlockMovement().setLightLevel((state) -> state.get(BlockStateProperties.AGE_0_5) == 5 ? 5 : 0)));
     public static final RegistryObject<Block> CHARGED_DANDELION = BLOCKS.register("charged_dandelion", () -> new ChargedDandelionBlock(MythEffects.STATIC, 17, Block.Properties.create(Material.PLANTS, MaterialColor.WHITE_TERRACOTTA).sound(SoundType.PLANT).hardnessAndResistance(0.0f).notSolid().doesNotBlockMovement().tickRandomly()));
     public static final RegistryObject<Block> POTTED_CHARGED_DANDELION = BLOCKS.register("potted_charged_dandelion", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, CHARGED_DANDELION, Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.0f).notSolid()));
     public static final RegistryObject<Block> POTTED_WOLT_SAPLING = BLOCKS.register("potted_wolt_sapling", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, WOLT_SAPLING, Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.0f).notSolid()));
@@ -175,19 +176,6 @@ public class MythBlocks {
 
         registerPottablePlant(CHARGED_DANDELION, POTTED_CHARGED_DANDELION);
         registerPottablePlant(WOLT_SAPLING, POTTED_WOLT_SAPLING);
-
-        /*
-        registerFlammable(WOLT_LOG, 5, 5);
-        registerFlammable(WOLT_LOG_STRIPPED, 5, 5);
-        registerFlammable(WOLT_WOOD, 5, 5);
-        registerFlammable(WOLT_WOOD_STRIPPED, 5, 5);
-        registerFlammable(WOLT_PLANKS, 5, 20);
-        registerFlammable(WOLT_SLAB, 5, 20);
-        registerFlammable(WOLT_FENCE, 5, 20);
-        registerFlammable(WOLT_FENCE_GATE, 5, 20);
-        registerFlammable(WOLT_STAIRS, 5, 20);
-
-         */
     }
 
     private static void registerStrippable(Supplier<Block> strippable, Supplier<Block> stripped) {

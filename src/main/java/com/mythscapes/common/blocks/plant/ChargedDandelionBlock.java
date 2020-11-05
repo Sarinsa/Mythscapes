@@ -87,7 +87,7 @@ public class ChargedDandelionBlock extends ModFlowerBlock {
                             (pos.getX() + state.getOffset(world, pos).getX()) + 0.5d,
                             pos.getY() + 0.6d,
                             (pos.getZ() + state.getOffset(world, pos).getZ()) + 0.5d,
-                            1, 0.0f, 0.0f, 0.0f, 2.0f);
+                            1, 0.0f, 0.0f, 0.0f, 0.0f);
                 }
             }
         }

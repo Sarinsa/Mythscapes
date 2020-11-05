@@ -1,11 +1,11 @@
 package com.mythscapes.client.particles;
 
-import net.minecraft.client.particle.*;
+import net.minecraft.client.particle.IAnimatedSprite;
+import net.minecraft.client.particle.IParticleFactory;
+import net.minecraft.client.particle.Particle;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class StaticCottonFallingParticle extends AbstractFadingParticle {
 
@@ -28,15 +28,18 @@ public class StaticCottonFallingParticle extends AbstractFadingParticle {
     }
 
     public void tick() {
-        this.setAlphaF();
+        this.subtractAlpha();
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
+
         if (this.age++ >= this.maxAge) {
             this.setExpired();
-        } else {
+        }
+        else {
             this.prevParticleAngle = this.particleAngle;
             this.particleAngle += (float)Math.PI * this.rotationSpeed * 2.0F;
+
             if (this.onGround) {
                 this.prevParticleAngle = this.particleAngle = 0.0F;
             }

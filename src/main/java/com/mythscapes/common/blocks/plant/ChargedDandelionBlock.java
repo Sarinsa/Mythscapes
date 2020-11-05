@@ -12,6 +12,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
@@ -25,7 +26,7 @@ import java.util.function.Supplier;
 
 public class ChargedDandelionBlock extends ModFlowerBlock {
 
-    public static final IntegerProperty AGE = IntegerProperty.create("age", 0, 1);
+    public static final IntegerProperty AGE = BlockStateProperties.AGE_0_5;
     public static final BooleanProperty SPREAD = BooleanProperty.create("spread");
 
     public ChargedDandelionBlock(Supplier<Effect> effect, int duration, Properties properties) {
@@ -44,7 +45,11 @@ public class ChargedDandelionBlock extends ModFlowerBlock {
     }
 
     public boolean isMature(BlockState blockState) {
-        return blockState.get(AGE) == 1;
+        return blockState.get(AGE) == 5;
+    }
+
+    private int getAge(BlockState state) {
+        return state.get(AGE);
     }
 
     public boolean shouldSpread(BlockState state) {
@@ -52,11 +57,11 @@ public class ChargedDandelionBlock extends ModFlowerBlock {
     }
 
     private boolean attemptSpread(World world, BlockPos pos) {
-        List<BlockPos> validPositions = new ArrayList<>();
+        final List<BlockPos> validPositions = new ArrayList<>();
 
         for (BlockPos neighborPos : this.getPosSpreadTo(pos)) {
             BlockState neighborState = world.getBlockState(neighborPos);
-            if (neighborState.isAir(world, neighborPos) && this.isValidGround(world.getBlockState(neighborPos.down()), world, neighborPos)) {
+            if (neighborState.getBlock().isAir(neighborState, world, neighborPos) && this.isValidGround(world.getBlockState(neighborPos.down()), world, neighborPos)) {
                 validPositions.add(neighborPos);
             }
         }
@@ -68,18 +73,19 @@ public class ChargedDandelionBlock extends ModFlowerBlock {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        if (MythEntityTags.ELECTRIC.contains(entity.getType()))
-            return;
         if (isMature(state)) {
             if (entity instanceof LivingEntity) {
-                ((LivingEntity) entity).addPotionEffect(new EffectInstance(MythEffects.STATIC.get(), (20 * 5)));
+                if (MythEntityTags.ELECTRIC.contains(entity.getType())) {
+                    ((LivingEntity) entity).addPotionEffect(new EffectInstance(MythEffects.STATIC.get(), (20 * 5)));
+                }
                 world.setBlockState(pos, this.getDefaultState().with(AGE, 0).with(SPREAD, true));
 
                 if (!world.isRemote) {
                     ((ServerWorld) world).spawnParticle(MythParticles.STATIC_COTTON_POOF.get(),
                             (pos.getX() + state.getOffset(world, pos).getX()) + 0.5d,
-                            (pos.getY() + 0.6d),
+                            pos.getY() + 0.6d,
                             (pos.getZ() + state.getOffset(world, pos).getZ()) + 0.5d,
                             1, 0.0f, 0.0f, 0.0f, 2.0f);
                 }
@@ -88,14 +94,15 @@ public class ChargedDandelionBlock extends ModFlowerBlock {
     }
 
     @Override
-    public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+    @SuppressWarnings("deprecation")
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
         if (this.shouldSpread(state)) {
             world.setBlockState(pos, this.getDefaultState().with(SPREAD, this.attemptSpread(world, pos)));
             return;
         }
         if (!this.isMature(state)) {
-            if (rand.nextInt(2) == 0) {
-                world.setBlockState(pos, state.with(AGE, 1));
+            if (rand.nextInt(15) == 0) {
+                world.setBlockState(pos, state.with(AGE, this.getAge(state) + 1));
             }
         }
     }

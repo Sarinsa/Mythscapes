@@ -1,6 +1,10 @@
 {
   "variants": {
     "age=0": { "model": "mythscapes:block/charged_dandelion" },
-    "age=1": { "model": "mythscapes:block/charged_dandelion_mature" }
+    "age=1": { "model": "mythscapes:block/charged_dandelion" },
+    "age=2": { "model": "mythscapes:block/charged_dandelion" },
+    "age=3": { "model": "mythscapes:block/charged_dandelion" },
+    "age=4": { "model": "mythscapes:block/charged_dandelion" },
+    "age=5": { "model": "mythscapes:block/charged_dandelion_mature" }
   }
 }

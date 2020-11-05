@@ -5,7 +5,8 @@
   "refmap": "mythscapes.mixins.refmap.json",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "AbstractMinecartEntityMixin"
+    "AbstractMinecartEntityMixin",
+    "EntityMixin"
   ],
   "client": [],
   "server": [],

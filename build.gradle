@@ -1,23 +1,32 @@
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url = 'https://repo.spongepowered.org/maven' }
         jcenter()
         mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-group = "com.mythscapes.Mythscapes"
+group = "com.radish.Mythscapes"
 version = "${mod_version}-${minecraft_version}"
 archivesBaseName = "Mythscapes"
 
-sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+idea {
+    project {
+        languageLevel = '1.8'
+    }
+}
 
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
 
 minecraft {
     mappings channel: 'snapshot', version: "${mappings_version}"
@@ -29,6 +38,7 @@ minecraft {
 
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
+            arg "-mixin.config=mythscapes.mixins.json"
 
             mods {
                 mythscapes {
@@ -42,6 +52,7 @@ minecraft {
 
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
+            arg "-mixin.config=mythscapes.mixins.json"
 
             mods {
                 mythscapes {
@@ -59,6 +70,12 @@ minecraft {
             args '--mod', 'mythscapes', '--all', '--output', file('src/generated/resources/')
 
             environment 'target', 'fmluserdevdata'
+
+            mods {
+                mythscapes {
+                    source sourceSets.main
+                }
+            }
         }
     }
 }
@@ -74,8 +91,11 @@ repositories {
     }
 }
 
+mixin {
+    add sourceSets.main, "mythscapes.mixins.refmap.json"
+}
+
 dependencies {
-    // MC version
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     // JetBrains
@@ -85,8 +105,9 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
 
-    // HWYLA - Waiting for 1.16.3 update
-    //runtimeOnly fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}")
+    // HWYLA
+    compileOnly fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}:api")
+    runtimeOnly fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}")
 }
 
 jar {
@@ -94,13 +115,27 @@ jar {
         attributes([
             "Specification-Title": "Mythscapes",
             "Specification-Vendor": "Mythscapes Team",
-            "Specification-Version": "1", // We are version 1 of ourselves
+            "Specification-Version": "1",
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
             "Implementation-Vendor" :"Mythscapes Team",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            "MixinConfigs": "mythscapes.mixins.json"
         ])
     }
+}
+
+task apiJar(type: Jar) {
+    classifier = 'api'
+    include 'com/radish/mythscapes/api/**/*'
+    exclude 'com/radish/mythscapes/api/impl/**/*'
+
+    from sourceSets.main.output
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives apiJar
 }
 
 jar.finalizedBy('reobfJar')

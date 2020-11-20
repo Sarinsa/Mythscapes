@@ -1,17 +1,19 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "#O",
-    "O#"
-  ],
-  "key": {
-    "#": {
-      "tag": "forge:leather"
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:leather"
     },
-    "O": {
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "mythscapes:static_cotton"
+    },
+    {
       "item": "mythscapes:static_cotton"
     }
-  },
+  ],
   "result": {
     "item": "mythscapes:cotton_hide"
   }

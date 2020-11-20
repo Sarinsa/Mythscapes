@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mythscapes:bejeweled_galvite_brick_wall"
+    ]
+  },
+  "criteria": {
+    "bejeweled_galvite_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mythscapes:bejeweled_galvite_bricks"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "mythscapes:bejeweled_galvite_brick_wall"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "bejeweled_galvite_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

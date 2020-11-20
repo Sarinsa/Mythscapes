@@ -2,15 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "group": "wooden_fence",
   "pattern": [
-    "WSW",
-    "WSW"
+    "#S#",
+    "#S#"
   ],
   "key": {
+    "#": {
+      "item": "mythscapes:wolt_planks"
+    },
     "S": {
       "item": "minecraft:stick"
-    },
-    "W": {
-      "item": "mythscapes:wolt_planks"
     }
   },
   "result": {

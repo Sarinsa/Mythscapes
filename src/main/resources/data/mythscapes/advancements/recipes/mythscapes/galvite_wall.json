@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mythscapes:galvite_wall"
+    ]
+  },
+  "criteria": {
+    "galvite": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mythscapes:galvite"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "mythscapes:galvite_wall"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "galvite",
+      "has_the_recipe"
+    ]
+  ]
+}

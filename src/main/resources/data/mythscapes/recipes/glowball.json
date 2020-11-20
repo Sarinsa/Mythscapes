@@ -6,18 +6,17 @@
     "GGG"
   ],
   "key": {
+    "B": {
+      "item": "mythscapes:biobulb"
+    },
     "S": {
       "item": "minecraft:snowball"
     },
     "G": {
-      "item": "minecraft:glowstone_dust"
-    },
-    "B": {
-      "item": "mythscapes:biobulb"
+      "tag": "forge:dusts/glowstone"
     }
   },
   "result": {
-    "item": "mythscapes:glowball",
-    "count": 1
+    "item": "mythscapes:glowball"
   }
 }

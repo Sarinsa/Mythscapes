@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "mythscapes:wolt_log_stripped"
+    }
+  },
+  "result": {
+    "item": "mythscapes:wolt_wood_stripped",
+    "count": 3
+  }
+}

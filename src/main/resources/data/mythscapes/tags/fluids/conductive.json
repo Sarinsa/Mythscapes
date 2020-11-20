@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:water"
+    "minecraft:water",
+    "minecraft:flowing_water",
+    "mythscapes:liquid_sulfur",
+    "mythscapes:flowing_liquid_sulfur"
   ]
 }

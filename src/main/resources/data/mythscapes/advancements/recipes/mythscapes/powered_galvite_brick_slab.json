@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mythscapes:powered_galvite_brick_slab"
+    ]
+  },
+  "criteria": {
+    "powered_galvite": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mythscapes:powered_galvite"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "mythscapes:powered_galvite_brick_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "powered_galvite",
+      "has_the_recipe"
+    ]
+  ]
+}

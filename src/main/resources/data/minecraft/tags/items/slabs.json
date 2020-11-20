@@ -1,11 +1,9 @@
 {
   "replace": false,
   "values": [
-    "#wooden_slabs",
     "mythscapes:galvite_slab",
     "mythscapes:polished_galvite_slab",
     "mythscapes:polished_galvite_brick_slab",
-    "mythscapes:galvite_shingle_slab",
     "mythscapes:gilded_galvite_brick_slab",
     "mythscapes:bejeweled_galvite_brick_slab",
     "mythscapes:powered_galvite_brick_slab",

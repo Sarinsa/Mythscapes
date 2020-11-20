@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "item": "mythscapes:snail_bucket"
+    },
+    "title": {
+      "translate": "advancements.mythscapes.root.title"
+    },
+    "description": {
+      "translate": "advancements.mythscapes.root.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/husbandry.png"
+  },
+  "criteria": {
+    "bucket_snail": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mythscapes:snail_bucket"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "bucket_snail"
+    ]
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:polished_trollstone_pillar_from_polished_trollstone_bricks_stonecutting"
+    ]
+  },
+  "criteria": {
+    "has_polished_trollstone_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mythscapes:polished_trollstone_bricks"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:polished_trollstone_pillar_from_polished_trollstone_bricks_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_polished_trollstone_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

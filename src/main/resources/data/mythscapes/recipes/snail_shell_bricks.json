@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "mythscapes:snail_shell_block"
+    }
+  },
+  "result": {
+    "item": "mythscapes:snail_shell_bricks",
+    "count": 4
+  }
+}

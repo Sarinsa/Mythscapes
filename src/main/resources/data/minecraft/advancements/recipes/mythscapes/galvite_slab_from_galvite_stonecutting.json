@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:galvite_slab_from_galvite_stonecutting"
+    ]
+  },
+  "criteria": {
+    "has_galvite": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mythscapes:galvite"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:galvite_slab_from_galvite_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_galvite",
+      "has_the_recipe"
+    ]
+  ]
+}

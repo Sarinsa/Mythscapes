@@ -1,11 +1,9 @@
 {
   "replace": false,
   "values": [
-    "#wooden_stairs",
     "mythscapes:galvite_stairs",
     "mythscapes:polished_galvite_stairs",
     "mythscapes:polished_galvite_brick_stairs",
-    "mythscapes:galvite_shingle_stairs",
     "mythscapes:gilded_galvite_brick_stairs",
     "mythscapes:bejeweled_galvite_brick_stairs",
     "mythscapes:powered_galvite_brick_stairs",

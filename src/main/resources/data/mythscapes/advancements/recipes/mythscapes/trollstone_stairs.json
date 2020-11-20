@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mythscapes:trollstone_stairs"
+    ]
+  },
+  "criteria": {
+    "trollstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mythscapes:trollstone"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "mythscapes:trollstone_stairs"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "trollstone",
+      "has_the_recipe"
+    ]
+  ]
+}

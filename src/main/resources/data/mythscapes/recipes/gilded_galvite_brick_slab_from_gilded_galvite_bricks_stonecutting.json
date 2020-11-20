@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "mythscapes:gilded_galvite_bricks"
-  },
-  "result": "mythscapes:gilded_galvite_brick_slab",
-  "count": 2
-}

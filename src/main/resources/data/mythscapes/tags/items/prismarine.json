@@ -1,19 +1,24 @@
 {
   "replace": false,
   "values": [
-    "#forge:gems/prismarine",
-    "#forge:dusts/prismarine",
-    "minecraft:trident",
-    "minecraft:sea_lantern",
-    "minecraft:prismarine_slab",
-    "minecraft:prismarine_brick_slab",
-    "minecraft:dark_prismarine_slab",
-    "minecraft:prismarine_wall",
-    "minecraft:prismarine",
     "minecraft:prismarine_bricks",
-    "minecraft:dark_prismarine",
-    "minecraft:prismarine_stairs",
+    "minecraft:prismarine_brick_slab",
     "minecraft:prismarine_brick_stairs",
-    "minecraft:dark_prismarine_stairs"
+    "minecraft:prismarine_crystals",
+    "minecraft:prismarine_shard",
+    "minecraft:prismarine_slab",
+    "minecraft:prismarine_stairs",
+    "minecraft:prismarine_wall",
+    "minecraft:dark_prismarine",
+    "minecraft:dark_prismarine_slab",
+    "minecraft:dark_prismarine_stairs",
+    {
+      "id": "#forge:dusts/prismarine",
+      "required": false
+    },
+    {
+      "id": "#forge:gems/prismarine",
+      "required": false
+    }
   ]
 }

@@ -20,7 +20,9 @@ build
 # other
 eclipse
 run
-logs
+
+# datagen cache
+/src/generated
 
 # Files from Forge MDK
 forge*changelog.txt

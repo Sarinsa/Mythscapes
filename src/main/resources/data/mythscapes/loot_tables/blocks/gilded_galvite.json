@@ -27,44 +27,29 @@
               "name": "mythscapes:gilded_galvite"
             },
             {
-              "type": "minecraft:alternatives",
-              "conditions": [
+              "type": "minecraft:item",
+              "functions": [
                 {
-                  "condition": "minecraft:survives_explosion"
-                }
-              ],
-              "children": [
-                {
-                  "type": "minecraft:item",
-                  "conditions": [
-                    {
-                      "condition": "minecraft:table_bonus",
-                      "enchantment": "minecraft:fortune",
-                      "chances": [
-                        0.1,
-                        0.14285715,
-                        0.25,
-                        1.0
-                      ]
-                    }
-                  ],
-                  "functions": [
-                    {
-                      "function": "minecraft:set_count",
-                      "count": {
-                        "min": 2.0,
-                        "max": 5.0,
-                        "type": "minecraft:uniform"
-                      }
-                    }
-                  ],
-                  "name": "minecraft:gold_nugget"
+                  "function": "minecraft:set_count",
+                  "count": {
+                    "min": 4.0,
+                    "max": 5.0,
+                    "type": "minecraft:uniform"
+                  }
                 },
                 {
-                  "type": "minecraft:item",
-                  "name": "mythscapes:gilded_galvite"
+                  "function": "minecraft:apply_bonus",
+                  "enchantment": "minecraft:fortune",
+                  "formula": "minecraft:uniform_bonus_count",
+                  "parameters": {
+                    "bonusMultiplier": 1
+                  }
+                },
+                {
+                  "function": "minecraft:explosion_decay"
                 }
-              ]
+              ],
+              "name": "minecraft:gold_nugget"
             }
           ]
         }

@@ -24,7 +24,7 @@
                   }
                 }
               ],
-              "name": "minecraft:redstone_ore"
+              "name": "mythscapes:powered_galvite"
             },
             {
               "type": "minecraft:item",

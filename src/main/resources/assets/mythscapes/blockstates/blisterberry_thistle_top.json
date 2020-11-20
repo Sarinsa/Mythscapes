@@ -1,6 +1,0 @@
-{
-  "variants": {
-    "age=0": { "model": "mythscapes:block/blisterberry_thistle_top_age_0" },
-    "age=1": { "model": "mythscapes:block/blisterberry_thistle_top_age_1" }
-  }
-}

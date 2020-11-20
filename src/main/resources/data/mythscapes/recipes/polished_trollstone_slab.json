@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "mythscapes:polished_trollstone"
+    }
+  },
+  "result": {
+    "item": "mythscapes:polished_trollstone_slab",
+    "count": 6
+  }
+}

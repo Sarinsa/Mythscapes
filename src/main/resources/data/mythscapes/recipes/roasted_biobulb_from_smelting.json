@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "mythscapes:biobulb_cluster"
-  },
-  "result": "mythscapes:roasted_biobulb_cluster",
-  "experience": 0.35,
-  "cookingtime": 200
-}

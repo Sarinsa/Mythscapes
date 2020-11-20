@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:wolt_powder_from_wolt_powder_block"
+    ]
+  },
+  "criteria": {
+    "has_wolt_powder_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mythscapes:wolt_powder_block"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:wolt_powder_from_wolt_powder_block"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_wolt_powder_block",
+      "has_the_recipe"
+    ]
+  ]
+}

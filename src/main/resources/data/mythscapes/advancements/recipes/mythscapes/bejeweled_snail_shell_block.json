@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mythscapes:bejeweled_snail_shell_block"
+    ]
+  },
+  "criteria": {
+    "has_bejeweled_snail_shell": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mythscapes:bejeweled_snail_shell"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "mythscapes:bejeweled_snail_shell_block"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_bejeweled_snail_shell",
+      "has_the_recipe"
+    ]
+  ]
+}

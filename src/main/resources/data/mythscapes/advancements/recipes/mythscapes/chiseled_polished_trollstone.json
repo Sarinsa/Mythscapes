@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mythscapes:chiseled_polished_trollstone"
+    ]
+  },
+  "criteria": {
+    "has_polished_trollstone_slab": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mythscapes:polished_trollstone_slab"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "mythscapes:chiseled_polished_trollstone"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_polished_trollstone_slab",
+      "has_the_recipe"
+    ]
+  ]
+}

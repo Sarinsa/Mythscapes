@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mythscapes:cotton_hood"
+    ]
+  },
+  "criteria": {
+    "has_cotton_hide": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mythscapes:cotton_hide"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "mythscapes:cotton_hood"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_cotton_hide",
+      "has_the_recipe"
+    ]
+  ]
+}

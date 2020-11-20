@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mythscapes:static_cotton_block"
+    ]
+  },
+  "criteria": {
+    "has_static_cotton": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mythscapes:static_cotton"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "mythscapes:static_cotton_block"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_static_cotton",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mythscapes:wolt_powder"
+    ]
+  },
+  "criteria": {
+    "has_wolt_fruit": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mythscapes:wolt_fruit"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "mythscapes:wolt_powder"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_wolt_fruit",
+      "has_the_recipe"
+    ]
+  ]
+}

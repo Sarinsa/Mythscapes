@@ -1,20 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " R ",
-    "RBR",
-    " R "
+    " # ",
+    "#B#",
+    " # "
   ],
   "key": {
-    "R": {
-      "item": "minecraft:redstone"
+    "#": {
+      "tag": "forge:dusts/redstone"
     },
     "B": {
-      "item": "mythscapes:biobulb_cluster"
+      "item": "mythscapes:biobulb"
     }
   },
   "result": {
-    "item": "mythscapes:biobulb_lamp",
-    "count": 1
+    "item": "mythscapes:biobulb_lamp"
   }
 }

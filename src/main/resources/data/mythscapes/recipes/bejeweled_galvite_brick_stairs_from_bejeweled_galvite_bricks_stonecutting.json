@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "mythscapes:bejeweled_galvite_bricks"
-  },
-  "result": "mythscapes:bejeweled_galvite_brick_stairs",
-  "count": 1
-}

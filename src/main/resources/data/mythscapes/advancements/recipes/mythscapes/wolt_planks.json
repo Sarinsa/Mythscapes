@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mythscapes:wolt_planks"
+    ]
+  },
+  "criteria": {
+    "has_wolt_logs": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "mythscapes:wolt_logs"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "mythscapes:wolt_planks"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_wolt_logs",
+      "has_the_recipe"
+    ]
+  ]
+}

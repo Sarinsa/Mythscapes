@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mythscapes:galvite_shingles"
+    ]
+  },
+  "criteria": {
+    "has_polished_galvite": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mythscapes:polished_galvite"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "mythscapes:galvite_shingles"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_polished_galvite",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -10,7 +10,6 @@ import net.minecraft.particles.BasicParticleType;
 public class StaticCottonPoofParticle extends MetaParticle {
 
     private int timeSinceStart;
-    private final int maxTime = 5;
 
     private StaticCottonPoofParticle(ClientWorld world, double x, double y, double z) {
         super(world, x, y, z);
@@ -24,7 +23,7 @@ public class StaticCottonPoofParticle extends MetaParticle {
             this.world.addParticle(MythParticles.STATIC_COTTON.get(), this.posX, this.posY, this.posZ, xSpeed, ySpeed, zSpeed);
         }
         ++this.timeSinceStart;
-        if (this.timeSinceStart == maxTime) {
+        if (this.timeSinceStart >= 5) {
             this.setExpired();
         }
     }

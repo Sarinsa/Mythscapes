@@ -5,7 +5,6 @@ import com.radish.mythscapes.common.entities.misc.MythBoatEntity;
 import net.minecraft.client.renderer.entity.model.SegmentedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
@@ -51,7 +50,7 @@ public class MythBoatModel extends SegmentedModel<MythBoatEntity> {
         this.modelRenderers = modelList.build();
     }
 
-    public void setRotationAngles(@NotNull MythBoatEntity entity, float p_225597_2_, float p_225597_3_, float p_225597_4_, float p_225597_5_, float p_225597_6_) {
+    public void setRotationAngles(MythBoatEntity entity, float p_225597_2_, float p_225597_3_, float p_225597_4_, float p_225597_5_, float p_225597_6_) {
         this.func_228244_a_(entity, 0, p_225597_2_);
         this.func_228244_a_(entity, 1, p_225597_2_);
     }

@@ -84,13 +84,7 @@ public class MythBoatEntity extends BoatEntity {
          */
     }
 
-    private static final DataParameter<Integer> TIME_SINCE_HIT;
-    private static final DataParameter<Integer> FORWARD_DIRECTION;
-    private static final DataParameter<Float> DAMAGE_TAKEN;
-    private static final DataParameter<Integer> BOAT_TYPE;
-    private static final DataParameter<Boolean> LEFT_PADDLE;
-    private static final DataParameter<Boolean> RIGHT_PADDLE;
-    private static final DataParameter<Integer> ROCKING_TICKS;
+    private static final DataParameter<Integer> MYTH_BOAT_TYPE = EntityDataManager.createKey(MythBoatEntity.class, DataSerializers.VARINT);
 
     public MythBoatEntity(EntityType<? extends BoatEntity> type, World world) {
         super(type, world);
@@ -107,46 +101,34 @@ public class MythBoatEntity extends BoatEntity {
 
     @Override
     protected void registerData() {
-        this.dataManager.register(TIME_SINCE_HIT, 0);
-        this.dataManager.register(FORWARD_DIRECTION, 1);
-        this.dataManager.register(DAMAGE_TAKEN, 0.0F);
-        this.dataManager.register(BOAT_TYPE, Type.WOLT.ordinal());
-        this.dataManager.register(LEFT_PADDLE, false);
-        this.dataManager.register(RIGHT_PADDLE, false);
-        this.dataManager.register(ROCKING_TICKS, 0);
+        super.registerData();
+        this.dataManager.register(MYTH_BOAT_TYPE, Type.WOLT.ordinal());
     }
 
+    @Override
     protected void writeAdditional(CompoundNBT compound) {
-        compound.putString("BoatType", this.getMythBoatType().getName());
+        super.writeAdditional(compound);
+        compound.putString("MythBoatType", this.getMythBoatType().getName());
     }
 
+    @Override
     protected void readAdditional(CompoundNBT compound) {
-        if (compound.contains("BoatType", 8)) {
+        super.readAdditional(compound);
+
+        if (compound.contains("MythBoatType", 8)) {
             this.setBoatType(MythBoatEntity.Type.getTypeFromString(compound.getString("BoatType")));
         }
-
     }
 
     public void setBoatType(MythBoatEntity.Type boatType) {
-        this.dataManager.set(BOAT_TYPE, boatType.ordinal());
+        this.dataManager.set(MYTH_BOAT_TYPE, boatType.ordinal());
     }
 
     public MythBoatEntity.Type getMythBoatType() {
-        return MythBoatEntity.Type.byId(this.dataManager.get(BOAT_TYPE));
+        return MythBoatEntity.Type.byId(this.dataManager.get(MYTH_BOAT_TYPE));
     }
-
 
     public IPacket<?> createSpawnPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
-    }
-
-    static {
-        TIME_SINCE_HIT = EntityDataManager.createKey(MythBoatEntity.class, DataSerializers.VARINT);
-        FORWARD_DIRECTION = EntityDataManager.createKey(MythBoatEntity.class, DataSerializers.VARINT);
-        DAMAGE_TAKEN = EntityDataManager.createKey(MythBoatEntity.class, DataSerializers.FLOAT);
-        BOAT_TYPE = EntityDataManager.createKey(MythBoatEntity.class, DataSerializers.VARINT);
-        LEFT_PADDLE = EntityDataManager.createKey(MythBoatEntity.class, DataSerializers.BOOLEAN);
-        RIGHT_PADDLE = EntityDataManager.createKey(MythBoatEntity.class, DataSerializers.BOOLEAN);
-        ROCKING_TICKS = EntityDataManager.createKey(MythBoatEntity.class, DataSerializers.VARINT);
     }
 }

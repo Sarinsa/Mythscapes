@@ -51,10 +51,16 @@ public class MythEntities {
     public static final RegistryObject<EntityType<PondSerpentEntity>> POND_SERPENT = register("pond_serpent", EntityType.Builder.create(PondSerpentEntity::new, EntityClassification.CREATURE).size(0.5f, 0.3f));
     public static final RegistryObject<EntityType<LionEntity>> LION = register("lion", EntityType.Builder.create(LionEntity::new, EntityClassification.CREATURE).size(1.0f, 1.3f));
     public static final RegistryObject<EntityType<FishbonesEntity>> FISHBONES = register("fishbones", EntityType.Builder.create(FishbonesEntity::new, EntityClassification.MONSTER).size(0.6F, 1.8F));
-    public static final RegistryObject<EntityType<SnailEntity>> PYGMY_SNAIL = register("pygmy_snail", EntityType.Builder.create(SnailEntity::new, EntityClassification.CREATURE).size(0.3f, 0.3f));
+    public static final RegistryObject<EntityType<SnailEntity>> PYGMY_SNAIL = register("pygmy_snail", EntityType.Builder.<SnailEntity>create(SnailEntity::new, EntityClassification.CREATURE).size(0.3f, 0.3f));
     public static final RegistryObject<EntityType<DeerEntity>> DEER = register("deer", EntityType.Builder.create(DeerEntity::new, EntityClassification.CREATURE).size(1.0f, 1.4f));
 
-    public static void registerAttributes() {
+    public static void registerData() {
+        registerAttributes();
+        registerEntityPlacement();
+        registerBrushables();
+    }
+
+    private static void registerAttributes() {
         GlobalEntityTypeAttributes.put(POND_SERPENT.get(), PondSerpentEntity.registerEntityAttributes().create());
         GlobalEntityTypeAttributes.put(LION.get(), LionEntity.registerEntityAttributes().create());
         GlobalEntityTypeAttributes.put(FISHBONES.get(), FishbonesEntity.registerEntityAttributes().create());
@@ -62,7 +68,7 @@ public class MythEntities {
         GlobalEntityTypeAttributes.put(DEER.get(), DeerEntity.registerEntityAttributes().create());
     }
 
-    public static void registerBrushables() {
+    private static void registerBrushables() {
         RegistryUtil registryHelper = (RegistryUtil) Mythscapes.getInstance().getRegistryHelper();
 
         registryHelper.registerBrushable(LionEntity.class, new LionBrushable());
@@ -86,7 +92,7 @@ public class MythEntities {
         registryHelper.registerBrushable(PolarBearEntity.class, new DefaultBrushable());
     }
 
-    public static void registerEntityPlacement() {
+    private static void registerEntityPlacement() {
         EntitySpawnPlacementRegistry.register(LION.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
         EntitySpawnPlacementRegistry.register(POND_SERPENT.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractFishEntity::func_223363_b);
         EntitySpawnPlacementRegistry.register(FISHBONES.get(), EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FishbonesEntity::canFishbonesSpawn);

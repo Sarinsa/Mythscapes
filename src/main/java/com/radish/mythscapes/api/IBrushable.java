@@ -5,6 +5,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * This interface can be implemented into a class to
+ * create a "brush recipe" for any living entity.
+ */
 public interface IBrushable<T extends LivingEntity> {
 
     /**
@@ -22,7 +26,7 @@ public interface IBrushable<T extends LivingEntity> {
      * @param fortuneLevel - The fortune enchant level on
      *                       the brush used.
      *
-     * @return  ItemStack that should be dropped
+     * @return - The ItemStacks that can be dropped
      *          when this entity is brushed.
      *          Return ItemStack.EMPTY for no drop.
      */

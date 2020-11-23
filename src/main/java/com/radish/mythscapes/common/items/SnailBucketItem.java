@@ -25,8 +25,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class SnailBucketItem extends Item {
@@ -48,27 +48,25 @@ public class SnailBucketItem extends Item {
             if (!world.isRemote) {
                 SnailEntity snailEntity = this.spawnSnail((ServerWorld) world, itemStack, player, facingPos);
 
-                if (snailEntity == null) {
-                    return ActionResult.resultPass(itemStack);
+                if (!player.abilities.isCreativeMode) {
+                    player.setHeldItem(hand, new ItemStack(Items.BUCKET));
                 }
-                else {
-                    if (!player.abilities.isCreativeMode) {
-                        player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-                    }
-                    player.addStat(Stats.ITEM_USED.get(this));
-                    return ActionResult.resultSuccess(itemStack);
-                }
+                player.addStat(Stats.ITEM_USED.get(this));
+                return ActionResult.resultSuccess(itemStack);
             }
         }
         return ActionResult.resultPass(itemStack);
     }
 
+    @Nullable
     private SnailEntity spawnSnail(ServerWorld world, ItemStack itemStack, PlayerEntity player, BlockPos facingPos) {
         CompoundNBT tag = itemStack.getOrCreateTag().copy();
         if (!tag.contains("SnailType", 8))
             tag.putString("SnailType", SnailEntity.SnailType.getRandom().getName());
 
-        return MythEntities.PYGMY_SNAIL.get().spawn(world, tag, itemStack.hasDisplayName() ? itemStack.getDisplayName() : null, player, facingPos, SpawnReason.BUCKET, false, false);
+        return MythEntities.PYGMY_SNAIL.get().spawn(world, tag, itemStack.hasDisplayName()
+                ? itemStack.getDisplayName()
+                : null, player, facingPos, SpawnReason.BUCKET, false, false);
     }
 
     @Override

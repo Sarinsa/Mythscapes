@@ -22,7 +22,7 @@ public abstract class MythBaseLangProvider extends LanguageProvider {
     }
 
     protected void addSnailType(SnailEntity.SnailType snailType, String localized) {
-        this.add("snail_type." + snailType.getName(), localized);
+        this.add("snail_type." + Mythscapes.MODID + "." + snailType.getName(), localized);
     }
 
     @SafeVarargs

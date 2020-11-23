@@ -1,5 +1,6 @@
 package com.radish.mythscapes.common.entities.living;
 
+import com.google.common.collect.ImmutableList;
 import com.radish.mythscapes.common.register.MythEntities;
 import com.radish.mythscapes.common.tags.MythEntityTags;
 import net.minecraft.entity.*;
@@ -9,7 +10,6 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.RavagerEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -25,22 +25,18 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.Random;
 import java.util.function.Predicate;
 
 public class LionEntity extends AnimalEntity {
 
-    private static final ArrayList<Item> appeasing = new ArrayList<>();
-
     // Appeasing items
-    static {
-        appeasing.add(Items.BEEF);
-        appeasing.add(Items.MUTTON);
-        appeasing.add(Items.CHICKEN);
-        appeasing.add(Items.RABBIT);
-    }
+    private static final ImmutableList<Item> appeasing = ImmutableList.of(
+            Items.BEEF,
+            Items.MUTTON,
+            Items.CHICKEN,
+            Items.RABBIT
+    );
 
     private static final DataParameter<Boolean> LYING = EntityDataManager.createKey(LionEntity.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Integer> HUNGER = EntityDataManager.createKey(LionEntity.class, DataSerializers.VARINT);
@@ -48,7 +44,7 @@ public class LionEntity extends AnimalEntity {
     private static final DataParameter<Integer> TIME_MANE_REGROW = EntityDataManager.createKey(LionEntity.class, DataSerializers.VARINT);
     private static final int maxHunger = 30;
 
-    public static final Predicate<LivingEntity> LION_PREY = (livingEntity) -> (MythEntityTags.LION_PREY.contains(livingEntity.getType()) || livingEntity instanceof ServerPlayerEntity);
+    public static final Predicate<LivingEntity> LION_PREY = (livingEntity) -> (MythEntityTags.LION_PREY.contains(livingEntity.getType()) || livingEntity instanceof PlayerEntity);
 
 
     public LionEntity(EntityType<? extends AnimalEntity> entityType, World world) {
@@ -258,7 +254,6 @@ public class LionEntity extends AnimalEntity {
 
     private static class LionLyingGoal extends Goal {
 
-        private Random random = new Random();
         private final LionEntity lionEntity;
         private int executionChance;
         private int timeLying;
@@ -294,7 +289,7 @@ public class LionEntity extends AnimalEntity {
 
         @Override
         public void startExecuting() {
-            this.timeLying = this.random.nextInt(300) + 300;
+            this.timeLying = this.lionEntity.getRNG().nextInt(300) + 300;
             lionEntity.getNavigator().clearPath();
             lionEntity.setLying(true);
             lionEntity.setAggroed(false);
@@ -307,5 +302,4 @@ public class LionEntity extends AnimalEntity {
             lionEntity.getNavigator().clearPath();
         }
     }
-
 }

@@ -10,6 +10,7 @@ public class MythEntityTags {
     public static final ITag.INamedTag<EntityType<?>> DIES_IN_SULFUR = modTag("dies_in_sulfur");
     public static final ITag.INamedTag<EntityType<?>> ELECTRIC = modTag("electric");
     public static final ITag.INamedTag<EntityType<?>> LION_PREY = modTag("lion_prey");
+    public static final ITag.INamedTag<EntityType<?>> SWOOSH_WHITELIST = modTag("swoosh_whitelist");
 
     private static ITag.INamedTag<EntityType<?>> forgeTag(String name) {
         return EntityTypeTags.getTagById("forge:" + name);

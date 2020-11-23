@@ -2,6 +2,7 @@ package com.radish.mythscapes.common.entities.living;
 
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.misc.Util;
+import com.radish.mythscapes.common.register.MythEntities;
 import com.radish.mythscapes.common.register.MythItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -73,8 +74,7 @@ public class SnailEntity extends CreatureEntity {
         }
 
         public static SnailType getFromName(String name) {
-            SnailType[] types = values();
-            for (SnailType type : types) {
+            for (SnailType type : values()) {
                 if (type.getName().equals(name)) {
                     return type;
                 }
@@ -83,9 +83,11 @@ public class SnailEntity extends CreatureEntity {
         }
 
         @Nullable
-        public static SnailType getFromNameOrNull(String name) {
-            SnailType[] types = values();
-            for (SnailType type : types) {
+        public static SnailType getFromNameOrNull(@Nullable String name) {
+            if (name == null || name.isEmpty())
+                return null;
+
+            for (SnailType type : values()) {
                 if (type.getName().equals(name)) {
                     return type;
                 }
@@ -106,6 +108,11 @@ public class SnailEntity extends CreatureEntity {
 
     public SnailEntity(EntityType<? extends CreatureEntity> type, World world) {
         super(type, world);
+    }
+
+    public SnailEntity(double x, double y, double z, World world) {
+        this(MythEntities.PYGMY_SNAIL.get(), world);
+        this.setPosition(x, y, z);
     }
 
     @Override

@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "mythscapes:bejeweled_galvite"
-  },
-  "result": "minecraft:diamond",
-  "experience": 1.0,
-  "cookingtime": 200
-}

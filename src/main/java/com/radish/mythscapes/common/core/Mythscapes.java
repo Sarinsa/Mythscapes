@@ -68,9 +68,7 @@ public class Mythscapes {
         MythBlocks.registerBlockInfo();
         //MythBiomes.setBiomeEntitySpawns();
         MythBiomes.addBiomes();
-        MythEntities.registerBrushables();
-        MythEntities.registerAttributes();
-        MythEntities.registerEntityPlacement();
+        MythEntities.registerData();
         MythSounds.registerParrotMimics();
         MythPotions.registerBrewingRecipes();
         DispenserBehavior.register();

@@ -96,6 +96,8 @@
   "entity.mythscapes.pond_serpent": "Pond Serpent",
   "entity.mythscapes.pygmy_snail": "Pygmy Snail",
   "entity.mythscapes.static_cotton": "Static Cotton",
+  "fluid.mythscapes.flowing_liquid_sulfur": "Liquid Sulfur",
+  "fluid.mythscapes.liquid_sulfur": "Liquid Sulfur",
   "item.mythscapes.activated_blisterberry": "Activated Blisterberry",
   "item.mythscapes.antler": "Antler",
   "item.mythscapes.barbarian_hood": "Barbarian Hood",
@@ -129,10 +131,10 @@
   "item.mythscapes.wolt_fruit": "Wolt Fruit",
   "item.mythscapes.wolt_powder": "Wolt Powder",
   "itemGroup.mythscapes": "Mythscapes",
-  "snail_type.bog": "Bog",
-  "snail_type.flower_forest": "Flower Forest",
-  "snail_type.jeweled": "Jeweled",
-  "snail_type.jungle": "Jungle",
-  "snail_type.mushroom": "Mushroom",
-  "snail_type.swamp": "Swamp"
+  "snail_type.mythscapes.bog": "Bog",
+  "snail_type.mythscapes.flower_forest": "Flower Forest",
+  "snail_type.mythscapes.jeweled": "Jeweled",
+  "snail_type.mythscapes.jungle": "Jungle",
+  "snail_type.mythscapes.mushroom": "Mushroom",
+  "snail_type.mythscapes.swamp": "Swamp"
 }

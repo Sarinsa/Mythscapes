@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "mythscapes:polished_trollstone"
-  },
-  "result": "mythscapes:polished_trollstone_pillar",
-  "count": 1
-}

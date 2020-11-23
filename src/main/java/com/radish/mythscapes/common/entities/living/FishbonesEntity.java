@@ -37,8 +37,6 @@ public class FishbonesEntity extends MonsterEntity {
     public FishbonesEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
         this.setPathPriority(PathNodeType.WATER, 8.0F);
-        this.setPathPriority(PathNodeType.DANGER_FIRE, -1.0F);
-        this.setPathPriority(PathNodeType.DAMAGE_FIRE, -1.0F);
         this.stepHeight = 1.0f;
     }
 

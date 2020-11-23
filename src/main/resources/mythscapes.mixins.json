@@ -6,7 +6,8 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "AbstractMinecartEntityMixin",
-    "EntityMixin"
+    "EntityMixin",
+    "ComposterBlockMixin"
   ],
   "client": [],
   "server": [],

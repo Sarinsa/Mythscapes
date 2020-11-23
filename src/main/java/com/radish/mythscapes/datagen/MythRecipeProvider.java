@@ -38,9 +38,19 @@ public class MythRecipeProvider extends RecipeProvider {
         this.registerStonecuttingRecipe(MythItems.POWERED_GALVITE_BRICK_SLAB, MythItems.POWERED_GALVITE.get(), 2, consumer);
         this.registerStonecuttingRecipe(MythItems.POWERED_GALVITE_BRICK_STAIRS, MythItems.POWERED_GALVITE.get(), 1, consumer);
         this.registerStonecuttingRecipe(MythItems.POWERED_GALVITE_BRICK_WALL, MythItems.POWERED_GALVITE.get(), 1, consumer);
+
         this.registerStonecuttingRecipe(MythItems.GALVITE_SLAB, MythItems.GALVITE.get(), 2, consumer);
         this.registerStonecuttingRecipe(MythItems.GALVITE_STAIRS, MythItems.GALVITE.get(), 1, consumer);
         this.registerStonecuttingRecipe(MythItems.GALVITE_WALL, MythItems.GALVITE.get(), 1, consumer);
+        this.registerStonecuttingRecipe(MythItems.POLISHED_GALVITE_SLAB, MythItems.GALVITE.get(), 2, consumer);
+        this.registerStonecuttingRecipe(MythItems.POLISHED_GALVITE_STAIRS, MythItems.GALVITE.get(), 1, consumer);
+        this.registerStonecuttingRecipe(MythItems.POLISHED_GALVITE_WALL, MythItems.GALVITE.get(), 1, consumer);
+        this.registerStonecuttingRecipe(MythItems.CHISELED_POLISHED_GALVITE, MythItems.GALVITE.get(), 1, consumer);
+        this.registerStonecuttingRecipe(MythItems.POLISHED_GALVITE_BRICK_SLAB, MythItems.GALVITE.get(), 2, consumer);
+        this.registerStonecuttingRecipe(MythItems.POLISHED_GALVITE_BRICK_STAIRS, MythItems.GALVITE.get(), 1, consumer);
+        this.registerStonecuttingRecipe(MythItems.POLISHED_GALVITE_BRICK_WALL, MythItems.GALVITE.get(), 1, consumer);
+        this.registerStonecuttingRecipe(MythItems.GALVITE_SHINGLE_SLAB, MythItems.GALVITE.get(), 2, consumer);
+        this.registerStonecuttingRecipe(MythItems.GALVITE_SHINGLE_STAIRS, MythItems.GALVITE.get(), 1, consumer);
         this.registerStonecuttingRecipe(MythItems.POLISHED_GALVITE_SLAB, MythItems.POLISHED_GALVITE.get(), 2, consumer);
         this.registerStonecuttingRecipe(MythItems.POLISHED_GALVITE_STAIRS, MythItems.POLISHED_GALVITE.get(), 1, consumer);
         this.registerStonecuttingRecipe(MythItems.POLISHED_GALVITE_WALL, MythItems.POLISHED_GALVITE.get(), 1, consumer);
@@ -57,6 +67,7 @@ public class MythRecipeProvider extends RecipeProvider {
         this.registerStonecuttingRecipe(MythItems.GALVITE_SHINGLE_STAIRS, MythItems.POLISHED_GALVITE_BRICKS.get(), 1, consumer);
         this.registerStonecuttingRecipe(MythItems.GALVITE_SHINGLE_SLAB, MythItems.GALVITE_SHINGLES.get(), 2, consumer);
         this.registerStonecuttingRecipe(MythItems.GALVITE_SHINGLE_STAIRS, MythItems.GALVITE_SHINGLES.get(), 1, consumer);
+
         this.registerStonecuttingRecipe(MythItems.TROLLSTONE_SLAB, MythItems.TROLLSTONE.get(), 2, consumer);
         this.registerStonecuttingRecipe(MythItems.TROLLSTONE_STAIRS, MythItems.TROLLSTONE.get(), 1, consumer);
         this.registerStonecuttingRecipe(MythItems.TROLLSTONE_WALL, MythItems.TROLLSTONE.get(), 1, consumer);
@@ -163,6 +174,7 @@ public class MythRecipeProvider extends RecipeProvider {
                 .build(consumer);
 
         this.shapedRecipe(MythItems.WOLT_DOOR.get(), 3, MythItems.WOLT_PLANKS.get())
+                .setGroup("wooden_door")
                 .patternLine("##")
                 .patternLine("##")
                 .patternLine("##")
@@ -170,6 +182,7 @@ public class MythRecipeProvider extends RecipeProvider {
                 .build(consumer);
 
         this.shapedRecipe(MythItems.WOLT_TRAPDOOR.get(), 2, MythItems.WOLT_PLANKS.get())
+                .setGroup("wooden_trapdoor")
                 .patternLine("###")
                 .patternLine("###")
                 .key('#', MythItems.WOLT_PLANKS.get())
@@ -273,6 +286,7 @@ public class MythRecipeProvider extends RecipeProvider {
                 .build(consumer);
 
         this.shapedRecipe(MythItems.WOLT_BOAT.get(), 1, MythItems.WOLT_PLANKS.get())
+                .setGroup("boat")
                 .patternLine("# #")
                 .patternLine("###")
                 .key('#', MythItems.WOLT_PLANKS.get())
@@ -512,10 +526,21 @@ public class MythRecipeProvider extends RecipeProvider {
         String criterionName = Objects.requireNonNull(ingredient.asItem().getRegistryName()).getPath();
         ShapedRecipeBuilder.shapedRecipe(result, 1)
                 .setGroup("wooden_fence_gate")
-                .patternLine("#S#")
-                .patternLine("#S#")
+                .patternLine("S#S")
+                .patternLine("S#S")
                 .key('#', ingredient)
                 .key('S', Ingredient.fromItems(Items.STICK))
+                .addCriterion(criterionName, hasItem(ingredient))
+                .build(consumer);
+    }
+
+    private void boatRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
+        String criterionName = Objects.requireNonNull(ingredient.asItem().getRegistryName()).getPath();
+        ShapedRecipeBuilder.shapedRecipe(result, 1)
+                .setGroup("boat")
+                .patternLine("# #")
+                .patternLine("###")
+                .key('#', MythItems.WOLT_PLANKS.get())
                 .addCriterion(criterionName, hasItem(ingredient))
                 .build(consumer);
     }

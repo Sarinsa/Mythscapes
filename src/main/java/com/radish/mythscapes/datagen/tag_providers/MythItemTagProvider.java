@@ -33,7 +33,6 @@ public class MythItemTagProvider extends ItemTagsProvider {
                 MythItems.WOLT_BOAT.get()
         );
 
-        // All prismarine
         this.getOrCreateBuilder(MythItemTags.PRISMARINE).add(
                 Items.PRISMARINE_BRICKS,
                 Items.PRISMARINE_BRICK_SLAB,
@@ -61,6 +60,8 @@ public class MythItemTagProvider extends ItemTagsProvider {
         this.copy(BlockTags.WOODEN_STAIRS, ItemTags.WOODEN_STAIRS);
         this.copy(BlockTags.WOODEN_SLABS, ItemTags.WOODEN_SLABS);
         this.copy(BlockTags.WOODEN_FENCES, ItemTags.WOODEN_FENCES);
+        this.copy(Tags.Blocks.FENCE_GATES_WOODEN, Tags.Items.FENCE_GATES_WOODEN);
+        this.copy(Tags.Blocks.FENCES_WOODEN, Tags.Items.FENCES_WOODEN);
         this.copy(BlockTags.WOODEN_PRESSURE_PLATES, ItemTags.WOODEN_PRESSURE_PLATES);
         this.copy(BlockTags.DOORS, ItemTags.DOORS);
         this.copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);

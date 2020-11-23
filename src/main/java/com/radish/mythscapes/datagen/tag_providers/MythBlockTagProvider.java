@@ -104,12 +104,18 @@ public class MythBlockTagProvider extends BlockTagsProvider {
 
         this.getOrCreateBuilder(BlockTags.WOODEN_FENCES).add(
                 MythBlocks.WOLT_FENCE.get()
-                //MythBlocks.VIRIDIAN_FENCE.get()
+        );
+
+        this.getOrCreateBuilder(Tags.Blocks.FENCES_WOODEN).add(
+                MythBlocks.WOLT_FENCE.get()
+        );
+
+        this.getOrCreateBuilder(BlockTags.FENCE_GATES).add(
+                MythBlocks.WOLT_FENCE_GATE.get()
         );
 
         this.getOrCreateBuilder(Tags.Blocks.FENCE_GATES_WOODEN).add(
                 MythBlocks.WOLT_FENCE_GATE.get()
-                //MythBlocks.VIRIDIAN_FENCE_GATE.get()
         );
 
         this.getOrCreateBuilder(BlockTags.WOODEN_DOORS).add(

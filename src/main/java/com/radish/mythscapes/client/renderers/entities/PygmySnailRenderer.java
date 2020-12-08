@@ -25,6 +25,7 @@ public class PygmySnailRenderer extends MobRenderer<SnailEntity, PygmySnailModel
 
     @Override
     public ResourceLocation getEntityTexture(SnailEntity entity) {
+        //return SnailEntity.SNAIL_TYPES.get(entity.getSnailType().getName()).getSnailTexture();
         return SNAIL_TEXTURES[entity.getSnailType().ordinal()];
     }
 }

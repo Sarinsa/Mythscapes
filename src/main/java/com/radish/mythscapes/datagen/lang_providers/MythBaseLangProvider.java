@@ -22,7 +22,7 @@ public abstract class MythBaseLangProvider extends LanguageProvider {
     }
 
     protected void addSnailType(SnailEntity.SnailType snailType, String localized) {
-        this.add("snail_type." + Mythscapes.MODID + "." + snailType.getName(), localized);
+        this.add(snailType.getTranslationKey(), localized);
     }
 
     @SafeVarargs
@@ -38,11 +38,11 @@ public abstract class MythBaseLangProvider extends LanguageProvider {
     }
 
     protected void addDamageSource(String damageSource, String localized) {
-        this.add("attack.death." + damageSource, localized);
+        this.add("death.attack." + damageSource, localized);
     }
 
     protected void addDamageSourceWithAttacker(String damageSource, String localized) {
-        this.add("attack.death." + damageSource + ".player", localized);
+        this.add("death.attack." + damageSource + ".player", localized);
     }
 
     protected void addAdvancementTitle(String name, String localized) {
@@ -51,5 +51,13 @@ public abstract class MythBaseLangProvider extends LanguageProvider {
 
     protected void addAdvancementDesc(String name, String localized) {
         this.add("advancements." + Mythscapes.MODID + "." + name + ".description", localized);
+    }
+
+    protected void addHwylaConfig(String name, String localized) {
+        this.add("config.waila.plugin_mythscapes." + name, localized);
+    }
+
+    protected void addHwylaTooltip(String name, String localized) {
+        this.add("tooltip.waila.plugin_mythscapes." + name, localized);
     }
 }

@@ -7,7 +7,6 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.monster.RavagerEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -55,7 +54,7 @@ public class LionEntity extends AnimalEntity {
     public void registerGoals() {
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new LionPanicGoal(this, 1.5D));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, RavagerEntity.class, 20.0F, 1.2D, 1.5D));
+        //this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, RavagerEntity.class, 20.0F, 1.2D, 1.5D));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.2f, true));
         this.goalSelector.addGoal(4, new BreedGoal(this, 1.1D));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
@@ -199,7 +198,7 @@ public class LionEntity extends AnimalEntity {
     }
 
     public boolean isLying() {
-        return true;
+        return false;
         //return this.dataManager.get(LYING);
     }
 

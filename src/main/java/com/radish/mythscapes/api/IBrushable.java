@@ -23,12 +23,12 @@ public interface IBrushable<T extends LivingEntity> {
     boolean canBrush(T livingEntity, World world);
 
     /**
-     * @param fortuneLevel - The fortune enchant level on
-     *                       the brush used.
+     * @param fortuneLevel The fortune enchant level on
+     *                     the brush used.
      *
-     * @return - The ItemStacks that can be dropped
-     *          when this entity is brushed.
-     *          Return ItemStack.EMPTY for no drop.
+     * @return The ItemStacks that can be dropped
+     *         when this entity is brushed.
+     *         Return ItemStack.EMPTY for no drop.
      */
     @NotNull
     ItemStack itemDropped(T livingEntity, int fortuneLevel);

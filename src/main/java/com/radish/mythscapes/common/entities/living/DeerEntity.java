@@ -12,6 +12,7 @@ import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -32,13 +33,13 @@ public class DeerEntity extends AnimalEntity {
 
     @Override
     public void registerGoals() {
-        this.goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 0.8, Ingredient.fromItems(Items.APPLE), false));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, PlayerEntity.class, 10.0F, 1.1D, 1.4D));
         this.goalSelector.addGoal(5, new PanicGoal(this, 1.2D));
-        this.goalSelector.addGoal(7, new FollowParentGoal(this, 1.1D));
-        this.goalSelector.addGoal(8, new WaterAvoidingRandomWalkingGoal(this, 0.7D));
+        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.1D));
+        this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 0.7D));
         this.goalSelector.addGoal(10, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(12, new LookRandomlyGoal(this));
     }
@@ -86,6 +87,23 @@ public class DeerEntity extends AnimalEntity {
             InventoryHelper.spawnItemStack(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(MythItems.ANTLER.get()));
         }
     }
+
+    @Override
+    public void writeAdditional(CompoundNBT compound) {
+        super.writeAdditional(compound);
+
+        compound.putBoolean("HasAntlers", this.dataManager.get(HAS_ANTLERS));
+        compound.putInt("RegrowthTime", this.dataManager.get(REGROWTH_TIME));
+    }
+
+    @Override
+    public void readAdditional(CompoundNBT compound) {
+        super.readAdditional(compound);
+
+        this.dataManager.set(HAS_ANTLERS, compound.getBoolean("HasAntlers"));
+        this.dataManager.set(REGROWTH_TIME, compound.getInt("RegrowthTime"));
+    }
+
 
     @Override
     public boolean isBreedingItem(ItemStack itemStack) {

@@ -132,9 +132,11 @@
   "item.mythscapes.wolt_powder": "Wolt Powder",
   "itemGroup.mythscapes": "Mythscapes",
   "snail_type.mythscapes.bog": "Bog",
-  "snail_type.mythscapes.flower_forest": "Flower Forest",
+  "snail_type.mythscapes.roofed_forest": "Flower Forest",
   "snail_type.mythscapes.jeweled": "Jeweled",
   "snail_type.mythscapes.jungle": "Jungle",
   "snail_type.mythscapes.mushroom": "Mushroom",
-  "snail_type.mythscapes.swamp": "Swamp"
+  "snail_type.mythscapes.swamp": "Swamp",
+  "config.waila.plugin_mythscapes": "Mythscapes",
+  "config.waila.plugin_mythscapes.show_snail_type": "Show Snail Type"
 }

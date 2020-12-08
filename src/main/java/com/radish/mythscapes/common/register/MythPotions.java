@@ -1,15 +1,10 @@
 package com.radish.mythscapes.common.register;
 
 import com.radish.mythscapes.common.core.Mythscapes;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionUtils;
-import net.minecraft.tags.Tag;
+import net.minecraft.potion.*;
 import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
@@ -23,19 +18,17 @@ public class MythPotions {
 
     public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTION_TYPES, Mythscapes.MODID);
 
+    public static final RegistryObject<Potion> PETRIFICATION = register("petrified", MythEffects.PETRIFIED, (20 * 15), 0);
+    public static final RegistryObject<Potion> LONG_PETRIFICATION = register("long_petrified", MythEffects.PETRIFIED, (20 * 25), 0);
+
+
     private static RegistryObject<Potion> register(String name, Supplier<Effect> effectSupplier, int duration, int amplifier) {
         return POTIONS.register(name, () -> new Potion(new EffectInstance(effectSupplier.get(), duration, amplifier)));
     }
 
-    // TODO - Find a way to fix this mess, cause the way I have it planned now does not seem convenient or doable at all. - Sarinsa
-    /*
-    public static final RegistryObject<Potion> PETRIFICATION = register("petrified", MythEffects.PETRIFIED, (20 * 15), 0);
-    public static final RegistryObject<Potion> LONG_PETRIFICATION = register("long_petrified", MythEffects.PETRIFIED, (20 * 25), 0);
-    */
-
-
     public static void registerBrewingRecipes() {
-        registerBrewingRecipe(Items.HONEY_BOTTLE, Items.GOLD_NUGGET, Items.BROWN_MUSHROOM);
+        registerBrewingRecipe(Potions.AWKWARD, MythBlocks.TROLLSTONE.get(), PETRIFICATION.get());
+        registerBrewingRecipe(PETRIFICATION.get(), Items.GLOWSTONE_DUST, LONG_PETRIFICATION.get());
     }
 
 
@@ -52,14 +45,6 @@ public class MythPotions {
                 Ingredient.fromItems(potionIngredient),
                 Ingredient.fromItems(itemIngredient),
                 new ItemStack(potionResult)
-        ));
-    }
-
-    private static void registerBrewingRecipe(Potion potionIngredient, Tag<Item> itemIngredient, Potion potionResult) {
-        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(
-                Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), potionIngredient)),
-                Ingredient.fromTag(itemIngredient),
-                PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), potionResult)
         ));
     }
 }

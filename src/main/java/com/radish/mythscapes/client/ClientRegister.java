@@ -38,6 +38,7 @@ public class ClientRegister {
 
     @SubscribeEvent
     public static void registerClient(FMLClientSetupEvent event) {
+        MinecraftForge.EVENT_BUS.register(new ClientEvents());
         registerEntityRenderers(event.getMinecraftSupplier());
         setBlockRenderTypes();
     }
@@ -88,9 +89,5 @@ public class ClientRegister {
     private static <T extends Entity & IRendersAsItem> void registerSpriteRenderer(EntityType<T> entityType, Supplier<Minecraft> minecraftSupplier) {
         ItemRenderer renderer = minecraftSupplier.get().getItemRenderer();
         RenderingRegistry.registerEntityRenderingHandler(entityType, (rendererManager) -> new SpriteRenderer<>(rendererManager, renderer));
-    }
-
-    public static void registerClientEvents() {
-        MinecraftForge.EVENT_BUS.register(new ClientEvents());
     }
 }

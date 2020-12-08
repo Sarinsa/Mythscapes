@@ -1,5 +1,6 @@
 package com.radish.mythscapes.common.entities.living;
 
+import com.radish.mythscapes.api.ISnailType;
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.misc.Util;
 import com.radish.mythscapes.common.register.MythEntities;
@@ -27,10 +28,13 @@ import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.common.BiomeDictionary;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.LinkedHashMap;
 import java.util.Random;
 import java.util.function.Supplier;
 
 public class SnailEntity extends CreatureEntity {
+
+    public static final LinkedHashMap<String, ISnailType> SNAIL_TYPES = new LinkedHashMap<>();
 
     public enum SnailType {
         MUSHROOM("mushroom", Rarity.COMMON),
@@ -59,6 +63,10 @@ public class SnailEntity extends CreatureEntity {
 
         public String getName() {
             return this.name;
+        }
+
+        public String getTranslationKey() {
+            return "snail_type." + Mythscapes.MODID + "." + this.getName();
         }
 
         public Rarity getRarity() {
@@ -135,8 +143,12 @@ public class SnailEntity extends CreatureEntity {
     public void livingTick() {
         super.livingTick();
         if (!world.isRemote && --this.timeUntilShellShed <= 0) {
-            this.timeUntilShellShed = rand.nextInt(8000) + 3000;
-            this.entityDropItem(getShedDrop());
+            ItemStack itemStack = this.getShedDrop(this.rand);
+
+            if (!itemStack.isEmpty()) {
+                this.timeUntilShellShed = this.rand.nextInt(8000) + 3000;
+                this.entityDropItem(itemStack);
+            }
         }
     }
 
@@ -153,12 +165,21 @@ public class SnailEntity extends CreatureEntity {
         this.dataManager.set(SNAIL_TYPE, snailType.getName());
     }
 
+    public void setSnailType(ISnailType snailType) {
+        this.dataManager.set(SNAIL_TYPE, snailType.getName());
+    }
+
     public SnailType getSnailType() {
         return SnailType.getFromName(this.dataManager.get(SNAIL_TYPE));
     }
 
-    public ItemStack getShedDrop() {
-        return this.getSnailType().getShedDrop();
+    public ISnailType getSnailTypee() {
+        return SNAIL_TYPES.getOrDefault(this.dataManager.get(SNAIL_TYPE), null);
+    }
+
+    public ItemStack getShedDrop(Random random) {
+        ItemStack itemStack = this.getSnailTypee().getShedDrop(random);
+        return itemStack == null ? new ItemStack(MythItems.SNAIL_SHELL.get()) : itemStack;
     }
 
     @Override
@@ -218,6 +239,6 @@ public class SnailEntity extends CreatureEntity {
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.FOLLOW_RANGE, 12.0D)
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.08D)
-                .createMutableAttribute(Attributes.MAX_HEALTH, 2.0D);
+                .createMutableAttribute(Attributes.MAX_HEALTH, 3.0D);
     }
 }

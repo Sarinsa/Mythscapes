@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 public @interface MythscapesPlugin {
 
     /**
-     * @return - The mod ID of your mod.
+     * @return The mod ID of your mod.
      */
     String modid() default "";
 }

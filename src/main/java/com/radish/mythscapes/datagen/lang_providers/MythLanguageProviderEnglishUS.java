@@ -174,5 +174,9 @@ public class MythLanguageProviderEnglishUS extends MythBaseLangProvider {
 
         this.addAdvancementTitle("root", "\"This... is a bucket!\"");
         this.addAdvancementDesc("root", "Pick up a snail in a bucket.");
+
+        // Hwyla stuff
+        this.add("config.waila.plugin_mythscapes", "Mythscapes");
+        this.addHwylaConfig("show_snail_type", "Show Snail Type");
     }
 }

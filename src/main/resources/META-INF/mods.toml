@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[33,)"
+loaderVersion="[34,)"
 issueTrackerURL="https://github.com/Raaadish/Mythscapes/issues"
 license="MIT"
 
@@ -15,11 +15,11 @@ license="MIT"
 [[dependencies.mythscapes]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.3]"
+    versionRange="[1.16.4]"
     side="BOTH"
 
 [[dependencies.mythscapes]]
     modId="forge"
     mandatory=true
-    versionRange="[${forge_version},)"
+    versionRange="[35.1.11,)"
     side="BOTH"

@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
@@ -20,6 +21,8 @@ public class ClientEvents {
 
     private final Supplier<Minecraft> mc = Minecraft::getInstance;
 
+    private static final Vector3d SULFUR_COLORS = new Vector3d(2.2d, 1.85d, 0.01d);
+
     private static final ResourceLocation PETRIFIED_HEARTS = Mythscapes.resourceLoc("textures/misc/petrified_hearts.png");
     private static final ResourceLocation PETRIFIED_ENTITY = Mythscapes.resourceLoc("textures/misc/petrified.png");
 
@@ -28,8 +31,7 @@ public class ClientEvents {
     public void onFogDensity(EntityViewRenderEvent.FogDensity event) {
         ClientPlayerEntity playerEntity = mc.get().player;
 
-        if (playerEntity == null)
-            return;
+        Mythscapes.LOGGER.info(playerEntity.areEyesInFluid(MythFluidTags.SULFUR));
 
         if (playerEntity.areEyesInFluid(MythFluidTags.SULFUR)) {
             event.setDensity(0.5f);
@@ -37,12 +39,19 @@ public class ClientEvents {
         }
     }
 
+    @SubscribeEvent
+    public void onFogColor(EntityViewRenderEvent.FogColors event) {
+        ClientPlayerEntity playerEntity = mc.get().player;
+
+        if (playerEntity.areEyesInFluid(MythFluidTags.SULFUR)) {
+            setFogColors(event, SULFUR_COLORS);
+            event.setCanceled(true);
+        }
+    }
+
     @SubscribeEvent(priority = EventPriority.HIGH)
     public void onHeartsRender(RenderGameOverlayEvent.Pre event) {
         ClientPlayerEntity playerEntity = mc.get().player;
-
-        if (playerEntity == null)
-            return;
 
         if (event.getType() == RenderGameOverlayEvent.ElementType.HEALTH) {
             if (playerEntity.isPotionActive(MythEffects.PETRIFIED.get())) {
@@ -52,8 +61,8 @@ public class ClientEvents {
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
-    public void onRenderLiving(RenderLivingEvent<?, ?> event) {
-        if (event.getEntity().getActivePotionEffect(MythEffects.PETRIFIED.get()) != null) {
+    public void onRenderLiving(RenderLivingEvent.Pre<?, ?> event) {
+        if (event.getEntity().isPotionActive(MythEffects.PETRIFIED.get())) {
             LivingEntity entity = event.getEntity();
             MatrixStack matrixStack = event.getMatrixStack();
             double x = entity.getPosX();
@@ -63,5 +72,11 @@ public class ClientEvents {
 
             Minecraft.getInstance().getTextureManager().bindTexture(PETRIFIED_ENTITY);
         }
+    }
+
+    private static void setFogColors(EntityViewRenderEvent.FogColors event, Vector3d colors) {
+        event.setRed((float) colors.getX());
+        event.setGreen((float) colors.getY());
+        event.setBlue((float) colors.getZ());
     }
 }

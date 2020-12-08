@@ -9,8 +9,14 @@ public interface IMythscapesPlugin {
     /**
      * Called during FMLLoadCompleteEvent, when this plugin has been detected and validated.
      *
-     * @param iRegistryHelper - The IRegistryHelper instance parsed
-     *                          by Mythscapes.
+     * @param iRegistryHelper The IRegistryHelper instance parsed
+     *                        by Mythscapes.
      */
     void register(IRegistryHelper iRegistryHelper);
+
+    /**
+     * @return The name of this plugin.
+     *         Used for debug and logging,
+     */
+    String getPluginName();
 }

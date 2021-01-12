@@ -155,9 +155,18 @@ public class MythLanguageProviderEnglishUS extends MythBaseLangProvider {
         this.addEntityType(MythEntities.PYGMY_SNAIL, "Pygmy Snail");
         this.addEntityType(MythEntities.DEER, "Deer");
 
-        this.addEffect(MythEffects.PETRIFIED, "Petrification");
+        this.addEffect(MythEffects.PETRIFIED, "Petrification [WIP]");
         this.addEffect(MythEffects.STATIC, "Static");
         this.addEffect(MythEffects.VOLATILE, "Volatile");
+
+        this.addPotionItem(MythPotions.PETRIFICATION, "Potion of Petrification");
+        this.addPotionItem(MythPotions.LONG_PETRIFICATION, "Potion of Petrification");
+        this.addSplashPotionItem(MythPotions.PETRIFICATION, "Splash Potion of Petrification");
+        this.addSplashPotionItem(MythPotions.LONG_PETRIFICATION, "Splash Potion of Petrification");
+        this.addLingeringPotionItem(MythPotions.PETRIFICATION, "Lingering Potion of Petrification");
+        this.addLingeringPotionItem(MythPotions.LONG_PETRIFICATION, "Lingering Potion of Petrification");
+        this.addTippedArrowItem(MythPotions.PETRIFICATION, "Arrow of Petrification");
+        this.addTippedArrowItem(MythPotions.LONG_PETRIFICATION, "Arrow of Petrification");
 
         this.addEnchantment(MythEnchantments.SOOTHING, "Soothing");
 
@@ -169,6 +178,9 @@ public class MythLanguageProviderEnglishUS extends MythBaseLangProvider {
         this.addSnailType(SnailTypeRegister.MUSHROOM, "Mushroom");
         this.addSnailType(SnailTypeRegister.SWAMP, "Swamp");
 
+        this.addPotion(MythPotions.PETRIFICATION, "Potion of Petrification");
+        this.addPotion(MythPotions.LONG_PETRIFICATION, "Potion of Petrification");
+
         this.addDamageSource("volatile_explosion", VICTIM + " exploded");
         this.addDamageSource("static_shock", VICTIM + " was electrocuted to death");
         this.addDamageSource("salt_dehydration", VICTIM + " shriveled up");
@@ -177,7 +189,7 @@ public class MythLanguageProviderEnglishUS extends MythBaseLangProvider {
         this.addDamageSourceWithAttacker("salt_dehydration", VICTIM + " shriveled up while fighting " + ATTACKER);
 
         this.addAdvancementTitle("root", "\"This... is a bucket!\"");
-        this.addAdvancementDesc("root", "Pick up a snail in a bucket.");
+        this.addAdvancementDesc("root", "Dear god... *cough* I mean, pick up a snail with a bucket");
 
         // Hwyla stuff
         this.add("config.waila.plugin_mythscapes", "Mythscapes");

@@ -34,6 +34,27 @@ public abstract class MythBaseLangProvider extends LanguageProvider {
         }
     }
 
+    protected void addPotionItem(Supplier<Potion> potionSupplier, String localized) {
+        String name = Objects.requireNonNull(potionSupplier.get().getRegistryName()).getPath();
+        this.add("item.minecraft.potion.effect." + name, localized);
+    }
+
+    protected void addSplashPotionItem(Supplier<Potion> potionSupplier, String localized) {
+        String name = Objects.requireNonNull(potionSupplier.get().getRegistryName()).getPath();
+        this.add("item.minecraft.splash_potion.effect." + name, localized);
+    }
+
+    protected void addLingeringPotionItem(Supplier<Potion> potionSupplier, String localized) {
+        String name = Objects.requireNonNull(potionSupplier.get().getRegistryName()).getPath();
+        this.add("item.minecraft.lingering_potion.effect." + name, localized);
+    }
+
+    protected void addTippedArrowItem(Supplier<Potion> potionSupplier, String localized) {
+        String name = Objects.requireNonNull(potionSupplier.get().getRegistryName()).getPath();
+        this.add("item.minecraft.tipped_arrow.effect." + name, localized);
+    }
+
+
     protected void addPotion(Supplier<Potion> potionSupplier, String localized) {
         this.add(Util.makeTranslationKey("potion", ForgeRegistries.POTION_TYPES.getKey(potionSupplier.get())), localized);
     }

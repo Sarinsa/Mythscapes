@@ -33,12 +33,12 @@ public class Mythscapes {
     private final RegistryHelper registryHelper = new RegistryHelper();
     private final SnailTypeRegister snailTypeRegister = new SnailTypeRegister();
 
-    static {
-        MythBlockTags.init();
-    }
-
     public Mythscapes() {
         INSTANCE = this;
+
+        // Spawn eggs are really cool.
+        MythEntities.initTypes();
+        MythBlockTags.init();
 
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 

@@ -1,7 +1,6 @@
 package com.radish.mythscapes.common.entities.living;
 
 import com.google.common.collect.ImmutableList;
-import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.register.MythEntities;
 import com.radish.mythscapes.common.tags.MythEntityTags;
 import net.minecraft.entity.*;
@@ -264,17 +263,12 @@ public class LionEntity extends AnimalEntity {
 
         @Override
         public boolean shouldContinueExecuting() {
-            if (super.shouldContinueExecuting()) {
-                if (this.target instanceof PlayerEntity) {
-                    Mythscapes.LOGGER.info("Lion appeased: " + LionEntity.this.isAppeased());
-                    Mythscapes.LOGGER.info("Time appeased: " + LionEntity.this.getTimeAppeased());
-                    return !LionEntity.this.isAppeased();
-                }
-                else {
-                    return true;
-                }
+            if (PlayerEntity.class.isAssignableFrom(this.targetClass)) {
+                return !LionEntity.this.isAppeased();
             }
-            return false;
+            else {
+                return super.shouldContinueExecuting();
+            }
         }
 
         public boolean shouldExecute() {
@@ -289,8 +283,6 @@ public class LionEntity extends AnimalEntity {
             return false;
         }
     }
-
-
 
     private static class LyingGoal<T extends LionEntity> extends Goal {
 

@@ -4,7 +4,6 @@ import com.radish.mythscapes.api.ISnailType;
 import com.radish.mythscapes.api.impl.SnailTypeRegister;
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.misc.MythDamageSources;
-import com.radish.mythscapes.common.register.MythEntities;
 import com.radish.mythscapes.common.register.MythItems;
 import com.radish.mythscapes.common.tags.MythBlockTags;
 import net.minecraft.block.BlockState;
@@ -19,6 +18,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
@@ -119,11 +119,7 @@ public class SnailEntity extends CreatureEntity {
 
     public SnailEntity(EntityType<? extends CreatureEntity> type, World world) {
         super(type, world);
-    }
-
-    public SnailEntity(double x, double y, double z, World world) {
-        this(MythEntities.PYGMY_SNAIL.get(), world);
-        this.setPosition(x, y, z);
+        this.setPathPriority(PathNodeType.WATER, -1.0f);
     }
 
     @Override

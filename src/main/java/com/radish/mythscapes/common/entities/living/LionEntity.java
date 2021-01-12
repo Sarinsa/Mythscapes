@@ -1,12 +1,14 @@
 package com.radish.mythscapes.common.entities.living;
 
 import com.google.common.collect.ImmutableList;
+import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.register.MythEntities;
 import com.radish.mythscapes.common.tags.MythEntityTags;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.monster.RavagerEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -24,8 +26,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
-import java.util.EnumSet;
 import java.util.function.Predicate;
+import java.util.function.ToIntFunction;
 
 public class LionEntity extends AnimalEntity {
 
@@ -41,9 +43,13 @@ public class LionEntity extends AnimalEntity {
     private static final DataParameter<Integer> HUNGER = EntityDataManager.createKey(LionEntity.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> TIME_APPEASED = EntityDataManager.createKey(LionEntity.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> TIME_MANE_REGROW = EntityDataManager.createKey(LionEntity.class, DataSerializers.VARINT);
+
+    // Time until the lion should
+    // start lying again.
+    protected int nextTimeLying = this.newNextTimeLying();
     private static final int maxHunger = 30;
 
-    public static final Predicate<LivingEntity> LION_PREY = (livingEntity) -> (MythEntityTags.LION_PREY.contains(livingEntity.getType()) || livingEntity instanceof PlayerEntity);
+    public static final Predicate<LivingEntity> LION_PREY = (livingEntity) -> (MythEntityTags.LION_PREY.contains(livingEntity.getType()));
 
 
     public LionEntity(EntityType<? extends AnimalEntity> entityType, World world) {
@@ -53,17 +59,18 @@ public class LionEntity extends AnimalEntity {
     @Override
     public void registerGoals() {
         this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(1, new LionPanicGoal(this, 1.5D));
-        //this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, RavagerEntity.class, 20.0F, 1.2D, 1.5D));
-        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.2f, true));
-        this.goalSelector.addGoal(4, new BreedGoal(this, 1.1D));
+        this.goalSelector.addGoal(1, new LionEntity.LionPanicGoal(this, 1.5D));
+        this.goalSelector.addGoal(2, new LionEntity.AvoidGoal<>(this, RavagerEntity.class, 20.0F, 1.2D, 1.5D));
+        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.25f, false));
+        this.goalSelector.addGoal(4, new LionEntity.BreedingGoal(this, 1.1D));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
-        //this.goalSelector.addGoal(6, new LionLyingGoal(this, 250));
-        this.goalSelector.addGoal(8, new WaterAvoidingRandomWalkingGoal(this, 0.8D));
+        this.goalSelector.addGoal(6, new LionEntity.LyingGoal<>(this, (lionEntity) -> lionEntity.isChild() ? 450 : 320));
+        this.goalSelector.addGoal(8, new LionEntity.WaterAvoidingRandomWalkGoal<>(this, 0.8D));
         this.goalSelector.addGoal(10, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(11, new LookRandomlyGoal(this));
-        this.targetSelector.addGoal(0, new HurtByTargetGoal(this).setCallsForHelp(LionEntity.class));
-        this.targetSelector.addGoal(1, new LionNearestAttackableGoal<>(this, LivingEntity.class, 10, true, false, LION_PREY));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new LionNearestAttackableGoal<>(this, LivingEntity.class, 10, true, false, LION_PREY));
+        this.targetSelector.addGoal(3, new LionNearestAttackableGoal<>(this, PlayerEntity.class, true));
     }
 
     @Override
@@ -80,8 +87,18 @@ public class LionEntity extends AnimalEntity {
         return this.isChild() ? 0.6F : 1.20F;
     }
 
+    @Override
     public void livingTick() {
         super.livingTick();
+
+        if (this.isLying()) {
+            this.isJumping = false;
+            this.moveStrafing = 0.0f;
+            this.moveForward = 0.0f;
+        }
+        else {
+            --this.nextTimeLying;
+        }
 
         if (this.getHunger() > 0 && this.rand.nextInt(130) == 0) {
             this.setHunger(this.getHunger() - 1);
@@ -189,6 +206,10 @@ public class LionEntity extends AnimalEntity {
         return this.dataManager.get(TIME_MANE_REGROW);
     }
 
+    protected int newNextTimeLying() {
+        return this.getRNG().nextInt(100) + 100;
+    }
+
     public void setTimeManeRegrow(int ticks) {
         this.dataManager.set(TIME_MANE_REGROW, ticks);
     }
@@ -198,8 +219,7 @@ public class LionEntity extends AnimalEntity {
     }
 
     public boolean isLying() {
-        return false;
-        //return this.dataManager.get(LYING);
+        return this.dataManager.get(LYING);
     }
 
     public void setLying(boolean lying) {
@@ -214,64 +234,85 @@ public class LionEntity extends AnimalEntity {
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 5.0D);
     }
 
-    static class LionPanicGoal extends PanicGoal {
+    private class LionPanicGoal extends PanicGoal {
 
-        public LionPanicGoal(AnimalEntity lionEntity, double speedIn) {
+        public LionPanicGoal(LionEntity lionEntity, double speedIn) {
             super(lionEntity, speedIn);
         }
 
         @Override
         public boolean shouldExecute() {
-            return super.shouldExecute() && this.creature.isChild();
+            return LionEntity.this.isChild() && super.shouldExecute();
+        }
+
+        @Override
+        public void startExecuting() {
+            LionEntity.this.setLying(false);
+            super.startExecuting();
         }
     }
 
-    private static class LionNearestAttackableGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
-
-        private final LionEntity lionEntity;
+    private class LionNearestAttackableGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
 
         public LionNearestAttackableGoal(LionEntity lionEntity, Class<T> targetClassIn, int targetChanceIn, boolean checkSight, boolean nearbyOnlyIn, @Nullable Predicate<LivingEntity> targetPredicate) {
             super(lionEntity, targetClassIn, targetChanceIn, checkSight, nearbyOnlyIn, targetPredicate);
-            this.lionEntity = lionEntity;
+        }
+
+        public LionNearestAttackableGoal(LionEntity lionEntity, Class<T> targetClass, boolean checkSight) {
+            super(lionEntity, targetClass, checkSight);
         }
 
         @Override
         public boolean shouldContinueExecuting() {
-            if (super.shouldContinueExecuting() && lionEntity.isHungry()) {
-                return !(this.nearestTarget instanceof PlayerEntity) || (!this.lionEntity.isAppeased());
+            if (super.shouldContinueExecuting()) {
+                if (this.target instanceof PlayerEntity) {
+                    Mythscapes.LOGGER.info("Lion appeased: " + LionEntity.this.isAppeased());
+                    Mythscapes.LOGGER.info("Time appeased: " + LionEntity.this.getTimeAppeased());
+                    return !LionEntity.this.isAppeased();
+                }
+                else {
+                    return true;
+                }
             }
             return false;
         }
 
         public boolean shouldExecute() {
-            if (super.shouldExecute() && this.lionEntity.isHungry()) {
-                return !(this.nearestTarget instanceof PlayerEntity) || (!this.lionEntity.isAppeased());
+            if (super.shouldExecute() && LionEntity.this.isHungry()) {
+                if (this.target instanceof PlayerEntity) {
+                    return !LionEntity.this.isAppeased();
+                }
+                else {
+                    return true;
+                }
             }
             return false;
         }
     }
 
-    private static class LionLyingGoal extends Goal {
 
-        private final LionEntity lionEntity;
-        private int executionChance;
+
+    private static class LyingGoal<T extends LionEntity> extends Goal {
+
+        private final T lionEntity;
+        private final ToIntFunction<T> executionChanceFunction;
         private int timeLying;
 
-        public LionLyingGoal(LionEntity lionEntity, int executionChance) {
+        public LyingGoal(T lionEntity, ToIntFunction<T> executionChanceFunction) {
             this.lionEntity = lionEntity;
-            this.executionChance = executionChance;
-            this.setMutexFlags(EnumSet.of(Flag.LOOK));
+            this.executionChanceFunction = executionChanceFunction;
         }
 
         @Override
         public boolean shouldContinueExecuting() {
-            return this.shouldExecute() && this.stillLying();
+            return stillLying() && !lionEntity.isHungry() && lionEntity.isOnGround() && !lionEntity.isAggressive() && !lionEntity.isInWaterOrBubbleColumn();
         }
 
         private boolean stillLying() {
-            return this.timeLying > 0;
+            return lionEntity.isLying() && this.timeLying > 0;
         }
 
+        @Override
         public void tick() {
             if (this.stillLying()) {
                 --this.timeLying;
@@ -280,15 +321,17 @@ public class LionEntity extends AnimalEntity {
 
         @Override
         public boolean shouldExecute() {
-            if (this.lionEntity.getIdleTime() > 300 && this.lionEntity.getRNG().nextInt(this.executionChance) == 0) {
-                return lionEntity.isOnGround() && !lionEntity.isAggressive() && !lionEntity.isInWaterOrBubbleColumn();
+            int executionChance = this.executionChanceFunction.applyAsInt(lionEntity);
+
+            if (lionEntity.nextTimeLying <= 0 && lionEntity.getRNG().nextInt(executionChance) == 0) {
+                return !lionEntity.isHungry() && lionEntity.isOnGround() && !lionEntity.isAggressive() && !lionEntity.isInWaterOrBubbleColumn();
             }
             return false;
         }
 
         @Override
         public void startExecuting() {
-            this.timeLying = this.lionEntity.getRNG().nextInt(300) + 300;
+            this.timeLying = this.lionEntity.getRNG().nextInt(300) + 400;
             lionEntity.getNavigator().clearPath();
             lionEntity.setLying(true);
             lionEntity.setAggroed(false);
@@ -297,8 +340,52 @@ public class LionEntity extends AnimalEntity {
         @Override
         public void resetTask() {
             this.timeLying = 0;
+            lionEntity.newNextTimeLying();
             lionEntity.setLying(false);
             lionEntity.getNavigator().clearPath();
+        }
+    }
+
+    private class BreedingGoal extends BreedGoal {
+
+        public BreedingGoal(LionEntity lionEntity, double speedIn) {
+            super(lionEntity, speedIn);
+        }
+
+        @Override
+        public boolean shouldExecute() {
+            return !LionEntity.this.isAggressive() && super.shouldExecute();
+        }
+
+        @Override
+        public void startExecuting() {
+            LionEntity.this.setLying(false);
+            super.startExecuting();
+        }
+    }
+
+    private class WaterAvoidingRandomWalkGoal<T extends LionEntity> extends WaterAvoidingRandomWalkingGoal {
+
+        public WaterAvoidingRandomWalkGoal(T creature, double speedIn) {
+            super(creature, speedIn);
+        }
+
+        @Override
+        public boolean shouldExecute() {
+            return !LionEntity.this.isLying() && super.shouldExecute();
+        }
+    }
+
+    private class AvoidGoal<T extends LivingEntity> extends AvoidEntityGoal<T> {
+
+        public AvoidGoal(LionEntity lionEntity, Class<T> classToAvoidIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn) {
+            super(lionEntity, classToAvoidIn, avoidDistanceIn, farSpeedIn, nearSpeedIn);
+        }
+
+        @Override
+        public void startExecuting() {
+            LionEntity.this.setLying(false);
+            super.startExecuting();
         }
     }
 }

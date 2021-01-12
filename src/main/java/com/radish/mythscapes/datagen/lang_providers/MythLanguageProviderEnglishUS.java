@@ -1,6 +1,7 @@
 package com.radish.mythscapes.datagen.lang_providers;
 
-import com.radish.mythscapes.common.entities.living.SnailEntity;
+import com.radish.mythscapes.api.impl.SnailTypeRegister;
+import com.radish.mythscapes.client.GuiTexts;
 import com.radish.mythscapes.common.register.*;
 import net.minecraft.data.DataGenerator;
 
@@ -160,17 +161,20 @@ public class MythLanguageProviderEnglishUS extends MythBaseLangProvider {
 
         this.addEnchantment(MythEnchantments.SOOTHING, "Soothing");
 
-        this.addSnailType(SnailEntity.SnailType.BOG, "Bog");
-        this.addSnailType(SnailEntity.SnailType.FLOWER_FOREST, "Flower Forest");
-        this.addSnailType(SnailEntity.SnailType.JUNGLE, "Jungle");
-        this.addSnailType(SnailEntity.SnailType.JEWELED, "Jeweled");
-        this.addSnailType(SnailEntity.SnailType.MUSHROOM, "Mushroom");
-        this.addSnailType(SnailEntity.SnailType.SWAMP, "Swamp");
+        this.addSnailType(SnailTypeRegister.BOG, "Bog");
+        this.addSnailType(SnailTypeRegister.FLOWER_FOREST, "Flower Forest");
+        this.addSnailType(SnailTypeRegister.JUNGLE, "Jungle");
+        this.addSnailType(SnailTypeRegister.ROOFED_FOREST, "Roofed Forest");
+        this.addSnailType(SnailTypeRegister.BEJEWELED, "Jeweled");
+        this.addSnailType(SnailTypeRegister.MUSHROOM, "Mushroom");
+        this.addSnailType(SnailTypeRegister.SWAMP, "Swamp");
 
         this.addDamageSource("volatile_explosion", VICTIM + " exploded");
         this.addDamageSource("static_shock", VICTIM + " was electrocuted to death");
+        this.addDamageSource("salt_dehydration", VICTIM + " shriveled up");
         this.addDamageSourceWithAttacker("volatile_explosion", VICTIM + " exploded while fighting " + ATTACKER);
         this.addDamageSourceWithAttacker("static_shock", VICTIM + " was electrocuted to death while fighting " + ATTACKER);
+        this.addDamageSourceWithAttacker("salt_dehydration", VICTIM + " shriveled up while fighting " + ATTACKER);
 
         this.addAdvancementTitle("root", "\"This... is a bucket!\"");
         this.addAdvancementDesc("root", "Pick up a snail in a bucket.");
@@ -178,5 +182,7 @@ public class MythLanguageProviderEnglishUS extends MythBaseLangProvider {
         // Hwyla stuff
         this.add("config.waila.plugin_mythscapes", "Mythscapes");
         this.addHwylaConfig("show_snail_type", "Show Snail Type");
+
+        this.add(GuiTexts.BRUSH_INFO, "This is a brush! You can right click brushable creatures with this to soothe them and give a short regeneration buff. Some creatures may also drop certain items upon being brushed.");
     }
 }

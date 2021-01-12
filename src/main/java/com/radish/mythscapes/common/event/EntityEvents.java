@@ -86,7 +86,7 @@ public class EntityEvents {
                 ItemStack snailBucket = new ItemStack(MythItems.SNAIL_BUCKET.get());
                 // Set snail type to itemstack
                 CompoundNBT tag = snailBucket.getOrCreateTag();
-                tag.putString("SnailType", snailEntity.getSnailType().getName());
+                tag.putString("SnailType", snailEntity.getSnailType().getName().toString());
                 snailBucket.setTag(tag);
 
                 if (itemStack.isEmpty()) {
@@ -110,7 +110,6 @@ public class EntityEvents {
         }
     }
 
-    // Entity AI goal modifying
     @SubscribeEvent
     public void onLivingSpawn(LivingSpawnEvent event) {
         LivingEntity entity = event.getEntityLiving();
@@ -121,13 +120,13 @@ public class EntityEvents {
             ((CreatureEntity)entity).goalSelector.addGoal(3, new AvoidEntityGoal<>((CreatureEntity) entity, FishbonesEntity.class, 6.0F, 1.0D, 1.2D));
         }
          */
-        if (entity.getType() == EntityType.VINDICATOR || entity.getType() == EntityType.PILLAGER || entity.getType() == EntityType.ILLUSIONER) {
+        if (entity.getType() == EntityType.VINDICATOR || entity.getType() == EntityType.PILLAGER) {
             AbstractIllagerEntity illagerEntity = (AbstractIllagerEntity) entity;
             illagerEntity.goalSelector.addGoal(3, new AvoidEntityGoal<>(illagerEntity, LionEntity.class, 10.0F, 1.2D, 1.3D));
         }
-        else if (entity.getType() == EntityType.EVOKER) {
+        else if (entity.getType() == EntityType.EVOKER || entity.getType() == EntityType.ILLUSIONER) {
             EvokerEntity evokerEntity = (EvokerEntity) entity;
-            evokerEntity.goalSelector.addGoal(3, new AvoidEntityGoal<>(evokerEntity, LionEntity.class, 7.0f, 0.6D, 1.0D));
+            evokerEntity.goalSelector.addGoal(3, new AvoidEntityGoal<>(evokerEntity, LionEntity.class, 8.0f, 0.6D, 1.0D));
             evokerEntity.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(evokerEntity, LionEntity.class, false));
         }
         else if (entity.getType() == EntityType.CREEPER) {

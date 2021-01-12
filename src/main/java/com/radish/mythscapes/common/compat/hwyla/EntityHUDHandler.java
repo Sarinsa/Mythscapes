@@ -1,5 +1,6 @@
 package com.radish.mythscapes.common.compat.hwyla;
 
+import com.radish.mythscapes.api.impl.SnailTypeRegister;
 import com.radish.mythscapes.common.entities.living.SnailEntity;
 import com.radish.mythscapes.common.register.MythEntities;
 import mcp.mobius.waila.api.IEntityAccessor;
@@ -19,9 +20,8 @@ public class EntityHUDHandler implements IEntityComponentProvider {
         if (accessor.getEntity().getType() == MythEntities.PYGMY_SNAIL.get()) {
             SnailEntity snailEntity = ((SnailEntity)accessor.getEntity());
             //Rarity rarity = snailEntity.getSnailType().getRarity();
-            String translationKey = snailEntity.getSnailType().getTranslationKey();
 
-            tooltip.add(new TranslationTextComponent(translationKey));
+            tooltip.add(new TranslationTextComponent(SnailTypeRegister.getTranslationKey(snailEntity.getSnailType())));
         }
     }
 }

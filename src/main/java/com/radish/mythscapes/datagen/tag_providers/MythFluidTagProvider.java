@@ -6,6 +6,7 @@ import com.radish.mythscapes.common.tags.MythFluidTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.FluidTagsProvider;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.tags.FluidTags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class MythFluidTagProvider extends FluidTagsProvider {
@@ -25,6 +26,11 @@ public class MythFluidTagProvider extends FluidTagsProvider {
                 Fluids.FLOWING_WATER,
                 MythFluids.SULFUR.get(),
                 MythFluids.FLOWING_SULFUR.get()
+        );
+        this.getOrCreateBuilder(MythFluidTags.SWIMMABLE).addTag(
+                FluidTags.WATER
+        ).addTag(
+                MythFluidTags.SULFUR
         );
     }
 }

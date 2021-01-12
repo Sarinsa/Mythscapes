@@ -4,7 +4,7 @@ import com.radish.mythscapes.api.IBrushable;
 import com.radish.mythscapes.api.IMythscapesPlugin;
 import com.radish.mythscapes.api.IRegistryHelper;
 import com.radish.mythscapes.api.ISnailType;
-import com.radish.mythscapes.common.entities.living.SnailEntity;
+import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.register.MythEntities;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.LivingEntity;
@@ -15,22 +15,19 @@ import static com.radish.mythscapes.common.core.Mythscapes.LOGGER;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public final class RegistryUtil implements IRegistryHelper {
+public final class RegistryHelper implements IRegistryHelper {
 
     /**
      * Used for printing debug info to the log.
      */
     private String pluginID = "missingno";
 
-    public final void setCurrentPluginID(String pluginName) {
-        this.pluginID = pluginName;
+
+    public void setCurrentPluginID(IMythscapesPlugin pluginInstance) {
+        this.pluginID = pluginInstance.getPluginName();
     }
 
-    public final void setCurrentPluginID(IMythscapesPlugin pluginInstance) {
-        setCurrentPluginID(pluginInstance.getPluginName());
-    }
-
-    public final void registerBrushable(Class<? extends LivingEntity> entityClass, IBrushable<?> iBrushable) {
+    public void registerBrushable(Class<? extends LivingEntity> entityClass, IBrushable<?> iBrushable) {
         if (entityClass == null || iBrushable == null) {
             LOGGER.warn("Plugin " + this.pluginID + " tried to register null brushable! This can't be right?");
             return;
@@ -43,8 +40,10 @@ public final class RegistryUtil implements IRegistryHelper {
     }
 
     @Override
-    public final void registerSnailType(ISnailType snailType) {
-        if (snailType == null || (snailType.getName() == null || snailType.getName().isEmpty())) {
+    public void registerSnailType(ISnailType snailType) {
+        SnailTypeRegister register = Mythscapes.getInstance().getSnailTypeRegister();
+
+        if (snailType == null || (snailType.getName() == null || snailType.getName() == null)) {
             LOGGER.warn("Plugin " + this.pluginID + " tried to register a snail type that is either null or has no name. Oof.");
             return;
         }
@@ -52,11 +51,16 @@ public final class RegistryUtil implements IRegistryHelper {
             LOGGER.warn("Plugin " + this.pluginID + " tried to register snail type with null rarity. For shame! Type: " + snailType.getName());
             return;
         }
-
-        if (SnailEntity.SNAIL_TYPES.containsKey(snailType.getName())) {
+        if (register.getRegistry().containsKey(snailType.getName())) {
             LOGGER.warn("Plugin " + this.pluginID + " tried to register duplicate snail type! Type: " + snailType.getName());
             return;
         }
-        SnailEntity.SNAIL_TYPES.putIfAbsent(snailType.getName(), snailType);
+        register.register(snailType);
+    }
+
+    public void postPluginSetup() {
+        SnailTypeRegister register = Mythscapes.getInstance().getSnailTypeRegister();
+        register.invalidate();
+        register.setupSnailSpawns();
     }
 }

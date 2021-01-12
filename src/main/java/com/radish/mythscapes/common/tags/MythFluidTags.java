@@ -9,6 +9,7 @@ public class MythFluidTags {
 
     public static final ITag.INamedTag<Fluid> CONDUCTIVE = modTag("conductive");
     public static final ITag.INamedTag<Fluid> SULFUR = modTag("sulfur");
+    public static final ITag.INamedTag<Fluid> SWIMMABLE = modTag("swimmable");
 
     private static ITag.INamedTag<Fluid> forgeTag(String name) {
         return FluidTags.makeWrapperTag("forge:" + name);

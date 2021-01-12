@@ -2,9 +2,11 @@ package com.radish.mythscapes.datagen.tag_providers;
 
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.register.MythBlocks;
+import com.radish.mythscapes.common.tags.MythBlockTags;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -148,5 +150,8 @@ public class MythBlockTagProvider extends BlockTagsProvider {
         this.getOrCreateBuilder(BlockTags.RAILS).add(
                 MythBlocks.LAUNCHER_RAIL.get()
         );
+
+        this.getOrCreateBuilder(MythBlockTags.SALT_BLOCKS).addOptional(
+                new ResourceLocation("mekanism", "block_salt"));
     }
 }

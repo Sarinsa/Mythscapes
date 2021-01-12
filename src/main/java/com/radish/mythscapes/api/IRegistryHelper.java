@@ -5,8 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * This interface contains all the helper methods for
- * registering things to Mythscapes or performing
- * other interactions.
+ * interacting with the Mythscapes API.
  */
 public interface IRegistryHelper {
 

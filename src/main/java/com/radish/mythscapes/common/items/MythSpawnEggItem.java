@@ -118,7 +118,6 @@ public class MythSpawnEggItem extends Item {
                     if (!player.abilities.isCreativeMode) {
                         itemStack.shrink(1);
                     }
-
                     player.addStat(Stats.ITEM_USED.get(this));
                     return ActionResult.resultSuccess(itemStack);
                 }

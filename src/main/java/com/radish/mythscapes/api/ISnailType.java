@@ -5,14 +5,12 @@ import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Random;
 
 /**
  * This interface can be implemented into a class
- * to create your own snail type for the Pygmy Snail.
- *
- * For the time being, customization is limited to
- * a custom texture, shell shed drop and Rarity.
+ * to create your own snail type for the Pygmy Snail entity.
  */
 public interface ISnailType {
 
@@ -23,12 +21,10 @@ public interface ISnailType {
     ResourceLocation getSnailTexture();
 
     /**
-     * Returns the unlocalized name for
-     * this snail type, for example:
-     *
-     * "sluggish" or "super_snail"
+     * Returns the registry name for this snail
+     * type with your mod's namespace.
      */
-    String getName();
+    ResourceLocation getName();
 
     /**
      * Return a new ItemStack that this snail
@@ -38,17 +34,29 @@ public interface ISnailType {
      * ItemStack.EMPTY for no drop.
      */
     @Nullable
-    ItemStack getShedDrop(Random random);
+    default ItemStack getShedDrop(Random random) {
+        return null;
+    }
 
     /**
      * Returns the Rarity for this snail type.
      *
-     * Rarity determines the text color used
-     * for the localized snail type names.
+     * Rarity determines the text color used to
+     * display the snail type name in snail buckets.
      *
-     * A snail bucket will get the enchanted glow
+     * A snail bucket will also get the enchanted glow
      * effect when containing a snail type with
      * Rarity.EPIC
      */
-    Rarity getRarity();
+    default Rarity getRarity() {
+        return Rarity.COMMON;
+    }
+
+    /**
+     * Returns a list of ResourceLocations for the biomes
+     * that this snail type should be able to spawn in.
+     * Keep in mind that snails will only spawn in biomes
+     * that exist in the OVERWORLD category in the BiomeDictionary.
+     */
+    List<ResourceLocation> getSpawnBiomes();
 }

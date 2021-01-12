@@ -1,6 +1,5 @@
 package com.radish.mythscapes.common.register;
 
-import com.google.common.collect.Maps;
 import com.radish.mythscapes.common.blocks.LauncherRailBlock;
 import com.radish.mythscapes.common.blocks.StaticCottonBlock;
 import com.radish.mythscapes.common.blocks.StaticCottonPilesBlock;
@@ -22,6 +21,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
@@ -169,7 +169,7 @@ public class MythBlocks {
     }
 
     public static void registerBlockInfo() {
-        AxeItem.BLOCK_STRIPPING_MAP = Maps.newHashMap(AxeItem.BLOCK_STRIPPING_MAP);
+        AxeItem.BLOCK_STRIPPING_MAP = new HashMap<>(AxeItem.BLOCK_STRIPPING_MAP);
 
         registerStrippable(WOLT_LOG, WOLT_LOG_STRIPPED);
         registerStrippable(WOLT_WOOD, WOLT_WOOD_STRIPPED);

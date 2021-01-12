@@ -30,7 +30,6 @@ public class MythBoatEntity extends BoatEntity {
 
     public enum Type {
         WOLT(MythBlocks.WOLT_PLANKS, MythItems.WOLT_BOAT, "wolt");
-        //VIRIDIAN(MythBlocks.VIRIDIAN_PLANKS.get(), "viridian");
 
         private final String name;
         private final Supplier<Block> block;
@@ -133,7 +132,6 @@ public class MythBoatEntity extends BoatEntity {
                         this.fallDistance = 0.0F;
                         return;
                     }
-
                     this.onLivingFall(this.fallDistance, 1.0F);
                     if (!this.world.isRemote && !this.isAlive()) {
                         this.remove();
@@ -148,12 +146,10 @@ public class MythBoatEntity extends BoatEntity {
                         }
                     }
                 }
-
                 this.fallDistance = 0.0F;
             } else if (!this.world.getFluidState(this.getPosition().down()).isTagged(FluidTags.WATER) && y < 0.0D) {
                 this.fallDistance = (float)((double)this.fallDistance - y);
             }
-
         }
     }
 

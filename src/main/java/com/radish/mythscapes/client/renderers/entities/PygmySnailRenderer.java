@@ -9,6 +9,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class PygmySnailRenderer extends MobRenderer<SnailEntity, PygmySnailModel<SnailEntity>> {
 
+
     private static final ResourceLocation[] SNAIL_TEXTURES = {
             Mythscapes.resourceLoc("textures/entity/pygmy_snail/mushroom.png"),
             Mythscapes.resourceLoc("textures/entity/pygmy_snail/swamp.png"),
@@ -25,7 +26,7 @@ public class PygmySnailRenderer extends MobRenderer<SnailEntity, PygmySnailModel
 
     @Override
     public ResourceLocation getEntityTexture(SnailEntity entity) {
-        //return SnailEntity.SNAIL_TYPES.get(entity.getSnailType().getName()).getSnailTexture();
-        return SNAIL_TEXTURES[entity.getSnailType().ordinal()];
+        return entity.getSnailType().getSnailTexture();
+        //return SNAIL_TEXTURES[entity.getSnailType().ordinal()];
     }
 }

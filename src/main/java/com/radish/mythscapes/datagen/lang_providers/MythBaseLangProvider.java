@@ -1,7 +1,8 @@
 package com.radish.mythscapes.datagen.lang_providers;
 
+import com.radish.mythscapes.api.ISnailType;
+import com.radish.mythscapes.api.impl.SnailTypeRegister;
 import com.radish.mythscapes.common.core.Mythscapes;
-import com.radish.mythscapes.common.entities.living.SnailEntity;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.potion.Potion;
@@ -21,8 +22,8 @@ public abstract class MythBaseLangProvider extends LanguageProvider {
         super(gen, Mythscapes.MODID, locale);
     }
 
-    protected void addSnailType(SnailEntity.SnailType snailType, String localized) {
-        this.add(snailType.getTranslationKey(), localized);
+    protected void addSnailType(ISnailType snailType, String localized) {
+        this.add(SnailTypeRegister.getTranslationKey(snailType), localized);
     }
 
     @SafeVarargs

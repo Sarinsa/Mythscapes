@@ -6,6 +6,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Random;
+
 public final class DefaultBrushable implements IBrushable<LivingEntity> {
 
     @Override
@@ -19,7 +21,7 @@ public final class DefaultBrushable implements IBrushable<LivingEntity> {
     }
 
     @Override
-    public @NotNull ItemStack itemDropped(LivingEntity livingEntity, int fortuneLevel) {
+    public @NotNull ItemStack itemDropped(LivingEntity livingEntity, Random random, int fortuneLevel) {
         return ItemStack.EMPTY;
     }
 }

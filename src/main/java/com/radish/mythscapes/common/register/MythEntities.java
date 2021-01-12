@@ -1,7 +1,7 @@
 package com.radish.mythscapes.common.register;
 
 import com.radish.mythscapes.api.IBrushable;
-import com.radish.mythscapes.api.impl.RegistryUtil;
+import com.radish.mythscapes.api.impl.RegistryHelper;
 import com.radish.mythscapes.api.impl.brushables.BirdBrushable;
 import com.radish.mythscapes.api.impl.brushables.DefaultBrushable;
 import com.radish.mythscapes.api.impl.brushables.LionBrushable;
@@ -61,7 +61,7 @@ public class MythEntities {
     }
 
     private static void registerBrushables() {
-        RegistryUtil registryHelper = Mythscapes.getInstance().getRegistryHelper();
+        RegistryHelper registryHelper = Mythscapes.getInstance().getRegistryHelper();
 
         registryHelper.registerBrushable(LionEntity.class, new LionBrushable());
         registryHelper.registerBrushable(DeerEntity.class, new DefaultBrushable());

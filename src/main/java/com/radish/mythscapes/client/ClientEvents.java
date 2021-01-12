@@ -31,8 +31,6 @@ public class ClientEvents {
     public void onFogDensity(EntityViewRenderEvent.FogDensity event) {
         ClientPlayerEntity playerEntity = mc.get().player;
 
-        Mythscapes.LOGGER.info(playerEntity.areEyesInFluid(MythFluidTags.SULFUR));
-
         if (playerEntity.areEyesInFluid(MythFluidTags.SULFUR)) {
             event.setDensity(0.5f);
             event.setCanceled(true);

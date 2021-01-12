@@ -1,7 +1,7 @@
 package com.radish.mythscapes.common.items;
 
-import com.radish.mythscapes.common.core.Mythscapes;
-import com.radish.mythscapes.common.entities.living.SnailEntity;
+import com.radish.mythscapes.api.ISnailType;
+import com.radish.mythscapes.api.impl.SnailTypeRegister;
 import com.radish.mythscapes.common.register.MythEntities;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.SpawnReason;
@@ -15,12 +15,13 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.*;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
@@ -46,7 +47,7 @@ public class SnailBucketItem extends Item {
             BlockPos facingPos = blockPos.offset(direction);
 
             if (!world.isRemote) {
-                SnailEntity snailEntity = this.spawnSnail((ServerWorld) world, itemStack, player, facingPos);
+                this.spawnSnail((ServerWorld) world, itemStack, player, facingPos);
 
                 if (!player.abilities.isCreativeMode) {
                     player.setHeldItem(hand, new ItemStack(Items.BUCKET));
@@ -58,13 +59,12 @@ public class SnailBucketItem extends Item {
         return ActionResult.resultPass(itemStack);
     }
 
-    @Nullable
-    private SnailEntity spawnSnail(ServerWorld world, ItemStack itemStack, PlayerEntity player, BlockPos facingPos) {
+    private void spawnSnail(ServerWorld world, ItemStack itemStack, PlayerEntity player, BlockPos facingPos) {
         CompoundNBT tag = itemStack.getOrCreateTag().copy();
         if (!tag.contains("SnailType", 8))
-            tag.putString("SnailType", SnailEntity.SnailType.getRandom().getName());
+            tag.putString("SnailType", SnailTypeRegister.getRandom().getName().toString());
 
-        return MythEntities.PYGMY_SNAIL.get().spawn(world, tag, itemStack.hasDisplayName()
+        MythEntities.PYGMY_SNAIL.get().spawn(world, tag, itemStack.hasDisplayName()
                 ? itemStack.getDisplayName()
                 : null, player, facingPos, SpawnReason.BUCKET, false, false);
     }
@@ -76,31 +76,28 @@ public class SnailBucketItem extends Item {
 
     @Override
     public Rarity getRarity(ItemStack stack) {
-        SnailEntity.SnailType snailType = this.getSnailType(stack);
+        ISnailType snailType = this.getSnailType(stack);
         return snailType == null ? Rarity.COMMON : snailType.getRarity();
     }
 
     @Nullable
-    public SnailEntity.SnailType getSnailType(ItemStack itemStack) {
+    public ISnailType getSnailType(ItemStack itemStack) {
         CompoundNBT compoundNBT = itemStack.getTag();
         String snailType = null;
 
         if (compoundNBT != null && compoundNBT.contains("SnailType", 8))
             snailType = compoundNBT.getString("SnailType");
-        return SnailEntity.SnailType.getFromNameOrNull(snailType);
+        return SnailTypeRegister.getFromNameOrNull(snailType);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
     public void addInformation(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-        SnailEntity.SnailType snailType = this.getSnailType(itemStack);
+        ISnailType snailType = this.getSnailType(itemStack);
 
         if (snailType != null) {
-            Color color = this.getRarity(itemStack) == Rarity.COMMON
-                    ? Color.fromTextFormatting(TextFormatting.GRAY)
-                    : Color.fromTextFormatting(this.getRarity(itemStack).color);
-
-            tooltip.add(new TranslationTextComponent(Util.makeTranslationKey("snail_type", Mythscapes.resourceLoc(snailType.getName()))).setStyle(Style.EMPTY.setColor(color)));
+            TextFormatting color = snailType.getRarity().color;
+            tooltip.add(new TranslationTextComponent(SnailTypeRegister.getTranslationKey(snailType)).mergeStyle(color));
         }
     }
 }

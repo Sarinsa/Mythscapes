@@ -22,7 +22,7 @@ public class SheepBrushable implements IBrushable<SheepEntity> {
     }
 
     @Override
-    public @NotNull ItemStack itemDropped(SheepEntity livingEntity, int fortuneLevel) {
+    public @NotNull ItemStack itemDropped(SheepEntity livingEntity, Random random, int fortuneLevel) {
         return new ItemStack(Items.STRING, (new Random().nextInt(3 + fortuneLevel) + 1));
     }
 }

@@ -2,13 +2,15 @@ package com.radish.mythscapes.common.core;
 
 import com.radish.mythscapes.api.IMythscapesPlugin;
 import com.radish.mythscapes.api.MythscapesPlugin;
-import com.radish.mythscapes.api.impl.RegistryUtil;
+import com.radish.mythscapes.api.impl.RegistryHelper;
+import com.radish.mythscapes.api.impl.SnailTypeRegister;
 import com.radish.mythscapes.common.event.BiomeEvents;
 import com.radish.mythscapes.common.event.EffectEvents;
 import com.radish.mythscapes.common.event.EntityEvents;
 import com.radish.mythscapes.common.event.TradeEvents;
 import com.radish.mythscapes.common.misc.DispenserBehavior;
 import com.radish.mythscapes.common.register.*;
+import com.radish.mythscapes.common.tags.MythBlockTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -28,8 +30,12 @@ public class Mythscapes {
     public static final Logger LOGGER = LogManager.getLogger(MODID);
     private static Mythscapes INSTANCE;
 
-    private final RegistryUtil registryHelper = new RegistryUtil();
+    private final RegistryHelper registryHelper = new RegistryHelper();
+    private final SnailTypeRegister snailTypeRegister = new SnailTypeRegister();
 
+    static {
+        MythBlockTags.init();
+    }
 
     public Mythscapes() {
         INSTANCE = this;
@@ -66,6 +72,8 @@ public class Mythscapes {
         MythSounds.registerParrotMimics();
         DispenserBehavior.register();
         MythPotions.registerBrewingRecipes();
+
+        snailTypeRegister.registerInternal();
     }
 
     public void loadComplete(FMLLoadCompleteEvent event) {
@@ -96,6 +104,7 @@ public class Mythscapes {
                 }
             });
         });
+        registryHelper.postPluginSetup();
     }
 
     public static Mythscapes getInstance() {
@@ -106,7 +115,11 @@ public class Mythscapes {
         return new ResourceLocation(MODID, path);
     }
 
-    public RegistryUtil getRegistryHelper() {
+    public RegistryHelper getRegistryHelper() {
         return this.registryHelper;
+    }
+
+    public SnailTypeRegister getSnailTypeRegister() {
+        return this.snailTypeRegister;
     }
 }

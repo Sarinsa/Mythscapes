@@ -2,14 +2,12 @@ package com.radish.mythscapes.common.items;
 
 import com.radish.mythscapes.api.ISnailType;
 import com.radish.mythscapes.api.impl.SnailTypeRegister;
+import com.radish.mythscapes.common.entities.living.SnailEntity;
 import com.radish.mythscapes.common.register.MythEntities;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.Rarity;
+import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
@@ -64,9 +62,10 @@ public class SnailBucketItem extends Item {
         if (!tag.contains("SnailType", 8))
             tag.putString("SnailType", SnailTypeRegister.getRandom().getName().toString());
 
-        MythEntities.PYGMY_SNAIL.get().spawn(world, tag, itemStack.hasDisplayName()
-                ? itemStack.getDisplayName()
-                : null, player, facingPos, SpawnReason.BUCKET, false, false);
+        SnailEntity snail = MythEntities.PYGMY_SNAIL.get().spawn(world, tag, itemStack.hasDisplayName() ? itemStack.getDisplayName() : null, player, facingPos, SpawnReason.BUCKET, false, false);
+
+        if (snail != null)
+            snail.setFromBucket(true);
     }
 
     @Override
@@ -87,6 +86,7 @@ public class SnailBucketItem extends Item {
 
         if (compoundNBT != null && compoundNBT.contains("SnailType", 8))
             snailType = compoundNBT.getString("SnailType");
+
         return SnailTypeRegister.getFromNameOrNull(snailType);
     }
 

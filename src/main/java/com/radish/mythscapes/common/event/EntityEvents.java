@@ -70,6 +70,7 @@ public class EntityEvents {
         }
     }
 
+
     @SubscribeEvent
     public void onBucketClickSnail(PlayerInteractEvent.EntityInteractSpecific event) {
         if (event.getTarget() instanceof SnailEntity) {

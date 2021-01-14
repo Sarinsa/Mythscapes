@@ -1,5 +1,6 @@
 package com.radish.mythscapes.common.entities.living;
 
+import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.misc.Util;
 import com.radish.mythscapes.common.register.MythItems;
 import net.minecraft.entity.EntityType;
@@ -20,6 +21,7 @@ import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
+import net.minecraftforge.common.util.Constants;
 import org.jetbrains.annotations.Nullable;
 
 public class PondSerpentEntity extends AbstractGroupFishEntity {
@@ -59,11 +61,21 @@ public class PondSerpentEntity extends AbstractGroupFishEntity {
     }
 
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld world, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData spawnData, @Nullable CompoundNBT dataTag) {
-        Biome biome = world.getBiome(this.getPosition());
-        this.setSerpentType(biome);
+    protected void setBucketData(ItemStack bucket) {
+        bucket.getOrCreateChildTag("serpentType").putBoolean("Blue", this.isBlueVariant());
+    }
 
-        return super.onInitialSpawn(world, difficulty, reason, spawnData, dataTag);
+    @Override
+    public ILivingEntityData onInitialSpawn(IServerWorld world, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData spawnData, @Nullable CompoundNBT tag) {
+        Biome biome = world.getBiome(this.getPosition());
+
+        if (tag == null) {
+            this.setSerpentType(biome);
+        }
+        else if (tag.contains("serpentType", 10)) {
+            this.dataManager.set(BLUE, tag.getCompound("serpentType").getBoolean("Blue"));
+        }
+        return super.onInitialSpawn(world, difficulty, reason, spawnData, tag);
     }
 
     public static AttributeModifierMap.MutableAttribute registerEntityAttributes() {

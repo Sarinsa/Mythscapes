@@ -12,16 +12,17 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.passive.fish.AbstractFishEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNodeType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.*;
@@ -114,6 +115,8 @@ public class SnailEntity extends CreatureEntity {
 
 
     private static final DataParameter<String> SNAIL_TYPE = EntityDataManager.createKey(SnailEntity.class, DataSerializers.STRING);
+    private static final DataParameter<Boolean> FROM_BUCKET = EntityDataManager.createKey(AbstractFishEntity.class, DataSerializers.BOOLEAN);
+
     // Used for shell shedding
     public int timeUntilShellShed = rand.nextInt(8000) + 3000;
 
@@ -134,8 +137,10 @@ public class SnailEntity extends CreatureEntity {
         // Default to jungle type. All of our own snail types are
         // statically initialized, thus this should cause no problems.
         this.dataManager.register(SNAIL_TYPE, "mythscapes:jungle");
+        this.dataManager.register(FROM_BUCKET, false);
     }
 
+    @Override
     public int getMaxAir() {
         return 60;
     }
@@ -183,6 +188,19 @@ public class SnailEntity extends CreatureEntity {
         return pos.getY() > 40 && !world.getBlockState(pos.down()).isIn(MythBlockTags.SALT_BLOCKS);
     }
 
+    @Override
+    public boolean preventDespawn() {
+        return super.preventDespawn() || this.isFromBucket();
+    }
+
+    public boolean isFromBucket() {
+        return this.dataManager.get(FROM_BUCKET);
+    }
+
+    public void setFromBucket(boolean fromBucket) {
+        this.dataManager.set(FROM_BUCKET, fromBucket);
+    }
+
     public void setSnailType(ISnailType snailType) {
         this.dataManager.set(SNAIL_TYPE, snailType.getName().toString());
     }
@@ -194,6 +212,35 @@ public class SnailEntity extends CreatureEntity {
     public ItemStack getShedDrop(Random random) {
         ItemStack itemStack = this.getSnailType().getShedDrop(random);
         return itemStack == null ? new ItemStack(MythItems.SNAIL_SHELL.get()) : itemStack;
+    }
+
+    @Override               //processInteract
+    public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
+        if (player.getHeldItem(hand).getItem() == Items.BUCKET) {
+            ItemStack itemStack = player.getHeldItem(hand);
+
+            if (!player.abilities.isCreativeMode) {
+                itemStack.shrink(1);
+                player.addStat(Stats.ITEM_USED.get(itemStack.getItem()));
+            }
+            ItemStack snailBucket = new ItemStack(MythItems.SNAIL_BUCKET.get());
+            // Set snail type to itemstack
+            CompoundNBT tag = snailBucket.getOrCreateTag();
+            tag.putString("SnailType", this.getSnailType().getName().toString());
+            snailBucket.setTag(tag);
+
+            if (itemStack.isEmpty()) {
+                player.setHeldItem(hand, snailBucket);
+            }
+            else {
+                if (!player.inventory.addItemStackToInventory(snailBucket)) {
+                    player.dropItem(snailBucket, false);
+                }
+            }
+            this.remove();
+            return ActionResultType.SUCCESS;
+        }
+        return super.func_230254_b_(player, hand);
     }
 
     @Override
@@ -219,12 +266,14 @@ public class SnailEntity extends CreatureEntity {
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
         compound.putString("SnailType", this.getSnailType().getName().toString());
+        compound.putBoolean("FromBucket", this.isFromBucket());
     }
 
     @Override
     public void readAdditional(CompoundNBT compound) {
         String snailType = compound.getString("SnailType");
         this.setSnailType(SnailTypeRegister.getFromName(snailType));
+        this.setFromBucket(compound.getBoolean("FromBucket"));
 
         super.readAdditional(compound);
     }

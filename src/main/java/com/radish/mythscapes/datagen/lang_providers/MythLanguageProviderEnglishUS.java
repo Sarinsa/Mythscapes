@@ -1,6 +1,7 @@
 package com.radish.mythscapes.datagen.lang_providers;
 
-import com.radish.mythscapes.common.entities.living.SnailEntity;
+import com.radish.mythscapes.api.impl.SnailTypeRegister;
+import com.radish.mythscapes.client.GuiTexts;
 import com.radish.mythscapes.common.register.*;
 import net.minecraft.data.DataGenerator;
 
@@ -104,8 +105,14 @@ public class MythLanguageProviderEnglishUS extends MythBaseLangProvider {
         this.addBlock(MythBlocks.LAUNCHER_RAIL, "Launcher Rail");
         this.addBlock(MythBlocks.SNAIL_SHELL_BLOCK, "Snail Shell Block");
         this.addBlock(MythBlocks.SNAIL_SHELL_BRICKS, "Snail Shell Bricks");
+        this.addBlock(MythBlocks.SNAIL_SHELL_BRICK_SLAB, "Snail Shell Brick Slab");
+        this.addBlock(MythBlocks.SNAIL_SHELL_BRICK_STAIRS, "Snail Shell Brick Stairs");
+        this.addBlock(MythBlocks.SNAIL_SHELL_BRICK_WALL, "Snail Shell Brick Wall");
         this.addBlock(MythBlocks.BEJEWELED_SNAIL_SHELL_BLOCK, "Bejeweled Snail Shell Block");
         this.addBlock(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICKS, "Bejeweled Snail Shell Bricks");
+        this.addBlock(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_SLAB, "Bejeweled Snail Shell Brick Slab");
+        this.addBlock(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_STAIRS, "Bejeweled Snail Shell Brick Stairs");
+        this.addBlock(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_WALL, "Bejeweled Snail Shell Brick Wall");
         this.addBlock(MythBlocks.LIQUID_SULFUR_FLUID_BLOCK, "Liquid Sulfur");
 
         this.addItem(MythItems.POND_SERPENT, "Pond Serpent");
@@ -154,25 +161,46 @@ public class MythLanguageProviderEnglishUS extends MythBaseLangProvider {
         this.addEntityType(MythEntities.PYGMY_SNAIL, "Pygmy Snail");
         this.addEntityType(MythEntities.DEER, "Deer");
 
-        this.addEffect(MythEffects.PETRIFIED, "Petrification");
+        this.addEffect(MythEffects.PETRIFIED, "Petrification [WIP]");
         this.addEffect(MythEffects.STATIC, "Static");
         this.addEffect(MythEffects.VOLATILE, "Volatile");
 
+        this.addPotionItem(MythPotions.PETRIFICATION, "Potion of Petrification");
+        this.addPotionItem(MythPotions.LONG_PETRIFICATION, "Potion of Petrification");
+        this.addSplashPotionItem(MythPotions.PETRIFICATION, "Splash Potion of Petrification");
+        this.addSplashPotionItem(MythPotions.LONG_PETRIFICATION, "Splash Potion of Petrification");
+        this.addLingeringPotionItem(MythPotions.PETRIFICATION, "Lingering Potion of Petrification");
+        this.addLingeringPotionItem(MythPotions.LONG_PETRIFICATION, "Lingering Potion of Petrification");
+        this.addTippedArrowItem(MythPotions.PETRIFICATION, "Arrow of Petrification");
+        this.addTippedArrowItem(MythPotions.LONG_PETRIFICATION, "Arrow of Petrification");
+
         this.addEnchantment(MythEnchantments.SOOTHING, "Soothing");
 
-        this.addSnailType(SnailEntity.SnailType.BOG, "Bog");
-        this.addSnailType(SnailEntity.SnailType.FLOWER_FOREST, "Flower Forest");
-        this.addSnailType(SnailEntity.SnailType.JUNGLE, "Jungle");
-        this.addSnailType(SnailEntity.SnailType.JEWELED, "Jeweled");
-        this.addSnailType(SnailEntity.SnailType.MUSHROOM, "Mushroom");
-        this.addSnailType(SnailEntity.SnailType.SWAMP, "Swamp");
+        this.addSnailType(SnailTypeRegister.BOG, "Bog");
+        this.addSnailType(SnailTypeRegister.FLOWER_FOREST, "Flower Forest");
+        this.addSnailType(SnailTypeRegister.JUNGLE, "Jungle");
+        this.addSnailType(SnailTypeRegister.ROOFED_FOREST, "Roofed Forest");
+        this.addSnailType(SnailTypeRegister.BEJEWELED, "Jeweled");
+        this.addSnailType(SnailTypeRegister.MUSHROOM, "Mushroom");
+        this.addSnailType(SnailTypeRegister.SWAMP, "Swamp");
+
+        this.addPotion(MythPotions.PETRIFICATION, "Potion of Petrification");
+        this.addPotion(MythPotions.LONG_PETRIFICATION, "Potion of Petrification");
 
         this.addDamageSource("volatile_explosion", VICTIM + " exploded");
         this.addDamageSource("static_shock", VICTIM + " was electrocuted to death");
+        this.addDamageSource("salt_dehydration", VICTIM + " shriveled up");
         this.addDamageSourceWithAttacker("volatile_explosion", VICTIM + " exploded while fighting " + ATTACKER);
         this.addDamageSourceWithAttacker("static_shock", VICTIM + " was electrocuted to death while fighting " + ATTACKER);
+        this.addDamageSourceWithAttacker("salt_dehydration", VICTIM + " shriveled up while fighting " + ATTACKER);
 
         this.addAdvancementTitle("root", "\"This... is a bucket!\"");
-        this.addAdvancementDesc("root", "Pick up a snail in a bucket.");
+        this.addAdvancementDesc("root", "Dear god... *cough* I mean, pick up a snail with a bucket");
+
+        // Hwyla stuff
+        this.add("config.waila.plugin_mythscapes", "Mythscapes");
+        this.addHwylaConfig("show_snail_type", "Show Snail Type");
+
+        this.add(GuiTexts.BRUSH_INFO, "This is a brush! You can right click brushable creatures with this to soothe them and give a short regeneration buff. Some creatures may also drop certain items upon being brushed.");
     }
 }

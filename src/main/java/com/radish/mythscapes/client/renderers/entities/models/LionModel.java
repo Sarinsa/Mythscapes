@@ -20,7 +20,6 @@ public class LionModel<T extends LionEntity> extends AgeableModel<T> {
     public ModelRenderer legFrontLeft;
     public ModelRenderer tail;
     public ModelRenderer muzzle;
-    public ModelRenderer mane;
     public ModelRenderer earright;
     public ModelRenderer earleft;
 
@@ -73,10 +72,6 @@ public class LionModel<T extends LionEntity> extends AgeableModel<T> {
         this.legFrontLeft.setRotationPoint(6.0F, 10.0F, 3.0F);
         this.legFrontLeft.addBox(0.0F, 0.0F, -2.0F, 4, 10, 4, 0.0F);
 
-        this.mane = new ModelRenderer(this, 0, 35);
-        this.mane.setRotationPoint(-7.0F, -4.0F, 3.0F);
-        this.mane.addBox(0.0F, -7.0F, -10.3F, 14, 17, 9, 0.0F);
-
         this.body.addChild(this.tail);
         this.body.addChild(this.legBackRight);
         this.body.addChild(this.legBackLeft);
@@ -85,7 +80,6 @@ public class LionModel<T extends LionEntity> extends AgeableModel<T> {
         this.headModel.addChild(this.earleft);
         this.headModel.addChild(this.earright);
         this.headModel.addChild(this.muzzle);
-        this.headModel.addChild(this.mane);
     }
 
     @Override
@@ -100,21 +94,54 @@ public class LionModel<T extends LionEntity> extends AgeableModel<T> {
 
     @Override
     public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.headModel.rotateAngleX = headPitch * ((float)Math.PI / 180F);
-        this.headModel.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
-
         if (entityIn.isLying()) {
-            this.legFrontRight.rotateAngleX = 90;
-            this.legFrontLeft.rotateAngleX = 90;
-            this.legBackLeft.rotateAngleX = 90;
-            this.legBackRight.rotateAngleX = 90;
+            this.headModel.setRotationPoint(-0.5F, 16.4F, -11.0F);
+            this.body.setRotationPoint(-7.0F, 24.0F, -10.0F);
+            this.tail.setRotationPoint(4.0F, 0.0F, 25.0F);
+            this.earleft.setRotationPoint(7.0F, -2.0F, 2.0F);
+            this.earright.setRotationPoint(0.0F, -2.0F, 2.0F);
+            this.legBackLeft.setRotationPoint(0.0F, 10.0F, 23.0F);
+            this.legBackRight.setRotationPoint(6.0F, 10.0F, 23.0F);
+            this.legFrontLeft.setRotationPoint(2.0F, -0.7F, -0.5F);
+            this.legFrontRight.setRotationPoint(2.0F, 6.0F, 2.4F);
+            this.muzzle.setRotationPoint(2.0F, 5.0F, -2.0F);
+            this.setRotateAngle(body, -0.27314402793711257F, 0.0F, -1.5707963267948966F);
+            this.setRotateAngle(tail, -0.8850564636863244F, -0.091106186954104F, 0.31869712141416456F);
+            this.setRotateAngle(legBackLeft, 0.40980330836826856F, 0.0F, 0.0F);
+            this.setRotateAngle(legBackRight, 0.9773843811168246F, -0.4363323129985824F, 0.22689280275926282F);
+            this.setRotateAngle(legFrontLeft, -1.593485607070823F, -0.22759093446006054F, 1.5707963267948966F);
+            this.setRotateAngle(headModel, 0.0F, -0.4553564018453205F, 0.0F);
+            this.setRotateAngle(legFrontRight, -1.593485607070823F, -0.40980330836826856F, 1.6390387005478748F);
         }
         else {
+            this.headModel.setRotationPoint(0.0F, 8.0F, -14.0F);
+            this.tail.setRotationPoint(4.0F, 0.0F, 25.0F);
+            this.legBackLeft.setRotationPoint(6.0F, 10.0F, 23.0F);
+            this.earleft.setRotationPoint(7.0F, -2.0F, 2.0F);
+            this.legBackRight.setRotationPoint(0.0F, 10.0F, 23.0F);
+            this.earright.setRotationPoint(0.0F, -2.0F, 2.0F);
+            this.body.setRotationPoint(-5.0F, 4.0F, -14.0F);
+            this.legFrontRight.setRotationPoint(0.0F, 10.0F, 3.0F);
+            this.muzzle.setRotationPoint(2.0F, 5.0F, -2.0F);
+            this.legFrontLeft.setRotationPoint(6.0F, 10.0F, 3.0F);
+            this.setRotateAngle(headModel, 0.0F, 0.0F, 0.0F);
+            this.setRotateAngle(body, 0.0F, 0.0F, 0.0F);
+            this.setRotateAngle(tail, -0.8850564636863244F, 0.0F, 0.0F);
+            this.setRotateAngle(earleft, 0.0F, 0.0F, 0.0F);
+            this.setRotateAngle(earright, 0.0F, 0.0F, 0.0F);
+            this.setRotateAngle(legBackLeft, 0.0F, 0.0F, 0.0F);
+            this.setRotateAngle(legBackRight, 0.0F, 0.0F, 0.0F);
+            this.setRotateAngle(legFrontLeft, 0.0F, 0.0F, 0.0F);
+            this.setRotateAngle(legFrontRight, 0.0F, 0.0F, 0.0F);
+            this.setRotateAngle(muzzle, 0.0F, 0.0F, 0.0F);
+
             this.legBackRight.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
             this.legBackLeft.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
             this.legFrontRight.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
             this.legFrontLeft.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
         }
+        this.headModel.rotateAngleX = headPitch * ((float)Math.PI / 180F);
+        this.headModel.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
     }
 
     /**

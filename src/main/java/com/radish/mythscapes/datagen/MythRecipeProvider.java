@@ -356,6 +356,8 @@ public class MythRecipeProvider extends RecipeProvider {
         this.slabRecipe(MythBlocks.TROLLSTONE_SLAB.get(), MythBlocks.TROLLSTONE.get(), consumer);
         this.slabRecipe(MythBlocks.POLISHED_TROLLSTONE_SLAB.get(), MythBlocks.POLISHED_TROLLSTONE.get(), consumer);
         this.slabRecipe(MythBlocks.POLISHED_TROLLSTONE_BRICK_SLAB.get(), MythBlocks.POLISHED_TROLLSTONE_BRICKS.get(), consumer);
+        this.slabRecipe(MythBlocks.SNAIL_SHELL_BRICK_SLAB.get(), MythBlocks.SNAIL_SHELL_BRICKS.get(), consumer);
+        this.slabRecipe(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_SLAB.get(), MythBlocks.BEJEWELED_SNAIL_SHELL_BRICKS.get(), consumer);
         this.woodenSlabRecipe(MythBlocks.WOLT_SLAB.get(), MythBlocks.WOLT_PLANKS.get(), consumer);
 
         this.stairsRecipe(MythBlocks.GALVITE_STAIRS.get(), MythBlocks.GALVITE.get(), consumer);
@@ -368,6 +370,8 @@ public class MythRecipeProvider extends RecipeProvider {
         this.stairsRecipe(MythBlocks.TROLLSTONE_STAIRS.get(), MythBlocks.TROLLSTONE.get(), consumer);
         this.stairsRecipe(MythBlocks.POLISHED_TROLLSTONE_STAIRS.get(), MythBlocks.POLISHED_TROLLSTONE.get(), consumer);
         this.stairsRecipe(MythBlocks.POLISHED_TROLLSTONE_BRICK_STAIRS.get(), MythBlocks.POLISHED_TROLLSTONE_BRICKS.get(), consumer);
+        this.stairsRecipe(MythBlocks.SNAIL_SHELL_BRICK_STAIRS.get(), MythBlocks.SNAIL_SHELL_BRICKS.get(), consumer);
+        this.stairsRecipe(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_STAIRS.get(), MythBlocks.BEJEWELED_SNAIL_SHELL_BRICKS.get(), consumer);
         this.woodenStairsRecipe(MythBlocks.WOLT_STAIRS.get(), MythBlocks.WOLT_PLANKS.get(), consumer);
 
         this.wallRecipe(MythBlocks.GALVITE_WALL.get(), MythBlocks.GALVITE.get(), consumer);
@@ -379,6 +383,8 @@ public class MythRecipeProvider extends RecipeProvider {
         this.wallRecipe(MythBlocks.TROLLSTONE_WALL.get(), MythBlocks.TROLLSTONE.get(), consumer);
         this.wallRecipe(MythBlocks.POLISHED_TROLLSTONE_WALL.get(), MythBlocks.POLISHED_TROLLSTONE.get(), consumer);
         this.wallRecipe(MythBlocks.POLISHED_TROLLSTONE_BRICK_WALL.get(), MythBlocks.POLISHED_TROLLSTONE_BRICKS.get(), consumer);
+        this.wallRecipe(MythBlocks.SNAIL_SHELL_BRICK_WALL.get(), MythBlocks.SNAIL_SHELL_BRICKS.get(), consumer);
+        this.wallRecipe(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_WALL.get(), MythBlocks.BEJEWELED_SNAIL_SHELL_BRICKS.get(), consumer);
 
         this.pressureplateRecipe(MythBlocks.POLISHED_GALVITE_PRESSURE_PLATE.get(), MythBlocks.POLISHED_GALVITE.get(), consumer);
         this.pressureplateRecipe(MythBlocks.POLISHED_TROLLSTONE_PRESSURE_PLATE.get(), MythBlocks.POLISHED_TROLLSTONE.get(), consumer);

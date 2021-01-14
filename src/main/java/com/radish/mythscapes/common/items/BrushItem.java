@@ -46,18 +46,21 @@ public class BrushItem extends Item {
             World world = entity.getEntityWorld();
 
             if (brushable.canBrush(entity, world)) {
-                ItemStack droppedStack = brushable.itemDropped(entity, fortuneLevel);
+                ItemStack droppedStack = brushable.itemDropped(entity, world.rand, fortuneLevel);
 
                 if (droppedStack == null) {
                     droppedStack = ItemStack.EMPTY;
                     Mythscapes.LOGGER.warn("A brushed entity just tried to drop a null ItemStack... Grrrr... (Should be ItemStack.EMPTY)");
                 }
 
-                if (!world.isRemote && !brushable.itemDropped(entity, fortuneLevel).isEmpty()) {
-                    entity.entityDropItem(brushable.itemDropped(entity, fortuneLevel));
+                if (!world.isRemote && !droppedStack.isEmpty()) {
+                    entity.entityDropItem(droppedStack);
                 }
+
+                if (brushable.shouldReceiveRegen(entity))
+                    entity.addPotionEffect(new EffectInstance(Effects.REGENERATION, ((soothingLevel + 1) * 20 * 3)));
+
                 brushable.onBrushed(entity, entity.getEntityWorld());
-                entity.addPotionEffect(new EffectInstance(Effects.REGENERATION, ((soothingLevel + 1) * 20 * 2)));
                 player.getEntityWorld().playSound(player, entity.getPosition(), SoundEvents.BLOCK_GRASS_HIT, SoundCategory.PLAYERS, 0.9f, 0.9f);
 
                 if (!player.abilities.isCreativeMode) {

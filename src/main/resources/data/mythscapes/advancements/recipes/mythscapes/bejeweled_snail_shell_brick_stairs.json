@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mythscapes:bejeweled_snail_shell_brick_stairs"
+    ]
+  },
+  "criteria": {
+    "bejeweled_snail_shell_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mythscapes:bejeweled_snail_shell_bricks"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "mythscapes:bejeweled_snail_shell_brick_stairs"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "bejeweled_snail_shell_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

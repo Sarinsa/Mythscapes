@@ -9,6 +9,9 @@ import net.minecraft.util.math.MathHelper;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+/**
+ * Pond Serpent - Durger King
+ */
 public class PondSerpentModel<T extends Entity> extends SegmentedModel<T> {
     private final ModelRenderer body1;
     private final ModelRenderer head;

@@ -1,9 +1,11 @@
 package com.radish.mythscapes.common.entities.living;
 
+import com.radish.mythscapes.api.ISnailType;
+import com.radish.mythscapes.api.impl.SnailTypeRegister;
 import com.radish.mythscapes.common.core.Mythscapes;
-import com.radish.mythscapes.common.misc.Util;
-import com.radish.mythscapes.common.register.MythEntities;
+import com.radish.mythscapes.common.misc.MythDamageSources;
 import com.radish.mythscapes.common.register.MythItems;
+import com.radish.mythscapes.common.tags.MythBlockTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -12,26 +14,29 @@ import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Rarity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.PathNodeType;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.*;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
-import net.minecraftforge.common.BiomeDictionary;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
-import java.util.function.Supplier;
 
 public class SnailEntity extends CreatureEntity {
 
+    // Old snail type handling. Will likely never be used again, but I will keep it here for now.
+
+    /*
     public enum SnailType {
         MUSHROOM("mushroom", Rarity.COMMON),
         SWAMP("swamp", Rarity.COMMON),
@@ -59,6 +64,10 @@ public class SnailEntity extends CreatureEntity {
 
         public String getName() {
             return this.name;
+        }
+
+        public String getTranslationKey() {
+            return "snail_type." + Mythscapes.MODID + "." + this.getName();
         }
 
         public Rarity getRarity() {
@@ -101,6 +110,8 @@ public class SnailEntity extends CreatureEntity {
         }
     }
 
+     */
+
 
     private static final DataParameter<String> SNAIL_TYPE = EntityDataManager.createKey(SnailEntity.class, DataSerializers.STRING);
     // Used for shell shedding
@@ -108,23 +119,21 @@ public class SnailEntity extends CreatureEntity {
 
     public SnailEntity(EntityType<? extends CreatureEntity> type, World world) {
         super(type, world);
-    }
-
-    public SnailEntity(double x, double y, double z, World world) {
-        this(MythEntities.PYGMY_SNAIL.get(), world);
-        this.setPosition(x, y, z);
+        this.setPathPriority(PathNodeType.WATER, -1.0f);
     }
 
     @Override
     public void registerGoals() {
         this.goalSelector.addGoal(1, new WaterAvoidingRandomWalkingGoal(this, 1.0f));
-        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 10.0F));
+        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 10.0F));
     }
 
     @Override
     protected void registerData() {
         super.registerData();
-        this.dataManager.register(SNAIL_TYPE, SnailType.JUNGLE.getName());
+        // Default to jungle type. All of our own snail types are
+        // statically initialized, thus this should cause no problems.
+        this.dataManager.register(SNAIL_TYPE, "mythscapes:jungle");
     }
 
     public int getMaxAir() {
@@ -135,9 +144,34 @@ public class SnailEntity extends CreatureEntity {
     public void livingTick() {
         super.livingTick();
         if (!world.isRemote && --this.timeUntilShellShed <= 0) {
-            this.timeUntilShellShed = rand.nextInt(8000) + 3000;
-            this.entityDropItem(getShedDrop());
+            ItemStack itemStack = this.getShedDrop(this.rand);
+
+            if (!itemStack.isEmpty()) {
+                this.timeUntilShellShed = this.rand.nextInt(8000) + 3000;
+                this.entityDropItem(itemStack);
+            }
         }
+    }
+
+    @Override
+    public void move(MoverType typeIn, Vector3d pos) {
+        super.move(typeIn, pos);
+
+        if (this.isOnGround()) {
+            BlockPos below = this.getPosition().down();
+
+            if (this.world.getBlockState(below).isIn(MythBlockTags.SALT_BLOCKS)) {
+                this.attackEntityFrom(MythDamageSources.SALT_DEHYDRATION, 1.0f);
+            }
+        }
+    }
+
+    @Override
+    public void onDeath(DamageSource cause) {
+        if (!this.world.isRemote && this.world.getGameRules().getBoolean(GameRules.SHOW_DEATH_MESSAGES) && this.hasCustomName()) {
+            this.world.getPlayers().forEach((playerEntity -> playerEntity.sendMessage(this.getCombatTracker().getDeathMessage(), Util.DUMMY_UUID)));
+        }
+        super.onDeath(cause);
     }
 
     @Override
@@ -146,56 +180,37 @@ public class SnailEntity extends CreatureEntity {
     }
 
     public static boolean canSnailSpawn(EntityType<? extends SnailEntity> type, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
-        return pos.getY() > 50 && world.getLightSubtracted(pos, 0) > 8;
+        return pos.getY() > 40 && !world.getBlockState(pos.down()).isIn(MythBlockTags.SALT_BLOCKS);
     }
 
-    public void setSnailType(SnailType snailType) {
-        this.dataManager.set(SNAIL_TYPE, snailType.getName());
+    public void setSnailType(ISnailType snailType) {
+        this.dataManager.set(SNAIL_TYPE, snailType.getName().toString());
     }
 
-    public SnailType getSnailType() {
-        return SnailType.getFromName(this.dataManager.get(SNAIL_TYPE));
+    public ISnailType getSnailType() {
+        return SnailTypeRegister.getFromName(this.dataManager.get(SNAIL_TYPE));
     }
 
-    public ItemStack getShedDrop() {
-        return this.getSnailType().getShedDrop();
+    public ItemStack getShedDrop(Random random) {
+        ItemStack itemStack = this.getSnailType().getShedDrop(random);
+        return itemStack == null ? new ItemStack(MythItems.SNAIL_SHELL.get()) : itemStack;
     }
 
     @Override
     public ILivingEntityData onInitialSpawn(IServerWorld world, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData spawnData, @Nullable CompoundNBT tag) {
         spawnData = super.onInitialSpawn(world, difficulty, reason, spawnData, tag);
+        Map<ResourceLocation, List<ISnailType>> spawnList = Mythscapes.getInstance().getSnailTypeRegister().getSpawnBiomes();
+        Biome biome = world.getBiome(this.getPosition());
 
         if (tag != null && tag.contains("SnailType", 8)) {
-            this.setSnailType(SnailType.getFromName(tag.getString("SnailType")));
+            this.setSnailType(SnailTypeRegister.getFromName(tag.getString("SnailType")));
         }
-        else if (reason == SpawnReason.SPAWN_EGG || reason == SpawnReason.SPAWNER) {
-            this.setSnailType(SnailType.getRandom());
+        else if (reason == SpawnReason.SPAWN_EGG || reason == SpawnReason.SPAWNER || !(spawnList.containsKey(biome.getRegistryName()))) {
+            this.setSnailType(SnailTypeRegister.getRandom());
         }
-        // If no data tag is provided, pick a snail type depending on the biome.
         else {
-            Biome biome = world.getBiome(this.getPosition());
-
-            if (biome.getRegistryName() == null) {
-                this.setSnailType(SnailType.getRandom());
-                return spawnData;
-            }
-            Mythscapes.LOGGER.info("Biome key: " + biome.getRegistryName().toString());
-
-            if (Util.hasDictType(biome.getRegistryName(), BiomeDictionary.Type.MUSHROOM))
-                this.setSnailType(SnailType.MUSHROOM);
-
-            else if (Util.hasDictType(biome.getRegistryName(), BiomeDictionary.Type.SWAMP))
-                this.setSnailType(SnailType.SWAMP);
-
-            else if (Util.areBiomesEqual(biome, Biomes.FLOWER_FOREST))
-                this.setSnailType(SnailType.FLOWER_FOREST);
-
-            else if (Util.hasDictType(biome.getRegistryName(), BiomeDictionary.Type.BEACH))
-                this.setSnailType(SnailType.JEWELED);
-
-            else {
-                this.setSnailType(SnailType.JUNGLE);
-            }
+            List<ISnailType> snailTypes = spawnList.get(biome.getRegistryName());
+            this.setSnailType(snailTypes.get(this.rand.nextInt(snailTypes.size())));
         }
         return spawnData;
     }
@@ -203,13 +218,13 @@ public class SnailEntity extends CreatureEntity {
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
-        compound.putString("SnailType", this.getSnailType().getName());
+        compound.putString("SnailType", this.getSnailType().getName().toString());
     }
 
     @Override
     public void readAdditional(CompoundNBT compound) {
         String snailType = compound.getString("SnailType");
-        this.setSnailType(SnailType.getFromName(snailType));
+        this.setSnailType(SnailTypeRegister.getFromName(snailType));
 
         super.readAdditional(compound);
     }
@@ -218,6 +233,6 @@ public class SnailEntity extends CreatureEntity {
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.FOLLOW_RANGE, 12.0D)
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.08D)
-                .createMutableAttribute(Attributes.MAX_HEALTH, 2.0D);
+                .createMutableAttribute(Attributes.MAX_HEALTH, 3.0D);
     }
 }

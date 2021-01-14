@@ -1,0 +1,6 @@
+{
+  "parent": "block/template_wall_post",
+  "textures": {
+    "wall": "mythscapes:block/snail_shell_bricks"
+  }
+}

@@ -22,7 +22,7 @@ public class LionBrushable implements IBrushable<LionEntity> {
     }
 
     @Override
-    public @NotNull ItemStack itemDropped(LionEntity lionEntity, int fortuneLevel) {
-        return new ItemStack(MythItems.LION_FUR.get(), 1 + (fortuneLevel > 0 ? new Random().nextInt(fortuneLevel) : 0));
+    public @NotNull ItemStack itemDropped(LionEntity lionEntity, Random random, int fortuneLevel) {
+        return new ItemStack(MythItems.LION_FUR.get(), 1 + (fortuneLevel > 0 ? random.nextInt(fortuneLevel) : 0));
     }
 }

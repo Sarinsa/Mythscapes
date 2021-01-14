@@ -6,6 +6,9 @@ import com.radish.mythscapes.common.entities.living.SnailEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
+/**
+ * Pygmy Snail - Echolite
+ */
 public class PygmySnailModel<T extends SnailEntity> extends EntityModel<T> {
     
     private final ModelRenderer pygmySnail;

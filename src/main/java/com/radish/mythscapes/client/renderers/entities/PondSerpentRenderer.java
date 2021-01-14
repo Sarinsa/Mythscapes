@@ -27,6 +27,7 @@ public class PondSerpentRenderer extends MobRenderer<PondSerpentEntity, PondSerp
         return entity.isBlueVariant() ? POND_SERPENT_TEXTURES[0] : POND_SERPENT_TEXTURES[1];
     }
 
+    @Override
     protected void applyRotations(PondSerpentEntity pondSerpentEntity, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
         super.applyRotations(pondSerpentEntity, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
 

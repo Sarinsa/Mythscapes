@@ -5,7 +5,6 @@ import com.radish.mythscapes.client.particles.StaticCottonParticle;
 import com.radish.mythscapes.client.particles.StaticCottonPoofParticle;
 import com.radish.mythscapes.client.renderers.entities.*;
 import com.radish.mythscapes.common.core.Mythscapes;
-import com.radish.mythscapes.common.items.MythSpawnEggItem;
 import com.radish.mythscapes.common.register.MythBlocks;
 import com.radish.mythscapes.common.register.MythEntities;
 import com.radish.mythscapes.common.register.MythParticles;
@@ -13,7 +12,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -38,6 +36,7 @@ public class ClientRegister {
 
     @SubscribeEvent
     public static void registerClient(FMLClientSetupEvent event) {
+        MinecraftForge.EVENT_BUS.register(new ClientEvents());
         registerEntityRenderers(event.getMinecraftSupplier());
         setBlockRenderTypes();
     }
@@ -53,11 +52,6 @@ public class ClientRegister {
 
     @SubscribeEvent
     public static void registerItemColors(ColorHandlerEvent.Item event) {
-        ItemColors itemColors = event.getItemColors();
-
-        for(MythSpawnEggItem spawnEgg : MythSpawnEggItem.getEggs()) {
-            itemColors.register((itemStack, color) -> spawnEgg.getColor(color), spawnEgg);
-        }
     }
 
     public static void registerEntityRenderers(Supplier<Minecraft> minecraftSupplier) {
@@ -88,9 +82,5 @@ public class ClientRegister {
     private static <T extends Entity & IRendersAsItem> void registerSpriteRenderer(EntityType<T> entityType, Supplier<Minecraft> minecraftSupplier) {
         ItemRenderer renderer = minecraftSupplier.get().getItemRenderer();
         RenderingRegistry.registerEntityRenderingHandler(entityType, (rendererManager) -> new SpriteRenderer<>(rendererManager, renderer));
-    }
-
-    public static void registerClientEvents() {
-        MinecraftForge.EVENT_BUS.register(new ClientEvents());
     }
 }

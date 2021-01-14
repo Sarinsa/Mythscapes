@@ -2,9 +2,11 @@ package com.radish.mythscapes.datagen.tag_providers;
 
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.register.MythBlocks;
+import com.radish.mythscapes.common.tags.MythBlockTags;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -46,7 +48,9 @@ public class MythBlockTagProvider extends BlockTagsProvider {
                 MythBlocks.POWERED_GALVITE_BRICK_SLAB.get(),
                 MythBlocks.TROLLSTONE_SLAB.get(),
                 MythBlocks.POLISHED_TROLLSTONE_SLAB.get(),
-                MythBlocks.POLISHED_TROLLSTONE_BRICK_SLAB.get()
+                MythBlocks.POLISHED_TROLLSTONE_BRICK_SLAB.get(),
+                MythBlocks.SNAIL_SHELL_BRICK_SLAB.get(),
+                MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_SLAB.get()
         );
 
         this.getOrCreateBuilder(BlockTags.WOODEN_SLABS).add(
@@ -63,7 +67,9 @@ public class MythBlockTagProvider extends BlockTagsProvider {
                 MythBlocks.POWERED_GALVITE_BRICK_STAIRS.get(),
                 MythBlocks.TROLLSTONE_STAIRS.get(),
                 MythBlocks.POLISHED_TROLLSTONE_STAIRS.get(),
-                MythBlocks.POLISHED_TROLLSTONE_BRICK_STAIRS.get()
+                MythBlocks.POLISHED_TROLLSTONE_BRICK_STAIRS.get(),
+                MythBlocks.SNAIL_SHELL_BRICK_STAIRS.get(),
+                MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_STAIRS.get()
         );
 
         this.getOrCreateBuilder(BlockTags.WOODEN_STAIRS).add(
@@ -80,7 +86,9 @@ public class MythBlockTagProvider extends BlockTagsProvider {
                 MythBlocks.POWERED_GALVITE_BRICK_WALL.get(),
                 MythBlocks.TROLLSTONE_WALL.get(),
                 MythBlocks.POLISHED_TROLLSTONE_WALL.get(),
-                MythBlocks.POLISHED_TROLLSTONE_BRICK_WALL.get()
+                MythBlocks.POLISHED_TROLLSTONE_BRICK_WALL.get(),
+                MythBlocks.SNAIL_SHELL_BRICK_WALL.get(),
+                MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_WALL.get()
         );
 
         this.getOrCreateBuilder(BlockTags.BUTTONS).add(
@@ -148,5 +156,8 @@ public class MythBlockTagProvider extends BlockTagsProvider {
         this.getOrCreateBuilder(BlockTags.RAILS).add(
                 MythBlocks.LAUNCHER_RAIL.get()
         );
+
+        this.getOrCreateBuilder(MythBlockTags.SALT_BLOCKS).addOptional(
+                new ResourceLocation("mekanism", "block_salt"));
     }
 }

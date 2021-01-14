@@ -4,17 +4,24 @@ import com.radish.mythscapes.common.register.MythBlocks;
 import com.radish.mythscapes.common.register.MythEntities;
 import com.radish.mythscapes.common.register.MythItems;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.BoatEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
+
+import java.util.function.Supplier;
 
 //
 //  COPY PASTA FROM BoatEntity.java
@@ -22,15 +29,16 @@ import net.minecraftforge.fml.network.NetworkHooks;
 public class MythBoatEntity extends BoatEntity {
 
     public enum Type {
-        WOLT(MythBlocks.WOLT_PLANKS.get(), "wolt");
-        //VIRIDIAN(MythBlocks.VIRIDIAN_PLANKS.get(), "viridian");
+        WOLT(MythBlocks.WOLT_PLANKS, MythItems.WOLT_BOAT, "wolt");
 
         private final String name;
-        private final Block block;
+        private final Supplier<Block> block;
+        private final Supplier<Item> boatItem;
 
-        Type(Block block, String name) {
+        Type(Supplier<Block> block, Supplier<Item> boatItem, String name) {
             this.name = name;
             this.block = block;
+            this.boatItem = boatItem;
         }
 
         public String getName() {
@@ -38,7 +46,11 @@ public class MythBoatEntity extends BoatEntity {
         }
 
         public Block asPlank() {
-            return this.block;
+            return this.block.get();
+        }
+
+        public Item asBoatItem() {
+            return this.boatItem.get();
         }
 
         public String toString() {
@@ -71,17 +83,7 @@ public class MythBoatEntity extends BoatEntity {
     }
 
     public Item getItemBoat() {
-        return MythItems.WOLT_BOAT.get();
-
-        /*
-        switch(this.getMythBoatType()) {
-            case WOLT:
-            default:
-                return MythItems.WOLT_BOAT.get();
-            case VIRIDIAN:
-                return MythItems.VIRIDIAN_BOAT.get();
-        }
-         */
+        return this.getMythBoatType().asBoatItem();
     }
 
     private static final DataParameter<Integer> MYTH_BOAT_TYPE = EntityDataManager.createKey(MythBoatEntity.class, DataSerializers.VARINT);
@@ -117,6 +119,37 @@ public class MythBoatEntity extends BoatEntity {
 
         if (compound.contains("MythBoatType", 8)) {
             this.setBoatType(MythBoatEntity.Type.getTypeFromString(compound.getString("BoatType")));
+        }
+    }
+
+    @Override
+    protected void updateFallState(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
+        this.lastYd = this.getMotion().y;
+        if (!this.isPassenger()) {
+            if (onGroundIn) {
+                if (this.fallDistance > 3.0F) {
+                    if (this.status != BoatEntity.Status.ON_LAND) {
+                        this.fallDistance = 0.0F;
+                        return;
+                    }
+                    this.onLivingFall(this.fallDistance, 1.0F);
+                    if (!this.world.isRemote && !this.isAlive()) {
+                        this.remove();
+                        if (this.world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
+                            for(int i = 0; i < 3; ++i) {
+                                this.entityDropItem(this.getMythBoatType().asPlank());
+                            }
+
+                            for(int j = 0; j < 2; ++j) {
+                                this.entityDropItem(Items.STICK);
+                            }
+                        }
+                    }
+                }
+                this.fallDistance = 0.0F;
+            } else if (!this.world.getFluidState(this.getPosition().down()).isTagged(FluidTags.WATER) && y < 0.0D) {
+                this.fallDistance = (float)((double)this.fallDistance - y);
+            }
         }
     }
 

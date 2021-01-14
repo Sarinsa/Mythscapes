@@ -1,20 +1,19 @@
 package com.radish.mythscapes.common.core;
 
 import com.radish.mythscapes.api.IMythscapesPlugin;
-import com.radish.mythscapes.api.IRegistryHelper;
 import com.radish.mythscapes.api.MythscapesPlugin;
-import com.radish.mythscapes.api.impl.RegistryUtil;
-import com.radish.mythscapes.client.ClientRegister;
+import com.radish.mythscapes.api.impl.RegistryHelper;
+import com.radish.mythscapes.api.impl.SnailTypeRegister;
+import com.radish.mythscapes.common.event.BiomeEvents;
 import com.radish.mythscapes.common.event.EffectEvents;
 import com.radish.mythscapes.common.event.EntityEvents;
 import com.radish.mythscapes.common.event.TradeEvents;
 import com.radish.mythscapes.common.misc.DispenserBehavior;
 import com.radish.mythscapes.common.register.*;
+import com.radish.mythscapes.common.tags.MythBlockTags;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -31,13 +30,16 @@ public class Mythscapes {
     public static final Logger LOGGER = LogManager.getLogger(MODID);
     private static Mythscapes INSTANCE;
 
-    private final IRegistryHelper registryHelper = new RegistryUtil();
-
+    private final RegistryHelper registryHelper = new RegistryHelper();
+    private final SnailTypeRegister snailTypeRegister = new SnailTypeRegister();
 
     public Mythscapes() {
         INSTANCE = this;
 
-        MinecraftForge.EVENT_BUS.register(this);
+        // Spawn eggs are really cool.
+        MythEntities.initTypes();
+        MythBlockTags.init();
+
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         eventBus.addListener(this::commonSetup);
@@ -46,9 +48,7 @@ public class Mythscapes {
         MinecraftForge.EVENT_BUS.register(new EffectEvents());
         MinecraftForge.EVENT_BUS.register(new EntityEvents());
         MinecraftForge.EVENT_BUS.register(new TradeEvents());
-        MinecraftForge.EVENT_BUS.addListener(MythEntities::changeBiomeSpawns);
-
-        DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientRegister::registerClientEvents);
+        MinecraftForge.EVENT_BUS.register(new BiomeEvents());
 
         MythBlocks.BLOCKS.register(eventBus);
         MythItems.ITEMS.register(eventBus);
@@ -70,26 +70,29 @@ public class Mythscapes {
         MythBiomes.addBiomes();
         MythEntities.registerData();
         MythSounds.registerParrotMimics();
-        MythPotions.registerBrewingRecipes();
         DispenserBehavior.register();
+        MythPotions.registerBrewingRecipes();
+
+        snailTypeRegister.registerInternal();
     }
 
-    /**
-     * Register Mythscapes plugins from other mods and whatnots
-     */
     public void loadComplete(FMLLoadCompleteEvent event) {
         ModList.get().getAllScanData().forEach(scanData -> {
+
             scanData.getAnnotations().forEach(annotationData -> {
+
                 if (annotationData.getAnnotationType().getClassName().equals(MythscapesPlugin.class.getName())) {
                     String modid = (String) annotationData.getAnnotationData().getOrDefault("modid", "");
 
                     if (modid.isEmpty() || ModList.get().isLoaded(modid)) {
+
                         try {
                             Class<?> pluginClass = Class.forName(annotationData.getMemberName());
 
-                            if (pluginClass.isInstance(IMythscapesPlugin.class)) {
+                            if (IMythscapesPlugin.class.isAssignableFrom(pluginClass)) {
                                 IMythscapesPlugin plugin = (IMythscapesPlugin) pluginClass.newInstance();
-                                plugin.register(getRegistryHelper());
+                                registryHelper.setCurrentPluginID(plugin);
+                                plugin.register(registryHelper);
                                 LOGGER.info("Cool beans! Successfully registered plugin at {}", annotationData.getMemberName());
                             }
                         }
@@ -101,6 +104,7 @@ public class Mythscapes {
                 }
             });
         });
+        registryHelper.postPluginSetup();
     }
 
     public static Mythscapes getInstance() {
@@ -111,7 +115,11 @@ public class Mythscapes {
         return new ResourceLocation(MODID, path);
     }
 
-    public IRegistryHelper getRegistryHelper() {
+    public RegistryHelper getRegistryHelper() {
         return this.registryHelper;
+    }
+
+    public SnailTypeRegister getSnailTypeRegister() {
+        return this.snailTypeRegister;
     }
 }

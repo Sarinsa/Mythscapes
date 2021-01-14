@@ -1,7 +1,8 @@
 package com.radish.mythscapes.datagen.lang_providers;
 
+import com.radish.mythscapes.api.ISnailType;
+import com.radish.mythscapes.api.impl.SnailTypeRegister;
 import com.radish.mythscapes.common.core.Mythscapes;
-import com.radish.mythscapes.common.entities.living.SnailEntity;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.potion.Potion;
@@ -21,8 +22,8 @@ public abstract class MythBaseLangProvider extends LanguageProvider {
         super(gen, Mythscapes.MODID, locale);
     }
 
-    protected void addSnailType(SnailEntity.SnailType snailType, String localized) {
-        this.add("snail_type." + Mythscapes.MODID + "." + snailType.getName(), localized);
+    protected void addSnailType(ISnailType snailType, String localized) {
+        this.add(SnailTypeRegister.getTranslationKey(snailType), localized);
     }
 
     @SafeVarargs
@@ -33,16 +34,37 @@ public abstract class MythBaseLangProvider extends LanguageProvider {
         }
     }
 
+    protected void addPotionItem(Supplier<Potion> potionSupplier, String localized) {
+        String name = Objects.requireNonNull(potionSupplier.get().getRegistryName()).getPath();
+        this.add("item.minecraft.potion.effect." + name, localized);
+    }
+
+    protected void addSplashPotionItem(Supplier<Potion> potionSupplier, String localized) {
+        String name = Objects.requireNonNull(potionSupplier.get().getRegistryName()).getPath();
+        this.add("item.minecraft.splash_potion.effect." + name, localized);
+    }
+
+    protected void addLingeringPotionItem(Supplier<Potion> potionSupplier, String localized) {
+        String name = Objects.requireNonNull(potionSupplier.get().getRegistryName()).getPath();
+        this.add("item.minecraft.lingering_potion.effect." + name, localized);
+    }
+
+    protected void addTippedArrowItem(Supplier<Potion> potionSupplier, String localized) {
+        String name = Objects.requireNonNull(potionSupplier.get().getRegistryName()).getPath();
+        this.add("item.minecraft.tipped_arrow.effect." + name, localized);
+    }
+
+
     protected void addPotion(Supplier<Potion> potionSupplier, String localized) {
         this.add(Util.makeTranslationKey("potion", ForgeRegistries.POTION_TYPES.getKey(potionSupplier.get())), localized);
     }
 
     protected void addDamageSource(String damageSource, String localized) {
-        this.add("attack.death." + damageSource, localized);
+        this.add("death.attack." + damageSource, localized);
     }
 
     protected void addDamageSourceWithAttacker(String damageSource, String localized) {
-        this.add("attack.death." + damageSource + ".player", localized);
+        this.add("death.attack." + damageSource + ".player", localized);
     }
 
     protected void addAdvancementTitle(String name, String localized) {
@@ -51,5 +73,13 @@ public abstract class MythBaseLangProvider extends LanguageProvider {
 
     protected void addAdvancementDesc(String name, String localized) {
         this.add("advancements." + Mythscapes.MODID + "." + name + ".description", localized);
+    }
+
+    protected void addHwylaConfig(String name, String localized) {
+        this.add("config.waila.plugin_mythscapes." + name, localized);
+    }
+
+    protected void addHwylaTooltip(String name, String localized) {
+        this.add("tooltip.waila.plugin_mythscapes." + name, localized);
     }
 }

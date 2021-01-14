@@ -10,11 +10,12 @@ buildscript {
         classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
+
 apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+apply plugin: 'org.spongepowered.mixin'
 
 group = "com.radish.Mythscapes"
 version = "${mod_version}-${minecraft_version}"
@@ -67,7 +68,7 @@ minecraft {
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'mythscapes', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'mythscapes', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             environment 'target', 'fmluserdevdata'
 
@@ -83,17 +84,24 @@ minecraft {
 repositories {
     maven {
         name 'prog'
-        url 'http://dvs1.progwml6.com/files/maven'
+        url "http://dvs1.progwml6.com/files/maven"
     }
     maven {
         name 'HWYLA'
         url "https://maven.tehnut.info"
+    }
+    maven {
+        name 'Mekanism'
+        url "https://modmaven.dev/"
     }
 }
 
 mixin {
     add sourceSets.main, "mythscapes.mixins.refmap.json"
 }
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
@@ -108,6 +116,8 @@ dependencies {
     // HWYLA
     compileOnly fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}:api")
     runtimeOnly fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}")
+
+    runtimeOnly fg.deobf("mekanism:Mekanism:1.16.4-10.0.18.445")
 }
 
 jar {

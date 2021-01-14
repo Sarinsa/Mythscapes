@@ -4,7 +4,6 @@ import com.radish.mythscapes.common.register.MythBlocks;
 import com.radish.mythscapes.common.register.MythItems;
 import mcp.mobius.waila.api.IComponentProvider;
 import mcp.mobius.waila.api.IDataAccessor;
-import mcp.mobius.waila.api.IEntityComponentProvider;
 import mcp.mobius.waila.api.IPluginConfig;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -13,7 +12,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.List;
 
-public class HUDHandler implements IComponentProvider, IEntityComponentProvider {
+public class HUDHandler implements IComponentProvider {
 
     protected static final HUDHandler INSTANCE = new HUDHandler();
 
@@ -27,10 +26,11 @@ public class HUDHandler implements IComponentProvider, IEntityComponentProvider 
 
     @Override
     public void appendBody(List<ITextComponent> tooltip, IDataAccessor accessor, IPluginConfig config) {
-        if (accessor.getBlock() == MythBlocks.BLISTERBERRY_THISTLE.get()) {
-            int age = accessor.getBlockState().get(BlockStateProperties.AGE_0_5);
-
-            addCropMaturityTooltip(tooltip, age / (float) 5);
+        if (config.get(MythscapesHwylaPlugin.CONFIG_CROP_PROGRESS)) {
+            if (accessor.getBlock() == MythBlocks.BLISTERBERRY_THISTLE.get()) {
+                int age = accessor.getBlockState().get(BlockStateProperties.AGE_0_5);
+                addCropMaturityTooltip(tooltip, age / (float) 5);
+            }
         }
     }
 

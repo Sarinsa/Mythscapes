@@ -9,6 +9,7 @@ import com.radish.mythscapes.common.misc.MythFoods;
 import com.radish.mythscapes.common.misc.MythItemGroup;
 import net.minecraft.block.Block;
 import net.minecraft.block.ComposterBlock;
+import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
@@ -24,24 +25,6 @@ import static com.radish.mythscapes.common.register.MythBlocks.BLISTERBERRY_THIS
 public class MythItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Mythscapes.MODID);
-
-    private static RegistryObject<Item> registerItem(String name, Supplier<Item> itemSupplier) {
-        return ITEMS.register(name, itemSupplier);
-    }
-
-    private static Item.Properties properties() {
-        return new Item.Properties().group(MythItemGroup.MOD_ITEM_GROUP);
-    }
-
-    private static RegistryObject<Item> registerBlockItem(RegistryObject<Block> blockSupplier) {
-        return ITEMS.register(blockSupplier.getId().getPath(), () -> new BlockItem(blockSupplier.get(), new Item.Properties().group(MythItemGroup.MOD_ITEM_GROUP)));
-    }
-
-    private static RegistryObject<Item> registerTallBlockItem(RegistryObject<Block> blockSupplier) {
-        return ITEMS.register(blockSupplier.getId().getPath(), () -> new TallBlockItem(blockSupplier.get(), new Item.Properties().group(MythItemGroup.MOD_ITEM_GROUP)));
-    }
-
-
 
     //---------------------------------------------------------------------------------------------------------------------
     //                                              BLOCK ITEMS
@@ -107,8 +90,8 @@ public class MythItems {
     public static final RegistryObject<Item> WOLT_PLANKS = registerBlockItem(MythBlocks.WOLT_PLANKS);
     public static final RegistryObject<Item> WOLT_SLAB = registerBlockItem(MythBlocks.WOLT_SLAB);
     public static final RegistryObject<Item> WOLT_STAIRS = registerBlockItem(MythBlocks.WOLT_STAIRS);
-    public static final RegistryObject<Item> WOLT_FENCE = registerBlockItem(MythBlocks.WOLT_FENCE);
-    public static final RegistryObject<Item> WOLT_FENCE_GATE = registerBlockItem(MythBlocks.WOLT_FENCE_GATE);
+    public static final RegistryObject<Item> WOLT_FENCE = registerBurnableBlockItem(MythBlocks.WOLT_FENCE, 300);
+    public static final RegistryObject<Item> WOLT_FENCE_GATE = registerBurnableBlockItem(MythBlocks.WOLT_FENCE_GATE, 300);
     public static final RegistryObject<Item> WOLT_PRESSURE_PLATE = registerBlockItem(MythBlocks.WOLT_PRESSURE_PLATE);
     public static final RegistryObject<Item> WOLT_BUTTON = registerBlockItem(MythBlocks.WOLT_BUTTON);
     public static final RegistryObject<Item> WOLT_DOOR = registerTallBlockItem(MythBlocks.WOLT_DOOR);
@@ -141,8 +124,14 @@ public class MythItems {
     public static final RegistryObject<Item> LAUNCHER_RAIL = registerBlockItem(MythBlocks.LAUNCHER_RAIL);
     public static final RegistryObject<Item> SNAIL_SHELL_BLOCK = registerBlockItem(MythBlocks.SNAIL_SHELL_BLOCK);
     public static final RegistryObject<Item> SNAIL_SHELL_BRICKS = registerBlockItem(MythBlocks.SNAIL_SHELL_BRICKS);
-    public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL_BRICKS = registerBlockItem(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICKS);
+    public static final RegistryObject<Item> SNAIL_SHELL_BRICK_SLAB = registerBlockItem(MythBlocks.SNAIL_SHELL_BRICK_SLAB);
+    public static final RegistryObject<Item> SNAIL_SHELL_BRICK_STAIRS = registerBlockItem(MythBlocks.SNAIL_SHELL_BRICK_STAIRS);
+    public static final RegistryObject<Item> SNAIL_SHELL_BRICK_WALL = registerBlockItem(MythBlocks.SNAIL_SHELL_BRICK_WALL);
     public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL_BLOCK = registerBlockItem(MythBlocks.BEJEWELED_SNAIL_SHELL_BLOCK);
+    public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL_BRICKS = registerBlockItem(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICKS);
+    public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL_BRICK_SLAB = registerBlockItem(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_SLAB);
+    public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL_BRICK_STAIRS = registerBlockItem(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_STAIRS);
+    public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL_BRICK_WALL = registerBlockItem(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_WALL);
 
 
     //---------------------------------------------------------------------------------------------------------------------
@@ -172,25 +161,25 @@ public class MythItems {
     public static final RegistryObject<Item> BRUSH = registerItem("brush", () -> new BrushItem(properties().maxDamage(100)));
 
     // Armor
-    public static final RegistryObject<Item> COTTON_HOOD = ITEMS.register("cotton_hood", () -> new MythArmorItem(MythArmorTypes.COTTON, EquipmentSlotType.HEAD));
-    public static final RegistryObject<Item> COTTON_COAT = ITEMS.register("cotton_coat", () -> new MythArmorItem(MythArmorTypes.COTTON, EquipmentSlotType.CHEST));
-    public static final RegistryObject<Item> COTTON_PANTS = ITEMS.register("cotton_pants", () -> new MythArmorItem(MythArmorTypes.COTTON, EquipmentSlotType.LEGS));
-    public static final RegistryObject<Item> COTTON_BOOTS = ITEMS.register("cotton_boots", () -> new MythArmorItem(MythArmorTypes.COTTON, EquipmentSlotType.FEET));
-    public static final RegistryObject<Item> BARBARIAN_HOOD = ITEMS.register("barbarian_hood", () -> new MythArmorItem(MythArmorTypes.BARBARIAN, EquipmentSlotType.HEAD));
+    public static final RegistryObject<Item> COTTON_HOOD = registerItem("cotton_hood", () -> new MythArmorItem(MythArmorTypes.COTTON, EquipmentSlotType.HEAD));
+    public static final RegistryObject<Item> COTTON_COAT = registerItem("cotton_coat", () -> new MythArmorItem(MythArmorTypes.COTTON, EquipmentSlotType.CHEST));
+    public static final RegistryObject<Item> COTTON_PANTS = registerItem("cotton_pants", () -> new MythArmorItem(MythArmorTypes.COTTON, EquipmentSlotType.LEGS));
+    public static final RegistryObject<Item> COTTON_BOOTS = registerItem("cotton_boots", () -> new MythArmorItem(MythArmorTypes.COTTON, EquipmentSlotType.FEET));
+    public static final RegistryObject<Item> BARBARIAN_HOOD = registerItem("barbarian_hood", () -> new MythArmorItem(MythArmorTypes.BARBARIAN, EquipmentSlotType.HEAD));
 
     // Boats
-    public static final RegistryObject<Item> WOLT_BOAT = ITEMS.register("wolt_boat", () -> new MythBoatItem(MythBoatEntity.Type.WOLT));
+    public static final RegistryObject<Item> WOLT_BOAT = registerItem("wolt_boat", () -> new MythBoatItem(MythBoatEntity.Type.WOLT));
     //public static final RegistryObject<Item> VIRIDIAN_BOAT = ITEMS.register("viridian_boat", () -> new MythBoatItem(MythBoatEntity.Type.VIRIDIAN));
 
     // Fluid buckets
-    public static final RegistryObject<Item> LIQUID_SULFUR_BUCKET = ITEMS.register("liquid_sulfur_bucket", () -> new BucketItem(MythFluids.SULFUR, properties().maxStackSize(1)));
+    public static final RegistryObject<Item> LIQUID_SULFUR_BUCKET = registerItem("liquid_sulfur_bucket", () -> new BucketItem(MythFluids.SULFUR, properties().maxStackSize(1)));
 
     // Spawn eggs
-    public static final RegistryObject<Item> POND_SERPENT_SPAWN_EGG = ITEMS.register("pond_serpent_spawn_egg", () -> new MythSpawnEggItem(MythEntities.POND_SERPENT, 0x1Fa361, 0xe67008));
-    public static final RegistryObject<Item> LION_SPAWN_EGG = ITEMS.register("lion_spawn_egg", () -> new MythSpawnEggItem(MythEntities.LION, 0xd3964d, 0x5F3c1a));
-    public static final RegistryObject<Item> FISHBONES_SPAWN_EGG = ITEMS.register("fishbones_spawn_egg", () -> new MythSpawnEggItem(MythEntities.FISHBONES, 0xAFDEF5, 0x9CCAE1));
-    public static final RegistryObject<Item> PYGMY_SNAIL_SPAWN_EGG = ITEMS.register("pygmy_snail_spawn_egg", () -> new MythSpawnEggItem(MythEntities.PYGMY_SNAIL, 0x513230, 0xCCAF99));
-    public static final RegistryObject<Item> DEER_SPAWN_EGG = ITEMS.register("deer_spawn_egg", () -> new MythSpawnEggItem(MythEntities.DEER, 0x8A5E46, 0xFFF1E5));
+    public static final RegistryObject<Item> POND_SERPENT_SPAWN_EGG = registerSpawnEgg("pond_serpent_spawn_egg", MythEntities.POND_SERPENT_TYPE, 0x1Fa361, 0xe67008);
+    public static final RegistryObject<Item> LION_SPAWN_EGG = registerSpawnEgg("lion_spawn_egg", MythEntities.LION_TYPE, 0xd3964d, 0x5F3c1a);
+    public static final RegistryObject<Item> FISHBONES_SPAWN_EGG = registerSpawnEgg("fishbones_spawn_egg", MythEntities.FISHBONES_TYPE, 0xAFDEF5, 0x9CCAE1);
+    public static final RegistryObject<Item> PYGMY_SNAIL_SPAWN_EGG = registerSpawnEgg("pygmy_snail_spawn_egg", MythEntities.PYGMY_SNAIL_TYPE, 0x513230, 0xCCAF99);
+    public static final RegistryObject<Item> DEER_SPAWN_EGG = registerSpawnEgg("deer_spawn_egg", MythEntities.DEER_TYPE, 0x8A5E46, 0xFFF1E5);
 
     public static void registerItemInfo() {
         registerCompostable(BIOBULB, 0.5f);
@@ -207,6 +196,30 @@ public class MythItems {
 
     private static void registerCompostable(Supplier<? extends IItemProvider> blockSupplier, float chance) {
         ComposterBlock.CHANCES.put(blockSupplier.get(), chance);
+    }
+
+    private static Item.Properties properties() {
+        return new Item.Properties().group(MythItemGroup.MOD_ITEM_GROUP);
+    }
+
+    private static RegistryObject<Item> registerItem(String name, Supplier<Item> itemSupplier) {
+        return ITEMS.register(name, itemSupplier);
+    }
+
+    private static RegistryObject<Item> registerBlockItem(RegistryObject<Block> blockSupplier) {
+        return ITEMS.register(blockSupplier.getId().getPath(), () -> new BlockItem(blockSupplier.get(), properties()));
+    }
+
+    private static RegistryObject<Item> registerSpawnEgg(String name, EntityType<?> entityType, int primaryColor, int secondaryColor) {
+        return registerItem(name, () -> new SpawnEggItem(entityType, primaryColor, secondaryColor, properties()));
+    }
+
+    private static RegistryObject<Item> registerBurnableBlockItem(RegistryObject<Block> blockSupplier, int burnTime) {
+        return ITEMS.register(blockSupplier.getId().getPath(), () -> new BurnableBlockItem(blockSupplier.get(), properties(), burnTime));
+    }
+
+    private static RegistryObject<Item> registerTallBlockItem(RegistryObject<Block> blockSupplier) {
+        return ITEMS.register(blockSupplier.getId().getPath(), () -> new TallBlockItem(blockSupplier.get(), properties()));
     }
 }
 

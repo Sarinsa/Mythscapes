@@ -8,14 +8,12 @@ import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.loot.BlockLootTables;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Items;
 import net.minecraft.loot.*;
-import net.minecraft.loot.conditions.BlockStateProperty;
-import net.minecraft.loot.conditions.EntityHasProperty;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.loot.conditions.MatchTool;
+import net.minecraft.loot.conditions.*;
 import net.minecraft.loot.functions.ApplyBonus;
 import net.minecraft.loot.functions.SetCount;
 
@@ -49,10 +47,12 @@ public class MythBlockLootTableProvider extends BlockLootTables {
     @Override
     @SuppressWarnings("all")
     protected void addTables() {
-        this.registerLootTable(MythBlocks.GILDED_GALVITE.get(), (block) ->
-                droppingWithSilkTouch(block, withExplosionDecay(block, ItemLootEntry.builder(Items.GOLD_NUGGET)
-                        .acceptFunction(SetCount.builder(RandomValueRange.of(4.0F, 5.0F)))
-                        .acceptFunction(ApplyBonus.uniformBonusCount(Enchantments.FORTUNE)))));
+        this.registerLootTable(MythBlocks.GILDED_GALVITE.get(), (block) -> {
+            return droppingWithSilkTouch(block, withSurvivesExplosion(block, ItemLootEntry.builder(Items.GOLD_NUGGET)
+                    .acceptFunction(SetCount.builder(RandomValueRange.of(2.0F, 5.0F)))
+                    .acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.1F, 0.14285715F, 0.25F, 1.0F))
+                    .alternatively(ItemLootEntry.builder(block))));
+        });
 
         this.registerLootTable(MythBlocks.BEJEWELED_GALVITE.get(), (block) ->
                 droppingItemWithFortune(block, Items.DIAMOND));

@@ -105,8 +105,14 @@ public class MythLanguageProviderEnglishUS extends MythBaseLangProvider {
         this.addBlock(MythBlocks.LAUNCHER_RAIL, "Launcher Rail");
         this.addBlock(MythBlocks.SNAIL_SHELL_BLOCK, "Snail Shell Block");
         this.addBlock(MythBlocks.SNAIL_SHELL_BRICKS, "Snail Shell Bricks");
+        this.addBlock(MythBlocks.SNAIL_SHELL_BRICK_SLAB, "Snail Shell Brick Slab");
+        this.addBlock(MythBlocks.SNAIL_SHELL_BRICK_STAIRS, "Snail Shell Brick Stairs");
+        this.addBlock(MythBlocks.SNAIL_SHELL_BRICK_WALL, "Snail Shell Brick Wall");
         this.addBlock(MythBlocks.BEJEWELED_SNAIL_SHELL_BLOCK, "Bejeweled Snail Shell Block");
         this.addBlock(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICKS, "Bejeweled Snail Shell Bricks");
+        this.addBlock(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_SLAB, "Bejeweled Snail Shell Brick Slab");
+        this.addBlock(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_STAIRS, "Bejeweled Snail Shell Brick Stairs");
+        this.addBlock(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_WALL, "Bejeweled Snail Shell Brick Wall");
         this.addBlock(MythBlocks.LIQUID_SULFUR_FLUID_BLOCK, "Liquid Sulfur");
 
         this.addItem(MythItems.POND_SERPENT, "Pond Serpent");

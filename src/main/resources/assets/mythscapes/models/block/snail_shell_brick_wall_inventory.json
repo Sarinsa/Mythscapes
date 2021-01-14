@@ -1,0 +1,6 @@
+{
+  "parent": "block/wall_inventory",
+  "textures": {
+    "wall": "mythscapes:block/snail_shell_bricks"
+  }
+}

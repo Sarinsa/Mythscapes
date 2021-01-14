@@ -124,8 +124,14 @@ public class MythItems {
     public static final RegistryObject<Item> LAUNCHER_RAIL = registerBlockItem(MythBlocks.LAUNCHER_RAIL);
     public static final RegistryObject<Item> SNAIL_SHELL_BLOCK = registerBlockItem(MythBlocks.SNAIL_SHELL_BLOCK);
     public static final RegistryObject<Item> SNAIL_SHELL_BRICKS = registerBlockItem(MythBlocks.SNAIL_SHELL_BRICKS);
-    public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL_BRICKS = registerBlockItem(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICKS);
+    public static final RegistryObject<Item> SNAIL_SHELL_BRICK_SLAB = registerBlockItem(MythBlocks.SNAIL_SHELL_BRICK_SLAB);
+    public static final RegistryObject<Item> SNAIL_SHELL_BRICK_STAIRS = registerBlockItem(MythBlocks.SNAIL_SHELL_BRICK_STAIRS);
+    public static final RegistryObject<Item> SNAIL_SHELL_BRICK_WALL = registerBlockItem(MythBlocks.SNAIL_SHELL_BRICK_WALL);
     public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL_BLOCK = registerBlockItem(MythBlocks.BEJEWELED_SNAIL_SHELL_BLOCK);
+    public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL_BRICKS = registerBlockItem(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICKS);
+    public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL_BRICK_SLAB = registerBlockItem(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_SLAB);
+    public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL_BRICK_STAIRS = registerBlockItem(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_STAIRS);
+    public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL_BRICK_WALL = registerBlockItem(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_WALL);
 
 
     //---------------------------------------------------------------------------------------------------------------------

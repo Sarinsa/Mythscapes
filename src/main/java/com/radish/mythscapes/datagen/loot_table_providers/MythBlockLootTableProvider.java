@@ -212,7 +212,13 @@ public class MythBlockLootTableProvider extends BlockLootTables {
         this.registerDropSelfLootTable(MythBlocks.LAUNCHER_RAIL.get());
         this.registerDropSelfLootTable(MythBlocks.SNAIL_SHELL_BLOCK.get());
         this.registerDropSelfLootTable(MythBlocks.SNAIL_SHELL_BRICKS.get());
+        this.registerDropSelfLootTable(MythBlocks.SNAIL_SHELL_BRICK_SLAB.get());
+        this.registerDropSelfLootTable(MythBlocks.SNAIL_SHELL_BRICK_STAIRS.get());
+        this.registerDropSelfLootTable(MythBlocks.SNAIL_SHELL_BRICK_WALL.get());
         this.registerDropSelfLootTable(MythBlocks.BEJEWELED_SNAIL_SHELL_BLOCK.get());
         this.registerDropSelfLootTable(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICKS.get());
+        this.registerDropSelfLootTable(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_SLAB.get());
+        this.registerDropSelfLootTable(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_STAIRS.get());
+        this.registerDropSelfLootTable(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_WALL.get());
     }
 }

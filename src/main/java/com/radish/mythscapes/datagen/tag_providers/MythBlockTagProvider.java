@@ -48,7 +48,9 @@ public class MythBlockTagProvider extends BlockTagsProvider {
                 MythBlocks.POWERED_GALVITE_BRICK_SLAB.get(),
                 MythBlocks.TROLLSTONE_SLAB.get(),
                 MythBlocks.POLISHED_TROLLSTONE_SLAB.get(),
-                MythBlocks.POLISHED_TROLLSTONE_BRICK_SLAB.get()
+                MythBlocks.POLISHED_TROLLSTONE_BRICK_SLAB.get(),
+                MythBlocks.SNAIL_SHELL_BRICK_SLAB.get(),
+                MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_SLAB.get()
         );
 
         this.getOrCreateBuilder(BlockTags.WOODEN_SLABS).add(
@@ -65,7 +67,9 @@ public class MythBlockTagProvider extends BlockTagsProvider {
                 MythBlocks.POWERED_GALVITE_BRICK_STAIRS.get(),
                 MythBlocks.TROLLSTONE_STAIRS.get(),
                 MythBlocks.POLISHED_TROLLSTONE_STAIRS.get(),
-                MythBlocks.POLISHED_TROLLSTONE_BRICK_STAIRS.get()
+                MythBlocks.POLISHED_TROLLSTONE_BRICK_STAIRS.get(),
+                MythBlocks.SNAIL_SHELL_BRICK_STAIRS.get(),
+                MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_STAIRS.get()
         );
 
         this.getOrCreateBuilder(BlockTags.WOODEN_STAIRS).add(
@@ -82,7 +86,9 @@ public class MythBlockTagProvider extends BlockTagsProvider {
                 MythBlocks.POWERED_GALVITE_BRICK_WALL.get(),
                 MythBlocks.TROLLSTONE_WALL.get(),
                 MythBlocks.POLISHED_TROLLSTONE_WALL.get(),
-                MythBlocks.POLISHED_TROLLSTONE_BRICK_WALL.get()
+                MythBlocks.POLISHED_TROLLSTONE_BRICK_WALL.get(),
+                MythBlocks.SNAIL_SHELL_BRICK_WALL.get(),
+                MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_WALL.get()
         );
 
         this.getOrCreateBuilder(BlockTags.BUTTONS).add(

@@ -63,49 +63,49 @@ public class MythBlockLootTableProvider extends BlockLootTables {
                         .acceptFunction(ApplyBonus.uniformBonusCount(Enchantments.FORTUNE)))));
 
         this.registerDropSelfLootTable(MythBlocks.GALVITE.get());
-        this.registerDropSelfLootTable(MythBlocks.GALVITE_SLAB.get());
+        this.registerLootTable(MythBlocks.GALVITE_SLAB.get(), BlockLootTables::droppingSlab);
         this.registerDropSelfLootTable(MythBlocks.GALVITE_STAIRS.get());
         this.registerDropSelfLootTable(MythBlocks.GALVITE_WALL.get());
         this.registerDropSelfLootTable(MythBlocks.POLISHED_GALVITE.get());
-        this.registerDropSelfLootTable(MythBlocks.POLISHED_GALVITE_SLAB.get());
+        this.registerLootTable(MythBlocks.POLISHED_GALVITE_SLAB.get(), BlockLootTables::droppingSlab);
         this.registerDropSelfLootTable(MythBlocks.POLISHED_GALVITE_STAIRS.get());
         this.registerDropSelfLootTable(MythBlocks.POLISHED_GALVITE_WALL.get());
         this.registerDropSelfLootTable(MythBlocks.POLISHED_GALVITE_PRESSURE_PLATE.get());
         this.registerDropSelfLootTable(MythBlocks.POLISHED_GALVITE_BUTTON.get());
         this.registerDropSelfLootTable(MythBlocks.POLISHED_GALVITE_BRICKS.get());
-        this.registerDropSelfLootTable(MythBlocks.POLISHED_GALVITE_BRICK_SLAB.get());
+        this.registerLootTable(MythBlocks.POLISHED_GALVITE_BRICK_SLAB.get(), BlockLootTables::droppingSlab);
         this.registerDropSelfLootTable(MythBlocks.POLISHED_GALVITE_BRICK_STAIRS.get());
         this.registerDropSelfLootTable(MythBlocks.POLISHED_GALVITE_BRICK_WALL.get());
         this.registerDropSelfLootTable(MythBlocks.CHISELED_POLISHED_GALVITE.get());
         this.registerDropSelfLootTable(MythBlocks.GALVITE_SHINGLES.get());
-        this.registerDropSelfLootTable(MythBlocks.GALVITE_SHINGLE_SLAB.get());
+        this.registerLootTable(MythBlocks.GALVITE_SHINGLE_SLAB.get(), BlockLootTables::droppingSlab);
         this.registerDropSelfLootTable(MythBlocks.GALVITE_SHINGLE_STAIRS.get());
 
         this.registerDropSelfLootTable(MythBlocks.GILDED_GALVITE_BRICKS.get());
-        this.registerDropSelfLootTable(MythBlocks.GILDED_GALVITE_BRICK_SLAB.get());
+        this.registerLootTable(MythBlocks.GILDED_GALVITE_BRICK_SLAB.get(), BlockLootTables::droppingSlab);
         this.registerDropSelfLootTable(MythBlocks.GILDED_GALVITE_BRICK_STAIRS.get());
         this.registerDropSelfLootTable(MythBlocks.GILDED_GALVITE_BRICK_WALL.get());
         this.registerDropSelfLootTable(MythBlocks.BEJEWELED_GALVITE_BRICKS.get());
-        this.registerDropSelfLootTable(MythBlocks.BEJEWELED_GALVITE_BRICK_SLAB.get());
+        this.registerLootTable(MythBlocks.BEJEWELED_GALVITE_BRICK_SLAB.get(), BlockLootTables::droppingSlab);
         this.registerDropSelfLootTable(MythBlocks.BEJEWELED_GALVITE_BRICK_STAIRS.get());
         this.registerDropSelfLootTable(MythBlocks.BEJEWELED_GALVITE_BRICK_WALL.get());
         this.registerDropSelfLootTable(MythBlocks.POWERED_GALVITE_BRICKS.get());
-        this.registerDropSelfLootTable(MythBlocks.POWERED_GALVITE_BRICK_SLAB.get());
+        this.registerLootTable(MythBlocks.POWERED_GALVITE_BRICK_SLAB.get(), BlockLootTables::droppingSlab);
         this.registerDropSelfLootTable(MythBlocks.POWERED_GALVITE_BRICK_STAIRS.get());
         this.registerDropSelfLootTable(MythBlocks.POWERED_GALVITE_BRICK_WALL.get());
 
         this.registerDropSelfLootTable(MythBlocks.TROLLSTONE.get());
-        this.registerDropSelfLootTable(MythBlocks.TROLLSTONE_SLAB.get());
+        this.registerLootTable(MythBlocks.TROLLSTONE_SLAB.get(), BlockLootTables::droppingSlab);
         this.registerDropSelfLootTable(MythBlocks.TROLLSTONE_STAIRS.get());
         this.registerDropSelfLootTable(MythBlocks.TROLLSTONE_WALL.get());
         this.registerDropSelfLootTable(MythBlocks.POLISHED_TROLLSTONE.get());
-        this.registerDropSelfLootTable(MythBlocks.POLISHED_TROLLSTONE_SLAB.get());
+        this.registerLootTable(MythBlocks.POLISHED_TROLLSTONE_SLAB.get(), BlockLootTables::droppingSlab);
         this.registerDropSelfLootTable(MythBlocks.POLISHED_TROLLSTONE_STAIRS.get());
         this.registerDropSelfLootTable(MythBlocks.POLISHED_TROLLSTONE_WALL.get());
         this.registerDropSelfLootTable(MythBlocks.POLISHED_TROLLSTONE_PRESSURE_PLATE.get());
         this.registerDropSelfLootTable(MythBlocks.POLISHED_TROLLSTONE_BUTTON.get());
         this.registerDropSelfLootTable(MythBlocks.POLISHED_TROLLSTONE_BRICKS.get());
-        this.registerDropSelfLootTable(MythBlocks.POLISHED_TROLLSTONE_BRICK_SLAB.get());
+        this.registerLootTable(MythBlocks.POLISHED_TROLLSTONE_BRICK_SLAB.get(), BlockLootTables::droppingSlab);
         this.registerDropSelfLootTable(MythBlocks.POLISHED_TROLLSTONE_BRICK_STAIRS.get());
         this.registerDropSelfLootTable(MythBlocks.POLISHED_TROLLSTONE_BRICK_WALL.get());
         this.registerDropSelfLootTable(MythBlocks.POLISHED_TROLLSTONE_PILLAR.get());
@@ -118,7 +118,7 @@ public class MythBlockLootTableProvider extends BlockLootTables {
         this.registerDropSelfLootTable(MythBlocks.WOLT_LOG_STRIPPED.get());
         this.registerDropSelfLootTable(MythBlocks.WOLT_WOOD_STRIPPED.get());
         this.registerDropSelfLootTable(MythBlocks.WOLT_PLANKS.get());
-        this.registerDropSelfLootTable(MythBlocks.WOLT_SLAB.get());
+        this.registerLootTable(MythBlocks.WOLT_SLAB.get(), BlockLootTables::droppingSlab);
         this.registerDropSelfLootTable(MythBlocks.WOLT_STAIRS.get());
         this.registerDropSelfLootTable(MythBlocks.WOLT_FENCE.get());
         this.registerDropSelfLootTable(MythBlocks.WOLT_FENCE_GATE.get());
@@ -151,6 +151,8 @@ public class MythBlockLootTableProvider extends BlockLootTables {
         this.registerDropSelfLootTable(MythBlocks.STATIC_COTTON_BLOCK.get());
         this.registerDropSelfLootTable(MythBlocks.WOLT_POWDER_BLOCK.get());
 
+        // This is an adjustment of the snow layers block's loot table. How the frick does the
+        // people at Mojang write this stuff without having their brains explode?
         this.registerLootTable(MythBlocks.STATIC_COTTON_PILES.get(), (block) -> LootTable.builder()
                 .addLootPool(LootPool.builder()
                         .acceptCondition(EntityHasProperty.builder(LootContext.EntityTarget.THIS))
@@ -212,12 +214,12 @@ public class MythBlockLootTableProvider extends BlockLootTables {
         this.registerDropSelfLootTable(MythBlocks.LAUNCHER_RAIL.get());
         this.registerDropSelfLootTable(MythBlocks.SNAIL_SHELL_BLOCK.get());
         this.registerDropSelfLootTable(MythBlocks.SNAIL_SHELL_BRICKS.get());
-        this.registerDropSelfLootTable(MythBlocks.SNAIL_SHELL_BRICK_SLAB.get());
+        this.registerLootTable(MythBlocks.SNAIL_SHELL_BRICK_SLAB.get(), BlockLootTables::droppingSlab);
         this.registerDropSelfLootTable(MythBlocks.SNAIL_SHELL_BRICK_STAIRS.get());
         this.registerDropSelfLootTable(MythBlocks.SNAIL_SHELL_BRICK_WALL.get());
         this.registerDropSelfLootTable(MythBlocks.BEJEWELED_SNAIL_SHELL_BLOCK.get());
         this.registerDropSelfLootTable(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICKS.get());
-        this.registerDropSelfLootTable(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_SLAB.get());
+        this.registerLootTable(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_SLAB.get(), BlockLootTables::droppingSlab);
         this.registerDropSelfLootTable(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_STAIRS.get());
         this.registerDropSelfLootTable(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_WALL.get());
     }

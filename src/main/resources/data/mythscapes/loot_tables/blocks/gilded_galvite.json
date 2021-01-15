@@ -27,29 +27,44 @@
               "name": "mythscapes:gilded_galvite"
             },
             {
-              "type": "minecraft:item",
-              "functions": [
+              "type": "minecraft:alternatives",
+              "conditions": [
                 {
-                  "function": "minecraft:set_count",
-                  "count": {
-                    "min": 4.0,
-                    "max": 5.0,
-                    "type": "minecraft:uniform"
-                  }
-                },
-                {
-                  "function": "minecraft:apply_bonus",
-                  "enchantment": "minecraft:fortune",
-                  "formula": "minecraft:uniform_bonus_count",
-                  "parameters": {
-                    "bonusMultiplier": 1
-                  }
-                },
-                {
-                  "function": "minecraft:explosion_decay"
+                  "condition": "minecraft:survives_explosion"
                 }
               ],
-              "name": "minecraft:gold_nugget"
+              "children": [
+                {
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "condition": "minecraft:table_bonus",
+                      "enchantment": "minecraft:fortune",
+                      "chances": [
+                        0.1,
+                        0.14285715,
+                        0.25,
+                        1.0
+                      ]
+                    }
+                  ],
+                  "functions": [
+                    {
+                      "function": "minecraft:set_count",
+                      "count": {
+                        "min": 2.0,
+                        "max": 5.0,
+                        "type": "minecraft:uniform"
+                      }
+                    }
+                  ],
+                  "name": "minecraft:gold_nugget"
+                },
+                {
+                  "type": "minecraft:item",
+                  "name": "mythscapes:gilded_galvite"
+                }
+              ]
             }
           ]
         }

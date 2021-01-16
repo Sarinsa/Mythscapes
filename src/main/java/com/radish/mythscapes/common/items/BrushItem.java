@@ -7,10 +7,13 @@ import com.radish.mythscapes.common.register.MythEntities;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.goal.BreedGoal;
+import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResultType;
@@ -51,6 +54,12 @@ public class BrushItem extends Item {
                 if (droppedStack == null) {
                     droppedStack = ItemStack.EMPTY;
                     Mythscapes.LOGGER.warn("A brushed entity just tried to drop a null ItemStack... Grrrr... (Should be ItemStack.EMPTY)");
+                }
+                for (int i = 0; i < 7; i++) {
+                    double x = this.random.nextGaussian() * 0.02D;
+                    double y = this.random.nextGaussian() * 0.02D;
+                    double z = this.random.nextGaussian() * 0.02D;
+                    world.addParticle(ParticleTypes.HEART, entity.getPosXRandom(1.0D), entity.getPosYRandom() + 0.5D, entity.getPosZRandom(1.0D), x, y, z);
                 }
 
                 if (!world.isRemote && !droppedStack.isEmpty()) {

@@ -13,6 +13,7 @@ import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.AbstractIllagerEntity;
 import net.minecraft.entity.monster.EvokerEntity;
+import net.minecraft.entity.monster.IllusionerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -114,6 +115,7 @@ public class EntityEvents {
     @SubscribeEvent
     public void onLivingSpawn(LivingSpawnEvent event) {
         LivingEntity entity = event.getEntityLiving();
+        EntityType<?> type = entity.getType();
 
         /*
         if (entity instanceof MonsterEntity) {
@@ -121,16 +123,17 @@ public class EntityEvents {
             ((CreatureEntity)entity).goalSelector.addGoal(3, new AvoidEntityGoal<>((CreatureEntity) entity, FishbonesEntity.class, 6.0F, 1.0D, 1.2D));
         }
          */
-        if (entity.getType() == EntityType.VINDICATOR || entity.getType() == EntityType.PILLAGER) {
+        if (type == EntityType.VINDICATOR || type == EntityType.PILLAGER || type == EntityType.EVOKER || type == EntityType.ILLUSIONER) {
             AbstractIllagerEntity illagerEntity = (AbstractIllagerEntity) entity;
-            illagerEntity.goalSelector.addGoal(3, new AvoidEntityGoal<>(illagerEntity, LionEntity.class, 10.0F, 1.2D, 1.3D));
+            double farSpeed = (type == EntityType.EVOKER || type == EntityType.ILLUSIONER) ? 0.7D : 1.0D;
+            double nearSpeed = (type == EntityType.EVOKER || type == EntityType.ILLUSIONER) ? 0.9D : 1.1D;
+            illagerEntity.goalSelector.addGoal(3, new AvoidEntityGoal<>(illagerEntity, LionEntity.class, 10.0F, farSpeed, nearSpeed));
+
+            if (type == EntityType.EVOKER) {
+                illagerEntity.targetSelector.addGoal(4 ,new NearestAttackableTargetGoal<>(illagerEntity, LionEntity.class, true));
+            }
         }
-        else if (entity.getType() == EntityType.EVOKER || entity.getType() == EntityType.ILLUSIONER) {
-            EvokerEntity evokerEntity = (EvokerEntity) entity;
-            evokerEntity.goalSelector.addGoal(3, new AvoidEntityGoal<>(evokerEntity, LionEntity.class, 8.0f, 0.6D, 1.0D));
-            evokerEntity.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(evokerEntity, LionEntity.class, false));
-        }
-        else if (entity.getType() == EntityType.CREEPER) {
+        else if (type == EntityType.CREEPER) {
             CreatureEntity creatureEntity = (CreatureEntity) entity;
             creatureEntity.goalSelector.addGoal(3, new AvoidEntityGoal<>(creatureEntity, LionEntity.class, 6.0F, 1.0D, 1.2D));
         }

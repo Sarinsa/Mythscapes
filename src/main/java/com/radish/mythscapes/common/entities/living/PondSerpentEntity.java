@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.item.BoatEntity;
 import net.minecraft.entity.passive.fish.AbstractFishEntity;
 import net.minecraft.entity.passive.fish.AbstractGroupFishEntity;
 import net.minecraft.item.ItemStack;
@@ -21,12 +22,36 @@ import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
-import net.minecraftforge.common.util.Constants;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Locale;
 
 public class PondSerpentEntity extends AbstractGroupFishEntity {
 
-    public static DataParameter<Boolean> BLUE = EntityDataManager.createKey(PondSerpentEntity.class, DataSerializers.BOOLEAN);
+    public enum Type {
+        GREEN("olympian"),
+        BLUE("ocean");
+
+        final String name;
+
+        Type(String name) {
+            this.name = name;
+        }
+
+        private String getName() {
+            return this.name;
+        }
+
+        private static Type getFromName(String name) {
+            for (Type type : values()) {
+                if (type.getName().equals(name))
+                    return type;
+            }
+            return BLUE;
+        }
+    }
+
+    public static DataParameter<String> TYPE = EntityDataManager.createKey(PondSerpentEntity.class, DataSerializers.STRING);
 
     public PondSerpentEntity(EntityType<? extends AbstractGroupFishEntity> entityType, World world) {
         super(entityType, world);
@@ -35,45 +60,53 @@ public class PondSerpentEntity extends AbstractGroupFishEntity {
     @Override
     protected void registerData() {
         super.registerData();
-        this.dataManager.register(BLUE, false);
+        this.dataManager.register(TYPE, Type.BLUE.getName());
     }
 
     private void setSerpentType(Biome biome) {
         boolean bool = !(Util.areBiomesEqual(biome, Biomes.LUKEWARM_OCEAN) || Util.areBiomesEqual(biome, Biomes.WARM_OCEAN));
-        this.dataManager.set(BLUE, bool);
+        this.setSerpentType(bool ? Type.BLUE.getName() : Type.GREEN.getName());
     }
 
-    public boolean isBlueVariant() {
-        return this.dataManager.get(BLUE);
+    public void setSerpentType(String type) {
+        this.dataManager.set(TYPE, type);
+    }
+
+    public Type getSerpentType() {
+        return Type.getFromName(this.dataManager.get(TYPE));
     }
 
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
-        compound.putBoolean("Blue", this.isBlueVariant());
+        compound.putString("SerpentType", this.getSerpentType().getName());
     }
 
     @Override
     public void readAdditional(CompoundNBT compound) {
-        boolean isBlue = compound.getBoolean("Blue");
-        this.dataManager.set(BLUE, isBlue);
+        String type = compound.getString("SerpentType");
+        this.setSerpentType(type);
         super.readAdditional(compound);
     }
 
     @Override
     protected void setBucketData(ItemStack bucket) {
-        bucket.getOrCreateChildTag("serpentType").putBoolean("Blue", this.isBlueVariant());
+        bucket.getOrCreateChildTag("serpentType").putString("SerpentType", this.getSerpentType().getName());
     }
 
     @Override
     public ILivingEntityData onInitialSpawn(IServerWorld world, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData spawnData, @Nullable CompoundNBT tag) {
         Biome biome = world.getBiome(this.getPosition());
 
+        if (tag != null) {
+            Mythscapes.LOGGER.info(tag.toString());
+        }
+
         if (tag == null) {
             this.setSerpentType(biome);
         }
         else if (tag.contains("serpentType", 10)) {
-            this.dataManager.set(BLUE, tag.getCompound("serpentType").getBoolean("Blue"));
+            this.setSerpentType(tag.getCompound("serpentType").getString("SerpentType"));
         }
         return super.onInitialSpawn(world, difficulty, reason, spawnData, tag);
     }

@@ -13,18 +13,17 @@ import net.minecraft.util.math.vector.Vector3f;
 public class PondSerpentRenderer extends MobRenderer<PondSerpentEntity, PondSerpentModel<PondSerpentEntity>> {
 
     private static final ResourceLocation[] POND_SERPENT_TEXTURES = {
-            Mythscapes.resourceLoc("textures/entity/pond_serpent/pond_serpent_ocean.png"),
-            Mythscapes.resourceLoc("textures/entity/pond_serpent/pond_serpent_olympian_mountains.png")
+            Mythscapes.resourceLoc("textures/entity/pond_serpent/pond_serpent_olympian_mountains.png"),
+            Mythscapes.resourceLoc("textures/entity/pond_serpent/pond_serpent_ocean.png")
     };
 
     public PondSerpentRenderer(EntityRendererManager manager) {
         super(manager, new PondSerpentModel<>(), 0.3f);
     }
 
-
     @Override
     public ResourceLocation getEntityTexture(PondSerpentEntity entity) {
-        return entity.isBlueVariant() ? POND_SERPENT_TEXTURES[0] : POND_SERPENT_TEXTURES[1];
+        return POND_SERPENT_TEXTURES[entity.getSerpentType().ordinal()];
     }
 
     @Override

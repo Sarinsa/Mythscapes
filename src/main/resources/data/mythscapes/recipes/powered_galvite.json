@@ -1,0 +1,17 @@
+{
+  "type": "mekanism:combining",
+  "mainInput": {
+    "ingredient": {
+      "amount": 12,
+      "tag": "forge:dusts/redstone"
+    }
+  },
+  "extraInput": {
+    "ingredient": {
+      "item": "mythscapes:galvite"
+    }
+  },
+  "output": {
+    "item": "mythscapes:powered_galvite"
+  }
+}

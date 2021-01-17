@@ -62,12 +62,12 @@ public class DeerEntity extends AnimalEntity {
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
+    protected float getStandingEyeHeight(Pose pose, EntitySize size) {
         return this.isChild() ? 0.80F : 1.65F;
     }
 
     public boolean hasAntlers() {
-        return this.getRegrowthTime() <= 0;
+        return this.getRegrowthTime() <= 0 && !this.isChild();
     }
 
     /**

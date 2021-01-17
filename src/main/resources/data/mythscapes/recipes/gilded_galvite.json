@@ -1,0 +1,17 @@
+{
+  "type": "mekanism:combining",
+  "mainInput": {
+    "amount": 8,
+    "ingredient": {
+      "item": "mekanism:dust_gold"
+    }
+  },
+  "extraInput": {
+    "ingredient": {
+      "item": "mythscapes:galvite"
+    }
+  },
+  "output": {
+    "item": "mythscapes:gilded_galvite"
+  }
+}

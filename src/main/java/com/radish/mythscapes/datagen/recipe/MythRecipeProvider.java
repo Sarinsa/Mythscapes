@@ -1,23 +1,20 @@
-package com.radish.mythscapes.datagen;
+package com.radish.mythscapes.datagen.recipe;
 
 import com.radish.mythscapes.common.register.MythBlocks;
 import com.radish.mythscapes.common.register.MythItems;
 import com.radish.mythscapes.common.tags.MythItemTags;
-import net.minecraft.data.*;
-import net.minecraft.item.Item;
+import mekanism.api.datagen.recipe.builder.CombinerRecipeBuilder;
+import mekanism.api.recipes.inputs.ItemStackIngredient;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.crafting.CookingRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
-public class MythRecipeProvider extends RecipeProvider {
+public class MythRecipeProvider extends AbstractRecipeProvider {
 
     public MythRecipeProvider(DataGenerator dataGenerator) {
         super(dataGenerator);
@@ -25,6 +22,7 @@ public class MythRecipeProvider extends RecipeProvider {
 
     @Override
     public void registerRecipes(@NotNull Consumer<IFinishedRecipe> consumer) {
+
         // Stonecutting
         this.registerStonecuttingRecipe(MythItems.BEJEWELED_GALVITE_BRICKS, MythItems.BEJEWELED_GALVITE.get(), 1, consumer);
         this.registerStonecuttingRecipe(MythItems.BEJEWELED_GALVITE_BRICK_SLAB, MythItems.BEJEWELED_GALVITE.get(), 2, consumer);
@@ -418,184 +416,10 @@ public class MythRecipeProvider extends RecipeProvider {
         this.blastingRecipe(MythBlocks.GILDED_GALVITE.get(), Items.GOLD_INGOT, 1.0F, consumer);
         this.blastingRecipe(MythBlocks.BEJEWELED_GALVITE.get(), Items.DIAMOND, 1.0F, consumer);
         this.blastingRecipe(MythBlocks.POWERED_GALVITE.get(), Items.REDSTONE, 0.7F, consumer);
-    }
 
-    private void registerStonecuttingRecipe(Supplier<Item> result, IItemProvider ingredientBlock, int count, Consumer<IFinishedRecipe> consumer) {
-        String ingredientName = Objects.requireNonNull(ingredientBlock.asItem().getRegistryName()).getPath();
-        String resultName = Objects.requireNonNull(result.get().getRegistryName()).getPath();
-
-        SingleItemRecipeBuilder
-                .stonecuttingRecipe(Ingredient.fromItems(ingredientBlock), result.get(), count)
-                .addCriterion("has_" + ingredientName, hasItem(ingredientBlock))
-                .build(consumer, resultName + "_from_" + ingredientName + "_stonecutting");
-    }
-
-    private ShapedRecipeBuilder shapedRecipe(IItemProvider result, int count, IItemProvider criterionItem) {
-        String criterionName = Objects.requireNonNull(criterionItem.asItem().getRegistryName()).getPath();
-        return ShapedRecipeBuilder.shapedRecipe(result, count).addCriterion("has_" + criterionName, hasItem(criterionItem));
-    }
-
-    private void stairsRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
-        String criterionName = Objects.requireNonNull(ingredient.asItem().getRegistryName()).getPath();
-        ShapedRecipeBuilder.shapedRecipe(result, 4)
-                .patternLine("  #")
-                .patternLine(" ##")
-                .patternLine("###")
-                .key('#', ingredient)
-                .addCriterion(criterionName, hasItem(ingredient))
-                .build(consumer);
-    }
-
-    private void woodenStairsRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
-        String criterionName = Objects.requireNonNull(ingredient.asItem().getRegistryName()).getPath();
-        ShapedRecipeBuilder.shapedRecipe(result, 4)
-                .setGroup("wooden_stairs")
-                .patternLine("  #")
-                .patternLine(" ##")
-                .patternLine("###")
-                .key('#', ingredient)
-                .addCriterion(criterionName, hasItem(ingredient))
-                .build(consumer);
-    }
-
-    private void wallRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
-        String criterionName = Objects.requireNonNull(ingredient.asItem().getRegistryName()).getPath();
-        ShapedRecipeBuilder.shapedRecipe(result, 6)
-                .patternLine("###")
-                .patternLine("###")
-                .key('#', ingredient)
-                .addCriterion(criterionName, hasItem(ingredient))
-                .build(consumer);
-    }
-
-    private void pressureplateRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
-        String criterionName = Objects.requireNonNull(ingredient.asItem().getRegistryName()).getPath();
-        ShapedRecipeBuilder.shapedRecipe(result, 1)
-                .patternLine("##")
-                .key('#', ingredient)
-                .addCriterion(criterionName, hasItem(ingredient))
-                .build(consumer);
-    }
-
-    private void woodenPressureplateRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
-        String criterionName = Objects.requireNonNull(ingredient.asItem().getRegistryName()).getPath();
-        ShapedRecipeBuilder.shapedRecipe(result, 1)
-                .setGroup("wooden_pressure_plate")
-                .patternLine("##")
-                .key('#', ingredient)
-                .addCriterion(criterionName, hasItem(ingredient))
-                .build(consumer);
-    }
-
-    private void buttonRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
-        String criterionName = Objects.requireNonNull(ingredient.asItem().getRegistryName()).getPath();
-        ShapelessRecipeBuilder.shapelessRecipe(result).addIngredient(ingredient).addCriterion(criterionName, hasItem(ingredient)).build(consumer);
-    }
-
-    private void woodenButtonRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
-        String criterionName = Objects.requireNonNull(ingredient.asItem().getRegistryName()).getPath();
-        ShapelessRecipeBuilder.shapelessRecipe(result).addIngredient(ingredient).setGroup("wooden_button").addCriterion(criterionName, hasItem(ingredient)).build(consumer);
-    }
-
-    private void slabRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
-        String criterionName = Objects.requireNonNull(ingredient.asItem().getRegistryName()).getPath();
-        ShapedRecipeBuilder.shapedRecipe(result, 6)
-                .patternLine("###")
-                .key('#', ingredient)
-                .addCriterion(criterionName, hasItem(ingredient))
-                .build(consumer);
-    }
-
-    private void woodenSlabRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
-        String criterionName = Objects.requireNonNull(ingredient.asItem().getRegistryName()).getPath();
-        ShapedRecipeBuilder.shapedRecipe(result, 6)
-                .setGroup("wooden_slab")
-                .patternLine("###")
-                .key('#', ingredient)
-                .addCriterion(criterionName, hasItem(ingredient))
-                .build(consumer);
-    }
-
-    private void woodenFenceRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
-        String criterionName = Objects.requireNonNull(ingredient.asItem().getRegistryName()).getPath();
-        ShapedRecipeBuilder.shapedRecipe(result, 3)
-                .setGroup("wooden_fence")
-                .patternLine("#S#")
-                .patternLine("#S#")
-                .key('#', ingredient)
-                .key('S', Ingredient.fromItems(Items.STICK))
-                .addCriterion(criterionName, hasItem(ingredient))
-                .build(consumer);
-    }
-
-    private void woodenFenceGateRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
-        String criterionName = Objects.requireNonNull(ingredient.asItem().getRegistryName()).getPath();
-        ShapedRecipeBuilder.shapedRecipe(result, 1)
-                .setGroup("wooden_fence_gate")
-                .patternLine("S#S")
-                .patternLine("S#S")
-                .key('#', ingredient)
-                .key('S', Ingredient.fromItems(Items.STICK))
-                .addCriterion(criterionName, hasItem(ingredient))
-                .build(consumer);
-    }
-
-    private void boatRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
-        String criterionName = Objects.requireNonNull(ingredient.asItem().getRegistryName()).getPath();
-        ShapedRecipeBuilder.shapedRecipe(result, 1)
-                .setGroup("boat")
-                .patternLine("# #")
-                .patternLine("###")
-                .key('#', MythItems.WOLT_PLANKS.get())
-                .addCriterion(criterionName, hasItem(ingredient))
-                .build(consumer);
-    }
-
-    private ShapelessRecipeBuilder shapelessRecipe(IItemProvider result, int count, IItemProvider ingredient) {
-        String criterionName = Objects.requireNonNull(ingredient.asItem().getRegistryName()).getPath();
-        return ShapelessRecipeBuilder.shapelessRecipe(result, count).addCriterion("has_" + criterionName, hasItem(ingredient));
-    }
-
-    private ShapelessRecipeBuilder shapelessRecipe(IItemProvider result, int count, ITag.INamedTag<Item> criterionTag) {
-        String criterionName = criterionTag.getName().getPath();
-        return ShapelessRecipeBuilder.shapelessRecipe(result, count).addCriterion("has_" + criterionName, hasItem(criterionTag));
-    }
-
-    private void shapelessPlanksRecipe(IItemProvider result, ITag.INamedTag<Item> ingredientTag, Consumer<IFinishedRecipe> consumer) {
-        shapelessRecipe(result, 4, ingredientTag).setGroup("planks").addIngredient(ingredientTag).build(consumer);
-    }
-
-    private void smeltingRecipe(IItemProvider ingredient, IItemProvider result, float experience, Consumer<IFinishedRecipe> consumer) {
-        String ingredientName = Objects.requireNonNull(ingredient.asItem().getRegistryName()).getPath();
-        CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(ingredient), result, experience, 200)
-                .addCriterion("has_" + ingredientName, hasItem(ingredient))
-                .build(consumer, ingredientName + "_from_smelting");
-    }
-
-    private void blastingRecipe(IItemProvider ingredient, IItemProvider result, float experience, Consumer<IFinishedRecipe> consumer) {
-        String ingredientName = Objects.requireNonNull(ingredient.asItem().getRegistryName()).getPath();
-        String resultName = Objects.requireNonNull(result.asItem().getRegistryName()).getPath();
-
-        CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(ingredient), result, experience, 100)
-                .addCriterion("has_" + ingredientName, hasItem(ingredient))
-                .build(consumer, resultName + "_from_" + ingredientName + "_blasting");
-    }
-
-    private void smokerRecipe(IItemProvider ingredient, IItemProvider result, float experience, Consumer<IFinishedRecipe> consumer) {
-        String ingredientName = Objects.requireNonNull(ingredient.asItem().getRegistryName()).getPath();
-        String resultName = Objects.requireNonNull(result.asItem().getRegistryName()).getPath();
-
-        CookingRecipeBuilder.cookingRecipe(Ingredient.fromItems(ingredient), result, experience, 100, CookingRecipeSerializer.SMOKING)
-                .addCriterion("has_" + ingredientName, hasItem(ingredient))
-                .build(consumer, resultName + "_from_" + ingredientName + "_smoking");
-    }
-
-    private void campfireRecipe(IItemProvider ingredient, IItemProvider result, float experience, Consumer<IFinishedRecipe> consumer) {
-        String ingredientName = Objects.requireNonNull(ingredient.asItem().getRegistryName()).getPath();
-        String resultName = Objects.requireNonNull(result.asItem().getRegistryName()).getPath();
-
-        CookingRecipeBuilder.cookingRecipe(Ingredient.fromItems(ingredient), result, experience, 600, CookingRecipeSerializer.CAMPFIRE_COOKING)
-                .addCriterion("has_" + ingredientName, hasItem(ingredient))
-                .build(consumer, resultName + "_from_" + ingredientName + "_campfire");
+        // Mekanism
+        CombinerRecipeBuilder.combining(ItemStackIngredient.deserialize(itemFromName("mekanism:dust_diamond", 3)), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.BEJEWELED_GALVITE.get())).build(consumer);
+        CombinerRecipeBuilder.combining(ItemStackIngredient.from(Tags.Items.DUSTS_REDSTONE, 12), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.POWERED_GALVITE.get())).build(consumer);
+        CombinerRecipeBuilder.combining(ItemStackIngredient.deserialize(itemFromName("mekanism:dust_gold", 8)), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.GILDED_GALVITE.get())).build(consumer);
     }
 }

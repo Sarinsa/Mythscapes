@@ -1,0 +1,17 @@
+{
+  "type": "mekanism:combining",
+  "mainInput": {
+    "amount": 3,
+    "ingredient": {
+      "item": "mekanism:dust_diamond"
+    }
+  },
+  "extraInput": {
+    "ingredient": {
+      "item": "mythscapes:galvite"
+    }
+  },
+  "output": {
+    "item": "mythscapes:bejeweled_galvite"
+  }
+}

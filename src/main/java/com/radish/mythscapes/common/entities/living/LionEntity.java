@@ -201,12 +201,12 @@ public class LionEntity extends AnimalEntity {
         this.setTimeManeRegrow(8000 + this.rand.nextInt(2000));
     }
 
-    public int getTimeManeRegrow() {
-        return this.dataManager.get(TIME_MANE_REGROW);
+    protected int newNextTimeLying() {
+        return this.getRNG().nextInt(200) + 100;
     }
 
-    protected int newNextTimeLying() {
-        return this.getRNG().nextInt(100) + 100;
+    public int getTimeManeRegrow() {
+        return this.dataManager.get(TIME_MANE_REGROW);
     }
 
     public void setTimeManeRegrow(int ticks) {

@@ -110,13 +110,14 @@ dependencies {
     compileOnly "org.jetbrains:annotations:${jb_annotations}"
 
     // JEI
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-1.16.4:${jei_version}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.16.4:${jei_version}")
 
     // HWYLA
     compileOnly fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}:api")
     runtimeOnly fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}")
 
+    compileOnly fg.deobf("mekanism:Mekanism:1.16.4-10.0.18.445:api")
     runtimeOnly fg.deobf("mekanism:Mekanism:1.16.4-10.0.18.445")
 }
 

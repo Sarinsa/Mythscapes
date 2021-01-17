@@ -52,6 +52,9 @@ public class MythItemTagProvider extends ItemTagsProvider {
     }
 
     private void copyTags() {
+        this.copy(Tags.Blocks.ORES_DIAMOND, Tags.Items.ORES_DIAMOND);
+        this.copy(Tags.Blocks.ORES_GOLD, Tags.Items.ORES_GOLD);
+        this.copy(Tags.Blocks.ORES_REDSTONE, Tags.Items.ORES_REDSTONE);
         this.copy(BlockTags.PLANKS, ItemTags.PLANKS);
         this.copy(BlockTags.STONE_BRICKS, ItemTags.STONE_BRICKS);
         this.copy(BlockTags.WOODEN_BUTTONS, ItemTags.WOODEN_BUTTONS);

@@ -124,7 +124,7 @@ public class MythBlockLootTableProvider extends BlockLootTables {
         this.registerDropSelfLootTable(MythBlocks.WOLT_FENCE_GATE.get());
         this.registerDropSelfLootTable(MythBlocks.WOLT_PRESSURE_PLATE.get());
         this.registerDropSelfLootTable(MythBlocks.WOLT_BUTTON.get());
-        this.registerDropSelfLootTable(MythBlocks.WOLT_DOOR.get());
+        this.registerLootTable(MythBlocks.WOLT_DOOR.get(), BlockLootTables::registerDoor);
         this.registerDropSelfLootTable(MythBlocks.WOLT_TRAPDOOR.get());
         this.registerDropSelfLootTable(MythBlocks.WOLT_SAPLING.get());
 

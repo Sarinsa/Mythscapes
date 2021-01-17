@@ -6,6 +6,15 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "mythscapes:wolt_door",
+              "properties": {
+                "half": "lower"
+              }
+            }
+          ],
           "name": "mythscapes:wolt_door"
         }
       ],

@@ -5,6 +5,7 @@ import com.radish.mythscapes.datagen.advancement_providers.MythAdvancementProvid
 import com.radish.mythscapes.datagen.advancement_providers.MythscapesAdvancements;
 import com.radish.mythscapes.datagen.lang_providers.MythLanguageProviderEnglishUS;
 import com.radish.mythscapes.datagen.loot_table_providers.MythLootTableProvider;
+import com.radish.mythscapes.datagen.recipe.MythRecipeProvider;
 import com.radish.mythscapes.datagen.tag_providers.MythBlockTagProvider;
 import com.radish.mythscapes.datagen.tag_providers.MythEntityTagProvider;
 import com.radish.mythscapes.datagen.tag_providers.MythFluidTagProvider;

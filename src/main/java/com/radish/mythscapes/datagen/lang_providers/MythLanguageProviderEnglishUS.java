@@ -125,7 +125,7 @@ public class MythLanguageProviderEnglishUS extends MythBaseLangProvider {
         this.addItem(MythItems.WOLT_POWDER, "Wolt Powder");
         this.addItem(MythItems.GOLDEN_WOLT_POWDER, "Golden Wolt Powder");
         this.addItem(MythItems.GLOWBALL, "Glowball");
-        this.addItem(MythItems.LIQUID_SULPHUR_BOTTLE, "Liquid Sulfur Bottle");
+        this.addItem(MythItems.LIQUID_SULFUR_BOTTLE, "Liquid Sulfur Bottle");
         this.addItem(MythItems.POND_SERPENT_FISH_BUCKET, "Bucket of Pond Serpent");
         this.addItem(MythItems.STATIC_COTTON, "Static Cotton");
         this.addItem(MythItems.COTTON_HIDE, "Cotton Hide");
@@ -149,7 +149,7 @@ public class MythLanguageProviderEnglishUS extends MythBaseLangProvider {
         this.addItem(MythItems.PYGMY_SNAIL_SPAWN_EGG, "Pygmy Snail Spawn Egg");
         this.addItem(MythItems.DEER_SPAWN_EGG, "Deer Spawn Egg");
 
-        this.addFluid("Liquid Sulfur", MythFluids.SULFUR, MythFluids.FLOWING_SULFUR);
+        this.addFluid(MythFluids.SULFUR, "Liquid Sulfur");
 
         this.addEntityType(MythEntities.MYTH_BOAT, "Boat");
         this.addEntityType(MythEntities.BLISTERBERRY, "Blisterberry");

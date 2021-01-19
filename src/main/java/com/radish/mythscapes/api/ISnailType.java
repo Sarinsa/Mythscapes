@@ -3,6 +3,7 @@ package com.radish.mythscapes.api;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.BiomeDictionary;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public interface ISnailType {
      * Returns the Rarity for this snail type.
      *
      * Rarity determines the text color used to
-     * display the snail type name in snail buckets.
+     * display the snail type name on snail buckets.
      *
      * A snail bucket will also get the enchanted glow
      * effect when containing a snail type with
@@ -55,8 +56,9 @@ public interface ISnailType {
     /**
      * Returns a list of ResourceLocations for the biomes
      * that this snail type should be able to spawn in.
+     *
      * Keep in mind that snails will only spawn in biomes
-     * that exist in the OVERWORLD category in the BiomeDictionary.
+     * that exist in BiomeDictionary.Type.OVERWORLD.
      */
     List<ResourceLocation> getSpawnBiomes();
 }

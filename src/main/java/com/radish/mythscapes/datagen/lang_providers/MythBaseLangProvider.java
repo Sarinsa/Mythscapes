@@ -3,6 +3,7 @@ package com.radish.mythscapes.datagen.lang_providers;
 import com.radish.mythscapes.api.ISnailType;
 import com.radish.mythscapes.api.impl.SnailTypeRegister;
 import com.radish.mythscapes.common.core.Mythscapes;
+import com.radish.mythscapes.common.register.registry.FluidRegistryObject;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.potion.Potion;
@@ -26,12 +27,11 @@ public abstract class MythBaseLangProvider extends LanguageProvider {
         this.add(SnailTypeRegister.getTranslationKey(snailType), localized);
     }
 
-    @SafeVarargs
-    protected final void addFluid(String localized, Supplier<FlowingFluid>... fluidSuppliers) {
-        for (Supplier<FlowingFluid> fluid : fluidSuppliers) {
-            String name = Objects.requireNonNull(fluid.get().getRegistryName()).getPath();
-            this.add("fluid." + Mythscapes.MODID + "." + name, localized);
-        }
+
+    protected final void addFluid(FluidRegistryObject<FlowingFluid> registryObject, String localized) {
+        String name = Objects.requireNonNull(registryObject.getStill().get().getRegistryName()).getPath();
+        this.add("fluid." + Mythscapes.MODID + "." + name, localized);
+        this.add("fluid." + Mythscapes.MODID + "." + "flowing_" + name, localized);
     }
 
     protected void addPotionItem(Supplier<Potion> potionSupplier, String localized) {

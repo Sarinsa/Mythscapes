@@ -3,18 +3,17 @@ package com.radish.mythscapes.common.event;
 import com.radish.mythscapes.common.entities.living.DeerEntity;
 import com.radish.mythscapes.common.entities.living.LionEntity;
 import com.radish.mythscapes.common.entities.living.SnailEntity;
+import com.radish.mythscapes.common.fluids.BaseFluid;
 import com.radish.mythscapes.common.register.MythEntities;
 import com.radish.mythscapes.common.register.MythItems;
-import com.radish.mythscapes.common.tags.MythFluidTags;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.AbstractIllagerEntity;
-import net.minecraft.entity.monster.EvokerEntity;
-import net.minecraft.entity.monster.IllusionerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.GlassBottleItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -36,10 +35,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 public class EntityEvents {
 
     @SubscribeEvent
-    public void onGlassBottleClickFluid(PlayerInteractEvent.RightClickBlock event) {
+    public void onGlassBottleClickFluid(PlayerInteractEvent.RightClickItem event) {
         PlayerEntity player = event.getPlayer();
         World world = event.getWorld();
-        ItemStack itemStack = player.getHeldItem(event.getHand());
+        ItemStack itemStack = event.getItemStack();
 
         if (!itemStack.isEmpty() && itemStack.getItem() == Items.GLASS_BOTTLE) {
             BlockRayTraceResult result = Item.rayTrace(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);
@@ -47,25 +46,29 @@ public class EntityEvents {
             if (result.getType() == RayTraceResult.Type.BLOCK) {
                 BlockPos pos = result.getPos();
 
-                if (world.getFluidState(pos).isTagged(MythFluidTags.SULFUR)) {
-                    ItemStack liquidBottle = new ItemStack(MythItems.LIQUID_SULPHUR_BOTTLE.get());
+                if (world.getFluidState(pos).getFluid() instanceof BaseFluid) {
+                    BaseFluid fluid = (BaseFluid) world.getFluidState(pos).getFluid();
 
-                    world.playSound(player, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+                    if (fluid.getBottleItem() != null) {
+                        ItemStack liquidBottle = new ItemStack(fluid.getBottleItem());
 
-                    if (!player.abilities.isCreativeMode) {
-                        itemStack.shrink(1);
-                        player.addStat(Stats.ITEM_USED.get(itemStack.getItem()));
-                    }
-                    if (itemStack.isEmpty()) {
-                        player.setHeldItem(event.getHand(), liquidBottle);
-                    }
-                    else {
-                        if (!player.inventory.addItemStackToInventory(liquidBottle)) {
-                            player.dropItem(liquidBottle, false);
+                        world.playSound(player, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+
+                        if (!player.abilities.isCreativeMode) {
+                            itemStack.shrink(1);
+                            player.addStat(Stats.ITEM_USED.get(itemStack.getItem()));
                         }
+                        if (itemStack.isEmpty()) {
+                            player.setHeldItem(event.getHand(), liquidBottle);
+                        }
+                        else {
+                            if (!player.inventory.addItemStackToInventory(liquidBottle)) {
+                                player.dropItem(liquidBottle, false);
+                            }
+                        }
+                        event.setCancellationResult(ActionResultType.SUCCESS);
+                        event.setCanceled(true);
                     }
-                    event.setCancellationResult(ActionResultType.SUCCESS);
-                    event.setCanceled(true);
                 }
             }
         }
@@ -117,12 +120,6 @@ public class EntityEvents {
         LivingEntity entity = event.getEntityLiving();
         EntityType<?> type = entity.getType();
 
-        /*
-        if (entity instanceof MonsterEntity) {
-            //creatureEntity.goalSelector.addGoal(3, new AvoidEntityWearingBarbarianHoodGoal<>(creatureEntity, PlayerEntity.class, 10.0F, 1.1F, 1.15F));
-            ((CreatureEntity)entity).goalSelector.addGoal(3, new AvoidEntityGoal<>((CreatureEntity) entity, FishbonesEntity.class, 6.0F, 1.0D, 1.2D));
-        }
-         */
         if (type == EntityType.VINDICATOR || type == EntityType.PILLAGER || type == EntityType.EVOKER || type == EntityType.ILLUSIONER) {
             AbstractIllagerEntity illagerEntity = (AbstractIllagerEntity) entity;
             double farSpeed = (type == EntityType.EVOKER || type == EntityType.ILLUSIONER) ? 0.7D : 1.0D;

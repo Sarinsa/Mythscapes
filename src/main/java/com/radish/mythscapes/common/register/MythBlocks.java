@@ -144,7 +144,7 @@ public class MythBlocks {
     public static final RegistryObject<Block> BEJEWELED_SNAIL_SHELL_BRICK_WALL = BLOCKS.register("bejeweled_snail_shell_brick_wall", () -> new WallBlock(AbstractBlock.Properties.from(SNAIL_SHELL_BRICKS.get())));
 
     // Fluid Blocks
-    public static final RegistryObject<FlowingFluidBlock> LIQUID_SULFUR_FLUID_BLOCK = BLOCKS.register("liquid_sulfur_block", () -> new LiquidSulphurFluidBlock(MythFluids.SULFUR, AbstractBlock.Properties.create(Material.WATER, MaterialColor.YELLOW).doesNotBlockMovement().hardnessAndResistance(100.0f).noDrops()));
+    public static final RegistryObject<FlowingFluidBlock> LIQUID_SULFUR_FLUID_BLOCK = BLOCKS.register("liquid_sulfur_block", () -> new LiquidSulphurFluidBlock(MythFluids.SULFUR.getStill(), AbstractBlock.Properties.create(Material.WATER, MaterialColor.YELLOW).doesNotBlockMovement().hardnessAndResistance(100.0f).noDrops()));
 
 
     private static AbstractBlock.Properties logProp(Material material, MaterialColor top, MaterialColor side) {

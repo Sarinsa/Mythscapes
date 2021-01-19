@@ -1,5 +1,6 @@
 package com.radish.mythscapes.common.misc;
 
+import com.radish.mythscapes.common.entities.projectile.GlowballEntity;
 import com.radish.mythscapes.common.register.MythEntities;
 import com.radish.mythscapes.common.register.MythItems;
 import net.minecraft.block.DispenserBlock;
@@ -16,34 +17,15 @@ import java.util.function.Supplier;
 public class DispenserBehavior {
 
     public static void register() {
-        // Activated Blisterberry
         DispenserBlock.registerDispenseBehavior(MythItems.ACTIVATED_BLISTERBERRY.get(), createSimple(MythEntities.BLISTERBERRY));
-        DispenserBlock.registerDispenseBehavior(MythItems.GLOWBALL.get(), createSimple(MythEntities.GLOWBALL));
         DispenserBlock.registerDispenseBehavior(MythItems.STATIC_COTTON.get(), createSimple(MythEntities.STATIC_COTTON));
-        // Glowball
 
-        /*
         DispenserBlock.registerDispenseBehavior(MythItems.GLOWBALL.get(), new ProjectileDispenseBehavior() {
             @Override
-            protected ProjectileEntity getProjectileEntity(World world, IPosition iPosition, ItemStack itemStack) {
-                return Util.make(new GlowballEntity(iPosition.getX(), iPosition.getY(), iPosition.getZ(), world), (entity) -> {
-                    entity.setMotion(1.0f, 1.0f, 0.1f);
-                });
+            protected ProjectileEntity getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
+                return new GlowballEntity(position.getX(), position.getY(), position.getZ(), worldIn);
             }
         });
-
-
-        // Static Cotton
-        DispenserBlock.registerDispenseBehavior(MythItems.STATIC_COTTON.get(), new ProjectileDispenseBehavior() {
-            @Override
-            protected ProjectileEntity getProjectileEntity(World world, IPosition iPosition, ItemStack itemStack) {
-                return Util.make(new StaticCottonEntity(iPosition.getX(), iPosition.getY(), iPosition.getZ(), world), (entity) -> {
-                    entity.setMotion(1.0f, 1.0f, 0.1f);
-                });
-            }
-        });
-
-         */
     }
 
     private static <T extends ProjectileEntity> ProjectileDispenseBehavior createSimple(Supplier<EntityType<T>> entityTypeSupplier) {

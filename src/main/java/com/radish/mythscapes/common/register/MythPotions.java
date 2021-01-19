@@ -21,16 +21,14 @@ public class MythPotions {
     public static final RegistryObject<Potion> PETRIFICATION = register("petrified", MythEffects.PETRIFIED, (20 * 15), 0);
     public static final RegistryObject<Potion> LONG_PETRIFICATION = register("long_petrified", MythEffects.PETRIFIED, (20 * 25), 0);
 
-
-    private static RegistryObject<Potion> register(String name, Supplier<Effect> effectSupplier, int duration, int amplifier) {
-        return POTIONS.register(name, () -> new Potion(new EffectInstance(effectSupplier.get(), duration, amplifier)));
-    }
-
     public static void registerBrewingRecipes() {
         registerBrewingRecipe(Potions.AWKWARD, MythBlocks.TROLLSTONE.get(), PETRIFICATION.get());
         registerBrewingRecipe(PETRIFICATION.get(), Items.GLOWSTONE_DUST, LONG_PETRIFICATION.get());
     }
 
+    private static RegistryObject<Potion> register(String name, Supplier<Effect> effectSupplier, int duration, int amplifier) {
+        return POTIONS.register(name, () -> new Potion(new EffectInstance(effectSupplier.get(), duration, amplifier)));
+    }
 
     private static void registerBrewingRecipe(Potion potionIngredient, IItemProvider itemIngredient, Potion potionResult) {
         BrewingRecipeRegistry.addRecipe(new BrewingRecipe(

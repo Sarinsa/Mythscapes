@@ -1,36 +1,33 @@
 package com.radish.mythscapes.common.register;
 
 import com.radish.mythscapes.common.core.Mythscapes;
-import com.radish.mythscapes.common.fluids.LiquidSulphurFluid;
+import com.radish.mythscapes.common.fluids.BaseFluid;
+import com.radish.mythscapes.common.fluids.LiquidSulfurFluid;
+import com.radish.mythscapes.common.register.registry.FluidDeferredRegister;
+import com.radish.mythscapes.common.register.registry.FluidRegistryObject;
 import net.minecraft.fluid.FlowingFluid;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class MythFluids {
 
-    public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, Mythscapes.MODID);
+    public static final FluidDeferredRegister<FlowingFluid> FLUIDS = new FluidDeferredRegister<>();
 
-    public static final RegistryObject<FlowingFluid> SULFUR = FLUIDS.register("liquid_sulfur", () -> new LiquidSulphurFluid.Source(MythFluids.SULFUR_PROP));
-    public static final RegistryObject<FlowingFluid> FLOWING_SULFUR = FLUIDS.register("flowing_liquid_sulfur", () -> new LiquidSulphurFluid.Flowing(MythFluids.SULFUR_PROP));
+    public static final FluidRegistryObject<FlowingFluid> SULFUR = FLUIDS.register("liquid_sulfur", LiquidSulfurFluid.Source::new, LiquidSulfurFluid.Flowing::new);
 
 
-    // Sulfur
-    public static final ForgeFlowingFluid.Properties SULFUR_PROP = new ForgeFlowingFluid.Properties(SULFUR, FLOWING_SULFUR,
-            FluidAttributes.builder(texture("fluid/liquid_sulfur_still"), texture("fluid/liquid_sulfur_flowing"))
-                    .viscosity(500)
-                    .density(500)
-                    .rarity(Rarity.COMMON)
-                    .overlay(texture("fluid/liquid_sulfur_still")))
-            .block(MythBlocks.LIQUID_SULFUR_FLUID_BLOCK)
-            .bucket(MythItems.LIQUID_SULFUR_BUCKET);
+    public static class Properties {
+        public static final ForgeFlowingFluid.Properties PROPERTIES_SULFUR = new ForgeFlowingFluid.Properties(SULFUR.getStill(), SULFUR.getFlowing(), FluidAttributes
+                        .builder(new ResourceLocation("block/water_still"), new ResourceLocation("block/water_flowing"))
+                        .color(0xDCBF2E)
+                        .rarity(Rarity.COMMON))
+                .block(MythBlocks.LIQUID_SULFUR_FLUID_BLOCK)
+                .bucket(MythItems.LIQUID_SULFUR_BUCKET);
+    }
 
     private static ResourceLocation texture(String path) {
-        return Mythscapes.resourceLoc(path);
+        return Mythscapes.resourceLoc("fluid/" + path);
     }
 }

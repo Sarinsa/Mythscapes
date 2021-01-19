@@ -271,7 +271,7 @@ public class MythRecipeProvider extends AbstractRecipeProvider {
                 .patternLine("GPG")
                 .patternLine("GGG")
                 .key('G', Tags.Items.INGOTS_GOLD)
-                .key('P', MythItems.WOLT_POWDER.get())
+                .key('P', MythItems.WOLT_FRUIT.get())
                 .build(consumer);
 
         this.shapedRecipe(MythItems.GLOWBALL.get(), 1, MythItems.BIOBULB.get())

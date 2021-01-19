@@ -64,7 +64,8 @@ public class GlowballEntity extends ProjectileItemEntity {
 
                     if (thrower != null) {
                         world.addEntity(new ItemEntity(world, thrower.getPosX(), thrower.getPosY(), thrower.getPosZ(), targetStack));
-                    } else if (this.posSpawned != null) {
+                    }
+                    else if (this.posSpawned != null) {
                         world.addEntity(new ItemEntity(world, this.posSpawned.getX(), this.posSpawned.getY(), this.posSpawned.getZ(), targetStack));
                     }
                 }

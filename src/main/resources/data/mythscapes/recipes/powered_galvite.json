@@ -1,8 +1,8 @@
 {
   "type": "mekanism:combining",
   "mainInput": {
+    "amount": 12,
     "ingredient": {
-      "amount": 12,
       "tag": "forge:dusts/redstone"
     }
   },

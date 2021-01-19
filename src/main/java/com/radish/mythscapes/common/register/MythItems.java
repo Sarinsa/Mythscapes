@@ -149,7 +149,7 @@ public class MythItems {
     public static final RegistryObject<Item> WOLT_POWDER = registerItem("wolt_powder", () -> new WoltPowderItem(properties(), false));
     public static final RegistryObject<Item> GOLDEN_WOLT_POWDER = registerItem("golden_wolt_powder", () -> new WoltPowderItem(properties(), true));
     public static final RegistryObject<Item> GLOWBALL = registerItem("glowball", () -> new GlowballItem(properties().maxStackSize(16)));
-    public static final RegistryObject<Item> LIQUID_SULPHUR_BOTTLE = registerItem("liquid_sulfur_bottle", () -> new Item(properties().maxStackSize(16)));
+    public static final RegistryObject<Item> LIQUID_SULFUR_BOTTLE = registerItem("liquid_sulfur_bottle", () -> new Item(properties().maxStackSize(16)));
     public static final RegistryObject<Item> POND_SERPENT_FISH_BUCKET = registerItem("pond_serpent_fish_bucket", () -> new FishBucketItem(MythEntities.POND_SERPENT, () -> Fluids.WATER, properties().maxStackSize(1)));
     public static final RegistryObject<Item> STATIC_COTTON = registerItem("static_cotton", () -> new MythThrowableItem<>(MythEntities.STATIC_COTTON));
     public static final RegistryObject<Item> COTTON_HIDE = registerItem("cotton_hide", () -> new Item(properties()));
@@ -172,7 +172,7 @@ public class MythItems {
     //public static final RegistryObject<Item> VIRIDIAN_BOAT = ITEMS.register("viridian_boat", () -> new MythBoatItem(MythBoatEntity.Type.VIRIDIAN));
 
     // Fluid buckets
-    public static final RegistryObject<Item> LIQUID_SULFUR_BUCKET = registerItem("liquid_sulfur_bucket", () -> new BucketItem(MythFluids.SULFUR, properties().maxStackSize(1)));
+    public static final RegistryObject<Item> LIQUID_SULFUR_BUCKET = registerItem("liquid_sulfur_bucket", () -> new BucketItem(MythFluids.SULFUR.getStill(), properties().maxStackSize(1)));
 
     // Spawn eggs
     public static final RegistryObject<Item> POND_SERPENT_SPAWN_EGG = registerSpawnEgg("pond_serpent_spawn_egg", MythEntities.POND_SERPENT_TYPE, 0x1Fa361, 0xe67008);

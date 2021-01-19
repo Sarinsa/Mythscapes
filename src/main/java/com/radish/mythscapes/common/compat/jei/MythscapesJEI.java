@@ -2,6 +2,7 @@ package com.radish.mythscapes.common.compat.jei;
 
 import com.radish.mythscapes.client.GuiTexts;
 import com.radish.mythscapes.common.core.Mythscapes;
+import com.radish.mythscapes.common.register.MythFluids;
 import com.radish.mythscapes.common.register.MythItems;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -12,6 +13,7 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 
 @JeiPlugin
@@ -25,10 +27,10 @@ public class MythscapesJEI implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        addItemDescription(registration, new ItemStack(MythItems.BRUSH.get()), GuiTexts.BRUSH_INFO);
+        itemDesc(registration, new ItemStack(MythItems.BRUSH.get()), GuiTexts.BRUSH_INFO);
     }
 
-    private void addItemDescription(IRecipeRegistration registration, ItemStack itemStack, String... message) {
+    private void itemDesc(IRecipeRegistration registration, ItemStack itemStack, String... message) {
         registration.addIngredientInfo(itemStack, VanillaTypes.ITEM, message);
     }
 

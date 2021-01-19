@@ -78,14 +78,12 @@ public class Mythscapes {
 
     public void loadComplete(FMLLoadCompleteEvent event) {
         ModList.get().getAllScanData().forEach(scanData -> {
-
             scanData.getAnnotations().forEach(annotationData -> {
 
                 if (annotationData.getAnnotationType().getClassName().equals(MythscapesPlugin.class.getName())) {
                     String modid = (String) annotationData.getAnnotationData().getOrDefault("modid", "");
 
                     if (modid.isEmpty() || ModList.get().isLoaded(modid)) {
-
                         try {
                             Class<?> pluginClass = Class.forName(annotationData.getMemberName());
 

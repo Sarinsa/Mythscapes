@@ -1,0 +1,28 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "flag": "leaf_carpet",
+          "type": "mythscapes:quark_flag"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "##"
+        ],
+        "key": {
+          "#": {
+            "item": "mythscapes:wolt_leaves"
+          }
+        },
+        "result": {
+          "item": "mythscapes:wolt_leaf_carpet",
+          "count": 3
+        }
+      }
+    }
+  ]
+}

@@ -39,6 +39,8 @@ minecraft {
 
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
+            property "mixin.env.disableRefMap", "true"
+
             arg "-mixin.config=mythscapes.mixins.json"
 
             mods {
@@ -53,6 +55,8 @@ minecraft {
 
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
+            property "mixin.env.disableRefMap", "true"
+
             arg "-mixin.config=mythscapes.mixins.json"
 
             mods {
@@ -67,6 +71,7 @@ minecraft {
 
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
+            property "mixin.env.disableRefMap", "true"
 
             args '--mod', 'mythscapes', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
@@ -94,6 +99,11 @@ repositories {
         name 'Mekanism'
         url "https://modmaven.dev/"
     }
+
+    maven {
+        name 'Vazkii'
+        url "https://maven.blamejared.com/"
+    }
 }
 
 mixin {
@@ -117,8 +127,13 @@ dependencies {
     compileOnly fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}:api")
     runtimeOnly fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}")
 
+    // Mekanism
     compileOnly fg.deobf("mekanism:Mekanism:1.16.4-10.0.18.445:api")
     runtimeOnly fg.deobf("mekanism:Mekanism:1.16.4-10.0.18.445")
+
+    // Vazkii stuff
+    runtimeOnly fg.deobf("vazkii.autoreglib:AutoRegLib:${autoreglib_version}")
+    runtimeOnly fg.deobf("vazkii.quark:Quark:${quark_version}") { transitive = false }
 }
 
 jar {

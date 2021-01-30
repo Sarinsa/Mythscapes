@@ -1,0 +1,44 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "flag": "vertical_slabs",
+          "type": "mythscapes:quark_flag"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "mythscapes:gilded_galvite_brick_vertical_slab"
+          ]
+        },
+        "criteria": {
+          "gilded_galvite_brick_slab": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "item": "mythscapes:gilded_galvite_brick_slab"
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "mythscapes:gilded_galvite_brick_vertical_slab"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "gilded_galvite_brick_slab",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

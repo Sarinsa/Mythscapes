@@ -1,0 +1,6 @@
+{
+  "parent": "mythscapes:block/leaf_carpet",
+  "textures": {
+    "all": "mythscapes:block/wolt_leaves"
+  }
+}

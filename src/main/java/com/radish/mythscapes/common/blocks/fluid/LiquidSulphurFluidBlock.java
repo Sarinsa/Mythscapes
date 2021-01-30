@@ -11,6 +11,8 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -34,5 +36,10 @@ public class LiquidSulphurFluidBlock extends FlowingFluidBlock {
                 entity.attackEntityFrom(DamageSource.GENERIC, 1.0f);
             }
         }
+    }
+
+    @Override
+    public Vector3d getFogColor(BlockState state, IWorldReader world, BlockPos pos, Entity entity, Vector3d originalColor, float partialTicks) {
+        return new Vector3d(2.2D, 1.85D, 0.01D);
     }
 }

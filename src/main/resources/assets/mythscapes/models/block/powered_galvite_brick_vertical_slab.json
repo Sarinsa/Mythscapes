@@ -1,0 +1,8 @@
+{
+  "parent": "mythscapes:block/vertical_slab",
+  "textures": {
+    "bottom": "mythscapes:block/powered_galvite_bricks",
+    "top": "mythscapes:block/powered_galvite_bricks",
+    "side": "mythscapes:block/powered_galvite_bricks"
+  }
+}

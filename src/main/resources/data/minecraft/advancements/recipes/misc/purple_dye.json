@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:purple_dye"
+    ]
+  },
+  "criteria": {
+    "has_snail_shell": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mythscapes:snail_shell"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:purple_dye"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_snail_shell",
+      "has_the_recipe"
+    ]
+  ]
+}

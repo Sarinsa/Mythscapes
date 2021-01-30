@@ -5,6 +5,7 @@ import com.radish.mythscapes.common.register.MythItems;
 import com.radish.mythscapes.common.tags.MythItemTags;
 import mekanism.api.datagen.recipe.builder.CombinerRecipeBuilder;
 import mekanism.api.recipes.inputs.ItemStackIngredient;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.ItemStack;
@@ -22,6 +23,7 @@ public class MythRecipeProvider extends AbstractRecipeProvider {
 
     @Override
     public void registerRecipes(@NotNull Consumer<IFinishedRecipe> consumer) {
+        this.consumer = consumer;
 
         // Stonecutting
         this.registerStonecuttingRecipe(MythItems.BEJEWELED_GALVITE_BRICKS, MythItems.BEJEWELED_GALVITE.get(), 1, consumer);
@@ -297,17 +299,13 @@ public class MythRecipeProvider extends AbstractRecipeProvider {
                 .addIngredient(MythItems.WOLT_POWDER_BLOCK.get())
                 .build(consumer, "wolt_powder_from_wolt_powder_block");
 
-        this.shapelessRecipe(MythItems.WOLT_POWDER.get(), 1, MythItems.WOLT_FRUIT.get())
-                .addIngredient(MythItems.WOLT_FRUIT.get())
-                .build(consumer);
+        this.singleIngredientRecipe(MythItems.WOLT_POWDER.get(), 1, MythItems.WOLT_FRUIT.get());
 
         this.shapelessRecipe(MythItems.GOLDEN_WOLT_POWDER.get(), 9, MythItems.GOLDEN_WOLT_POWDER_BLOCK.get())
                 .addIngredient(MythItems.GOLDEN_WOLT_POWDER_BLOCK.get())
                 .build(consumer, "golden_wolt_powder_from_golden_wolt_powder_block");
 
-        this.shapelessRecipe(MythItems.GOLDEN_WOLT_POWDER.get(), 1, MythItems.GOLDEN_WOLT_FRUIT.get())
-                .addIngredient(MythItems.GOLDEN_WOLT_FRUIT.get())
-                .build(consumer);
+        this.singleIngredientRecipe(MythItems.GOLDEN_WOLT_POWDER.get(), 1, MythItems.GOLDEN_WOLT_FRUIT.get());
 
         this.shapelessRecipe(MythItems.COTTON_HIDE.get(), 1, MythItems.STATIC_COTTON.get())
                 .addIngredient(Items.LEATHER)
@@ -319,6 +317,8 @@ public class MythRecipeProvider extends AbstractRecipeProvider {
         this.shapelessRecipe(MythItems.SNAIL_SHELL.get(), 9, MythItems.SNAIL_SHELL_BLOCK.get())
                 .addIngredient(MythItems.SNAIL_SHELL_BLOCK.get())
                 .build(consumer, "snail_shell_from_snail_shell_block");
+
+        this.singleIngredientRecipe(Items.PURPLE_DYE, 1, MythItems.SNAIL_SHELL.get());
 
         this.shapelessRecipe(MythItems.BEJEWELED_SNAIL_SHELL.get(), 9, MythItems.BEJEWELED_SNAIL_SHELL_BLOCK.get())
                 .addIngredient(MythItems.BEJEWELED_SNAIL_SHELL_BLOCK.get())
@@ -417,9 +417,36 @@ public class MythRecipeProvider extends AbstractRecipeProvider {
         this.blastingRecipe(MythBlocks.BEJEWELED_GALVITE.get(), Items.DIAMOND, 1.0F, consumer);
         this.blastingRecipe(MythBlocks.POWERED_GALVITE.get(), Items.REDSTONE, 0.7F, consumer);
 
-        // Mekanism
-        CombinerRecipeBuilder.combining(ItemStackIngredient.deserialize(itemFromName("mekanism:dust_diamond", 3)), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.BEJEWELED_GALVITE.get())).build(consumer);
-        CombinerRecipeBuilder.combining(ItemStackIngredient.from(Tags.Items.DUSTS_REDSTONE, 12), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.POWERED_GALVITE.get())).build(consumer);
-        CombinerRecipeBuilder.combining(ItemStackIngredient.deserialize(itemFromName("mekanism:dust_gold", 8)), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.GILDED_GALVITE.get())).build(consumer);
+        // Quark compat
+        this.quarkVerticalSlabRecipe(MythBlocks.GALVITE_VERTICAL_SLAB.get(), MythBlocks.GALVITE_SLAB.get());
+        this.quarkVerticalSlabRecipe(MythBlocks.POLISHED_GALVITE_VERTICAL_SLAB.get(), MythBlocks.POLISHED_GALVITE_SLAB.get());
+        this.quarkVerticalSlabRecipe(MythBlocks.POLISHED_GALVITE_BRICK_VERTICAL_SLAB.get(), MythBlocks.POLISHED_GALVITE_BRICK_SLAB.get());
+        this.quarkVerticalSlabRecipe(MythBlocks.GALVITE_SHINGLE_VERTICAL_SLAB.get(), MythBlocks.GALVITE_SHINGLE_SLAB.get());
+        this.quarkVerticalSlabRecipe(MythBlocks.GILDED_GALVITE_BRICK_VERTICAL_SLAB.get(), MythBlocks.GILDED_GALVITE_BRICK_SLAB.get());
+        this.quarkVerticalSlabRecipe(MythBlocks.BEJEWELED_GALVITE_BRICK_VERTICAL_SLAB.get(), MythBlocks.BEJEWELED_GALVITE_BRICK_SLAB.get());
+        this.quarkVerticalSlabRecipe(MythBlocks.POWERED_GALVITE_BRICK_VERTICAL_SLAB.get(), MythBlocks.POWERED_GALVITE_BRICK_SLAB.get());
+        this.quarkVerticalSlabRecipe(MythBlocks.WOLT_VERTICAL_SLAB.get(), MythBlocks.WOLT_SLAB.get());
+        this.quarkVerticalSlabRecipe(MythBlocks.TROLLSTONE_VERTICAL_SLAB.get(), MythBlocks.TROLLSTONE_SLAB.get());
+        this.quarkVerticalSlabRecipe(MythBlocks.POLISHED_TROLLSTONE_VERTICAL_SLAB.get(), MythBlocks.POLISHED_TROLLSTONE_SLAB.get());
+        this.quarkVerticalSlabRecipe(MythBlocks.POLISHED_TROLLSTONE_BRICK_VERTICAL_SLAB.get(), MythBlocks.POLISHED_TROLLSTONE_BRICK_SLAB.get());
+        this.quarkVerticalSlabRecipe(MythBlocks.SNAIL_SHELL_BRICK_VERTICAL_SLAB.get(), MythBlocks.SNAIL_SHELL_BRICK_SLAB.get());
+        this.quarkVerticalSlabRecipe(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_VERTICAL_SLAB.get(), MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_SLAB.get());
+
+        this.quarkVerticalPlanksRecipe(MythBlocks.WOLT_VERTICAL_PLANKS.get(), MythBlocks.WOLT_PLANKS.get());
+
+        this.woodSignRecipe(MythItems.WOLT_SIGN.get(), MythBlocks.WOLT_PLANKS.get());
+
+        this.quarkLeafCarpetRecipe(MythBlocks.WOLT_LEAF_CARPET.get(), MythBlocks.WOLT_LEAVES.get());
+
+        // Mekanism compat
+        this.modCompatRecipe(recipeConsumer -> {
+            CombinerRecipeBuilder.combining(ItemStackIngredient.deserialize(itemFromName("mekanism:dust_diamond", 3)), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.BEJEWELED_GALVITE.get())).build(recipeConsumer);
+        }, "mekanism");
+        this.modCompatRecipe(recipeConsumer -> {
+            CombinerRecipeBuilder.combining(ItemStackIngredient.from(Tags.Items.DUSTS_REDSTONE, 12), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.POWERED_GALVITE.get())).build(consumer);
+        }, "mekanism");
+        this.modCompatRecipe(recipeConsumer -> {
+            CombinerRecipeBuilder.combining(ItemStackIngredient.deserialize(itemFromName("mekanism:dust_gold", 8)), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.GILDED_GALVITE.get())).build(consumer);
+        }, "mekanism");
     }
 }

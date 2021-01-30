@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "mythscapes:galvite_vertical_slab",
+    "mythscapes:polished_galvite_vertical_slab",
+    "mythscapes:polished_galvite_brick_vertical_slab",
+    "mythscapes:galvite_shingle_vertical_slab",
+    "mythscapes:gilded_galvite_brick_vertical_slab",
+    "mythscapes:bejeweled_galvite_brick_vertical_slab",
+    "mythscapes:powered_galvite_brick_vertical_slab",
+    "mythscapes:trollstone_vertical_slab",
+    "mythscapes:polished_trollstone_vertical_slab",
+    "mythscapes:polished_trollstone_brick_vertical_slab",
+    "mythscapes:snail_shell_brick_vertical_slab",
+    "mythscapes:bejeweled_snail_shell_brick_vertical_slab"
+  ]
+}

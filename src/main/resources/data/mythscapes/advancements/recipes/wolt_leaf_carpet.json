@@ -1,0 +1,44 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "flag": "leaf_carpet",
+          "type": "mythscapes:quark_flag"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "mythscapes:wolt_leaf_carpet"
+          ]
+        },
+        "criteria": {
+          "wolt_leaves": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "item": "mythscapes:wolt_leaves"
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "mythscapes:wolt_leaf_carpet"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "wolt_leaves",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

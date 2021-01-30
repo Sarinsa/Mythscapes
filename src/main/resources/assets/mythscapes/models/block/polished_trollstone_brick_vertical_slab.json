@@ -1,0 +1,8 @@
+{
+  "parent": "mythscapes:block/vertical_slab",
+  "textures": {
+    "bottom": "mythscapes:block/polished_trollstone_bricks",
+    "top": "mythscapes:block/polished_trollstone_bricks",
+    "side": "mythscapes:block/polished_trollstone_bricks"
+  }
+}

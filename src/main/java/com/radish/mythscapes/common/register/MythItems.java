@@ -14,7 +14,11 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.util.IItemProvider;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -26,6 +30,9 @@ public class MythItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Mythscapes.MODID);
 
+    // modid references
+    private static final String QUARK = "quark";
+
     //---------------------------------------------------------------------------------------------------------------------
     //                                              BLOCK ITEMS
     //---------------------------------------------------------------------------------------------------------------------
@@ -35,60 +42,70 @@ public class MythItems {
 
     public static final RegistryObject<Item> GALVITE = registerBlockItem(MythBlocks.GALVITE);
     public static final RegistryObject<Item> GALVITE_SLAB = registerBlockItem(MythBlocks.GALVITE_SLAB);
+    public static final RegistryObject<Item> GALVITE_VERTICAL_SLAB = registerBlockItem(MythBlocks.GALVITE_VERTICAL_SLAB, compatProperties(QUARK));
     public static final RegistryObject<Item> GALVITE_STAIRS = registerBlockItem(MythBlocks.GALVITE_STAIRS);
     public static final RegistryObject<Item> GALVITE_WALL = registerBlockItem(MythBlocks.GALVITE_WALL);
     public static final RegistryObject<Item> POLISHED_GALVITE = registerBlockItem(MythBlocks.POLISHED_GALVITE);
-    public static final RegistryObject<Item> POLISHED_GALVITE_SLAB= registerBlockItem(MythBlocks.POLISHED_GALVITE_SLAB);
+    public static final RegistryObject<Item> POLISHED_GALVITE_SLAB = registerBlockItem(MythBlocks.POLISHED_GALVITE_SLAB);
+    public static final RegistryObject<Item> POLISHED_GALVITE_VERTICAL_SLAB = registerBlockItem(MythBlocks.POLISHED_GALVITE_VERTICAL_SLAB, compatProperties(QUARK));
     public static final RegistryObject<Item> POLISHED_GALVITE_STAIRS = registerBlockItem(MythBlocks.POLISHED_GALVITE_STAIRS);
     public static final RegistryObject<Item> POLISHED_GALVITE_WALL = registerBlockItem(MythBlocks.POLISHED_GALVITE_WALL);
     public static final RegistryObject<Item> POLISHED_GALVITE_PRESSURE_PLATE = registerBlockItem(MythBlocks.POLISHED_GALVITE_PRESSURE_PLATE);
     public static final RegistryObject<Item> POLISHED_GALVITE_BUTTON = registerBlockItem(MythBlocks.POLISHED_GALVITE_BUTTON);
     public static final RegistryObject<Item> POLISHED_GALVITE_BRICKS = registerBlockItem(MythBlocks.POLISHED_GALVITE_BRICKS);
     public static final RegistryObject<Item> POLISHED_GALVITE_BRICK_SLAB = registerBlockItem(MythBlocks.POLISHED_GALVITE_BRICK_SLAB);
+    public static final RegistryObject<Item> POLISHED_GALVITE_BRICK_VERTICAL_SLAB = registerBlockItem(MythBlocks.POLISHED_GALVITE_BRICK_VERTICAL_SLAB, compatProperties(QUARK));
     public static final RegistryObject<Item> POLISHED_GALVITE_BRICK_STAIRS = registerBlockItem(MythBlocks.POLISHED_GALVITE_BRICK_STAIRS);
     public static final RegistryObject<Item> POLISHED_GALVITE_BRICK_WALL = registerBlockItem(MythBlocks.POLISHED_GALVITE_BRICK_WALL);
     public static final RegistryObject<Item> CHISELED_POLISHED_GALVITE = registerBlockItem(MythBlocks.CHISELED_POLISHED_GALVITE);
     public static final RegistryObject<Item> GALVITE_SHINGLES = registerBlockItem(MythBlocks.GALVITE_SHINGLES);
     public static final RegistryObject<Item> GALVITE_SHINGLE_SLAB = registerBlockItem(MythBlocks.GALVITE_SHINGLE_SLAB);
+    public static final RegistryObject<Item> GALVITE_SHINGLE_VERTICAL_SLAB = registerBlockItem(MythBlocks.GALVITE_SHINGLE_VERTICAL_SLAB, compatProperties(QUARK));
     public static final RegistryObject<Item> GALVITE_SHINGLE_STAIRS = registerBlockItem(MythBlocks.GALVITE_SHINGLE_STAIRS);
     public static final RegistryObject<Item> GILDED_GALVITE_BRICKS = registerBlockItem(MythBlocks.GILDED_GALVITE_BRICKS);
     public static final RegistryObject<Item> GILDED_GALVITE_BRICK_SLAB = registerBlockItem(MythBlocks.GILDED_GALVITE_BRICK_SLAB);
+    public static final RegistryObject<Item> GILDED_GALVITE_BRICK_VERTICAL_SLAB = registerBlockItem(MythBlocks.GILDED_GALVITE_BRICK_VERTICAL_SLAB, compatProperties(QUARK));
     public static final RegistryObject<Item> GILDED_GALVITE_BRICK_STAIRS = registerBlockItem(MythBlocks.GILDED_GALVITE_BRICK_STAIRS);
     public static final RegistryObject<Item> GILDED_GALVITE_BRICK_WALL = registerBlockItem(MythBlocks.GILDED_GALVITE_BRICK_WALL);
     public static final RegistryObject<Item> BEJEWELED_GALVITE_BRICKS = registerBlockItem(MythBlocks.BEJEWELED_GALVITE_BRICKS);
     public static final RegistryObject<Item> BEJEWELED_GALVITE_BRICK_SLAB = registerBlockItem(MythBlocks.BEJEWELED_GALVITE_BRICK_SLAB);
+    public static final RegistryObject<Item> BEJEWELED_GALVITE_BRICK_VERTICAL_SLAB = registerBlockItem(MythBlocks.BEJEWELED_GALVITE_BRICK_VERTICAL_SLAB, compatProperties(QUARK));
     public static final RegistryObject<Item> BEJEWELED_GALVITE_BRICK_STAIRS = registerBlockItem(MythBlocks.BEJEWELED_GALVITE_BRICK_STAIRS);
     public static final RegistryObject<Item> BEJEWELED_GALVITE_BRICK_WALL = registerBlockItem(MythBlocks.BEJEWELED_GALVITE_BRICK_WALL);
     public static final RegistryObject<Item> POWERED_GALVITE_BRICKS = registerBlockItem(MythBlocks.POWERED_GALVITE_BRICKS);
     public static final RegistryObject<Item> POWERED_GALVITE_BRICK_SLAB = registerBlockItem(MythBlocks.POWERED_GALVITE_BRICK_SLAB);
+    public static final RegistryObject<Item> POWERED_GALVITE_BRICK_VERTICAL_SLAB = registerBlockItem(MythBlocks.POWERED_GALVITE_BRICK_VERTICAL_SLAB, compatProperties(QUARK));
     public static final RegistryObject<Item> POWERED_GALVITE_BRICK_STAIRS = registerBlockItem(MythBlocks.POWERED_GALVITE_BRICK_STAIRS);
     public static final RegistryObject<Item> POWERED_GALVITE_BRICK_WALL = registerBlockItem(MythBlocks.POWERED_GALVITE_BRICK_WALL);
 
     public static final RegistryObject<Item> TROLLSTONE = registerBlockItem(MythBlocks.TROLLSTONE);
     public static final RegistryObject<Item> TROLLSTONE_SLAB = registerBlockItem(MythBlocks.TROLLSTONE_SLAB);
+    public static final RegistryObject<Item> TROLLSTONE_VERTICAL_SLAB = registerBlockItem(MythBlocks.TROLLSTONE_VERTICAL_SLAB, compatProperties(QUARK));
     public static final RegistryObject<Item> TROLLSTONE_STAIRS = registerBlockItem(MythBlocks.TROLLSTONE_STAIRS);
     public static final RegistryObject<Item> TROLLSTONE_WALL = registerBlockItem(MythBlocks.TROLLSTONE_WALL);
     public static final RegistryObject<Item> POLISHED_TROLLSTONE = registerBlockItem(MythBlocks.POLISHED_TROLLSTONE);
     public static final RegistryObject<Item> POLISHED_TROLLSTONE_SLAB = registerBlockItem(MythBlocks.POLISHED_TROLLSTONE_SLAB);
+    public static final RegistryObject<Item> POLISHED_TROLLSTONE_VERTICAL_SLAB = registerBlockItem(MythBlocks.POLISHED_TROLLSTONE_VERTICAL_SLAB, compatProperties(QUARK));
     public static final RegistryObject<Item> POLISHED_TROLLSTONE_STAIRS = registerBlockItem(MythBlocks.POLISHED_TROLLSTONE_STAIRS);
     public static final RegistryObject<Item> POLISHED_TROLLSTONE_WALL = registerBlockItem(MythBlocks.POLISHED_TROLLSTONE_WALL);
     public static final RegistryObject<Item> POLISHED_TROLLSTONE_PRESSURE_PLATE = registerBlockItem(MythBlocks.POLISHED_TROLLSTONE_PRESSURE_PLATE);
     public static final RegistryObject<Item> POLISHED_TROLLSTONE_BUTTON = registerBlockItem(MythBlocks.POLISHED_TROLLSTONE_BUTTON);
     public static final RegistryObject<Item> POLISHED_TROLLSTONE_BRICKS = registerBlockItem(MythBlocks.POLISHED_TROLLSTONE_BRICKS);
     public static final RegistryObject<Item> POLISHED_TROLLSTONE_BRICK_SLAB = registerBlockItem(MythBlocks.POLISHED_TROLLSTONE_BRICK_SLAB);
+    public static final RegistryObject<Item> POLISHED_TROLLSTONE_BRICK_VERTICAL_SLAB = registerBlockItem(MythBlocks.POLISHED_TROLLSTONE_BRICK_VERTICAL_SLAB, compatProperties(QUARK));
     public static final RegistryObject<Item> POLISHED_TROLLSTONE_BRICK_STAIRS = registerBlockItem(MythBlocks.POLISHED_TROLLSTONE_BRICK_STAIRS);
     public static final RegistryObject<Item> POLISHED_TROLLSTONE_BRICK_WALL = registerBlockItem(MythBlocks.POLISHED_TROLLSTONE_BRICK_WALL);
     public static final RegistryObject<Item> POLISHED_TROLLSTONE_PILLAR = registerBlockItem(MythBlocks.POLISHED_TROLLSTONE_PILLAR);
     public static final RegistryObject<Item> CHISELED_POLISHED_TROLLSTONE = registerBlockItem(MythBlocks.CHISELED_POLISHED_TROLLSTONE);
-
-    public static final RegistryObject<Item> WOLT_LEAVES = registerBlockItem(MythBlocks.WOLT_LEAVES);
 
     public static final RegistryObject<Item> WOLT_LOG = registerBlockItem(MythBlocks.WOLT_LOG);
     public static final RegistryObject<Item> WOLT_WOOD = registerBlockItem(MythBlocks.WOLT_WOOD);
     public static final RegistryObject<Item> WOLT_LOG_STRIPPED = registerBlockItem(MythBlocks.WOLT_LOG_STRIPPED);
     public static final RegistryObject<Item> WOLT_WOOD_STRIPPED = registerBlockItem(MythBlocks.WOLT_WOOD_STRIPPED);
     public static final RegistryObject<Item> WOLT_PLANKS = registerBlockItem(MythBlocks.WOLT_PLANKS);
+    public static final RegistryObject<Item> WOLT_VERTICAL_PLANKS = registerBlockItem(MythBlocks.WOLT_VERTICAL_PLANKS, compatProperties(QUARK));
     public static final RegistryObject<Item> WOLT_SLAB = registerBlockItem(MythBlocks.WOLT_SLAB);
+    public static final RegistryObject<Item> WOLT_VERTICAL_SLAB = registerBlockItem(MythBlocks.WOLT_VERTICAL_SLAB, compatProperties(QUARK));
     public static final RegistryObject<Item> WOLT_STAIRS = registerBlockItem(MythBlocks.WOLT_STAIRS);
     public static final RegistryObject<Item> WOLT_FENCE = registerBurnableBlockItem(MythBlocks.WOLT_FENCE, 300);
     public static final RegistryObject<Item> WOLT_FENCE_GATE = registerBurnableBlockItem(MythBlocks.WOLT_FENCE_GATE, 300);
@@ -96,7 +113,11 @@ public class MythItems {
     public static final RegistryObject<Item> WOLT_BUTTON = registerBlockItem(MythBlocks.WOLT_BUTTON);
     public static final RegistryObject<Item> WOLT_DOOR = registerTallBlockItem(MythBlocks.WOLT_DOOR);
     public static final RegistryObject<Item> WOLT_TRAPDOOR = registerBlockItem(MythBlocks.WOLT_TRAPDOOR);
+    public static final RegistryObject<Item> WOLT_SIGN = registerItem("wolt_sign", () -> new ModSignItem(compatProperties(QUARK).maxStackSize(16), MythBlocks.WOLT_SIGN.get(), MythBlocks.WOLT_WALL_SIGN.get()));
     public static final RegistryObject<Item> WOLT_SAPLING = registerBlockItem(MythBlocks.WOLT_SAPLING);
+    public static final RegistryObject<Item> WOLT_LEAVES = registerBlockItem(MythBlocks.WOLT_LEAVES);
+    public static final RegistryObject<Item> WOLT_LEAF_CARPET = registerBlockItem(MythBlocks.WOLT_LEAF_CARPET, compatProperties(QUARK));
+    public static final RegistryObject<Item> WOLT_WOOD_POST = registerBlockItem(MythBlocks.WOLT_WOOD_POST, compatProperties(QUARK));
 
     /*
     public static final RegistryObject<Item> VIRIDIAN_STEM = registerBlockItem(MythBlocks.VIRIDIAN_STEM);
@@ -125,11 +146,13 @@ public class MythItems {
     public static final RegistryObject<Item> SNAIL_SHELL_BLOCK = registerBlockItem(MythBlocks.SNAIL_SHELL_BLOCK);
     public static final RegistryObject<Item> SNAIL_SHELL_BRICKS = registerBlockItem(MythBlocks.SNAIL_SHELL_BRICKS);
     public static final RegistryObject<Item> SNAIL_SHELL_BRICK_SLAB = registerBlockItem(MythBlocks.SNAIL_SHELL_BRICK_SLAB);
+    public static final RegistryObject<Item> SNAIL_SHELL_BRICK_VERTICAL_SLAB = registerBlockItem(MythBlocks.SNAIL_SHELL_BRICK_VERTICAL_SLAB, compatProperties(QUARK));
     public static final RegistryObject<Item> SNAIL_SHELL_BRICK_STAIRS = registerBlockItem(MythBlocks.SNAIL_SHELL_BRICK_STAIRS);
     public static final RegistryObject<Item> SNAIL_SHELL_BRICK_WALL = registerBlockItem(MythBlocks.SNAIL_SHELL_BRICK_WALL);
     public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL_BLOCK = registerBlockItem(MythBlocks.BEJEWELED_SNAIL_SHELL_BLOCK);
     public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL_BRICKS = registerBlockItem(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICKS);
     public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL_BRICK_SLAB = registerBlockItem(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_SLAB);
+    public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL_BRICK_VERTICAL_SLAB = registerBlockItem(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_VERTICAL_SLAB, compatProperties(QUARK));
     public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL_BRICK_STAIRS = registerBlockItem(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_STAIRS);
     public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL_BRICK_WALL = registerBlockItem(MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_WALL);
 
@@ -181,7 +204,7 @@ public class MythItems {
     public static final RegistryObject<Item> PYGMY_SNAIL_SPAWN_EGG = registerSpawnEgg("pygmy_snail_spawn_egg", MythEntities.PYGMY_SNAIL_TYPE, 0x513230, 0xCCAF99);
     public static final RegistryObject<Item> DEER_SPAWN_EGG = registerSpawnEgg("deer_spawn_egg", MythEntities.DEER_TYPE, 0x8A5E46, 0xFFF1E5);
 
-    public static void registerItemInfo() {
+    public static void registerItemData() {
         registerCompostable(BIOBULB, 0.5f);
         registerCompostable(BIOBULB_CLUSTER, 0.85f);
         registerCompostable(BLISTERBERRY, 0.65f);
@@ -202,12 +225,21 @@ public class MythItems {
         return new Item.Properties().group(MythItemGroup.MOD_ITEM_GROUP);
     }
 
+    private static Item.Properties compatProperties(String modid) {
+        // Check FMLLoader.isProduction to prevent data gen from getting mad
+        return ModList.get().isLoaded(modid) ? properties() : new Item.Properties();
+    }
+
     private static RegistryObject<Item> registerItem(String name, Supplier<Item> itemSupplier) {
         return ITEMS.register(name, itemSupplier);
     }
 
     private static RegistryObject<Item> registerBlockItem(RegistryObject<Block> blockSupplier) {
         return ITEMS.register(blockSupplier.getId().getPath(), () -> new BlockItem(blockSupplier.get(), properties()));
+    }
+
+    private static RegistryObject<Item> registerBlockItem(RegistryObject<Block> blockSupplier, Item.Properties properties) {
+        return ITEMS.register(blockSupplier.getId().getPath(), () -> new BlockItem(blockSupplier.get(), properties));
     }
 
     private static RegistryObject<Item> registerSpawnEgg(String name, EntityType<?> entityType, int primaryColor, int secondaryColor) {

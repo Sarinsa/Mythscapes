@@ -3,15 +3,20 @@ package com.radish.mythscapes.client;
 import com.radish.mythscapes.client.particles.StaticCottonFallingParticle;
 import com.radish.mythscapes.client.particles.StaticCottonParticle;
 import com.radish.mythscapes.client.particles.StaticCottonPoofParticle;
-import com.radish.mythscapes.client.renderers.entities.*;
+import com.radish.mythscapes.client.renderers.entity.*;
+import com.radish.mythscapes.client.renderers.tile.ModSignTileEntityRenderer;
+import com.radish.mythscapes.common.blocks.plant.TintedLeafCarpetBlock;
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.register.MythBlocks;
 import com.radish.mythscapes.common.register.MythEntities;
 import com.radish.mythscapes.common.register.MythParticles;
+import com.radish.mythscapes.common.register.registry.MythTileEntities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -21,6 +26,7 @@ import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -38,6 +44,7 @@ public class ClientRegister {
     public static void registerClient(FMLClientSetupEvent event) {
         MinecraftForge.EVENT_BUS.register(new ClientEvents());
         registerEntityRenderers(event.getMinecraftSupplier());
+        registerTileEntityRenderers();
         setBlockRenderTypes();
     }
 
@@ -52,6 +59,20 @@ public class ClientRegister {
 
     @SubscribeEvent
     public static void registerItemColors(ColorHandlerEvent.Item event) {
+        ItemColors itemColors = event.getItemColors();
+
+        TintedLeafCarpetBlock.blockList.forEach((block -> {
+            itemColors.register((itemStack, i) -> block.getLeavesColor(), block);
+        }));
+    }
+
+    @SubscribeEvent
+    public static void registerBlockColors(ColorHandlerEvent.Block event) {
+        BlockColors blockColors = event.getBlockColors();
+
+        TintedLeafCarpetBlock.blockList.forEach((block -> {
+            blockColors.register((state, displayReader, blockPos, i) -> block.getLeavesColor(), block);
+        }));
     }
 
     public static void registerEntityRenderers(Supplier<Minecraft> minecraftSupplier) {
@@ -68,11 +89,16 @@ public class ClientRegister {
         registerSpriteRenderer(MythEntities.STATIC_COTTON.get(), minecraftSupplier);
     }
 
+    public static void registerTileEntityRenderers() {
+        ClientRegistry.bindTileEntityRenderer(MythTileEntities.SIGN.get(), ModSignTileEntityRenderer::new);
+    }
+
     public static void setBlockRenderTypes() {
         setRenderLayer(MythBlocks.WOLT_SAPLING.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.POTTED_WOLT_SAPLING.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.WOLT_DOOR.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.WOLT_TRAPDOOR.get(), RenderType.getCutout());
+        setRenderLayer(MythBlocks.WOLT_LEAF_CARPET.get(), RenderType.getCutoutMipped());
         setRenderLayer(MythBlocks.BLISTERBERRY_THISTLE.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.CHARGED_DANDELION.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.POTTED_CHARGED_DANDELION.get(), RenderType.getCutout());

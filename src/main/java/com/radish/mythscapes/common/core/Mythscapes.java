@@ -9,7 +9,10 @@ import com.radish.mythscapes.common.event.EffectEvents;
 import com.radish.mythscapes.common.event.EntityEvents;
 import com.radish.mythscapes.common.event.TradeEvents;
 import com.radish.mythscapes.common.misc.DispenserBehavior;
+import com.radish.mythscapes.common.network.PacketHandler;
+import com.radish.mythscapes.common.recipe.CraftingUtility;
 import com.radish.mythscapes.common.register.*;
+import com.radish.mythscapes.common.register.registry.MythTileEntities;
 import com.radish.mythscapes.common.tags.MythBlockTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -30,15 +33,20 @@ public class Mythscapes {
     public static final Logger LOGGER = LogManager.getLogger(MODID);
     private static Mythscapes INSTANCE;
 
+    private final PacketHandler packetHandler = new PacketHandler();
+
     private final RegistryHelper registryHelper = new RegistryHelper();
     private final SnailTypeRegister snailTypeRegister = new SnailTypeRegister();
+
+    static {
+        MythBlockTags.init();
+    }
 
     public Mythscapes() {
         INSTANCE = this;
 
-        // Spawn eggs are really cool.
         MythEntities.initTypes();
-        MythBlockTags.init();
+        CraftingUtility.registerConditions();
 
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -58,14 +66,16 @@ public class Mythscapes {
         MythPotions.POTIONS.register(eventBus);
         MythEntities.ENTITIES.register(eventBus);
         MythParticles.PARTICLES.register(eventBus);
-        //MythDimensions.DIMENSIONS.register(eventBus);
         MythEffects.POTION_EFFECTS.register(eventBus);
         MythEnchantments.ENCHANTMENTS.register(eventBus);
+        MythTileEntities.TILE_ENTITIES.register(eventBus);
+
+        packetHandler.registerMessages();
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-        MythItems.registerItemInfo();
-        MythBlocks.registerBlockInfo();
+        MythItems.registerItemData();
+        MythBlocks.registerBlockData();
         //MythBiomes.setBiomeEntitySpawns();
         MythBiomes.addBiomes();
         MythEntities.registerData();

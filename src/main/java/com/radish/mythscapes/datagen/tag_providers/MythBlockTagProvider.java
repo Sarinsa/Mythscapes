@@ -159,5 +159,26 @@ public class MythBlockTagProvider extends BlockTagsProvider {
 
         this.getOrCreateBuilder(MythBlockTags.SALT_BLOCKS).addOptional(
                 new ResourceLocation("mekanism", "block_salt"));
+
+        this.getOrCreateBuilder(MythBlockTags.VERTICAL_SLAB).add(
+                MythBlocks.GALVITE_VERTICAL_SLAB.get(),
+                MythBlocks.POLISHED_GALVITE_VERTICAL_SLAB.get(),
+                MythBlocks.POLISHED_GALVITE_BRICK_VERTICAL_SLAB.get(),
+                MythBlocks.GALVITE_SHINGLE_VERTICAL_SLAB.get(),
+                MythBlocks.GILDED_GALVITE_BRICK_VERTICAL_SLAB.get(),
+                MythBlocks.BEJEWELED_GALVITE_BRICK_VERTICAL_SLAB.get(),
+                MythBlocks.POWERED_GALVITE_BRICK_VERTICAL_SLAB.get(),
+                MythBlocks.TROLLSTONE_VERTICAL_SLAB.get(),
+                MythBlocks.POLISHED_TROLLSTONE_VERTICAL_SLAB.get(),
+                MythBlocks.POLISHED_TROLLSTONE_BRICK_VERTICAL_SLAB.get(),
+                MythBlocks.SNAIL_SHELL_BRICK_VERTICAL_SLAB.get(),
+                MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_VERTICAL_SLAB.get()
+        );
+
+        this.getOrCreateBuilder(MythBlockTags.PLANKS_VERTICAL_SLAB).add(
+                MythBlocks.WOLT_VERTICAL_SLAB.get()
+        );
+
+        //this.getOrCreateBuilder(MythBlockTags.LADDERS).add();
     }
 }

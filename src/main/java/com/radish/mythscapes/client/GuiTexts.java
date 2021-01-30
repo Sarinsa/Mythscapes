@@ -15,7 +15,7 @@ public class GuiTexts {
         return Mythscapes.MODID + "." + textType.getKey() + "." + translationKey;
     }
 
-    protected enum TextType {
+    public enum TextType {
         JEI_ITEM_DESC("jei.item_desc");
 
         TextType(String key) {

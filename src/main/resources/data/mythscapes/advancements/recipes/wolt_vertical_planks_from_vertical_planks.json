@@ -1,0 +1,44 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "flag": "vertical_planks",
+          "type": "mythscapes:quark_flag"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "mythscapes:wolt_vertical_planks_from_vertical_planks"
+          ]
+        },
+        "criteria": {
+          "wolt_vertical_planks": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "item": "mythscapes:wolt_vertical_planks"
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "mythscapes:wolt_vertical_planks_from_vertical_planks"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "wolt_vertical_planks",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

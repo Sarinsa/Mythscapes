@@ -2,6 +2,7 @@ package com.radish.mythscapes.datagen.tag_providers;
 
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.register.MythItems;
+import com.radish.mythscapes.common.tags.MythBlockTags;
 import com.radish.mythscapes.common.tags.MythItemTags;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
@@ -82,5 +83,9 @@ public class MythItemTagProvider extends ItemTagsProvider {
         this.copy(BlockTags.FENCES, ItemTags.FENCES);
         this.copy(BlockTags.TALL_FLOWERS, ItemTags.TALL_FLOWERS);
         this.copy(BlockTags.FLOWERS, ItemTags.FLOWERS);
+
+        this.copy(MythBlockTags.VERTICAL_SLAB, MythItemTags.VERTICAL_SLAB);
+        this.copy(MythBlockTags.PLANKS_VERTICAL_SLAB, MythItemTags.PLANKS_VERTICAL_SLAB);
+        this.copy(MythBlockTags.LADDERS, MythItemTags.LADDERS);
     }
 }

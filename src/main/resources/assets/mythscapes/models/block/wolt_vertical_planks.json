@@ -1,0 +1,6 @@
+{
+  "parent": "mythscapes:block/vertical_planks",
+  "textures": {
+    "all": "mythscapes:block/wolt_planks"
+  }
+}

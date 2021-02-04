@@ -1,0 +1,44 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "flag": "variant_chests",
+          "type": "mythscapes:quark_flag"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "mythscapes:wolt_trapped_chest"
+          ]
+        },
+        "criteria": {
+          "has_wolt_chest": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "item": "mythscapes:wolt_chest"
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "mythscapes:wolt_trapped_chest"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_wolt_chest",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

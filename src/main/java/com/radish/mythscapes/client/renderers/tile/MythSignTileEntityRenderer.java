@@ -20,21 +20,22 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3f;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 /**
  * Copy-pasta from SignTileEntityRenderer
  */
-public class ModSignTileEntityRenderer<T extends MythSignTileEntity> extends TileEntityRenderer<T> {
+public class MythSignTileEntityRenderer<T extends MythSignTileEntity> extends TileEntityRenderer<T> {
 
     private final SignTileEntityRenderer.SignModel model = new SignTileEntityRenderer.SignModel();
 
-    public ModSignTileEntityRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
+    public MythSignTileEntityRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
         super(rendererDispatcherIn);
     }
 
-    public void render(MythSignTileEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(MythSignTileEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, @NotNull IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
         BlockState blockstate = tileEntityIn.getBlockState();
         matrixStackIn.push();
 

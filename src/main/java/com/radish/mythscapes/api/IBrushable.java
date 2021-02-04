@@ -27,10 +27,6 @@ public interface IBrushable<T extends LivingEntity> {
     /**
      * @return Whether the brushed entity should
      *         be given regeneration or not.
-     *
-     *         Not sure how much this will be used,
-     *         but I can picture undead brushables
-     *         not fancying regeneration.
      */
     default boolean shouldReceiveRegen(T livingEntity) {
         return true;
@@ -40,7 +36,7 @@ public interface IBrushable<T extends LivingEntity> {
      * @param fortuneLevel The fortune enchant level on
      *                     the brush used.
      *
-     * @return An ItemStacks that can be dropped
+     * @return An ItemStack that can be dropped
      *         when this entity is brushed.
      *         Return ItemStack.EMPTY for no drop.
      */

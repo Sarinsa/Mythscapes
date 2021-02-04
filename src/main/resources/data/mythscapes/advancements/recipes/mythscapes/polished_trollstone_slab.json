@@ -6,7 +6,7 @@
     ]
   },
   "criteria": {
-    "polished_trollstone": {
+    "has_polished_trollstone": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "polished_trollstone",
+      "has_polished_trollstone",
       "has_the_recipe"
     ]
   ]

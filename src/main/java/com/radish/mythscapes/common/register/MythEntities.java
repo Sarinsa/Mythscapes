@@ -35,6 +35,7 @@ public class MythEntities {
 
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Mythscapes.MODID);
 
+    // Should we make a Forge registry for this?
     public static final LinkedHashMap<Class<?>, IBrushable<?>> BRUSHABLES = new LinkedHashMap<>();
 
     // Initializing the types for living entities that
@@ -43,8 +44,8 @@ public class MythEntities {
     // only be used by the spawn eggs, so use the registry
     // objects in other contexts.
     //
-    // Fingers crossed
-    // that Mojang changes spawn eggs to not be stupid.
+    // Fingers crossed that Mojang changes
+    // spawn eggs to not be the stupid.
     public static EntityType<PondSerpentEntity> POND_SERPENT_TYPE;
     public static EntityType<LionEntity> LION_TYPE;
     public static EntityType<FishbonesEntity> FISHBONES_TYPE;

@@ -17,6 +17,7 @@ public class MythItemTags {
     public static final Tags.IOptionalNamedTag<Item> VERTICAL_SLAB = modTag("vertical_slab", "quark");
     public static final Tags.IOptionalNamedTag<Item> PLANKS_VERTICAL_SLAB = modTag("planks_vertical_slab", "quark");
     public static final Tags.IOptionalNamedTag<Item> LADDERS = modTag("ladders", "quark");
+    public static final Tags.IOptionalNamedTag<Item> BOATABLE_CHESTS = modTag("boatable_chests", "quark");
 
 
     private static ITag.INamedTag<Item> forgeTag(String name) {

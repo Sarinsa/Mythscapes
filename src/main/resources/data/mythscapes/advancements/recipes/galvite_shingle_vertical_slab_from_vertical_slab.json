@@ -15,7 +15,7 @@
           ]
         },
         "criteria": {
-          "galvite_shingle_vertical_slab": {
+          "has_galvite_shingle_vertical_slab": {
             "trigger": "minecraft:inventory_changed",
             "conditions": {
               "items": [
@@ -34,7 +34,7 @@
         },
         "requirements": [
           [
-            "galvite_shingle_vertical_slab",
+            "has_galvite_shingle_vertical_slab",
             "has_the_recipe"
           ]
         ]

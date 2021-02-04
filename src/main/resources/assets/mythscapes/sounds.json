@@ -1,9 +1,15 @@
 {
   "lion_idle": {
-    "category": "entity",
+    "subtitle": "sound_event.mythscapes.entity.lion_idle",
     "sounds": [
       "mythscapes:entity/lion/lion_say_0",
       "mythscapes:entity/lion/lion_say_1"
+    ]
+  },
+  "oof": {
+    "subtitle": "sound_event.mythscapes.misc.oof",
+    "sounds": [
+      "mythscapes:misc/config_oof"
     ]
   }
 }

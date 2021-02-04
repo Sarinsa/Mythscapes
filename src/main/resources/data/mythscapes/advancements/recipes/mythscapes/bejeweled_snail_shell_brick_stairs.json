@@ -6,7 +6,7 @@
     ]
   },
   "criteria": {
-    "bejeweled_snail_shell_bricks": {
+    "has_bejeweled_snail_shell_bricks": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "bejeweled_snail_shell_bricks",
+      "has_bejeweled_snail_shell_bricks",
       "has_the_recipe"
     ]
   ]

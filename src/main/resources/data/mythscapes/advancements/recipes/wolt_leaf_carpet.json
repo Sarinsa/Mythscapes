@@ -15,7 +15,7 @@
           ]
         },
         "criteria": {
-          "wolt_leaves": {
+          "has_wolt_leaves": {
             "trigger": "minecraft:inventory_changed",
             "conditions": {
               "items": [
@@ -34,7 +34,7 @@
         },
         "requirements": [
           [
-            "wolt_leaves",
+            "has_wolt_leaves",
             "has_the_recipe"
           ]
         ]

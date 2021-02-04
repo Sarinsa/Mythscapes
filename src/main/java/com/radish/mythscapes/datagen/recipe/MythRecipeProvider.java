@@ -285,12 +285,7 @@ public class MythRecipeProvider extends AbstractRecipeProvider {
                 .key('G', Tags.Items.DUSTS_GLOWSTONE)
                 .build(consumer);
 
-        this.shapedRecipe(MythItems.WOLT_BOAT.get(), 1, MythItems.WOLT_PLANKS.get())
-                .setGroup("boat")
-                .patternLine("# #")
-                .patternLine("###")
-                .key('#', MythItems.WOLT_PLANKS.get())
-                .build(consumer);
+        this.boatRecipe(MythItems.WOLT_BOAT.get(), MythItems.WOLT_PLANKS.get(), consumer);
 
         // Shapeless
         this.shapelessPlanksRecipe(MythItems.WOLT_PLANKS.get(), MythItemTags.WOLT_LOGS, consumer);
@@ -438,15 +433,23 @@ public class MythRecipeProvider extends AbstractRecipeProvider {
 
         this.quarkLeafCarpetRecipe(MythBlocks.WOLT_LEAF_CARPET.get(), MythBlocks.WOLT_LEAVES.get());
 
+        this.quarkWoodenPostRecipe(MythBlocks.WOLT_POST.get(), MythBlocks.WOLT_FENCE.get());
+
+        this.quarkLadderRecipe(MythBlocks.WOLT_LADDER.get(), MythBlocks.WOLT_PLANKS.get());
+
+        this.quarkBookshelfRecipe(MythBlocks.WOLT_BOOKSHELF.get(), MythBlocks.WOLT_PLANKS.get());
+
+        this.quarkChestRecipe(MythBlocks.WOLT_CHEST.get(), MythBlocks.WOLT_TRAPPED_CHEST.get(), MythBlocks.WOLT_PLANKS.get(), MythItemTags.WOLT_LOGS);
+
         // Mekanism compat
         this.modCompatRecipe(recipeConsumer -> {
             CombinerRecipeBuilder.combining(ItemStackIngredient.deserialize(itemFromName("mekanism:dust_diamond", 3)), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.BEJEWELED_GALVITE.get())).build(recipeConsumer);
         }, "mekanism");
         this.modCompatRecipe(recipeConsumer -> {
-            CombinerRecipeBuilder.combining(ItemStackIngredient.from(Tags.Items.DUSTS_REDSTONE, 12), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.POWERED_GALVITE.get())).build(consumer);
+            CombinerRecipeBuilder.combining(ItemStackIngredient.from(Tags.Items.DUSTS_REDSTONE, 12), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.POWERED_GALVITE.get())).build(recipeConsumer);
         }, "mekanism");
         this.modCompatRecipe(recipeConsumer -> {
-            CombinerRecipeBuilder.combining(ItemStackIngredient.deserialize(itemFromName("mekanism:dust_gold", 8)), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.GILDED_GALVITE.get())).build(consumer);
+            CombinerRecipeBuilder.combining(ItemStackIngredient.deserialize(itemFromName("mekanism:dust_gold", 8)), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.GILDED_GALVITE.get())).build(recipeConsumer);
         }, "mekanism");
     }
 }

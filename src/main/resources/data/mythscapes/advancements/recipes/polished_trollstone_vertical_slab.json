@@ -15,7 +15,7 @@
           ]
         },
         "criteria": {
-          "polished_trollstone_slab": {
+          "has_polished_trollstone_slab": {
             "trigger": "minecraft:inventory_changed",
             "conditions": {
               "items": [
@@ -34,7 +34,7 @@
         },
         "requirements": [
           [
-            "polished_trollstone_slab",
+            "has_polished_trollstone_slab",
             "has_the_recipe"
           ]
         ]

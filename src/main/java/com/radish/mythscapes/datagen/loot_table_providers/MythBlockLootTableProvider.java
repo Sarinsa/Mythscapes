@@ -11,6 +11,7 @@ import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SlabBlock;
+import net.minecraft.data.LootTableProvider;
 import net.minecraft.data.loot.BlockLootTables;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Items;
@@ -122,8 +123,6 @@ public class MythBlockLootTableProvider extends BlockLootTables {
         this.registerDropSelfLootTable(MythBlocks.POLISHED_TROLLSTONE_BRICK_WALL.get());
         this.registerDropSelfLootTable(MythBlocks.POLISHED_TROLLSTONE_PILLAR.get());
         this.registerDropSelfLootTable(MythBlocks.CHISELED_POLISHED_TROLLSTONE.get());
-        this.registerLootTable(MythBlocks.WOLT_LEAVES.get(), (block) -> droppingWithChancesAndSticks(block, MythBlocks.WOLT_SAPLING.get(), DEFAULT_SAPLING_DROP_RATES));
-        this.registerDropSelfLootTable(MythBlocks.WOLT_LEAF_CARPET.get());
 
         this.registerDropSelfLootTable(MythBlocks.WOLT_LOG.get());
         this.registerDropSelfLootTable(MythBlocks.WOLT_WOOD.get());
@@ -141,7 +140,14 @@ public class MythBlockLootTableProvider extends BlockLootTables {
         this.registerDropSelfLootTable(MythBlocks.WOLT_SIGN.get());
         this.registerLootTable(MythBlocks.WOLT_DOOR.get(), BlockLootTables::registerDoor);
         this.registerDropSelfLootTable(MythBlocks.WOLT_TRAPDOOR.get());
+        this.registerDropSelfLootTable(MythBlocks.WOLT_LADDER.get());
+        this.registerDropSelfLootTable(MythBlocks.WOLT_BOOKSHELF.get());
+        this.registerDropSelfLootTable(MythBlocks.WOLT_POST.get());
+        this.registerLootTable(MythBlocks.WOLT_CHEST.get(), BlockLootTables::droppingWithName);
+        this.registerLootTable(MythBlocks.WOLT_TRAPPED_CHEST.get(), BlockLootTables::droppingWithName);
         this.registerDropSelfLootTable(MythBlocks.WOLT_SAPLING.get());
+        this.registerLootTable(MythBlocks.WOLT_LEAVES.get(), (block) -> droppingWithChancesAndSticks(block, MythBlocks.WOLT_SAPLING.get(), DEFAULT_SAPLING_DROP_RATES));
+        this.registerDropSelfLootTable(MythBlocks.WOLT_LEAF_CARPET.get());
 
         /*
         this.registerDropSelfLootTable(MythBlocks.VIRIDIAN_STEM.get());

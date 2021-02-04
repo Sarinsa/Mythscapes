@@ -50,6 +50,10 @@ public class MythItemTagProvider extends ItemTagsProvider {
                 .addOptionalTag(Tags.Items.DUSTS_PRISMARINE.getName())
                 .addOptionalTag(Tags.Items.GEMS_PRISMARINE.getName()
         );
+
+        this.getOrCreateBuilder(MythItemTags.BOATABLE_CHESTS).add(
+                MythItems.WOLT_CHEST.get()
+        );
     }
 
     private void copyTags() {

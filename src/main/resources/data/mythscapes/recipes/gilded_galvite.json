@@ -1,17 +1,30 @@
 {
-  "type": "mekanism:combining",
-  "mainInput": {
-    "amount": 8,
-    "ingredient": {
-      "item": "mekanism:dust_gold"
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "mekanism",
+          "type": "forge:mod_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "mekanism:combining",
+        "mainInput": {
+          "amount": 8,
+          "ingredient": {
+            "item": "mekanism:dust_gold"
+          }
+        },
+        "extraInput": {
+          "ingredient": {
+            "item": "mythscapes:galvite"
+          }
+        },
+        "output": {
+          "item": "mythscapes:gilded_galvite"
+        }
+      }
     }
-  },
-  "extraInput": {
-    "ingredient": {
-      "item": "mythscapes:galvite"
-    }
-  },
-  "output": {
-    "item": "mythscapes:gilded_galvite"
-  }
+  ]
 }

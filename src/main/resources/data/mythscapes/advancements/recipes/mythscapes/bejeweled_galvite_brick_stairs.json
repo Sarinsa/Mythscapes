@@ -6,7 +6,7 @@
     ]
   },
   "criteria": {
-    "bejeweled_galvite": {
+    "has_bejeweled_galvite": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "bejeweled_galvite",
+      "has_bejeweled_galvite",
       "has_the_recipe"
     ]
   ]

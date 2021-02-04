@@ -1,0 +1,30 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "flag": "wooden_posts",
+          "type": "mythscapes:quark_flag"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "#",
+          "#",
+          "#"
+        ],
+        "key": {
+          "#": {
+            "item": "mythscapes:wolt_fence"
+          }
+        },
+        "result": {
+          "item": "mythscapes:wolt_post",
+          "count": 3
+        }
+      }
+    }
+  ]
+}

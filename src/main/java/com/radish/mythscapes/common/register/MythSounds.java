@@ -16,6 +16,7 @@ public class MythSounds {
 
 
     public static final RegistryObject<SoundEvent> LION_IDLE = registerSound("lion_idle");
+    public static final RegistryObject<SoundEvent> OOF = registerSound("oof");
 
 
     private static RegistryObject<SoundEvent> registerSound(String name) {

@@ -179,6 +179,8 @@ public class MythBlockTagProvider extends BlockTagsProvider {
                 MythBlocks.WOLT_VERTICAL_SLAB.get()
         );
 
-        //this.getOrCreateBuilder(MythBlockTags.LADDERS).add();
+        this.getOrCreateBuilder(MythBlockTags.LADDERS)
+                .add(MythBlocks.WOLT_LADDER.get()
+        );
     }
 }

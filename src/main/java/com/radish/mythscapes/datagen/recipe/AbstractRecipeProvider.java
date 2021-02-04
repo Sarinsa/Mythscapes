@@ -7,9 +7,7 @@ import com.radish.mythscapes.common.recipe.conditions.QuarkFlagCondition;
 import com.radish.mythscapes.common.register.MythItems;
 import com.radish.mythscapes.datagen.recipe.builders.NullableItemGroupShapedRecipeBuilder;
 import com.radish.mythscapes.datagen.recipe.builders.NullableItemGroupShapelessRecipeBuilder;
-import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.advancements.IRequirementsStrategy;
-import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
+import net.minecraft.block.Block;
 import net.minecraft.data.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -288,12 +286,34 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
                 .build(consumer, resultName + "_from_" + ingredientName + "_campfire");
     }
 
-    protected void quarkVerticalSlabRecipe(IItemProvider result, IItemProvider ingredient) {
-        String vertical = itemName(ingredient);
-        String horizontal = itemName(result);
+    protected void quarkVerticalSlabRecipe(IItemProvider verticalSlab, IItemProvider normalSlab) {
+        String vertical = itemName(verticalSlab);
+        String horizontal = itemName(normalSlab);
 
         this.quarkFlagRecipe("vertical_slabs", recipeConsumer -> {
-            NullableItemGroupShapedRecipeBuilder.shapedRecipe(result, 3)
+            NullableItemGroupShapedRecipeBuilder.shapedRecipe(verticalSlab, 3)
+                    .patternLine("#")
+                    .patternLine("#")
+                    .patternLine("#")
+                    .key('#', normalSlab)
+                    .addCriterion("has_" + vertical, hasItem(normalSlab))
+                    .build(recipeConsumer);
+        });
+
+        this.quarkFlagRecipe("vertical_slabs", recipeConsumer -> {
+            NullableItemGroupShapelessRecipeBuilder.shapelessRecipe(normalSlab)
+                    .addIngredient(verticalSlab)
+                    .addCriterion("has_" + horizontal, hasItem(verticalSlab))
+                    .build(recipeConsumer,  horizontal + "_from_" + vertical);
+        });
+    }
+
+    protected void quarkVerticalPlanksRecipe(IItemProvider verticalPlanks, IItemProvider ingredient) {
+        String vertical = itemName(verticalPlanks);
+        String horizontal = itemName(ingredient);
+
+        this.quarkFlagRecipe("vertical_planks", recipeConsumer -> {
+            NullableItemGroupShapedRecipeBuilder.shapedRecipe(verticalPlanks, 3)
                     .patternLine("#")
                     .patternLine("#")
                     .patternLine("#")
@@ -302,39 +322,17 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
                     .build(recipeConsumer);
         });
 
-        this.quarkFlagRecipe("vertical_slabs", recipeConsumer -> {
+        this.quarkFlagRecipe("vertical_planks", recipeConsumer -> {
             NullableItemGroupShapelessRecipeBuilder.shapelessRecipe(ingredient)
-                    .addIngredient(result)
-                    .addCriterion("has_" + horizontal, hasItem(result))
-                    .build(recipeConsumer, Mythscapes.MODID + ":" + horizontal + "_from_vertical_slab");
+                    .addIngredient(verticalPlanks)
+                    .addCriterion("has_" + horizontal, hasItem(verticalPlanks))
+                    .build(recipeConsumer, horizontal + "_from_" + vertical);
         });
     }
 
-    protected void quarkVerticalPlanksRecipe(IItemProvider result, IItemProvider ingredient) {
-        String vertical = itemName(ingredient);
-        String horizontal = itemName(result);
-
-        this.quarkFlagRecipe("vertical_planks", recipeConsumer -> {
-            NullableItemGroupShapedRecipeBuilder.shapedRecipe(result, 3)
-                    .patternLine("#")
-                    .patternLine("#")
-                    .patternLine("#")
-                    .key('#', ingredient)
-                    .addCriterion("has_" + vertical, hasItem(ingredient))
-                    .build(recipeConsumer);
-        });
-
-        this.quarkFlagRecipe("vertical_planks", recipeConsumer -> {
-            NullableItemGroupShapelessRecipeBuilder.shapelessRecipe(ingredient)
-                    .addIngredient(result)
-                    .addCriterion("has_" + horizontal, hasItem(result))
-                    .build(recipeConsumer, Mythscapes.MODID + ":" + horizontal + "_from_vertical_planks");
-        });
-    }
-
-    protected void woodSignRecipe(IItemProvider result, IItemProvider ingredient) {
+    protected void woodSignRecipe(IItemProvider woodSign, IItemProvider ingredient) {
         this.modCompatRecipe(recipeConsumer -> {
-            NullableItemGroupShapedRecipeBuilder.shapedRecipe(result, 3)
+            NullableItemGroupShapedRecipeBuilder.shapedRecipe(woodSign, 3)
                     .patternLine("###")
                     .patternLine("###")
                     .patternLine(" S ")
@@ -345,9 +343,9 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
         }, "quark");
     }
 
-    protected void quarkLeafCarpetRecipe(IItemProvider result, IItemProvider ingredient) {
+    protected void quarkLeafCarpetRecipe(IItemProvider leafCarpet, IItemProvider ingredient) {
         this.quarkFlagRecipe("leaf_carpet", recipeConsumer -> {
-            NullableItemGroupShapedRecipeBuilder.shapedRecipe(result, 3)
+            NullableItemGroupShapedRecipeBuilder.shapedRecipe(leafCarpet, 3)
                     .patternLine("##")
                     .key('#', ingredient)
                     .addCriterion("has_" + itemName(ingredient), hasItem(ingredient))
@@ -355,9 +353,9 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
         });
     }
 
-    protected void quarkLadderRecipe(IItemProvider result, IItemProvider ingredient) {
+    protected void quarkLadderRecipe(IItemProvider ladder, IItemProvider ingredient) {
         this.quarkFlagRecipe("variant_ladders", recipeConsumer -> {
-            NullableItemGroupShapedRecipeBuilder.shapedRecipe(result, 4)
+            NullableItemGroupShapedRecipeBuilder.shapedRecipe(ladder, 4)
                     .patternLine("# #")
                     .patternLine("#P#")
                     .patternLine("# #")
@@ -368,14 +366,68 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
         });
     }
 
-    protected void quarkWoodenPostRecipe(IItemProvider result, IItemProvider ingredient) {
+    protected void quarkWoodenPostRecipe(IItemProvider woodPost, IItemProvider ingredient) {
         this.quarkFlagRecipe("wooden_posts", recipeConsumer -> {
-            NullableItemGroupShapedRecipeBuilder.shapedRecipe(result, 3)
+            NullableItemGroupShapedRecipeBuilder.shapedRecipe(woodPost, 3)
                     .patternLine("#")
                     .patternLine("#")
                     .patternLine("#")
                     .key('#', ingredient)
                     .addCriterion("has_" + itemName(ingredient), hasItem(ingredient))
+                    .build(recipeConsumer);
+        });
+    }
+
+    protected void quarkBookshelfRecipe(IItemProvider bookshelf, IItemProvider ingredient) {
+        this.quarkFlagRecipe("variant_bookshelves", recipeConsumer -> {
+            NullableItemGroupShapedRecipeBuilder.shapedRecipe(bookshelf, 1)
+                    .patternLine("###")
+                    .patternLine("BBB")
+                    .patternLine("###")
+                    .key('#', ingredient)
+                    .key('B', Items.BOOK)
+                    .addCriterion("has_" + itemName(ingredient), hasItem(ingredient))
+                    .build(recipeConsumer);
+        });
+    }
+
+    /**
+     * @param chest The normal chest block from the wood set
+     * @param trappedChest The trapped chest block from the wood set
+     * @param planks The planks block from the wood set
+     * @param logs The Item Tag of logs belonging to the wood set
+     */
+    protected void quarkChestRecipe(IItemProvider chest, IItemProvider trappedChest, IItemProvider planks, ITag.INamedTag<Item> logs) {
+        String chestName = Objects.requireNonNull(chest.asItem().getRegistryName()).getPath();
+        String planksName = Objects.requireNonNull(planks.asItem().getRegistryName()).getPath();
+        String logsName = logs.getName().getPath();
+
+
+        this.quarkFlagRecipe("variant_chests", recipeConsumer -> {
+            NullableItemGroupShapedRecipeBuilder.shapedRecipe(chest, 4)
+                    .patternLine("###")
+                    .patternLine("# #")
+                    .patternLine("###")
+                    .key('#', logs)
+                    .addCriterion("has_wolt_logs", hasItem(logs))
+                    .build(recipeConsumer, chestName + "_from_" + logsName);
+        });
+
+        this.quarkFlagRecipe("variant_chests", recipeConsumer -> {
+            NullableItemGroupShapedRecipeBuilder.shapedRecipe(chest, 1)
+                    .patternLine("###")
+                    .patternLine("# #")
+                    .patternLine("###")
+                    .key('#', planks)
+                    .addCriterion("has_wolt_planks", hasItem(planks))
+                    .build(recipeConsumer, chestName + "_from_" + planksName);
+        });
+
+        this.quarkFlagRecipe("variant_chests", recipeConsumer -> {
+            NullableItemGroupShapelessRecipeBuilder.shapelessRecipe(trappedChest, 1)
+                    .addIngredient(chest)
+                    .addIngredient(Items.TRIPWIRE_HOOK)
+                    .addCriterion("has_wolt_chest", hasItem(chest))
                     .build(recipeConsumer);
         });
     }

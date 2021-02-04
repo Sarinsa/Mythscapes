@@ -6,7 +6,7 @@
     ]
   },
   "criteria": {
-    "powered_galvite_bricks": {
+    "has_powered_galvite_bricks": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "powered_galvite_bricks",
+      "has_powered_galvite_bricks",
       "has_the_recipe"
     ]
   ]

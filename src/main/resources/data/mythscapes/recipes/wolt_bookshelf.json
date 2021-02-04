@@ -1,0 +1,32 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "flag": "variant_bookshelves",
+          "type": "mythscapes:quark_flag"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "###",
+          "BBB",
+          "###"
+        ],
+        "key": {
+          "#": {
+            "item": "mythscapes:wolt_planks"
+          },
+          "B": {
+            "item": "minecraft:book"
+          }
+        },
+        "result": {
+          "item": "mythscapes:wolt_bookshelf"
+        }
+      }
+    }
+  ]
+}

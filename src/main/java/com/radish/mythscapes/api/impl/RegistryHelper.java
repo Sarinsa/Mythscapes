@@ -19,6 +19,7 @@ public final class RegistryHelper implements IRegistryHelper {
 
     /**
      * Used for printing debug info to the log.
+     * Updates each time a new plugin is found.
      */
     private String pluginID = "missingno";
 

@@ -1,5 +1,7 @@
 package com.radish.mythscapes.common.misc;
 
+import com.radish.mythscapes.common.core.Mythscapes;
+import com.radish.mythscapes.common.core.config.MythConfig;
 import com.radish.mythscapes.common.entities.living.SnailEntity;
 import com.radish.mythscapes.common.register.MythBlocks;
 import com.radish.mythscapes.common.register.MythEntities;
@@ -17,6 +19,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.ForgeConfig;
+import net.minecraftforge.common.ForgeConfigSpec;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
@@ -46,10 +50,15 @@ public class MixinHooks {
     }
 
     public static void onComposterBlockTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+        if (!MythConfig.COMMON.getComposterSnails())
+            return;
+
         int chanceModifier = state.get(ComposterBlock.LEVEL);
 
         if (chanceModifier > 0 && rand.nextInt(38) <= chanceModifier) {
-            boolean tooManySnails = world.getEntitiesWithinAABB(SnailEntity.class, new AxisAlignedBB(pos).grow(25)).size() > 3;
+            int scanRange = MythConfig.COMMON.getComposterSnailCheckRange();
+            int maxSnailCount = MythConfig.COMMON.getComposterSnailMaxCount();
+            boolean tooManySnails = world.getEntitiesWithinAABB(SnailEntity.class, new AxisAlignedBB(pos).grow(scanRange)).size() > maxSnailCount;
 
             if (!tooManySnails) {
                 Iterable<BlockPos> scanArea = BlockPos.getAllInBoxMutable(pos.add(3, 2, 2), pos.add(-3, -2, -3));

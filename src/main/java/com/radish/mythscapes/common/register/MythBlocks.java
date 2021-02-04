@@ -28,50 +28,10 @@ public class MythBlocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Mythscapes.MODID);
 
-    // Ores
+    // Galvite
     public static final RegistryObject<Block> GILDED_GALVITE = registerBlock("gilded_galvite", () -> new OreBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BLUE_TERRACOTTA).sound(SoundType.STONE).hardnessAndResistance(3.0f).harvestTool(ToolType.PICKAXE).harvestLevel(2).setRequiresTool()));
     public static final RegistryObject<Block> BEJEWELED_GALVITE = registerBlock("bejeweled_galvite", () -> new OreBlock(AbstractBlock.Properties.from(GILDED_GALVITE.get())));
     public static final RegistryObject<Block> POWERED_GALVITE = registerBlock("powered_galvite", () -> new RedstoneOreBlock(AbstractBlock.Properties.from(GILDED_GALVITE.get()).tickRandomly().setLightLevel(lightValueLit(9))));
-
-    // Wolt Wood
-    public static final RegistryObject<Block> WOLT_LOG = registerBlock("wolt_log", () -> new ModLogBlock(logProp(Material.WOOD, MaterialColor.ICE, MaterialColor.WHITE_TERRACOTTA).sound(SoundType.WOOD).hardnessAndResistance(2.0f, 3.0f)));
-    public static final RegistryObject<Block> WOLT_WOOD = registerBlock("wolt_wood", () -> new ModLogBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(2.0f)));
-    public static final RegistryObject<Block> WOLT_LOG_STRIPPED = registerBlock("wolt_log_stripped", () -> new ModLogBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(2.0f, 3.0f)));
-    public static final RegistryObject<Block> WOLT_WOOD_STRIPPED = registerBlock("wolt_wood_stripped", () -> new ModLogBlock(AbstractBlock.Properties.from(WOLT_WOOD.get())));
-    public static final RegistryObject<Block> WOLT_PLANKS = registerBlock("wolt_planks", () -> new ModPlanksBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(2.0f, 3.0f)));
-    public static final RegistryObject<Block> WOLT_VERTICAL_PLANKS = registerBlock("wolt_vertical_planks", () -> new ModPlanksBlock(AbstractBlock.Properties.from(WOLT_PLANKS.get())));
-    public static final RegistryObject<Block> WOLT_SLAB = registerBlock("wolt_slab", () -> new ModWoodSlabBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(2.0f, 3.0f)));
-    public static final RegistryObject<Block> WOLT_VERTICAL_SLAB = registerBlock("wolt_vertical_slab", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(WOLT_PLANKS.get())));
-    public static final RegistryObject<Block> WOLT_STAIRS = registerBlock("wolt_stairs", () -> new ModWoodStairsBlock(WOLT_PLANKS.get()::getDefaultState, AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(2.0f, 3.0f)));
-    public static final RegistryObject<Block> WOLT_FENCE = registerBlock("wolt_fence", () -> new ModWoodFenceBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(2.0f, 3.0f)));
-    public static final RegistryObject<Block> WOLT_FENCE_GATE = registerBlock("wolt_fence_gate", () -> new ModWoodFenceGateBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(2.0f, 3.0f)));
-    public static final RegistryObject<Block> WOLT_PRESSURE_PLATE = registerBlock("wolt_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(0.5f)));
-    public static final RegistryObject<Block> WOLT_BUTTON = registerBlock("wolt_button", () -> new WoodButtonBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(0.5f)));
-    public static final RegistryObject<Block> WOLT_DOOR = registerBlock("wolt_door", () -> new DoorBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(3.0f).notSolid()));
-    public static final RegistryObject<Block> WOLT_TRAPDOOR = registerBlock("wolt_trapdoor", () -> new TrapDoorBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(3.0f).notSolid()));
-    public static final RegistryObject<Block> WOLT_SIGN = registerBlock("wolt_sign", () -> new ModStandingSignBlock(AbstractBlock.Properties.from(WOLT_PLANKS.get()).doesNotBlockMovement(), "wolt"));
-    public static final RegistryObject<Block> WOLT_WALL_SIGN = registerBlock("wolt_wall_sign", () -> new ModWallSignBlock(AbstractBlock.Properties.from(WOLT_SIGN.get()), "wolt"));
-    public static final RegistryObject<Block> WOLT_SAPLING = registerBlock("wolt_sapling", () -> new ModSaplingBlock(AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.CYAN).sound(SoundType.PLANT).hardnessAndResistance(0.0f).doesNotBlockMovement().tickRandomly()));
-    public static final RegistryObject<Block> WOLT_LEAVES = registerBlock("wolt_leaves", () -> new ModLeavesBlock(AbstractBlock.Properties.create(Material.LEAVES, MaterialColor.CYAN).sound(SoundType.PLANT).hardnessAndResistance(0.2F).tickRandomly().notSolid()));
-    public static final RegistryObject<Block> WOLT_LEAF_CARPET = registerBlock("wolt_leaf_carpet", LeafCarpetBlock::new);
-    public static final RegistryObject<Block> WOLT_WOOD_POST = registerBlock("wolt_wood_post", () -> new WoodPostBlock(AbstractBlock.Properties.from(WOLT_PLANKS.get())));
-
-    // Viridian Wood
-    /*
-    public static final RegistryObject<Block> VIRIDIAN_STEM = registerBlock("viridian_stem", () -> new RotatedPillarBlock(logProp(Material.WOOD, MaterialColor.WHITE_TERRACOTTA, MaterialColor.LIME).sound(SoundType.WOOD).hardnessAndResistance(1.5f)));
-    public static final RegistryObject<Block> VIRIDIAN_WOOD = registerBlock("viridian_wood", () -> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN).sound(SoundType.WOOD).hardnessAndResistance(1.5f)));
-    public static final RegistryObject<Block> VIRIDIAN_STEM_STRIPPED = registerBlock("viridian_stem_stripped", () -> new RotatedPillarBlock(logProp(Material.WOOD, MaterialColor.WHITE_TERRACOTTA, MaterialColor.LIME)));
-    public static final RegistryObject<Block> VIRIDIAN_WOOD_STRIPPED = registerBlock("viridian_wood_stripped", () -> new RotatedPillarBlock(AbstractBlock.Properties.from(VIRIDIAN_WOOD.get())));
-    public static final RegistryObject<Block> VIRIDIAN_PLANKS = registerBlock("viridian_planks", () -> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN).sound(SoundType.WOOD).hardnessAndResistance(1.5f)));
-    public static final RegistryObject<Block> VIRIDIAN_SLAB = registerBlock("viridian_slab", () -> new SlabBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN).sound(SoundType.WOOD).hardnessAndResistance(1.5f)));
-    public static final RegistryObject<Block> VIRIDIAN_STAIRS = registerBlock("viridian_stairs", () -> new StairsBlock(WOLT_PLANKS.get()::getDefaultState, AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(1.5f)));
-    public static final RegistryObject<Block> VIRIDIAN_FENCE = registerBlock("viridian_fence", () -> new FenceBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN).sound(SoundType.WOOD).hardnessAndResistance(1.5f)));
-    public static final RegistryObject<Block> VIRIDIAN_FENCE_GATE = registerBlock("viridian_fence_gate", () -> new FenceGateBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN).sound(SoundType.WOOD).hardnessAndResistance(1.5f)));
-    public static final RegistryObject<Block> VIRIDIAN_PRESSURE_PLATE = registerBlock("viridian_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN).sound(SoundType.WOOD).hardnessAndResistance(0.5f)));
-    public static final RegistryObject<Block> VIRIDIAN_BUTTON = registerBlock("viridian_button", () -> new WoodButtonBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN).sound(SoundType.WOOD).hardnessAndResistance(0.5f)));
-    */
-
-    // Galvite
     public static final RegistryObject<Block> GALVITE = registerBlock("galvite", () -> new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BLUE_TERRACOTTA).sound(SoundType.STONE).hardnessAndResistance(1.0f).harvestTool(ToolType.PICKAXE).setRequiresTool()));
     public static final RegistryObject<Block> GALVITE_SLAB = registerBlock("galvite_slab", () -> new SlabBlock(AbstractBlock.Properties.from(GALVITE.get())));
     public static final RegistryObject<Block> GALVITE_VERTICAL_SLAB = registerBlock("galvite_vertical_slab", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(GALVITE.get())));
@@ -131,6 +91,48 @@ public class MythBlocks {
     public static final RegistryObject<Block> POLISHED_TROLLSTONE_PILLAR = registerBlock("polished_trollstone_pillar", () -> new RotatedPillarBlock(AbstractBlock.Properties.from(TROLLSTONE.get())));
     public static final RegistryObject<Block> CHISELED_POLISHED_TROLLSTONE = registerBlock("chiseled_polished_trollstone", () -> new Block(AbstractBlock.Properties.from(TROLLSTONE.get())));
 
+    // Wolt Wood
+    public static final RegistryObject<Block> WOLT_LOG = registerBlock("wolt_log", () -> new ModLogBlock(logProp(Material.WOOD, MaterialColor.ICE, MaterialColor.WHITE_TERRACOTTA).sound(SoundType.WOOD).hardnessAndResistance(2.0f, 3.0f)));
+    public static final RegistryObject<Block> WOLT_WOOD = registerBlock("wolt_wood", () -> new ModLogBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(2.0f)));
+    public static final RegistryObject<Block> WOLT_LOG_STRIPPED = registerBlock("wolt_log_stripped", () -> new ModLogBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(2.0f, 3.0f)));
+    public static final RegistryObject<Block> WOLT_WOOD_STRIPPED = registerBlock("wolt_wood_stripped", () -> new ModLogBlock(AbstractBlock.Properties.from(WOLT_WOOD.get())));
+    public static final RegistryObject<Block> WOLT_PLANKS = registerBlock("wolt_planks", () -> new ModPlanksBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(2.0f, 3.0f)));
+    public static final RegistryObject<Block> WOLT_VERTICAL_PLANKS = registerBlock("wolt_vertical_planks", () -> new ModPlanksBlock(AbstractBlock.Properties.from(WOLT_PLANKS.get())));
+    public static final RegistryObject<Block> WOLT_SLAB = registerBlock("wolt_slab", () -> new ModWoodSlabBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(2.0f, 3.0f)));
+    public static final RegistryObject<Block> WOLT_VERTICAL_SLAB = registerBlock("wolt_vertical_slab", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(WOLT_PLANKS.get())));
+    public static final RegistryObject<Block> WOLT_STAIRS = registerBlock("wolt_stairs", () -> new ModWoodStairsBlock(WOLT_PLANKS.get()::getDefaultState, AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(2.0f, 3.0f)));
+    public static final RegistryObject<Block> WOLT_FENCE = registerBlock("wolt_fence", () -> new ModWoodFenceBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(2.0f, 3.0f)));
+    public static final RegistryObject<Block> WOLT_FENCE_GATE = registerBlock("wolt_fence_gate", () -> new ModWoodFenceGateBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(2.0f, 3.0f)));
+    public static final RegistryObject<Block> WOLT_PRESSURE_PLATE = registerBlock("wolt_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(0.5f)));
+    public static final RegistryObject<Block> WOLT_BUTTON = registerBlock("wolt_button", () -> new WoodButtonBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(0.5f)));
+    public static final RegistryObject<Block> WOLT_DOOR = registerBlock("wolt_door", () -> new DoorBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(3.0f).notSolid()));
+    public static final RegistryObject<Block> WOLT_TRAPDOOR = registerBlock("wolt_trapdoor", () -> new TrapDoorBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(3.0f).notSolid()));
+    public static final RegistryObject<Block> WOLT_SIGN = registerBlock("wolt_sign", () -> new ModStandingSignBlock(AbstractBlock.Properties.from(WOLT_PLANKS.get()).doesNotBlockMovement(), "wolt"));
+    public static final RegistryObject<Block> WOLT_WALL_SIGN = registerBlock("wolt_wall_sign", () -> new ModWallSignBlock(AbstractBlock.Properties.from(WOLT_SIGN.get()).lootFrom(WOLT_SIGN), "wolt"));
+    public static final RegistryObject<Block> WOLT_LADDER = registerBlock("wolt_ladder", () -> new LadderBlock(AbstractBlock.Properties.from(WOLT_PLANKS.get()).sound(SoundType.LADDER).notSolid()));
+    public static final RegistryObject<Block> WOLT_BOOKSHELF = registerBlock("wolt_bookshelf", () -> new ModBookshelfBlock(AbstractBlock.Properties.create(Material.WOOD).sound(SoundType.WOOD).harvestTool(ToolType.AXE).hardnessAndResistance(1.5F)));
+    public static final RegistryObject<Block> WOLT_CHEST = registerBlock("wolt_chest", () -> new MythChestBlock(AbstractBlock.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), MythTileEntities.CHEST::get, "wolt"));
+    public static final RegistryObject<Block> WOLT_TRAPPED_CHEST = registerBlock("wolt_trapped_chest", () -> new MythTrappedChestBlock(AbstractBlock.Properties.from(WOLT_CHEST.get()), MythTileEntities.CHEST::get, "wolt"));
+    public static final RegistryObject<Block> WOLT_POST = registerBlock("wolt_post", () -> new WoodPostBlock(AbstractBlock.Properties.from(WOLT_PLANKS.get())));
+    public static final RegistryObject<Block> WOLT_SAPLING = registerBlock("wolt_sapling", () -> new ModSaplingBlock(AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.CYAN).sound(SoundType.PLANT).hardnessAndResistance(0.0f).doesNotBlockMovement().tickRandomly()));
+    public static final RegistryObject<Block> WOLT_LEAVES = registerBlock("wolt_leaves", () -> new ModLeavesBlock(AbstractBlock.Properties.create(Material.LEAVES, MaterialColor.CYAN).sound(SoundType.PLANT).hardnessAndResistance(0.2F).tickRandomly().notSolid()));
+    public static final RegistryObject<Block> WOLT_LEAF_CARPET = registerBlock("wolt_leaf_carpet", LeafCarpetBlock::new);
+
+    // Viridian Wood
+    /*
+    public static final RegistryObject<Block> VIRIDIAN_STEM = registerBlock("viridian_stem", () -> new RotatedPillarBlock(logProp(Material.WOOD, MaterialColor.WHITE_TERRACOTTA, MaterialColor.LIME).sound(SoundType.WOOD).hardnessAndResistance(1.5f)));
+    public static final RegistryObject<Block> VIRIDIAN_WOOD = registerBlock("viridian_wood", () -> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN).sound(SoundType.WOOD).hardnessAndResistance(1.5f)));
+    public static final RegistryObject<Block> VIRIDIAN_STEM_STRIPPED = registerBlock("viridian_stem_stripped", () -> new RotatedPillarBlock(logProp(Material.WOOD, MaterialColor.WHITE_TERRACOTTA, MaterialColor.LIME)));
+    public static final RegistryObject<Block> VIRIDIAN_WOOD_STRIPPED = registerBlock("viridian_wood_stripped", () -> new RotatedPillarBlock(AbstractBlock.Properties.from(VIRIDIAN_WOOD.get())));
+    public static final RegistryObject<Block> VIRIDIAN_PLANKS = registerBlock("viridian_planks", () -> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN).sound(SoundType.WOOD).hardnessAndResistance(1.5f)));
+    public static final RegistryObject<Block> VIRIDIAN_SLAB = registerBlock("viridian_slab", () -> new SlabBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN).sound(SoundType.WOOD).hardnessAndResistance(1.5f)));
+    public static final RegistryObject<Block> VIRIDIAN_STAIRS = registerBlock("viridian_stairs", () -> new StairsBlock(WOLT_PLANKS.get()::getDefaultState, AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(1.5f)));
+    public static final RegistryObject<Block> VIRIDIAN_FENCE = registerBlock("viridian_fence", () -> new FenceBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN).sound(SoundType.WOOD).hardnessAndResistance(1.5f)));
+    public static final RegistryObject<Block> VIRIDIAN_FENCE_GATE = registerBlock("viridian_fence_gate", () -> new FenceGateBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN).sound(SoundType.WOOD).hardnessAndResistance(1.5f)));
+    public static final RegistryObject<Block> VIRIDIAN_PRESSURE_PLATE = registerBlock("viridian_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN).sound(SoundType.WOOD).hardnessAndResistance(0.5f)));
+    public static final RegistryObject<Block> VIRIDIAN_BUTTON = registerBlock("viridian_button", () -> new WoodButtonBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN).sound(SoundType.WOOD).hardnessAndResistance(0.5f)));
+    */
+
     // Plants
     public static final RegistryObject<Block> BLISTERBERRY_THISTLE = registerBlock("blisterberry_thistle", () -> new BlisterberryThistleBlock(AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.BLACK_TERRACOTTA).sound(SoundType.PLANT).hardnessAndResistance(0.0f).tickRandomly().notSolid().doesNotBlockMovement().setLightLevel((state) -> state.get(BlockStateProperties.AGE_0_5) == 5 ? 5 : 0)));
     public static final RegistryObject<Block> CHARGED_DANDELION = registerBlock("charged_dandelion", () -> new ChargedDandelionBlock(MythEffects.STATIC, 17, AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.WHITE_TERRACOTTA).sound(SoundType.PLANT).hardnessAndResistance(0.0f).notSolid().doesNotBlockMovement().tickRandomly()));
@@ -176,6 +178,8 @@ public class MythBlocks {
     public static void registerBlockData() {
         AxeItem.BLOCK_STRIPPING_MAP = new HashMap<>(AxeItem.BLOCK_STRIPPING_MAP);
 
+        registerFlammables();
+
         registerStrippable(WOLT_LOG, WOLT_LOG_STRIPPED);
         registerStrippable(WOLT_WOOD, WOLT_WOOD_STRIPPED);
         //registerStrippable(VIRIDIAN_STEM, VIRIDIAN_STEM_STRIPPED);
@@ -185,14 +189,20 @@ public class MythBlocks {
         registerPottablePlant(WOLT_SAPLING, POTTED_WOLT_SAPLING);
     }
 
-    private static void registerFlammable(Supplier<Block> flammable, int encouragement, int spreadRate) {
-        try {
-            FireBlock fireBlock = (FireBlock) Blocks.FIRE;
+    private static void registerFlammables() {
+        // This will probably never be a problem, but who knows.
+        // Some modders have the craziest of ideas.
+        if (!(Blocks.FIRE instanceof FireBlock)) {
+            Mythscapes.LOGGER.warn("FIRE block object in the vanilla block registry appears to have been replaced by something else that is not " +
+                    "an instance of FireBlock. None of Mythscapes' blocks will be flammable.");
+            return;
         }
-        catch (Exception e) {
-            Mythscapes.LOGGER.error("Tried to cast vanilla fire block to FireBlock, but failed. Has another mod made a registry replacement?");
-            e.printStackTrace();
-        }
+
+
+    }
+
+    private static void registerFlammable(Supplier<Block> flammable, int encouragement, int flammability) {
+        ((FireBlock) Blocks.FIRE).setFireInfo(flammable.get(), encouragement, flammability);
     }
 
     private static void registerStrippable(Supplier<Block> strippable, Supplier<Block> stripped) {

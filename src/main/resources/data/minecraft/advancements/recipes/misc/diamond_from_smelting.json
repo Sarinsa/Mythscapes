@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:gilded_galvite_from_smelting"
+      "minecraft:diamond_from_smelting"
     ]
   },
   "criteria": {
-    "has_gilded_galvite": {
+    "has_diamond": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "mythscapes:gilded_galvite"
+            "item": "mythscapes:bejeweled_galvite"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:gilded_galvite_from_smelting"
+        "recipe": "minecraft:diamond_from_smelting"
       }
     }
   },
   "requirements": [
     [
-      "has_gilded_galvite",
+      "has_diamond",
       "has_the_recipe"
     ]
   ]

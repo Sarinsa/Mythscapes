@@ -15,7 +15,7 @@
           ]
         },
         "criteria": {
-          "wolt_planks": {
+          "has_wolt_planks": {
             "trigger": "minecraft:inventory_changed",
             "conditions": {
               "items": [
@@ -34,7 +34,7 @@
         },
         "requirements": [
           [
-            "wolt_planks",
+            "has_wolt_planks",
             "has_the_recipe"
           ]
         ]

@@ -15,7 +15,7 @@
           ]
         },
         "criteria": {
-          "gilded_galvite_brick_vertical_slab": {
+          "has_gilded_galvite_brick_vertical_slab": {
             "trigger": "minecraft:inventory_changed",
             "conditions": {
               "items": [
@@ -34,7 +34,7 @@
         },
         "requirements": [
           [
-            "gilded_galvite_brick_vertical_slab",
+            "has_gilded_galvite_brick_vertical_slab",
             "has_the_recipe"
           ]
         ]

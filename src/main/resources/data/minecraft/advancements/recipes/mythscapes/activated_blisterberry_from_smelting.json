@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:powered_galvite_from_smelting"
+      "minecraft:activated_blisterberry_from_smelting"
     ]
   },
   "criteria": {
-    "has_powered_galvite": {
+    "has_activated_blisterberry": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "mythscapes:powered_galvite"
+            "item": "mythscapes:blisterberry"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:powered_galvite_from_smelting"
+        "recipe": "minecraft:activated_blisterberry_from_smelting"
       }
     }
   },
   "requirements": [
     [
-      "has_powered_galvite",
+      "has_activated_blisterberry",
       "has_the_recipe"
     ]
   ]

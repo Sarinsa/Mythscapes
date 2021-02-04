@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:biobulb_from_smelting"
+      "minecraft:redstone_from_smelting"
     ]
   },
   "criteria": {
-    "has_biobulb": {
+    "has_redstone": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "mythscapes:biobulb"
+            "item": "mythscapes:powered_galvite"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:biobulb_from_smelting"
+        "recipe": "minecraft:redstone_from_smelting"
       }
     }
   },
   "requirements": [
     [
-      "has_biobulb",
+      "has_redstone",
       "has_the_recipe"
     ]
   ]

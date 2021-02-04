@@ -1,0 +1,29 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "flag": "variant_chests",
+          "type": "mythscapes:quark_flag"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "###",
+          "# #",
+          "###"
+        ],
+        "key": {
+          "#": {
+            "item": "mythscapes:wolt_planks"
+          }
+        },
+        "result": {
+          "item": "mythscapes:wolt_chest"
+        }
+      }
+    }
+  ]
+}

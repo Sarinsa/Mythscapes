@@ -15,7 +15,7 @@
           ]
         },
         "criteria": {
-          "wolt_slab": {
+          "has_wolt_slab": {
             "trigger": "minecraft:inventory_changed",
             "conditions": {
               "items": [
@@ -34,7 +34,7 @@
         },
         "requirements": [
           [
-            "wolt_slab",
+            "has_wolt_slab",
             "has_the_recipe"
           ]
         ]

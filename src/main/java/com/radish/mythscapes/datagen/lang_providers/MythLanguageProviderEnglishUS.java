@@ -90,7 +90,12 @@ public class MythLanguageProviderEnglishUS extends MythBaseLangProvider {
         this.addBlock(MythBlocks.WOLT_BUTTON, "Wolt Button");
         this.addBlock(MythBlocks.WOLT_DOOR, "Wolt Door");
         this.addBlock(MythBlocks.WOLT_TRAPDOOR, "Wolt Trapdoor");
+        this.addBlock(MythBlocks.WOLT_LADDER, "Wolt Ladder");
+        this.addBlock(MythBlocks.WOLT_BOOKSHELF, "Wolt Bookshelf");
+        this.addBlock(MythBlocks.WOLT_POST, "Wolt Post");
         this.addBlock(MythBlocks.WOLT_SIGN, "Wolt Sign");
+        this.addBlock(MythBlocks.WOLT_CHEST, "Wolt Chest");
+        this.addBlock(MythBlocks.WOLT_TRAPPED_CHEST, "Wolt Trapped Chest");
         this.addBlock(MythBlocks.WOLT_SAPLING, "Wolt Sapling");
         this.addBlock(MythBlocks.WOLT_LEAVES, "Wolt Leaves");
         this.addBlock(MythBlocks.WOLT_LEAF_CARPET, "Wolt Leaf Carpet");
@@ -204,6 +209,9 @@ public class MythLanguageProviderEnglishUS extends MythBaseLangProvider {
         this.addPotion(MythPotions.PETRIFICATION, "Potion of Petrification");
         this.addPotion(MythPotions.LONG_PETRIFICATION, "Potion of Petrification");
 
+        this.addSoundSubtitle("entity.lion_idle", "Lion Idle");
+        this.addSoundSubtitle("misc.oof", "Oof");
+
         this.addDamageSource("volatile_explosion", VICTIM + " exploded");
         this.addDamageSource("static_shock", VICTIM + " was electrocuted to death");
         this.addDamageSource("salt_dehydration", VICTIM + " shriveled up");
@@ -219,5 +227,11 @@ public class MythLanguageProviderEnglishUS extends MythBaseLangProvider {
         this.addHwylaConfig("show_snail_type", "Show Snail Type");
 
         this.add(GuiTexts.BRUSH_INFO, "This is a brush! You can right click brushable creatures with this to soothe them and give a short regeneration buff. Some creatures may also drop certain items upon being brushed.");
+
+        this.add(GuiTexts.CONFIG_MAIN_SCREEN_TITLE, "Mythscapes Config");
+        this.add(GuiTexts.CONFIG_OH_NO, "Currently no gui config. Here is the physical one:");
+        this.add(GuiTexts.CONFIG_OOF, "Oof");
+        this.add(GuiTexts.OPEN_CONFIG, "Open Config");
+        this.add(GuiTexts.CONFIG_NOT_PRESENT, "Config N/A");
     }
 }

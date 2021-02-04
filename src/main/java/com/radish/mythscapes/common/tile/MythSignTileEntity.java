@@ -1,7 +1,7 @@
 package com.radish.mythscapes.common.tile;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.radish.mythscapes.common.register.registry.MythTileEntities;
+import com.radish.mythscapes.common.register.MythTileEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.ICommandSource;

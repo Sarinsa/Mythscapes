@@ -15,7 +15,7 @@
           ]
         },
         "criteria": {
-          "polished_galvite_vertical_slab": {
+          "has_polished_galvite_vertical_slab": {
             "trigger": "minecraft:inventory_changed",
             "conditions": {
               "items": [
@@ -34,7 +34,7 @@
         },
         "requirements": [
           [
-            "polished_galvite_vertical_slab",
+            "has_polished_galvite_vertical_slab",
             "has_the_recipe"
           ]
         ]

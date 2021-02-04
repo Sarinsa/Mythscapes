@@ -6,7 +6,7 @@
     ]
   },
   "criteria": {
-    "trollstone": {
+    "has_trollstone": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "trollstone",
+      "has_trollstone",
       "has_the_recipe"
     ]
   ]

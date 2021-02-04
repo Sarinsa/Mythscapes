@@ -4,6 +4,7 @@ import com.radish.mythscapes.api.IMythscapesPlugin;
 import com.radish.mythscapes.api.MythscapesPlugin;
 import com.radish.mythscapes.api.impl.RegistryHelper;
 import com.radish.mythscapes.api.impl.SnailTypeRegister;
+import com.radish.mythscapes.common.core.config.MythConfig;
 import com.radish.mythscapes.common.event.BiomeEvents;
 import com.radish.mythscapes.common.event.EffectEvents;
 import com.radish.mythscapes.common.event.EntityEvents;
@@ -12,13 +13,15 @@ import com.radish.mythscapes.common.misc.DispenserBehavior;
 import com.radish.mythscapes.common.network.PacketHandler;
 import com.radish.mythscapes.common.recipe.CraftingUtility;
 import com.radish.mythscapes.common.register.*;
-import com.radish.mythscapes.common.register.registry.MythTileEntities;
+import com.radish.mythscapes.common.register.MythTileEntities;
 import com.radish.mythscapes.common.tags.MythBlockTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -47,6 +50,8 @@ public class Mythscapes {
 
         MythEntities.initTypes();
         CraftingUtility.registerConditions();
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MythConfig.COMMON_SPEC);
 
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 

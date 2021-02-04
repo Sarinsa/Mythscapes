@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * This annotation is used by Mythscapes to detect mod plugins, so
- * your plugin class must be annotated or else it will not be loaded!
+ * your plugin class must be annotated or else it will not be found!
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

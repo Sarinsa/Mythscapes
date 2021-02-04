@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:bejeweled_galvite_from_smelting"
+      "minecraft:roasted_biobulb_cluster_from_smelting"
     ]
   },
   "criteria": {
-    "has_bejeweled_galvite": {
+    "has_roasted_biobulb_cluster": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "mythscapes:bejeweled_galvite"
+            "item": "mythscapes:biobulb_cluster"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:bejeweled_galvite_from_smelting"
+        "recipe": "minecraft:roasted_biobulb_cluster_from_smelting"
       }
     }
   },
   "requirements": [
     [
-      "has_bejeweled_galvite",
+      "has_roasted_biobulb_cluster",
       "has_the_recipe"
     ]
   ]

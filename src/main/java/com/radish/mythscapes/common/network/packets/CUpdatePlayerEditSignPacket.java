@@ -35,7 +35,6 @@ public class CUpdatePlayerEditSignPacket {
                 ClientWorld world = Minecraft.getInstance().world;
                 TileEntity tileEntity = world.getTileEntity(pos);
 
-                // This shouldn't happen but JUST IN CASE
                 if (tileEntity == null || !(tileEntity instanceof MythSignTileEntity)) {
                     tileEntity = new MythSignTileEntity();
                     tileEntity.setWorldAndPos(world, pos);

@@ -1,17 +1,30 @@
 {
-  "type": "mekanism:combining",
-  "mainInput": {
-    "amount": 12,
-    "ingredient": {
-      "tag": "forge:dusts/redstone"
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "mekanism",
+          "type": "forge:mod_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "mekanism:combining",
+        "mainInput": {
+          "amount": 12,
+          "ingredient": {
+            "tag": "forge:dusts/redstone"
+          }
+        },
+        "extraInput": {
+          "ingredient": {
+            "item": "mythscapes:galvite"
+          }
+        },
+        "output": {
+          "item": "mythscapes:powered_galvite"
+        }
+      }
     }
-  },
-  "extraInput": {
-    "ingredient": {
-      "item": "mythscapes:galvite"
-    }
-  },
-  "output": {
-    "item": "mythscapes:powered_galvite"
-  }
+  ]
 }

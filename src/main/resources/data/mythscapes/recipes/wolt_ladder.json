@@ -1,0 +1,33 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "flag": "variant_ladders",
+          "type": "mythscapes:quark_flag"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "# #",
+          "#P#",
+          "# #"
+        ],
+        "key": {
+          "#": {
+            "tag": "forge:rods/wooden"
+          },
+          "P": {
+            "item": "mythscapes:wolt_planks"
+          }
+        },
+        "result": {
+          "item": "mythscapes:wolt_ladder",
+          "count": 4
+        }
+      }
+    }
+  ]
+}

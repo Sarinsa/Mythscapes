@@ -1,0 +1,7 @@
+{
+  "parent": "mythscapes:block/quark_wood_post",
+  "textures": {
+    "top": "mythscapes:block/stripped_wolt_log_side",
+    "side": "mythscapes:block/stripped_wolt_log_side"
+  }
+}

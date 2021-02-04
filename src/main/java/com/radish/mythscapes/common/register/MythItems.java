@@ -126,6 +126,7 @@ public class MythItems {
     public static final RegistryObject<Item> WOLT_BUTTON = registerBlockItem(MythBlocks.WOLT_BUTTON);
     public static final RegistryObject<Item> WOLT_DOOR = registerTallBlockItem(MythBlocks.WOLT_DOOR);
     public static final RegistryObject<Item> WOLT_TRAPDOOR = registerBlockItem(MythBlocks.WOLT_TRAPDOOR);
+    public static final RegistryObject<Item> WOLT_SIGN = registerItem("wolt_sign", () -> new ModSignItem(compatProperties(QUARK).maxStackSize(16), MythBlocks.WOLT_SIGN.get(), MythBlocks.WOLT_WALL_SIGN.get()));
     public static final RegistryObject<Item> WOLT_LADDER = registerBlockItem(MythBlocks.WOLT_LADDER, compatProperties(QUARK));
     public static final RegistryObject<Item> WOLT_BOOKSHELF = registerBlockItem(MythBlocks.WOLT_BOOKSHELF, compatProperties(QUARK));
     public static final RegistryObject<Item> WOLT_WOOD_POST = registerBlockItem(MythBlocks.WOLT_POST, compatProperties(QUARK));
@@ -198,8 +199,6 @@ public class MythItems {
     public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL = registerItem("bejeweled_snail_shell", () -> new Item(properties()));
     public static final RegistryObject<Item> SNAIL_BUCKET = registerItem("snail_bucket", () -> new SnailBucketItem(properties().maxStackSize(1)));
     public static final RegistryObject<Item> BRUSH = registerItem("brush", () -> new BrushItem(properties().maxDamage(100)));
-
-    public static final RegistryObject<Item> WOLT_SIGN = registerItem("wolt_sign", () -> new ModSignItem(compatProperties(QUARK).maxStackSize(16), MythBlocks.WOLT_SIGN.get(), MythBlocks.WOLT_WALL_SIGN.get()));
 
     // Armor
     public static final RegistryObject<Item> COTTON_HOOD = registerItem("cotton_hood", () -> new MythArmorItem(MythArmorTypes.COTTON, EquipmentSlotType.HEAD));

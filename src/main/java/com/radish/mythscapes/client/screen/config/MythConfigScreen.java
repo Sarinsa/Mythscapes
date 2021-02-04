@@ -54,7 +54,7 @@ public final class MythConfigScreen extends Screen {
         }));
         boolean configPresent = this.configPath != null && !this.configPath.isEmpty();
 
-        this.addButton(new Button((width / 2) - 45, height - 160, 90, 20, configPresent ? new TranslationTextComponent(GuiTexts.OPEN_CONFIG) : new TranslationTextComponent(GuiTexts.CONFIG_NOT_PRESENT), button -> {
+        this.addButton(new Button((width / 2) - 45, height / 2, 90, 20, configPresent ? new TranslationTextComponent(GuiTexts.OPEN_CONFIG) : new TranslationTextComponent(GuiTexts.CONFIG_NOT_PRESENT), button -> {
             if (!configPresent)
                 return;
 
@@ -67,7 +67,7 @@ public final class MythConfigScreen extends Screen {
     public void render(@NotNull MatrixStack matrixStack, int x, int y, float partialTicks) {
         this.renderBackground(matrixStack);
         drawCenteredString(matrixStack, font, this.getTitle(), width / 2, 30, standardColor);
-        drawCenteredString(matrixStack, font, ohNoMessage, width / 2, 75, standardColor);
+        drawCenteredString(matrixStack, font, ohNoMessage, width / 2, (height / 2) - 20, standardColor);
         super.render(matrixStack, x, y, partialTicks);
     }
 }

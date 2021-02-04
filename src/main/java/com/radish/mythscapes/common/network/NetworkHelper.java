@@ -2,7 +2,7 @@ package com.radish.mythscapes.common.network;
 
 import com.radish.mythscapes.common.network.packets.C2SUpdateSignTextPacket;
 import com.radish.mythscapes.common.network.packets.S2CUpdateSignTextPacket;
-import com.radish.mythscapes.common.network.packets.CUpdatePlayerEditSignPacket;
+import com.radish.mythscapes.common.network.packets.S2CUpdatePlayerEditSignPacket;
 import com.radish.mythscapes.common.tile.MythSignTileEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -31,6 +31,6 @@ public class NetworkHelper {
      */
     public static void openSignEditorToClient(@NotNull ServerPlayerEntity playerEntity, @NotNull MythSignTileEntity signTileEntity) {
         signTileEntity.setPlayer(playerEntity);
-        PacketHandler.CHANNEL.send(PacketDistributor.ALL.noArg(), new CUpdatePlayerEditSignPacket(signTileEntity.getPos(), playerEntity.getUniqueID()));
+        PacketHandler.CHANNEL.send(PacketDistributor.ALL.noArg(), new S2CUpdatePlayerEditSignPacket(signTileEntity.getPos(), playerEntity.getUniqueID()));
     }
 }

@@ -13,7 +13,6 @@ import com.radish.mythscapes.common.misc.DispenserBehavior;
 import com.radish.mythscapes.common.network.PacketHandler;
 import com.radish.mythscapes.common.recipe.CraftingUtility;
 import com.radish.mythscapes.common.register.*;
-import com.radish.mythscapes.common.register.MythTileEntities;
 import com.radish.mythscapes.common.tags.MythBlockTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -53,6 +52,8 @@ public class Mythscapes {
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MythConfig.COMMON_SPEC);
 
+        this.packetHandler.registerMessages();
+
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         eventBus.addListener(this::commonSetup);
@@ -74,8 +75,6 @@ public class Mythscapes {
         MythEffects.POTION_EFFECTS.register(eventBus);
         MythEnchantments.ENCHANTMENTS.register(eventBus);
         MythTileEntities.TILE_ENTITIES.register(eventBus);
-
-        packetHandler.registerMessages();
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
@@ -119,7 +118,7 @@ public class Mythscapes {
         });
         registryHelper.postPluginSetup();
     }
-
+    
     public static Mythscapes getInstance() {
         return INSTANCE;
     }

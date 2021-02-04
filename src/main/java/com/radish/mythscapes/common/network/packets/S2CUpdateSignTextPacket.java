@@ -1,5 +1,6 @@
 package com.radish.mythscapes.common.network.packets;
 
+import com.radish.mythscapes.common.network.work.ClientPacketWork;
 import com.radish.mythscapes.common.tile.MythSignTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
@@ -15,9 +16,9 @@ import java.util.function.Supplier;
 
 public class S2CUpdateSignTextPacket {
 
-    private final String[] signText;
-    private final BlockPos pos;
-    private final int textColor;
+    public final String[] signText;
+    public final BlockPos pos;
+    public final int textColor;
 
     public S2CUpdateSignTextPacket(BlockPos signPos, String first, String second, String third, String fourth, int textColor) {
         this.pos = signPos;
@@ -30,24 +31,7 @@ public class S2CUpdateSignTextPacket {
         NetworkEvent.Context context = contextSupplier.get();
 
         if (context.getDirection().getReceptionSide().isClient()) {
-            context.enqueueWork(() -> {
-                ClientWorld world = Minecraft.getInstance().world;
-                BlockPos signPos = message.pos;
-
-                if (world == null || !world.isAreaLoaded(signPos, 1))
-                    return;
-
-                TileEntity tileEntity = world.getTileEntity(signPos);
-
-                if (tileEntity instanceof MythSignTileEntity) {
-                    MythSignTileEntity signTileEntity = (MythSignTileEntity) tileEntity;
-
-                    for (int i = 0; i < message.signText.length; i++) {
-                        signTileEntity.setText(i, new StringTextComponent(TextFormatting.getTextWithoutFormattingCodes(message.signText[i])));
-                    }
-                    signTileEntity.setTextColor(DyeColor.byId(message.textColor));
-                }
-            });
+            context.enqueueWork(() -> ClientPacketWork.handleUpdateSignText(message));
         }
     }
 

@@ -3,17 +3,9 @@ package com.radish.mythscapes.common.network;
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.network.packets.C2SUpdateSignTextPacket;
 import com.radish.mythscapes.common.network.packets.S2CUpdateSignTextPacket;
-import com.radish.mythscapes.common.network.packets.CUpdatePlayerEditSignPacket;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkDirection;
-import net.minecraftforge.fml.network.NetworkEvent;
+import com.radish.mythscapes.common.network.packets.S2CUpdatePlayerEditSignPacket;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
-
-import java.util.Optional;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class PacketHandler {
 
@@ -32,17 +24,8 @@ public class PacketHandler {
     }
 
     public void registerMessages() {
-        registerServerToClient(CUpdatePlayerEditSignPacket.class, CUpdatePlayerEditSignPacket::encode, CUpdatePlayerEditSignPacket::decode, CUpdatePlayerEditSignPacket::handle);
-        registerServerToClient(S2CUpdateSignTextPacket.class, S2CUpdateSignTextPacket::encode, S2CUpdateSignTextPacket::decode, S2CUpdateSignTextPacket::handle);
-
-        registerClientToServer(C2SUpdateSignTextPacket.class, C2SUpdateSignTextPacket::encode, C2SUpdateSignTextPacket::decode, C2SUpdateSignTextPacket::handle);
-    }
-
-    private <M> void registerClientToServer(Class<M> type, BiConsumer<M, PacketBuffer> encoder, Function<PacketBuffer, M> decoder, BiConsumer<M, Supplier<NetworkEvent.Context>> consumer) {
-        CHANNEL.registerMessage(messageIndex++, type, encoder, decoder, consumer, Optional.of(NetworkDirection.PLAY_TO_SERVER));
-    }
-
-    private <M> void registerServerToClient(Class<M> type, BiConsumer<M, PacketBuffer> encoder, Function<PacketBuffer, M> decoder, BiConsumer<M, Supplier<NetworkEvent.Context>> consumer) {
-        CHANNEL.registerMessage(messageIndex++, type, encoder, decoder, consumer, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+        CHANNEL.registerMessage(messageIndex++, S2CUpdatePlayerEditSignPacket.class, S2CUpdatePlayerEditSignPacket::encode, S2CUpdatePlayerEditSignPacket::decode, S2CUpdatePlayerEditSignPacket::handle);
+        CHANNEL.registerMessage(messageIndex++, S2CUpdateSignTextPacket.class, S2CUpdateSignTextPacket::encode, S2CUpdateSignTextPacket::decode, S2CUpdateSignTextPacket::handle);
+        CHANNEL.registerMessage(messageIndex++, C2SUpdateSignTextPacket.class, C2SUpdateSignTextPacket::encode, C2SUpdateSignTextPacket::decode, C2SUpdateSignTextPacket::handle);
     }
 }

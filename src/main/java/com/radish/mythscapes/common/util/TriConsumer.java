@@ -3,7 +3,7 @@ package com.radish.mythscapes.common.util;
 import java.util.Objects;
 
 // Will these big boi consumers ever be used?
-// Dunno, but they might come in handy some day.
+// Dunno, but they are mega funni.
 
 @FunctionalInterface
 public interface TriConsumer<A, B, C> {

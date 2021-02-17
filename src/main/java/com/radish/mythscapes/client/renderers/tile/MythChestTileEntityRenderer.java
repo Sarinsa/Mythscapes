@@ -33,7 +33,7 @@ public class MythChestTileEntityRenderer<T extends MythChestTileEntity> extends 
     // This is just for funsies
     private static final ResourceLocation DEFAULT = new ResourceLocation("textures/item/blisterberry.png");
 
-    // Using this for the chest block item TESR
+    // Using this for the chest block ISTER
     public static Block itemRenderBlock = null;
 
     private final ModelRenderer singleLid;

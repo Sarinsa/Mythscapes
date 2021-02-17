@@ -19,18 +19,18 @@ public class NetworkHelper {
     }
 
     /**
-     * Sends a packet from the client to server to update sign text.
-     */
-    public static void updateSignTextToServer(BlockPos signPos, String first, String second, String third, String fourth) {
-        PacketHandler.CHANNEL.sendToServer(new C2SUpdateSignTextPacket(signPos, first, second, third, fourth));
-    }
-
-    /**
      * Sends a packet to the client to open
      * the sign edit screen.
      */
     public static void openSignEditorToClient(@NotNull ServerPlayerEntity playerEntity, @NotNull MythSignTileEntity signTileEntity) {
         signTileEntity.setPlayer(playerEntity);
         PacketHandler.CHANNEL.send(PacketDistributor.ALL.noArg(), new S2CUpdatePlayerEditSignPacket(signTileEntity.getPos(), playerEntity.getUniqueID()));
+    }
+
+    /**
+     * Sends a packet from the client to server to update sign text.
+     */
+    public static void updateSignTextToServer(BlockPos signPos, String first, String second, String third, String fourth) {
+        PacketHandler.CHANNEL.sendToServer(new C2SUpdateSignTextPacket(signPos, first, second, third, fourth));
     }
 }

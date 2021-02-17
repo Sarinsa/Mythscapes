@@ -26,17 +26,16 @@ public class BiomeEvents {
 
         if (biomeName != null) {
             if (hasDictType(biomeName, BiomeDictionary.Type.OVERWORLD)) {
-                // Pygmy snail
-                boolean exit = false;
                 for (List<ISnailType> list : Mythscapes.getInstance().getSnailTypeRegister().getSpawnBiomes().values()) {
+                    boolean exitSnailLoop = false;
                     for (ISnailType snailType : list) {
                         if (snailType.getSpawnBiomes().contains(biomeName)) {
                             addBiomeSpawn(event, PYGMY_SNAIL.get(), EntityClassification.CREATURE, 72, 1, 4);
-                            exit = true;
+                            exitSnailLoop = true;
                             break;
                         }
                     }
-                    if (exit)
+                    if (exitSnailLoop)
                         break;
                 }
 
@@ -58,13 +57,13 @@ public class BiomeEvents {
                     removeBiomeSpawn(event, EntityType.ZOMBIE_VILLAGER, EntityClassification.MONSTER);
                 }
                 else if (areBiomesEqual(biomeName, Biomes.FOREST) || areBiomesEqual(biomeName, Biomes.BIRCH_FOREST)) {
-                    addBiomeSpawn(event, DEER.get(), EntityClassification.CREATURE, 12, 2, 5);
+                    addBiomeSpawn(event, DEER.get(), EntityClassification.CREATURE, 10, 2, 5);
                 }
                 else if (areBiomesEqual(biomeName, Biomes.TAIGA) || areBiomesEqual(biomeName, Biomes.TAIGA_HILLS) || areBiomesEqual(biomeName, Biomes.TAIGA_MOUNTAINS)) {
-                    addBiomeSpawn(event, DEER.get(), EntityClassification.CREATURE, 12, 2, 5);
+                    addBiomeSpawn(event, DEER.get(), EntityClassification.CREATURE, 10, 2, 5);
                 }
                 else if (areBiomesEqual(biomeName, Biomes.SNOWY_TUNDRA)) {
-                    addBiomeSpawn(event, DEER.get(), EntityClassification.CREATURE, 12, 2, 5);
+                    addBiomeSpawn(event, DEER.get(), EntityClassification.CREATURE, 8, 2, 5);
                 }
             }
         }

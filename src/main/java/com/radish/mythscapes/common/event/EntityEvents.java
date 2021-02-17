@@ -1,5 +1,6 @@
 package com.radish.mythscapes.common.event;
 
+import com.radish.mythscapes.common.entities.AvoidEntityWearingBarbarianHoodGoal;
 import com.radish.mythscapes.common.entities.living.DeerEntity;
 import com.radish.mythscapes.common.entities.living.LionEntity;
 import com.radish.mythscapes.common.entities.living.SnailEntity;
@@ -12,6 +13,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.AbstractIllagerEntity;
+import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.GlassBottleItem;
 import net.minecraft.item.Item;
@@ -74,7 +76,6 @@ public class EntityEvents {
         }
     }
 
-
     @SubscribeEvent
     public void onBucketClickSnail(PlayerInteractEvent.EntityInteractSpecific event) {
         if (event.getTarget() instanceof SnailEntity) {
@@ -112,27 +113,6 @@ public class EntityEvents {
         if (event.getChild() != null && event.getChild().getType() == MythEntities.DEER.get()) {
             ((DeerEntity) event.getParentA()).dropAntlers();
             ((DeerEntity) event.getParentB()).dropAntlers();
-        }
-    }
-
-    @SubscribeEvent
-    public void onLivingSpawn(LivingSpawnEvent event) {
-        LivingEntity entity = event.getEntityLiving();
-        EntityType<?> type = entity.getType();
-
-        if (type == EntityType.VINDICATOR || type == EntityType.PILLAGER || type == EntityType.EVOKER || type == EntityType.ILLUSIONER) {
-            AbstractIllagerEntity illagerEntity = (AbstractIllagerEntity) entity;
-            double farSpeed = (type == EntityType.EVOKER || type == EntityType.ILLUSIONER) ? 0.7D : 1.0D;
-            double nearSpeed = (type == EntityType.EVOKER || type == EntityType.ILLUSIONER) ? 0.9D : 1.1D;
-            illagerEntity.goalSelector.addGoal(3, new AvoidEntityGoal<>(illagerEntity, LionEntity.class, 10.0F, farSpeed, nearSpeed));
-
-            if (type == EntityType.EVOKER) {
-                illagerEntity.targetSelector.addGoal(4 ,new NearestAttackableTargetGoal<>(illagerEntity, LionEntity.class, true));
-            }
-        }
-        else if (type == EntityType.CREEPER) {
-            CreatureEntity creatureEntity = (CreatureEntity) entity;
-            creatureEntity.goalSelector.addGoal(3, new AvoidEntityGoal<>(creatureEntity, LionEntity.class, 6.0F, 1.0D, 1.2D));
         }
     }
 }

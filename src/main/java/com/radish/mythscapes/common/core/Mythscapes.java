@@ -4,6 +4,7 @@ import com.radish.mythscapes.api.IMythscapesPlugin;
 import com.radish.mythscapes.api.MythscapesPlugin;
 import com.radish.mythscapes.api.impl.RegistryHelper;
 import com.radish.mythscapes.api.impl.SnailTypeRegister;
+import com.radish.mythscapes.common.core.config.ConfigHelpers;
 import com.radish.mythscapes.common.core.config.MythConfig;
 import com.radish.mythscapes.common.event.BiomeEvents;
 import com.radish.mythscapes.common.event.EffectEvents;
@@ -58,6 +59,7 @@ public class Mythscapes {
 
         eventBus.addListener(this::commonSetup);
         eventBus.addListener(this::loadComplete);
+        eventBus.addListener(MythEntities::registerAttributes);
 
         MinecraftForge.EVENT_BUS.register(new EffectEvents());
         MinecraftForge.EVENT_BUS.register(new EntityEvents());
@@ -78,6 +80,8 @@ public class Mythscapes {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
+        ConfigHelpers.initHelpers();
+
         MythItems.registerItemData();
         MythBlocks.registerBlockData();
         //MythBiomes.setBiomeEntitySpawns();

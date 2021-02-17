@@ -33,6 +33,7 @@ public class S2CUpdateSignTextPacket {
         if (context.getDirection().getReceptionSide().isClient()) {
             context.enqueueWork(() -> ClientPacketWork.handleUpdateSignText(message));
         }
+        context.setPacketHandled(true);
     }
 
     public static S2CUpdateSignTextPacket decode(PacketBuffer buffer) {

@@ -169,6 +169,18 @@ public class LionEntity extends AnimalEntity {
         return null;
     }
 
+    public void newTimeAppeased() {
+        this.setTimeAppeased(8000 + this.rand.nextInt(3000));
+    }
+
+    public void newTimeManeRegrow() {
+        this.setTimeManeRegrow(8000 + this.rand.nextInt(2000));
+    }
+
+    protected int newNextTimeLying() {
+        return this.getRNG().nextInt(200) + 100;
+    }
+
     public void setHunger(int hunger) {
         this.dataManager.set(HUNGER, hunger);
     }
@@ -191,18 +203,6 @@ public class LionEntity extends AnimalEntity {
 
     public boolean isAppeased() {
         return this.dataManager.get(TIME_APPEASED) > 0;
-    }
-
-    public void newTimeAppeased() {
-        this.setTimeAppeased(8000 + this.rand.nextInt(3000));
-    }
-
-    public void newTimeManeRegrow() {
-        this.setTimeManeRegrow(8000 + this.rand.nextInt(2000));
-    }
-
-    protected int newNextTimeLying() {
-        return this.getRNG().nextInt(200) + 100;
     }
 
     public int getTimeManeRegrow() {

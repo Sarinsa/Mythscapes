@@ -70,7 +70,9 @@ public class GlowballEntity extends ProjectileItemEntity {
                     }
                 }
             }
-            target.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(MythItems.GLOWBALL.get()));
+            if (target.isNonBoss()) {
+                target.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(MythItems.GLOWBALL.get()));
+            }
         }
     }
 

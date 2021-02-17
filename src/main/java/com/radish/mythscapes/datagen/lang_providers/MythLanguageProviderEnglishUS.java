@@ -220,7 +220,7 @@ public class MythLanguageProviderEnglishUS extends MythBaseLangProvider {
         this.addDamageSourceWithAttacker("salt_dehydration", VICTIM + " shriveled up while fighting " + ATTACKER);
 
         this.addAdvancementTitle("root", "\"This... is a bucket!\"");
-        this.addAdvancementDesc("root", "Dear god... *cough* I mean, pick up a snail with a bucket");
+        this.addAdvancementDesc("root", "Dear god... (Pick up a snail with a bucket)");
 
         // Hwyla stuff
         this.add("config.waila.plugin_mythscapes", "Mythscapes");

@@ -1,6 +1,8 @@
 package com.radish.mythscapes.common.blocks.wood;
 
 import com.radish.mythscapes.common.core.Mythscapes;
+import com.radish.mythscapes.common.core.config.ConfigHelpers;
+import com.radish.mythscapes.common.core.config.helpers.QuarkConfigHelper;
 import com.radish.mythscapes.common.network.NetworkHelper;
 import com.radish.mythscapes.common.tile.MythSignTileEntity;
 import net.minecraft.block.AbstractSignBlock;
@@ -9,7 +11,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.WoodType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -65,9 +66,16 @@ public class ModAbstractSignBlock extends AbstractSignBlock {
                     }
                 }
                 else {
-                    if (!player.isSneaking() && itemStack.isEmpty() && player.abilities.allowEdit) {
-                        NetworkHelper.openSignEditorToClient((ServerPlayerEntity) player, signTileEntity);
-                        return ActionResultType.SUCCESS;
+                    if (ConfigHelpers.QUARK_CONFIG_HELPER.isPresent()) {
+                        QuarkConfigHelper configHelper = ConfigHelpers.QUARK_CONFIG_HELPER.orElse(null);
+
+                        if (configHelper.signEditingEnabled() &&!player.isSneaking() && player.abilities.allowEdit){
+                            if (configHelper.signEditRequireEmptyHand() && !itemStack.isEmpty())
+                                return ActionResultType.PASS;
+
+                            NetworkHelper.openSignEditorToClient((ServerPlayerEntity) player, signTileEntity);
+                            return ActionResultType.SUCCESS;
+                        }
                     }
                 }
                 return signTileEntity.executeCommand(player) ? ActionResultType.SUCCESS : ActionResultType.PASS;

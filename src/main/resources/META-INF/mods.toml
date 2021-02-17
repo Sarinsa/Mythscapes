@@ -15,7 +15,7 @@ license="MIT"
 [[dependencies.mythscapes]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.4,1.17)"
+    versionRange="[1.16.3,1.17)"
     side="BOTH"
 
 [[dependencies.mythscapes]]

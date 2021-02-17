@@ -10,10 +10,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.server.ServerWorld;
+import org.jetbrains.annotations.Nullable;
 
 public class ServerPacketWork {
 
-    public static void handleUpdateSignText(C2SUpdateSignTextPacket message, ServerPlayerEntity playerEntity) {
+    public static void handleUpdateSignText(C2SUpdateSignTextPacket message, @Nullable ServerPlayerEntity playerEntity) {
+        if (playerEntity == null)
+            return;
+
         ServerWorld serverWorld = playerEntity.getServerWorld();
         BlockPos signPos = message.pos;
         TileEntity tileEntity = serverWorld.getTileEntity(signPos);

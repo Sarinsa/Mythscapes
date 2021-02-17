@@ -61,10 +61,18 @@ public class WoltPowderBlock extends Block {
     /**
      * Performs a check to see if an entity can/should be
      * launched upwards from standing on a wolt powder block.
+     * If the entity's EntityType is in the swoosh_whitelist tag
+     * or is an instance of LivingEntity, the check is passed.
+     *
+     * Not all entities accept motion being applied to them
+     * by just any means, and will end up just standing still
+     * while particles and sounds gets spammed. This check
+     * exists to avoid that happening. Other mods that have non
+     * living entities can also add them to this tag.
      *
      * @param entity - The entity to perform a check on.
      */
-    private static boolean isSwooshableEntity(Entity entity) {
+    private boolean isSwooshableEntity(Entity entity) {
         return MythEntityTags.SWOOSH_WHITELIST.contains(entity.getType()) || entity instanceof LivingEntity;
     }
 }

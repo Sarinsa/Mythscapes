@@ -14,12 +14,11 @@ public class TradeEvents {
     @SubscribeEvent
     @SuppressWarnings("all")
     public void onVillagerTrade(VillagerTradesEvent event) {
-        // Shepherd
+
         if (event.getType() == VillagerProfession.SHEPHERD) {
             event.getTrades().get(5).add(new BasicTrade(4, new ItemStack(MythItems.BRUSH.get()), 3, 0));
             event.getTrades().get(5).removeIf((iTrade -> {
                 MerchantOffer offer = iTrade.getOffer(null, null);
-
                 return offer != null && offer.getSellingStack().getItem() == Items.PAINTING;
             }));
         }

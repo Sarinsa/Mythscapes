@@ -17,7 +17,6 @@ public class C2SUpdateSignTextPacket {
         this.signText = new String[] {first, second, third, fourth};;
     }
 
-    @SuppressWarnings("all")
     public static void handle(C2SUpdateSignTextPacket message, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
 
@@ -28,8 +27,6 @@ public class C2SUpdateSignTextPacket {
     }
 
     public static C2SUpdateSignTextPacket decode(PacketBuffer buffer) {
-        // Need to specify max length in readString() as the method variant without
-        // parameters exists only on the client.
         return new C2SUpdateSignTextPacket(buffer.readBlockPos(), buffer.readString(32767), buffer.readString(32767), buffer.readString(32767), buffer.readString(32767));
     }
 

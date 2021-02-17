@@ -24,6 +24,8 @@ import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.entity.passive.horse.LlamaEntity;
 import net.minecraft.entity.passive.horse.MuleEntity;
 import net.minecraft.world.gen.Heightmap;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -72,17 +74,17 @@ public class MythEntities {
     }
 
     public static void registerData() {
-        registerAttributes();
         registerEntityPlacement();
         registerBrushables();
     }
 
-    private static void registerAttributes() {
-        GlobalEntityTypeAttributes.put(POND_SERPENT.get(), PondSerpentEntity.registerEntityAttributes().create());
-        GlobalEntityTypeAttributes.put(LION.get(), LionEntity.registerEntityAttributes().create());
-        GlobalEntityTypeAttributes.put(FISHBONES.get(), FishbonesEntity.registerEntityAttributes().create());
-        GlobalEntityTypeAttributes.put(PYGMY_SNAIL.get(), SnailEntity.registerEntityAttributes().create());
-        GlobalEntityTypeAttributes.put(DEER.get(), DeerEntity.registerEntityAttributes().create());
+    @SubscribeEvent
+    public static void registerAttributes(EntityAttributeCreationEvent event) {
+        event.put(POND_SERPENT.get(), PondSerpentEntity.registerEntityAttributes().create());
+        event.put(LION.get(), LionEntity.registerEntityAttributes().create());
+        event.put(FISHBONES.get(), FishbonesEntity.registerEntityAttributes().create());
+        event.put(PYGMY_SNAIL.get(), SnailEntity.registerEntityAttributes().create());
+        event.put(DEER.get(), DeerEntity.registerEntityAttributes().create());
     }
 
     private static void registerBrushables() {

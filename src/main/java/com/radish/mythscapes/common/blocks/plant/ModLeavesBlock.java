@@ -12,10 +12,8 @@ public class ModLeavesBlock extends LeavesBlock {
     private final int fireSpread;
 
     public ModLeavesBlock(Properties properties) {
-        super(properties);
+        this(properties, 60, 30);
         // Default values
-        this.flammability = 60;
-        this.fireSpread = 30;
     }
 
     public ModLeavesBlock(Properties properties, int flammability, int fireSpread) {

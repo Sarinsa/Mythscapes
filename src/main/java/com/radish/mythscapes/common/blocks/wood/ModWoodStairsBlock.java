@@ -15,10 +15,7 @@ public class ModWoodStairsBlock extends StairsBlock {
     private final int fireSpread;
 
     public ModWoodStairsBlock(Supplier<BlockState> stateSupplier, AbstractBlock.Properties properties) {
-        super(stateSupplier, properties);
-        // Default values
-        this.flammability = 5;
-        this.fireSpread = 5;
+        this(stateSupplier, properties, 5, 5);
     }
 
     public ModWoodStairsBlock(Supplier<BlockState> stateSupplier, AbstractBlock.Properties properties, int flammability, int fireSpread) {

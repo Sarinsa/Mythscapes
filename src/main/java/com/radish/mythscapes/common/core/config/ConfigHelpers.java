@@ -10,7 +10,6 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.config.ConfigTracker;
 import net.minecraftforge.fml.config.ModConfig;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
 import java.util.EnumMap;
@@ -29,6 +28,9 @@ public class ConfigHelpers {
     @NotNull
     private static <T extends AbstractConfigHelper> LazyOptional<T> createConfigHelper(String modid, ModConfig.Type configType, IConfigHelperFactory<T> configHelperFactory) {
         LazyOptional<T> configHelperOptional = LazyOptional.empty();
+
+        if (modid == null || configType == null || configHelperFactory == null)
+            return configHelperOptional;
 
         if (ModList.get().isLoaded(modid)) {
             String configName = ConfigTracker.INSTANCE.getConfigFileName(modid, configType);

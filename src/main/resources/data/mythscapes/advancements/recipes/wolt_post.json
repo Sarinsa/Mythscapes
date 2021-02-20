@@ -15,12 +15,12 @@
           ]
         },
         "criteria": {
-          "has_wolt_fence": {
+          "has_wolt_wood": {
             "trigger": "minecraft:inventory_changed",
             "conditions": {
               "items": [
                 {
-                  "item": "mythscapes:wolt_fence"
+                  "item": "mythscapes:wolt_wood"
                 }
               ]
             }
@@ -34,7 +34,7 @@
         },
         "requirements": [
           [
-            "has_wolt_fence",
+            "has_wolt_wood",
             "has_the_recipe"
           ]
         ]

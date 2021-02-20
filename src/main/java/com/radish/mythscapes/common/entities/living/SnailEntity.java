@@ -12,6 +12,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.passive.fish.AbstractFishEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -113,11 +114,9 @@ public class SnailEntity extends CreatureEntity {
 
      */
 
-
     private static final DataParameter<String> SNAIL_TYPE = EntityDataManager.createKey(SnailEntity.class, DataSerializers.STRING);
-    private static final DataParameter<Boolean> FROM_BUCKET = EntityDataManager.createKey(AbstractFishEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> FROM_BUCKET = EntityDataManager.createKey(SnailEntity.class, DataSerializers.BOOLEAN);
 
-    // Used for shell shedding
     public int timeUntilShellShed = rand.nextInt(8000) + 3000;
 
     public SnailEntity(EntityType<? extends CreatureEntity> type, World world) {
@@ -135,7 +134,7 @@ public class SnailEntity extends CreatureEntity {
     protected void registerData() {
         super.registerData();
         // Default to jungle type. All of our own snail types are
-        // statically initialized, thus this should cause no problems.
+        // statically initialized, so this should cause no problems.
         this.dataManager.register(SNAIL_TYPE, "mythscapes:jungle");
         this.dataManager.register(FROM_BUCKET, false);
     }
@@ -224,7 +223,6 @@ public class SnailEntity extends CreatureEntity {
                 player.addStat(Stats.ITEM_USED.get(itemStack.getItem()));
             }
             ItemStack snailBucket = new ItemStack(MythItems.SNAIL_BUCKET.get());
-            // Set snail type to itemstack
             CompoundNBT tag = snailBucket.getOrCreateTag();
             tag.putString("SnailType", this.getSnailType().getName().toString());
             snailBucket.setTag(tag);

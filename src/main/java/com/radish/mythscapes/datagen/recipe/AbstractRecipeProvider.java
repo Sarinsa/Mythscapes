@@ -300,12 +300,15 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
                     .build(recipeConsumer);
         });
 
+        /*
         this.quarkFlagRecipe("vertical_slabs", recipeConsumer -> {
             NullableItemGroupShapelessRecipeBuilder.shapelessRecipe(normalSlab)
                     .addIngredient(verticalSlab)
                     .addCriterion("has_" + horizontal, hasItem(verticalSlab))
                     .build(recipeConsumer,  horizontal + "_from_" + vertical);
         });
+
+         */
     }
 
     protected void quarkVerticalPlanksRecipe(IItemProvider verticalPlanks, IItemProvider ingredient) {
@@ -368,7 +371,7 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
 
     protected void quarkWoodenPostRecipe(IItemProvider woodPost, IItemProvider ingredient) {
         this.quarkFlagRecipe("wooden_posts", recipeConsumer -> {
-            NullableItemGroupShapedRecipeBuilder.shapedRecipe(woodPost, 3)
+            NullableItemGroupShapedRecipeBuilder.shapedRecipe(woodPost, 8)
                     .patternLine("#")
                     .patternLine("#")
                     .patternLine("#")

@@ -99,7 +99,7 @@ public class MythBlocks {
     public static final RegistryObject<Block> WOLT_PLANKS = registerBlock("wolt_planks", () -> new ModPlanksBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(2.0f, 3.0f)));
     public static final RegistryObject<Block> WOLT_VERTICAL_PLANKS = registerBlock("wolt_vertical_planks", () -> new ModPlanksBlock(AbstractBlock.Properties.from(WOLT_PLANKS.get())));
     public static final RegistryObject<Block> WOLT_SLAB = registerBlock("wolt_slab", () -> new ModWoodSlabBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(2.0f, 3.0f)));
-    public static final RegistryObject<Block> WOLT_VERTICAL_SLAB = registerBlock("wolt_vertical_slab", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(WOLT_PLANKS.get())));
+    public static final RegistryObject<Block> WOLT_VERTICAL_SLAB = registerBlock("wolt_vertical_slab", () -> new VerticalWoodSlabBlock(AbstractBlock.Properties.from(WOLT_PLANKS.get())));
     public static final RegistryObject<Block> WOLT_STAIRS = registerBlock("wolt_stairs", () -> new ModWoodStairsBlock(WOLT_PLANKS.get()::getDefaultState, AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(2.0f, 3.0f)));
     public static final RegistryObject<Block> WOLT_FENCE = registerBlock("wolt_fence", () -> new ModWoodFenceBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(2.0f, 3.0f)));
     public static final RegistryObject<Block> WOLT_FENCE_GATE = registerBlock("wolt_fence_gate", () -> new ModWoodFenceGateBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ICE).sound(SoundType.WOOD).hardnessAndResistance(2.0f, 3.0f)));
@@ -114,6 +114,7 @@ public class MythBlocks {
     public static final RegistryObject<Block> WOLT_CHEST = registerBlock("wolt_chest", () -> new MythChestBlock(AbstractBlock.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), MythTileEntities.CHEST::get, "wolt"));
     public static final RegistryObject<Block> WOLT_TRAPPED_CHEST = registerBlock("wolt_trapped_chest", () -> new MythTrappedChestBlock(AbstractBlock.Properties.from(WOLT_CHEST.get()), MythTileEntities.CHEST::get, "wolt"));
     public static final RegistryObject<Block> WOLT_POST = registerBlock("wolt_post", () -> new WoodPostBlock(AbstractBlock.Properties.from(WOLT_PLANKS.get())));
+    public static final RegistryObject<Block> WOLT_POST_STRIPPED = registerBlock("wolt_post_stripped", () -> new WoodPostBlock(AbstractBlock.Properties.from(WOLT_PLANKS.get())));
     public static final RegistryObject<Block> WOLT_SAPLING = registerBlock("wolt_sapling", () -> new ModSaplingBlock(AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.CYAN).sound(SoundType.PLANT).hardnessAndResistance(0.0f).doesNotBlockMovement().tickRandomly()));
     public static final RegistryObject<Block> WOLT_LEAVES = registerBlock("wolt_leaves", () -> new ModLeavesBlock(AbstractBlock.Properties.create(Material.LEAVES, MaterialColor.CYAN).sound(SoundType.PLANT).hardnessAndResistance(0.2F).tickRandomly().notSolid()));
     public static final RegistryObject<Block> WOLT_LEAF_CARPET = registerBlock("wolt_leaf_carpet", LeafCarpetBlock::new);
@@ -182,6 +183,7 @@ public class MythBlocks {
 
         registerStrippable(WOLT_LOG, WOLT_LOG_STRIPPED);
         registerStrippable(WOLT_WOOD, WOLT_WOOD_STRIPPED);
+        registerStrippable(WOLT_POST, WOLT_POST_STRIPPED);
         //registerStrippable(VIRIDIAN_STEM, VIRIDIAN_STEM_STRIPPED);
         //registerStrippable(VIRIDIAN_WOOD, VIRIDIAN_WOOD_STRIPPED;
 
@@ -193,8 +195,8 @@ public class MythBlocks {
         // This will probably never be a problem, but who knows.
         // Some modders have the craziest of ideas.
         if (!(Blocks.FIRE instanceof FireBlock)) {
-            Mythscapes.LOGGER.warn("FIRE block object in the vanilla block registry appears to have been replaced by something else that is not " +
-                    "an instance of FireBlock. None of Mythscapes' blocks will be flammable.");
+            Mythscapes.LOGGER.warn("The vanilla fire block appears to have been registry replaced by something else that is not " +
+                    "an instance of FireBlock. Mythscapes' burnable blocks will likely not be flammable.");
             return;
         }
 

@@ -15,7 +15,7 @@
           ]
         },
         "criteria": {
-          "has_bejeweled_snail_shell_brick_slab": {
+          "has_bejeweled_snail_shell_brick_vertical_slab": {
             "trigger": "minecraft:inventory_changed",
             "conditions": {
               "items": [
@@ -34,7 +34,7 @@
         },
         "requirements": [
           [
-            "has_bejeweled_snail_shell_brick_slab",
+            "has_bejeweled_snail_shell_brick_vertical_slab",
             "has_the_recipe"
           ]
         ]

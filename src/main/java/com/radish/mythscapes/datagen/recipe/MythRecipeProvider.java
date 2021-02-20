@@ -433,7 +433,8 @@ public class MythRecipeProvider extends AbstractRecipeProvider {
 
         this.quarkLeafCarpetRecipe(MythBlocks.WOLT_LEAF_CARPET.get(), MythBlocks.WOLT_LEAVES.get());
 
-        this.quarkWoodenPostRecipe(MythBlocks.WOLT_POST.get(), MythBlocks.WOLT_FENCE.get());
+        this.quarkWoodenPostRecipe(MythBlocks.WOLT_POST.get(), MythBlocks.WOLT_WOOD.get());
+        this.quarkWoodenPostRecipe(MythBlocks.WOLT_POST_STRIPPED.get(), MythBlocks.WOLT_WOOD_STRIPPED.get());
 
         this.quarkLadderRecipe(MythBlocks.WOLT_LADDER.get(), MythBlocks.WOLT_PLANKS.get());
 

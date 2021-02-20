@@ -118,18 +118,19 @@ public class MythItems {
     public static final RegistryObject<Item> WOLT_PLANKS = registerBlockItem(MythBlocks.WOLT_PLANKS);
     public static final RegistryObject<Item> WOLT_VERTICAL_PLANKS = registerBlockItem(MythBlocks.WOLT_VERTICAL_PLANKS, compatProperties(QUARK));
     public static final RegistryObject<Item> WOLT_SLAB = registerBlockItem(MythBlocks.WOLT_SLAB);
-    public static final RegistryObject<Item> WOLT_VERTICAL_SLAB = registerBlockItem(MythBlocks.WOLT_VERTICAL_SLAB, compatProperties(QUARK));
+    public static final RegistryObject<Item> WOLT_VERTICAL_SLAB = registerBurnableBlockItem(MythBlocks.WOLT_VERTICAL_SLAB, compatProperties(QUARK), 150);
     public static final RegistryObject<Item> WOLT_STAIRS = registerBlockItem(MythBlocks.WOLT_STAIRS);
-    public static final RegistryObject<Item> WOLT_FENCE = registerBurnableBlockItem(MythBlocks.WOLT_FENCE, 300);
-    public static final RegistryObject<Item> WOLT_FENCE_GATE = registerBurnableBlockItem(MythBlocks.WOLT_FENCE_GATE, 300);
+    public static final RegistryObject<Item> WOLT_FENCE = registerBurnableBlockItem(MythBlocks.WOLT_FENCE, properties(), 300);
+    public static final RegistryObject<Item> WOLT_FENCE_GATE = registerBurnableBlockItem(MythBlocks.WOLT_FENCE_GATE, properties(), 300);
     public static final RegistryObject<Item> WOLT_PRESSURE_PLATE = registerBlockItem(MythBlocks.WOLT_PRESSURE_PLATE);
     public static final RegistryObject<Item> WOLT_BUTTON = registerBlockItem(MythBlocks.WOLT_BUTTON);
     public static final RegistryObject<Item> WOLT_DOOR = registerTallBlockItem(MythBlocks.WOLT_DOOR);
     public static final RegistryObject<Item> WOLT_TRAPDOOR = registerBlockItem(MythBlocks.WOLT_TRAPDOOR);
-    public static final RegistryObject<Item> WOLT_SIGN = registerItem("wolt_sign", () -> new ModSignItem(compatProperties(QUARK).maxStackSize(16), MythBlocks.WOLT_SIGN.get(), MythBlocks.WOLT_WALL_SIGN.get()));
-    public static final RegistryObject<Item> WOLT_LADDER = registerBlockItem(MythBlocks.WOLT_LADDER, compatProperties(QUARK));
-    public static final RegistryObject<Item> WOLT_BOOKSHELF = registerBlockItem(MythBlocks.WOLT_BOOKSHELF, compatProperties(QUARK));
-    public static final RegistryObject<Item> WOLT_WOOD_POST = registerBlockItem(MythBlocks.WOLT_POST, compatProperties(QUARK));
+    public static final RegistryObject<Item> WOLT_SIGN = registerItem("wolt_sign", () -> new ModSignItem(compatProperties(QUARK).maxStackSize(16), MythBlocks.WOLT_SIGN.get(), MythBlocks.WOLT_WALL_SIGN.get(), 200));
+    public static final RegistryObject<Item> WOLT_LADDER = registerBurnableBlockItem(MythBlocks.WOLT_LADDER, compatProperties(QUARK), 300);
+    public static final RegistryObject<Item> WOLT_BOOKSHELF = registerBurnableBlockItem(MythBlocks.WOLT_BOOKSHELF, compatProperties(QUARK), 300);
+    public static final RegistryObject<Item> WOLT_POST = registerBurnableBlockItem(MythBlocks.WOLT_POST, compatProperties(QUARK), 300);
+    public static final RegistryObject<Item> WOLT_POST_STRIPPED = registerBurnableBlockItem(MythBlocks.WOLT_POST_STRIPPED, compatProperties(QUARK), 300);
     public static final RegistryObject<Item> WOLT_CHEST = registerChestItem(MythBlocks.WOLT_CHEST, compatProperties(QUARK));
     public static final RegistryObject<Item> WOLT_TRAPPED_CHEST = registerChestItem(MythBlocks.WOLT_TRAPPED_CHEST, compatProperties(QUARK));
     public static final RegistryObject<Item> WOLT_SAPLING = registerBlockItem(MythBlocks.WOLT_SAPLING);
@@ -266,8 +267,8 @@ public class MythItems {
         return registerItem(name, () -> new SpawnEggItem(entityType, primaryColor, secondaryColor, properties()));
     }
 
-    private static RegistryObject<Item> registerBurnableBlockItem(RegistryObject<Block> blockSupplier, int burnTime) {
-        return ITEMS.register(blockSupplier.getId().getPath(), () -> new BurnableBlockItem(blockSupplier.get(), properties(), burnTime));
+    private static RegistryObject<Item> registerBurnableBlockItem(RegistryObject<Block> blockSupplier, Item.Properties properties, int burnTime) {
+        return ITEMS.register(blockSupplier.getId().getPath(), () -> new BurnableBlockItem(blockSupplier.get(), properties, burnTime));
     }
 
     private static RegistryObject<Item> registerTallBlockItem(RegistryObject<Block> blockSupplier) {

@@ -16,8 +16,20 @@ import javax.annotation.Nullable;
 
 public class ModSignItem extends WallOrFloorItem {
 
+    private final int burnTime;
+
     public ModSignItem(Properties properties, Block floorBlock, Block wallBlock) {
+        this(properties, floorBlock, wallBlock, 0);
+    }
+
+    public ModSignItem(Properties properties, Block floorBlock, Block wallBlock, int burnTime) {
         super(floorBlock, wallBlock, properties);
+        this.burnTime = burnTime;
+    }
+
+    @Override
+    public int getBurnTime(ItemStack stack) {
+        return this.burnTime;
     }
 
     @Override

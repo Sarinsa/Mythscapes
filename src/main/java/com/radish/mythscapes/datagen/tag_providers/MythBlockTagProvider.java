@@ -36,7 +36,8 @@ public class MythBlockTagProvider extends BlockTagsProvider {
         );
 
         this.getOrCreateBuilder(BlockTags.PLANKS).add(
-                MythBlocks.WOLT_PLANKS.get()
+                MythBlocks.WOLT_PLANKS.get(),
+                MythBlocks.WOLT_VERTICAL_PLANKS.get()
         );
 
         this.getOrCreateBuilder(BlockTags.SLABS).add(

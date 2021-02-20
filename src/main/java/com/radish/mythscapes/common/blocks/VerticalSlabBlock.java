@@ -1,6 +1,5 @@
 package com.radish.mythscapes.common.blocks;
 
-import com.radish.mythscapes.common.blocks.wood.ModWallSignBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IWaterLoggable;
@@ -26,7 +25,6 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import org.jetbrains.annotations.Nullable;
-import org.lwjgl.system.CallbackI;
 
 /**
  * Based on Quark's Vertical Slab block

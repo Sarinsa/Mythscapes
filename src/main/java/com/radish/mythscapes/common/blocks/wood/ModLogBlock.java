@@ -12,10 +12,7 @@ public class ModLogBlock extends RotatedPillarBlock {
     private final int fireSpread;
 
     public ModLogBlock(Properties properties) {
-        super(properties);
-        // Default values
-        this.flammability = 5;
-        this.fireSpread = 5;
+        this(properties, 5, 5);
     }
 
     public ModLogBlock(Properties properties, int flammability, int fireSpread) {

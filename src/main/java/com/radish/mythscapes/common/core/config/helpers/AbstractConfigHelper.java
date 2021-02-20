@@ -16,7 +16,6 @@ public abstract class AbstractConfigHelper {
     public AbstractConfigHelper(@NotNull ModConfig modConfig) {
         this.config = modConfig.getConfigData();
         this.modid = modConfig.getModId();
-
     }
 
     public final CommentedConfig getConfig() {
@@ -28,7 +27,7 @@ public abstract class AbstractConfigHelper {
     /**
      * All this does is hopefully provide some log error info
      * in case a mod's config entries changes name or hierarchy
-     * after an update, in which case we need to update the entry
+     * after an update, in which case we need to change the entry
      * names in our config helpers ourselves.
      *
      * @param configEntries A List of Strings representing the entry names

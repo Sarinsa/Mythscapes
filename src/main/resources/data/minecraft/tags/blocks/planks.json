@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "mythscapes:wolt_planks"
+    "mythscapes:wolt_planks",
+    "mythscapes:wolt_vertical_planks"
   ]
 }

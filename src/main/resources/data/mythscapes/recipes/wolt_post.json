@@ -17,12 +17,12 @@
         ],
         "key": {
           "#": {
-            "item": "mythscapes:wolt_fence"
+            "item": "mythscapes:wolt_wood"
           }
         },
         "result": {
           "item": "mythscapes:wolt_post",
-          "count": 3
+          "count": 8
         }
       }
     }

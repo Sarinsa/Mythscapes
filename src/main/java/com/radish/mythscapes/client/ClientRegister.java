@@ -3,7 +3,12 @@ package com.radish.mythscapes.client;
 import com.radish.mythscapes.client.particles.StaticCottonFallingParticle;
 import com.radish.mythscapes.client.particles.StaticCottonParticle;
 import com.radish.mythscapes.client.particles.StaticCottonPoofParticle;
-import com.radish.mythscapes.client.renderers.entity.*;
+import com.radish.mythscapes.client.renderers.entity.living.deer.DeerRenderer;
+import com.radish.mythscapes.client.renderers.entity.living.fishbones.FishbonesRenderer;
+import com.radish.mythscapes.client.renderers.entity.living.lion.LionRenderer;
+import com.radish.mythscapes.client.renderers.entity.living.pond_serpent.PondSerpentRenderer;
+import com.radish.mythscapes.client.renderers.entity.living.pygmy_snail.PygmySnailRenderer;
+import com.radish.mythscapes.client.renderers.entity.misc.boat.MythBoatRenderer;
 import com.radish.mythscapes.client.renderers.tile.MythChestTileEntityRenderer;
 import com.radish.mythscapes.client.renderers.tile.MythSignTileEntityRenderer;
 import com.radish.mythscapes.client.screen.config.MythConfigScreen;
@@ -20,7 +25,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
-import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
@@ -35,7 +39,6 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import java.util.function.Supplier;
 
@@ -110,6 +113,10 @@ public class ClientRegister {
         setRenderLayer(MythBlocks.WOLT_TRAPDOOR.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.WOLT_LADDER.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.WOLT_LEAF_CARPET.get(), RenderType.getCutoutMipped());
+        setRenderLayer(MythBlocks.WOLT_POST.get(), RenderType.getCutout());
+        setRenderLayer(MythBlocks.WOLT_POST_STRIPPED.get(), RenderType.getCutout());
+
+
         setRenderLayer(MythBlocks.BLISTERBERRY_THISTLE.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.CHARGED_DANDELION.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.POTTED_CHARGED_DANDELION.get(), RenderType.getCutout());

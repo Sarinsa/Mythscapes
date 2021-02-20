@@ -1,0 +1,44 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "flag": "wooden_posts",
+          "type": "mythscapes:quark_flag"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "mythscapes:wolt_post_stripped"
+          ]
+        },
+        "criteria": {
+          "has_wolt_wood_stripped": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "item": "mythscapes:wolt_wood_stripped"
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "mythscapes:wolt_post_stripped"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_wolt_wood_stripped",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

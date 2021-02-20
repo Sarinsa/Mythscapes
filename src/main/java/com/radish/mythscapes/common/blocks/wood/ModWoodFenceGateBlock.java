@@ -12,10 +12,7 @@ public class ModWoodFenceGateBlock extends FenceGateBlock {
     private final int fireSpread;
 
     public ModWoodFenceGateBlock(Properties properties) {
-        super(properties);
-        // Default values
-        this.flammability = 5;
-        this.fireSpread = 5;
+        this(properties, 5, 5);
     }
 
     public ModWoodFenceGateBlock(Properties properties, int flammability, int fireSpread) {

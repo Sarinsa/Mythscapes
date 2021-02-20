@@ -20,6 +20,7 @@ import net.minecraft.loot.conditions.*;
 import net.minecraft.loot.functions.ApplyBonus;
 import net.minecraft.loot.functions.SetCount;
 import net.minecraft.state.properties.SlabType;
+import net.minecraftforge.common.Tags;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,7 +30,7 @@ public class MythBlockLootTableProvider extends BlockLootTables {
     // Vanilla
     private static final ILootCondition.IBuilder SILK_TOUCH = MatchTool.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1))));
     private static final ILootCondition.IBuilder NO_SILK_TOUCH = SILK_TOUCH.inverted();
-    private static final ILootCondition.IBuilder SHEARS = MatchTool.builder(ItemPredicate.Builder.create().item(Items.SHEARS));
+    private static final ILootCondition.IBuilder SHEARS = MatchTool.builder(ItemPredicate.Builder.create().tag(Tags.Items.SHEARS));
     private static final ILootCondition.IBuilder SILK_TOUCH_OR_SHEARS = SHEARS.alternative(SILK_TOUCH);
     private static final ILootCondition.IBuilder NOT_SILK_TOUCH_OR_SHEARS = SILK_TOUCH_OR_SHEARS.inverted();
     private static final float[] DEFAULT_SAPLING_DROP_RATES = new float[]{0.05F, 0.0625F, 0.083333336F, 0.1F};
@@ -141,7 +142,9 @@ public class MythBlockLootTableProvider extends BlockLootTables {
         this.registerLootTable(MythBlocks.WOLT_DOOR.get(), BlockLootTables::registerDoor);
         this.registerDropSelfLootTable(MythBlocks.WOLT_TRAPDOOR.get());
         this.registerDropSelfLootTable(MythBlocks.WOLT_LADDER.get());
-        this.registerDropSelfLootTable(MythBlocks.WOLT_BOOKSHELF.get());
+        this.registerLootTable(MythBlocks.WOLT_BOOKSHELF.get(), (bookshelf) -> {
+            return droppingWithSilkTouchOrRandomly(bookshelf, Items.BOOK, ConstantRange.of(3));
+        });
         this.registerDropSelfLootTable(MythBlocks.WOLT_POST.get());
         this.registerLootTable(MythBlocks.WOLT_CHEST.get(), BlockLootTables::droppingWithName);
         this.registerLootTable(MythBlocks.WOLT_TRAPPED_CHEST.get(), BlockLootTables::droppingWithName);

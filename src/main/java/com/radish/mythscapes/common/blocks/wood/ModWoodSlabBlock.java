@@ -13,10 +13,7 @@ public class ModWoodSlabBlock extends SlabBlock {
     private final int fireSpread;
 
     public ModWoodSlabBlock(AbstractBlock.Properties properties) {
-        super(properties);
-        // Default values
-        this.flammability = 5;
-        this.fireSpread = 5;
+        this(properties, 5, 5);
     }
 
     public ModWoodSlabBlock(AbstractBlock.Properties properties, int flammability, int fireSpread) {

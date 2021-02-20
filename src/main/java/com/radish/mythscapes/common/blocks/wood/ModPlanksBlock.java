@@ -13,10 +13,7 @@ public class ModPlanksBlock extends Block {
     private final int fireSpread;
 
     public ModPlanksBlock(AbstractBlock.Properties properties) {
-        super(properties);
-        // Default values
-        this.flammability = 5;
-        this.fireSpread = 5;
+        this(properties, 5, 5);
     }
 
     public ModPlanksBlock(AbstractBlock.Properties properties, int flammability, int fireSpread) {

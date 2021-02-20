@@ -104,6 +104,10 @@ repositories {
         name 'Vazkii'
         url "https://maven.blamejared.com/"
     }
+
+    flatDir {
+        dirs 'local_dependencies'
+    }
 }
 
 mixin {

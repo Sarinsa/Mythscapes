@@ -17,14 +17,13 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
 
@@ -132,6 +131,22 @@ public class LionEntity extends AnimalEntity {
 
         if (MythEntityTags.LION_PREY.contains(entityLiving.getType()))
             this.setHunger(maxHunger);
+    }
+
+    @Override
+    public boolean attackEntityFrom(DamageSource damageSource, float damage) {
+        if ((damageSource.getTrueSource() != null && damageSource.getTrueSource() instanceof LivingEntity) && this.isChild()) {
+            LivingEntity attacker = (LivingEntity) damageSource.getTrueSource();
+
+            List<LivingEntity> nearbyLions = this.world.getLoadedEntitiesWithinAABB(LionEntity.class, new AxisAlignedBB(this.getPosition()).grow(14, 5, 14), (entity) -> !entity.isChild());
+
+            if (!nearbyLions.isEmpty()) {
+                nearbyLions.forEach((entity) -> {
+                    entity.setRevengeTarget(attacker);
+                });
+            }
+        }
+        return super.attackEntityFrom(damageSource, damage);
     }
 
     @Override

@@ -36,7 +36,8 @@ public class MythEntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.SHEEP,
                 EntityType.PIG,
                 EntityType.CHICKEN,
-                EntityType.RABBIT
+                EntityType.RABBIT,
+                EntityType.FOX
         );
 
         this.getOrCreateBuilder(MythEntityTags.SWOOSH_WHITELIST).add(

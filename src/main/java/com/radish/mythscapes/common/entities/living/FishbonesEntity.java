@@ -8,6 +8,7 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.PolarBearEntity;
 import net.minecraft.entity.passive.TurtleEntity;
@@ -58,7 +59,6 @@ public class FishbonesEntity extends MonsterEntity {
 
     @Override
     public void livingTick() {
-        super.livingTick();
 
         boolean flag = this.isInDaylight();
         if (flag) {
@@ -76,6 +76,7 @@ public class FishbonesEntity extends MonsterEntity {
             if (flag)
                 this.setFire(8);
         }
+        super.livingTick();
     }
 
     @Override

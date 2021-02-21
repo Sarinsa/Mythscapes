@@ -1,19 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "G G",
-    "GSG",
-    "GPG"
+    "S S",
+    "GWG",
+    "SRS"
   ],
   "key": {
-    "G": {
-      "tag": "forge:ingots/gold"
-    },
     "S": {
-      "item": "minecraft:stick"
+      "tag": "forge:rods/wooden"
     },
-    "P": {
+    "G": {
+      "item": "mythscapes:golden_wolt_powder"
+    },
+    "W": {
       "item": "mythscapes:wolt_powder"
+    },
+    "R": {
+      "tag": "forge:dusts/redstone"
     }
   },
   "result": {

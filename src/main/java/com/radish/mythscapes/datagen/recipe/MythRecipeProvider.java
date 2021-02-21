@@ -234,12 +234,13 @@ public class MythRecipeProvider extends AbstractRecipeProvider {
                 .build(consumer);
 
         this.shapedRecipe(MythItems.LAUNCHER_RAIL.get(), 6, MythItems.WOLT_POWDER.get())
-                .patternLine("G G")
-                .patternLine("GSG")
-                .patternLine("GPG")
-                .key('G', Tags.Items.INGOTS_GOLD)
-                .key('S', Items.STICK)
-                .key('P', MythItems.WOLT_POWDER.get())
+                .patternLine("S S")
+                .patternLine("GWG")
+                .patternLine("SRS")
+                .key('S', Tags.Items.RODS_WOODEN)
+                .key('G', MythItems.GOLDEN_WOLT_POWDER.get())
+                .key('W', MythItems.WOLT_POWDER.get())
+                .key('R', Tags.Items.DUSTS_REDSTONE)
                 .build(consumer);
 
         this.shapedRecipe(MythItems.SNAIL_SHELL_BLOCK.get(), 1, MythItems.SNAIL_SHELL.get())

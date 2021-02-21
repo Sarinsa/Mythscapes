@@ -17,7 +17,7 @@ import net.minecraftforge.common.ToolType;
 @SuppressWarnings("deprecation")
 public class LeafCarpetBlock extends Block {
 
-    private static final VoxelShape SHAPE = Block.makeCuboidShape(0, 0, 0, 16, 1, 16);
+    private static final VoxelShape SHAPE = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 1.0D, 16.0D);
 
     public LeafCarpetBlock(Properties properties) {
         super(properties);

@@ -7,8 +7,6 @@ import com.radish.mythscapes.common.register.MythEntities;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.BreedGoal;
-import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;

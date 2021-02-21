@@ -11,7 +11,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class FishbonesRenderer extends MobRenderer<FishbonesEntity, FishbonesModel<FishbonesEntity>> {
+public class FishbonesRenderer<T extends FishbonesEntity> extends MobRenderer<T, FishbonesModel<T>> {
 
     private static final ResourceLocation TEXTURE = Mythscapes.resourceLoc("textures/entity/fishbones/fishbones.png");
 
@@ -20,13 +20,13 @@ public class FishbonesRenderer extends MobRenderer<FishbonesEntity, FishbonesMod
     }
 
     @Override
-    public void render(FishbonesEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+    public void render(T entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         matrixStackIn.scale(0.95F, 0.95F, 0.95F);
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
     @Override
-    public ResourceLocation getEntityTexture(FishbonesEntity entity) {
+    public ResourceLocation getEntityTexture(T entity) {
         return TEXTURE;
     }
 }

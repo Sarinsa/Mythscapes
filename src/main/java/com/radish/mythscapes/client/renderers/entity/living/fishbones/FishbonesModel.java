@@ -3,6 +3,7 @@ package com.radish.mythscapes.client.renderers.entity.living.fishbones;
 import com.google.common.collect.ImmutableList;
 import com.radish.mythscapes.common.entities.living.FishbonesEntity;
 import net.minecraft.client.renderer.entity.model.SegmentedModel;
+import net.minecraft.client.renderer.entity.model.SkeletonModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
 
@@ -88,10 +89,14 @@ public class FishbonesModel<T extends FishbonesEntity> extends SegmentedModel<T>
         this.legLeft.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
         this.legRight.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
 
-        float armAngle = entity.isAggressive() ? - ((float)Math.PI / 2) : 0.0F;
-
-        this.armLeft.rotateAngleX = armAngle;
-        this.armRight.rotateAngleX = armAngle;
+        if (entity.isAggressive()) {
+            this.armLeft.rotateAngleX = (float)Math.PI / 2;
+            this.armRight.rotateAngleX = (float)Math.PI / 2;
+        }
+        else {
+            this.armRight.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+            this.armLeft.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        }
     }
 
     /**

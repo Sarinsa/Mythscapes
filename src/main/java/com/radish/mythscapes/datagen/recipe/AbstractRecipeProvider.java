@@ -28,6 +28,9 @@ import java.util.function.Supplier;
 
 public abstract class AbstractRecipeProvider extends RecipeProvider {
 
+    // Mod-IDs for compat
+    protected static final String QUARK = "quark";
+
     protected Consumer<IFinishedRecipe> consumer;
 
     public AbstractRecipeProvider(DataGenerator generator) {
@@ -88,7 +91,7 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
         });
     }
 
-    protected void registerStonecuttingRecipe(Supplier<Item> result, IItemProvider ingredient, int count, Consumer<IFinishedRecipe> consumer) {
+    protected void stonecuttingRecipe(Supplier<Item> result, IItemProvider ingredient, int count, Consumer<IFinishedRecipe> consumer) {
         String ingredientName = itemName(ingredient);
         String resultName = itemName(result.get());
 
@@ -96,6 +99,12 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
                 .stonecuttingRecipe(Ingredient.fromItems(ingredient), result.get(), count)
                 .addCriterion("has_" + ingredientName, hasItem(ingredient))
                 .build(consumer, resultName + "_from_" + ingredientName + "_stonecutting");
+    }
+
+    protected void compatStonecuttingRecipe(String modid, Supplier<Item> result, IItemProvider ingredient, int count, Consumer<IFinishedRecipe> consumer) {
+        this.modCompatRecipe((recipeConsumer) -> {
+            this.stonecuttingRecipe(result, ingredient, count, consumer);
+        }, modid);
     }
 
     protected ShapedRecipeBuilder shapedRecipe(IItemProvider result, int count, IItemProvider criterionItem) {
@@ -300,15 +309,12 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
                     .build(recipeConsumer);
         });
 
-        /*
         this.quarkFlagRecipe("vertical_slabs", recipeConsumer -> {
             NullableItemGroupShapelessRecipeBuilder.shapelessRecipe(normalSlab)
                     .addIngredient(verticalSlab)
                     .addCriterion("has_" + horizontal, hasItem(verticalSlab))
                     .build(recipeConsumer,  horizontal + "_from_" + vertical);
         });
-
-         */
     }
 
     protected void quarkVerticalPlanksRecipe(IItemProvider verticalPlanks, IItemProvider ingredient) {
@@ -343,7 +349,7 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
                     .key('S', Tags.Items.RODS_WOODEN)
                     .addCriterion("has_" + itemName(ingredient), hasItem(ingredient))
                     .build(recipeConsumer);
-        }, "quark");
+        }, QUARK);
     }
 
     protected void quarkLeafCarpetRecipe(IItemProvider leafCarpet, IItemProvider ingredient) {

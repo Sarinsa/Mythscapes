@@ -1,5 +1,6 @@
 package com.radish.mythscapes.common.entities.living;
 
+import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.tags.MythItemTags;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -26,6 +27,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeMod;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -59,6 +61,7 @@ public class FishbonesEntity extends MonsterEntity {
 
     @Override
     public void livingTick() {
+        Mythscapes.LOGGER.info("Swim speed: " + this.getAttribute(ForgeMod.SWIM_SPEED.get()).getValue());
 
         boolean flag = this.isInDaylight();
         if (flag) {
@@ -150,6 +153,7 @@ public class FishbonesEntity extends MonsterEntity {
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3.0D)
                 .createMutableAttribute(Attributes.FOLLOW_RANGE, 25.0D)
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.28D)
+                .createMutableAttribute(ForgeMod.SWIM_SPEED.get(), 18.0D)
                 .createMutableAttribute(Attributes.MAX_HEALTH, 10.0D);
     }
 

@@ -1,6 +1,5 @@
 package com.radish.mythscapes.common.entities.living;
 
-import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.tags.MythItemTags;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -9,7 +8,6 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.PolarBearEntity;
 import net.minecraft.entity.passive.TurtleEntity;
@@ -61,8 +59,6 @@ public class FishbonesEntity extends MonsterEntity {
 
     @Override
     public void livingTick() {
-        Mythscapes.LOGGER.info("Swim speed: " + this.getAttribute(ForgeMod.SWIM_SPEED.get()).getValue());
-
         boolean flag = this.isInDaylight();
         if (flag) {
             ItemStack itemstack = this.getItemStackFromSlot(EquipmentSlotType.HEAD);

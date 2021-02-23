@@ -135,7 +135,7 @@ public class SnailEntity extends CreatureEntity {
         super.registerData();
         // Default to jungle type. All of our own snail types are
         // statically initialized, so this should cause no problems.
-        this.dataManager.register(SNAIL_TYPE, "mythscapes:jungle");
+        this.dataManager.register(SNAIL_TYPE, SnailTypeRegister.JUNGLE.getName().toString());
         this.dataManager.register(FROM_BUCKET, false);
     }
 
@@ -279,7 +279,7 @@ public class SnailEntity extends CreatureEntity {
     public static AttributeModifierMap.MutableAttribute registerEntityAttributes() {
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.FOLLOW_RANGE, 12.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.08D)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.1D)
                 .createMutableAttribute(Attributes.MAX_HEALTH, 3.0D);
     }
 }

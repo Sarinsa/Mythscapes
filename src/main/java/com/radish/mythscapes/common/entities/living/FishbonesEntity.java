@@ -118,11 +118,11 @@ public class FishbonesEntity extends MonsterEntity {
     }
 
     public static boolean entityHoldingPrismarine(@Nullable LivingEntity target) {
-        EquipmentSlotType slotType = EquipmentSlotType.MAINHAND;
-
         if (target == null) {
             return false;
         }
+        EquipmentSlotType slotType = EquipmentSlotType.MAINHAND;
+
         if (!target.hasItemInSlot(slotType)) {
             slotType = EquipmentSlotType.OFFHAND;
         }
@@ -136,12 +136,7 @@ public class FishbonesEntity extends MonsterEntity {
     }
 
     public static boolean isItemEntityPrismarine(@Nullable ItemEntity itemEntity) {
-        if (itemEntity == null) {
-            return false;
-        }
-        else {
-            return MythItemTags.PRISMARINE.contains(itemEntity.getItem().getItem());
-        }
+        return itemEntity != null && MythItemTags.PRISMARINE.contains(itemEntity.getItem().getItem());
     }
 
     public static AttributeModifierMap.MutableAttribute registerEntityAttributes() {
@@ -197,10 +192,7 @@ public class FishbonesEntity extends MonsterEntity {
             this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
         }
 
-        /**
-         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
-         * method as well.
-         */
+        @Override
         public boolean shouldExecute() {
             List<LivingEntity> entities = this.fishbones.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, this.fishbones.getBoundingBox().grow(followRange, 6.0D, followRange));
             LivingEntity target = null;
@@ -227,9 +219,7 @@ public class FishbonesEntity extends MonsterEntity {
             return false;
         }
 
-        /**
-         * Returns whether an in-progress EntityAIBase should continue executing
-         */
+        @Override
         public boolean shouldContinueExecuting() {
             if (!this.prismarineHolder.isAlive() || !FishbonesEntity.entityHoldingPrismarine(this.prismarineHolder)) {
                 return false;
@@ -240,26 +230,20 @@ public class FishbonesEntity extends MonsterEntity {
             }
         }
 
-        /**
-         * Execute a one shot task or start executing a continuous task
-         */
+        @Override
         public void startExecuting() {
             this.recalcPathTime = 0;
             this.fishbones.setAttackTarget(null);
             this.fishbones.setAggroed(false);
         }
 
-        /**
-         * Reset the task's internal state. Called when this task is interrupted by another one
-         */
+        @Override
         public void resetTask() {
             this.prismarineHolder = null;
             this.fishbones.getNavigator().clearPath();
         }
 
-        /**
-         * Keep ticking a continuous task that has already been started
-         */
+        @Override
         public void tick() {
             this.fishbones.getLookController().setLookPositionWithEntity(this.prismarineHolder, 10.0F, (float)this.fishbones.getVerticalFaceSpeed());
             if (--this.recalcPathTime <= 0) {
@@ -284,10 +268,7 @@ public class FishbonesEntity extends MonsterEntity {
             this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
         }
 
-        /**
-         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
-         * method as well.
-         */
+        @Override
         public boolean shouldExecute() {
             List<ItemEntity> entities = this.fishbones.getEntityWorld().getEntitiesWithinAABB(ItemEntity.class, this.fishbones.getBoundingBox().grow(followRange, 6.0D, followRange));
             ItemEntity target = null;
@@ -314,9 +295,7 @@ public class FishbonesEntity extends MonsterEntity {
             return false;
         }
 
-        /**
-         * Returns whether an in-progress EntityAIBase should continue executing
-         */
+        @Override
         public boolean shouldContinueExecuting() {
             if (!this.itemTarget.isAlive() || !this.fishbones.getEntitySenses().canSee(this.itemTarget)) {
                 return false;
@@ -327,26 +306,20 @@ public class FishbonesEntity extends MonsterEntity {
             }
         }
 
-        /**
-         * Execute a one shot task or start executing a continuous task
-         */
+        @Override
         public void startExecuting() {
             this.recalcPathTime = 0;
             this.fishbones.setAttackTarget(null);
             this.fishbones.setAggroed(false);
         }
 
-        /**
-         * Reset the task's internal state. Called when this task is interrupted by another one
-         */
+        @Override
         public void resetTask() {
             this.itemTarget = null;
             this.fishbones.getNavigator().clearPath();
         }
 
-        /**
-         * Keep ticking a continuous task that has already been started
-         */
+        @Override
         public void tick() {
             this.fishbones.getLookController().setLookPositionWithEntity(this.itemTarget, 10.0F, (float)this.fishbones.getVerticalFaceSpeed());
             if (--this.recalcPathTime <= 0) {

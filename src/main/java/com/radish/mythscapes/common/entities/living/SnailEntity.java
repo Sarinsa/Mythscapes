@@ -12,8 +12,6 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.monster.SpiderEntity;
-import net.minecraft.entity.passive.fish.AbstractFishEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -35,85 +33,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class SnailEntity extends CreatureEntity {
-
-    // Old snail type handling. Will likely never be used again, but I will keep it here for now.
-
-    /*
-    public enum SnailType {
-        MUSHROOM("mushroom", Rarity.COMMON),
-        SWAMP("swamp", Rarity.COMMON),
-        FLOWER_FOREST("flower_forest", Rarity.COMMON),
-        ROOFED_FOREST("roofed_forest", Rarity.COMMON),
-        JUNGLE("jungle", Rarity.COMMON),
-        BOG("bog", Rarity.COMMON),
-        JEWELED("jeweled", Rarity.EPIC, new ItemStack(MythItems.BEJEWELED_SNAIL_SHELL.get()));
-
-        private final String name;
-        private final Rarity rarity;
-        private final Supplier<ItemStack> shedDrop;
-
-        SnailType(String name, Rarity rarity) {
-            this.name = name;
-            this.rarity = rarity;
-            this.shedDrop = () -> new ItemStack(MythItems.SNAIL_SHELL.get());
-        }
-
-        SnailType(String name, Rarity rarity, ItemStack shedDrop) {
-            this.name = name;
-            this.rarity = rarity;
-            this.shedDrop = () -> shedDrop;
-        }
-
-        public String getName() {
-            return this.name;
-        }
-
-        public String getTranslationKey() {
-            return "snail_type." + Mythscapes.MODID + "." + this.getName();
-        }
-
-        public Rarity getRarity() {
-            return this.rarity;
-        }
-
-        public ItemStack getShedDrop() {
-            return this.shedDrop.get();
-        }
-
-        public String toString() {
-            return this.name;
-        }
-
-        public static SnailType getFromName(String name) {
-            for (SnailType type : values()) {
-                if (type.getName().equals(name)) {
-                    return type;
-                }
-            }
-            return SnailType.JUNGLE;
-        }
-
-        @Nullable
-        public static SnailType getFromNameOrNull(@Nullable String name) {
-            if (name == null || name.isEmpty())
-                return null;
-
-            for (SnailType type : values()) {
-                if (type.getName().equals(name)) {
-                    return type;
-                }
-            }
-            return null;
-        }
-
-        public static SnailType getRandom() {
-            SnailType[] types = values();
-            return types[new Random().nextInt(types.length)];
-        }
-    }
-
-     */
-
+    
     private static final DataParameter<String> SNAIL_TYPE = EntityDataManager.createKey(SnailEntity.class, DataSerializers.STRING);
     private static final DataParameter<Boolean> FROM_BUCKET = EntityDataManager.createKey(SnailEntity.class, DataSerializers.BOOLEAN);
 

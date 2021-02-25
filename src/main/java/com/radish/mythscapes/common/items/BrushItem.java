@@ -39,12 +39,12 @@ public class BrushItem extends Item {
             if (player.isSneaking())
                 return ActionResultType.PASS;
         }
-        int soothingLevel = EnchantmentHelper.getEnchantmentLevel(MythEnchantments.SOOTHING.get(), stack);
-        int fortuneLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
 
         if (MythEntities.BRUSHABLES.containsKey(entity.getClass())) {
             IBrushable brushable = MythEntities.BRUSHABLES.get(entity.getClass());
             World world = entity.getEntityWorld();
+            int soothingLevel = EnchantmentHelper.getEnchantmentLevel(MythEnchantments.SOOTHING.get(), stack);
+            int fortuneLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
 
             if (brushable.canBrush(entity, world)) {
                 ItemStack droppedStack = brushable.itemDropped(entity, world.rand, fortuneLevel);
@@ -68,7 +68,7 @@ public class BrushItem extends Item {
                     entity.addPotionEffect(new EffectInstance(Effects.REGENERATION, ((soothingLevel + 1) * 20 * 3)));
 
                 brushable.onBrushed(entity, entity.getEntityWorld());
-                player.getEntityWorld().playSound(player, entity.getPosition(), SoundEvents.BLOCK_GRASS_HIT, SoundCategory.PLAYERS, 0.9f, 0.9f);
+                player.getEntityWorld().playSound(player, entity.getPosition(), SoundEvents.BLOCK_GRASS_HIT, SoundCategory.PLAYERS, 0.9F, 0.9F);
 
                 if (!player.abilities.isCreativeMode) {
                     player.getCooldownTracker().setCooldown(this, cooldownTime);

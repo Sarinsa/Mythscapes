@@ -3,6 +3,7 @@ package com.radish.mythscapes.common.entities.living;
 import com.radish.mythscapes.api.ISnailType;
 import com.radish.mythscapes.api.impl.SnailTypeRegister;
 import com.radish.mythscapes.common.core.Mythscapes;
+import com.radish.mythscapes.common.entities.living.goals.MoveToBlockGoalPrecise;
 import com.radish.mythscapes.common.misc.MythDamageSources;
 import com.radish.mythscapes.common.register.MythItems;
 import com.radish.mythscapes.common.tags.MythBlockTags;
@@ -238,6 +239,12 @@ public class SnailEntity extends CreatureEntity {
             this.maxEatTimerCount = maxEatTimerCount;
         }
 
+        @Override
+        public double getTargetDistanceSq() {
+            return 0.8D;
+        }
+
+        @Override
         protected boolean getIsAboveDestination() {
             return super.getIsAboveDestination() || this.creature.getPosition().equals(this.destinationBlock);
         }
@@ -250,13 +257,15 @@ public class SnailEntity extends CreatureEntity {
                 --this.eatTimer;
 
                 if (this.eatTimer <= 0) {
-                    CreatureEntity entity = this.creature;
+                    SnailEntity entity = (SnailEntity) this.creature;
                     BlockState state = entity.world.getBlockState(this.destinationBlock);
 
+                    int eatAmount = state.get(ComposterBlock.LEVEL) >= 8 ? 2 : 1;
+
                     if (state.isIn(Blocks.COMPOSTER)) {
-                        entity.world.setBlockState(this.destinationBlock, state.with(ComposterBlock.LEVEL, state.get(ComposterBlock.LEVEL) - 1));
+                        entity.world.setBlockState(this.destinationBlock, state.with(ComposterBlock.LEVEL, state.get(ComposterBlock.LEVEL) - eatAmount));
                     }
-                    ((SnailEntity)entity).setHasEaten(true);
+                    entity.setHasEaten(true);
                 }
                 else if (this.eatTimer % 4 == 1) {
                     this.playEffects();

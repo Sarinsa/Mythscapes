@@ -15,6 +15,7 @@ import com.radish.mythscapes.common.network.PacketHandler;
 import com.radish.mythscapes.common.recipe.CraftingUtility;
 import com.radish.mythscapes.common.register.*;
 import com.radish.mythscapes.common.tags.MythBlockTags;
+import com.radish.mythscapes.common.worldgen.MythConfiguredFeatures;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -66,13 +67,14 @@ public class Mythscapes {
         MinecraftForge.EVENT_BUS.register(new TradeEvents());
         MinecraftForge.EVENT_BUS.register(new BiomeEvents());
 
-        MythBlocks.BLOCKS.register(eventBus);
         MythItems.ITEMS.register(eventBus);
+        MythBlocks.BLOCKS.register(eventBus);
         MythFluids.FLUIDS.register(eventBus);
         MythSounds.SOUNDS.register(eventBus);
         MythBiomes.BIOMES.register(eventBus);
         MythPotions.POTIONS.register(eventBus);
         MythEntities.ENTITIES.register(eventBus);
+        MythFeatures.FEATURES.register(eventBus);
         MythParticles.PARTICLES.register(eventBus);
         MythEffects.POTION_EFFECTS.register(eventBus);
         MythEnchantments.ENCHANTMENTS.register(eventBus);
@@ -82,14 +84,16 @@ public class Mythscapes {
     private void commonSetup(FMLCommonSetupEvent event) {
         ConfigHelpers.initHelpers();
 
-        MythItems.registerItemData();
-        MythBlocks.registerBlockData();
-        //MythBiomes.setBiomeEntitySpawns();
-        MythBiomes.addBiomes();
-        MythEntities.registerData();
-        MythSounds.registerParrotMimics();
-        DispenserBehavior.register();
-        MythPotions.registerBrewingRecipes();
+        event.enqueueWork(() -> {
+            MythItems.registerItemData();
+            MythBlocks.registerBlockData();
+            MythBiomes.registerBiomeInfo();
+            MythConfiguredFeatures.register();
+            MythEntities.registerData();
+            MythSounds.registerParrotMimics();
+            DispenserBehavior.register();
+            MythPotions.registerBrewingRecipes();
+        });
 
         snailTypeRegister.registerInternal();
     }

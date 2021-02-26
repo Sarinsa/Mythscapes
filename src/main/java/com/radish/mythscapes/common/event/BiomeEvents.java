@@ -2,12 +2,20 @@ package com.radish.mythscapes.common.event;
 
 import com.radish.mythscapes.api.ISnailType;
 import com.radish.mythscapes.common.core.Mythscapes;
+import com.radish.mythscapes.common.register.MythBiomes;
+import com.radish.mythscapes.common.worldgen.MythConfiguredFeatures;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.BiomeGenerationSettings;
 import net.minecraft.world.biome.Biomes;
+import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.Features;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
+import net.minecraftforge.common.world.MobSpawnInfoBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -19,6 +27,27 @@ import static com.radish.mythscapes.common.misc.Util.hasDictType;
 import static com.radish.mythscapes.common.register.MythEntities.*;
 
 public class BiomeEvents {
+
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public void setupModBiomes(BiomeLoadingEvent event) {
+        ResourceLocation biomeName = event.getName();
+        BiomeGenerationSettingsBuilder generationSettings = event.getGeneration();
+        MobSpawnInfoBuilder spawnInfoBuilder = event.getSpawns();
+
+        if (biomeName == null)
+            return;
+
+        if (biomeName.equals(MythBiomes.TEST_BIOME.get().getRegistryName())) {
+            DefaultBiomeFeatures.withCavesAndCanyons(generationSettings);
+            DefaultBiomeFeatures.withLavaAndWaterLakes(generationSettings);
+            DefaultBiomeFeatures.withStrongholdAndMineshaft(generationSettings);
+            DefaultBiomeFeatures.withOverworldOres(generationSettings);
+            generationSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_TALL_GRASS);
+            generationSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MythConfiguredFeatures.PATCH_CHARGED_DANDELIONS);
+
+            DefaultBiomeFeatures.withPassiveMobs(spawnInfoBuilder);
+        }
+    }
 
     @SubscribeEvent(priority = EventPriority.LOW)
     public void changeBiomeSpawns(BiomeLoadingEvent event) {

@@ -17,12 +17,12 @@ public interface IRegistryHelper {
      * @param entityClass The entity class to assign the IBrushable to.
      * @param iBrushable The IBrushable instance to register.
      */
-    void registerBrushable(@NotNull Class<? extends LivingEntity> entityClass, @NotNull IBrushable<?> iBrushable);
+    void registerBrushable(Class<? extends LivingEntity> entityClass, IBrushable<?> iBrushable);
 
     /**
      * Registers a new snail type for the Pygmy Snail.
      *
      * @param snailType A new instance of an ISnailType
      */
-    void registerSnailType(@NotNull ISnailType snailType);
+    void registerSnailType(ISnailType snailType);
 }

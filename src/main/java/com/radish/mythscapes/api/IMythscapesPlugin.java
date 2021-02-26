@@ -1,7 +1,5 @@
 package com.radish.mythscapes.api;
 
-import org.jetbrains.annotations.NotNull;
-
 /**
  * This is the main interface that your plugin class must implement
  * in order to interact with the rest of the API.
@@ -20,6 +18,5 @@ public interface IMythscapesPlugin {
      * @return The name of this plugin.
      *         Used for debug and logging.
      */
-    @NotNull
     String getPluginName();
 }

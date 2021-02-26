@@ -21,6 +21,7 @@ import net.minecraftforge.common.crafting.ConditionalAdvancement;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -35,6 +36,18 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
 
     public AbstractRecipeProvider(DataGenerator generator) {
         super(generator);
+    }
+
+    protected IItemProvider getFromRegistryName(String modid, String name) {
+        ResourceLocation registryEntry = new ResourceLocation(modid, name);
+
+        if (ForgeRegistries.ITEMS.containsKey(registryEntry)) {
+            return ForgeRegistries.ITEMS.getValue(registryEntry);
+        }
+        else {
+            Mythscapes.LOGGER.error("[{}] Could not find any item by the ID \"" + registryEntry.toString() + "\"", this.getClass().getSimpleName());
+            return null;
+        }
     }
 
     /**
@@ -75,6 +88,17 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
                     .addCondition(condition)
                     .addRecipe(finishedRecipe)
                     .setAdvancement(ConditionalAdvancement.builder().addCondition(condition).addAdvancement(finishedRecipe))
+                    .build(this.consumer, finishedRecipe.getID());
+        });
+    }
+
+    public void modCompatRecipeNoAdvancement(Consumer<Consumer<IFinishedRecipe>> recipeBuilder, String modid) {
+        ICondition condition = new ModLoadedCondition(modid);
+
+        recipeBuilder.accept(finishedRecipe -> {
+            ConditionalRecipe.builder()
+                    .addCondition(condition)
+                    .addRecipe(finishedRecipe)
                     .build(this.consumer, finishedRecipe.getID());
         });
     }
@@ -418,7 +442,7 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
                     .patternLine("# #")
                     .patternLine("###")
                     .key('#', logs)
-                    .addCriterion("has_wolt_logs", hasItem(logs))
+                    .addCriterion("has_" + logsName, hasItem(logs))
                     .build(recipeConsumer, chestName + "_from_" + logsName);
         });
 
@@ -428,7 +452,7 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
                     .patternLine("# #")
                     .patternLine("###")
                     .key('#', planks)
-                    .addCriterion("has_wolt_planks", hasItem(planks))
+                    .addCriterion("has_" + planksName, hasItem(planks))
                     .build(recipeConsumer, chestName + "_from_" + planksName);
         });
 
@@ -436,7 +460,7 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
             NullableItemGroupShapelessRecipeBuilder.shapelessRecipe(trappedChest, 1)
                     .addIngredient(chest)
                     .addIngredient(Items.TRIPWIRE_HOOK)
-                    .addCriterion("has_wolt_chest", hasItem(chest))
+                    .addCriterion("has_" + chestName, hasItem(chest))
                     .build(recipeConsumer);
         });
     }

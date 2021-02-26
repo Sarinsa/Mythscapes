@@ -463,13 +463,13 @@ public class MythRecipeProvider extends AbstractRecipeProvider {
         this.quarkChestRecipe(MythBlocks.WOLT_CHEST.get(), MythBlocks.WOLT_TRAPPED_CHEST.get(), MythBlocks.WOLT_PLANKS.get(), MythItemTags.WOLT_LOGS);
 
         // Mekanism compat
-        this.modCompatRecipe(recipeConsumer -> {
+        this.modCompatRecipeNoAdvancement(recipeConsumer -> {
             CombinerRecipeBuilder.combining(ItemStackIngredient.deserialize(itemFromName("mekanism:dust_diamond", 3)), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.BEJEWELED_GALVITE.get())).build(recipeConsumer);
         }, "mekanism");
-        this.modCompatRecipe(recipeConsumer -> {
+        this.modCompatRecipeNoAdvancement(recipeConsumer -> {
             CombinerRecipeBuilder.combining(ItemStackIngredient.from(Tags.Items.DUSTS_REDSTONE, 12), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.POWERED_GALVITE.get())).build(recipeConsumer);
         }, "mekanism");
-        this.modCompatRecipe(recipeConsumer -> {
+        this.modCompatRecipeNoAdvancement(recipeConsumer -> {
             CombinerRecipeBuilder.combining(ItemStackIngredient.deserialize(itemFromName("mekanism:dust_gold", 8)), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.GILDED_GALVITE.get())).build(recipeConsumer);
         }, "mekanism");
     }

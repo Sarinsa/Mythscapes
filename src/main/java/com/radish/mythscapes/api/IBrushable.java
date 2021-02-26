@@ -40,6 +40,5 @@ public interface IBrushable<T extends LivingEntity> {
      *         when this entity is brushed.
      *         Return ItemStack.EMPTY for no drop.
      */
-    @NotNull
     ItemStack itemDropped(T livingEntity, Random random, int fortuneLevel);
 }

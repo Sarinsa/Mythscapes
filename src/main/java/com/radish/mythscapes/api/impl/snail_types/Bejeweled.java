@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biomes;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class Bejeweled implements ISnailType {
     }
 
     @Override
-    public @Nullable ItemStack getShedDrop(Random random) {
+    public @Nullable ItemStack getShedDrop(@NotNull Random random) {
         return new ItemStack(MythItems.BEJEWELED_SNAIL_SHELL.get());
     }
 

@@ -17,14 +17,14 @@ public class QuarkConfigHelper extends AbstractConfigHelper {
 
     @Override
     public List<String> getConfigEntries() {
-        return ImmutableList.of(QUARK_SIGN_EDIT, QUARK_SIGN_EDIT_REQUIRE_EMPTY_HAND, "egqhrwe");
+        return ImmutableList.of(QUARK_SIGN_EDIT, QUARK_SIGN_EDIT_REQUIRE_EMPTY_HAND);
     }
 
     public boolean signEditingEnabled() {
-        return this.getConfig().get(QUARK_SIGN_EDIT);
+        return this.getValue(QUARK_SIGN_EDIT);
     }
 
     public boolean signEditRequireEmptyHand() {
-        return this.getConfig().get(QUARK_SIGN_EDIT_REQUIRE_EMPTY_HAND);
+        return this.getValue(QUARK_SIGN_EDIT_REQUIRE_EMPTY_HAND);
     }
 }

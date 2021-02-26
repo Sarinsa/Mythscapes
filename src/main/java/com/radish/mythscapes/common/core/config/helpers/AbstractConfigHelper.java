@@ -24,6 +24,10 @@ public abstract class AbstractConfigHelper {
 
     public abstract List<String> getConfigEntries();
 
+    public <T> T getValue(String entry) {
+        return this.getConfig().get(entry);
+    }
+
     /**
      * All this does is hopefully provide some log error info
      * in case a mod's config entries changes name or hierarchy

@@ -22,8 +22,11 @@ public final class RegistryHelper implements IRegistryHelper {
      * Used for printing debug info to the log.
      * Updates each time a new plugin is found.
      */
-    private String pluginID = "missingno";
+    private String pluginID;
 
+    public RegistryHelper() {
+        this.pluginID = "missingno";
+    }
 
     public void setCurrentPluginID(IMythscapesPlugin pluginInstance) {
         this.pluginID = pluginInstance.getPluginName();
@@ -51,11 +54,11 @@ public final class RegistryHelper implements IRegistryHelper {
 
     private boolean validSnailType(Class<? extends LivingEntity> entityClass, IBrushable<?> iBrushable) {
         if (entityClass == null || iBrushable == null) {
-            LOGGER.warn("Plugin " + this.pluginID + " tried to register null brushable! This can't be right?");
+            LOGGER.warn("Plugin {} tried to register null brushable! This can't be right?", this.pluginID);
             return false;
         }
         if (MythEntities.BRUSHABLES.containsKey(entityClass)) {
-            LOGGER.warn("Plugin " + this.pluginID + " tried to register duplicate brushable for entity class: " + entityClass.getName());
+            LOGGER.warn("Plugin {} tried to register duplicate brushable for entity class: {}", this.pluginID, entityClass.getName());
             return false;
         }
         return true;
@@ -66,15 +69,15 @@ public final class RegistryHelper implements IRegistryHelper {
         SnailTypeRegister register = Mythscapes.getInstance().getSnailTypeRegister();
 
         if (snailType == null || (snailType.getName() == null || snailType.getName() == null)) {
-            LOGGER.warn("Plugin " + this.pluginID + " tried to register a snail type that is either null or has no name. Oof.");
+            LOGGER.warn("Plugin {} tried to register a snail type that is either null or has no name. Oof.", this.pluginID);
             return;
         }
         if (snailType.getRarity() == null) {
-            LOGGER.warn("Plugin " + this.pluginID + " tried to register snail type with null rarity. For shame! Type: " + snailType.getName());
+            LOGGER.warn("Plugin {} tried to register snail type with null rarity. For shame! Type: {}", this.pluginID, snailType.getName());
             return;
         }
         if (register.getRegistry().containsKey(snailType.getName())) {
-            LOGGER.warn("Plugin " + this.pluginID + " tried to register duplicate snail type! Type: " + snailType.getName());
+            LOGGER.warn("Plugin {} tried to register duplicate snail type! Type: {}", this.pluginID, snailType.getName());
             return;
         }
         register.register(snailType);

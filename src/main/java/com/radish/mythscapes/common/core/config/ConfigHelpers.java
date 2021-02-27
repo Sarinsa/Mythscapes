@@ -16,10 +16,9 @@ import java.util.EnumMap;
 
 public class ConfigHelpers {
 
-    // Config helpers are only safe to use after
-    // FMLCommonSetupEvent after they have been initialized
-    public static LazyOptional<QuarkConfigHelper> QUARK_CONFIG_HELPER;
+    public static LazyOptional<QuarkConfigHelper> QUARK_CONFIG_HELPER = LazyOptional.empty();
 
+    // Called during FMLCommonSetupEvent
     public static void initHelpers() {
         QUARK_CONFIG_HELPER = createConfigHelper("quark", ModConfig.Type.COMMON, QuarkConfigHelper::new);
     }

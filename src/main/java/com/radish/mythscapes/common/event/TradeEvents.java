@@ -16,7 +16,7 @@ public class TradeEvents {
     public void onVillagerTrade(VillagerTradesEvent event) {
 
         if (event.getType() == VillagerProfession.SHEPHERD) {
-            event.getTrades().get(5).add(new BasicTrade(4, new ItemStack(MythItems.BRUSH.get()), 3, 0));
+            event.getTrades().get(5).add(new BasicTrade(5, new ItemStack(MythItems.BRUSH.get()), 3, 0));
             event.getTrades().get(5).removeIf((iTrade -> {
                 MerchantOffer offer = iTrade.getOffer(null, null);
                 return offer != null && offer.getSellingStack().getItem() == Items.PAINTING;

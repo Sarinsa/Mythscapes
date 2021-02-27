@@ -1,6 +1,6 @@
 package com.radish.mythscapes.common.mixin;
 
-import com.radish.mythscapes.common.misc.MixinHooks;
+import com.radish.mythscapes.common.misc.mixin.CommonMixinHooks;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -29,6 +29,6 @@ public abstract class ComposterBlockMixin extends Block implements ISidedInvento
 
     @Inject(method = "tick", at = @At("HEAD"))
     public void onTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand, CallbackInfo callbackInfo) {
-        MixinHooks.onComposterBlockTick(state, worldIn, pos, rand);
+        CommonMixinHooks.onComposterBlockTick(state, worldIn, pos, rand);
     }
 }

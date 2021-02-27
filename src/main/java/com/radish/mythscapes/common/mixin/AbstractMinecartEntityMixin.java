@@ -1,6 +1,6 @@
 package com.radish.mythscapes.common.mixin;
 
-import com.radish.mythscapes.common.misc.MixinHooks;
+import com.radish.mythscapes.common.misc.mixin.CommonMixinHooks;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -22,6 +22,6 @@ public abstract class AbstractMinecartEntityMixin extends Entity implements IFor
 
     @Inject(method = "moveAlongTrack", at = @At("HEAD"), cancellable = true)
     public void onMoveMinecartOnRail(BlockPos pos, BlockState state, CallbackInfo callbackInfo) {
-        MixinHooks.onMoveMinecartOnRail(pos, state, this.getMinecart(), callbackInfo);
+        CommonMixinHooks.onMoveMinecartOnRail(pos, state, this.getMinecart(), callbackInfo);
     }
 }

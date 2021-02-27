@@ -1,4 +1,4 @@
-package com.radish.mythscapes.common.misc;
+package com.radish.mythscapes.common.misc.mixin;
 
 import com.radish.mythscapes.common.core.config.MythConfig;
 import com.radish.mythscapes.common.entities.living.SnailEntity;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MixinHooks {
+public class CommonMixinHooks {
 
     public static void onMoveMinecartOnRail(BlockPos pos, BlockState state, AbstractMinecartEntity entity, CallbackInfo callbackInfo) {
         if (state.isIn(MythBlocks.LAUNCHER_RAIL.get()) && state.get(PoweredRailBlock.POWERED)) {

@@ -1,4 +1,4 @@
-package com.radish.mythscapes.common.misc;
+package com.radish.mythscapes.common.items;
 
 import net.minecraft.item.Food;
 import net.minecraft.potion.EffectInstance;

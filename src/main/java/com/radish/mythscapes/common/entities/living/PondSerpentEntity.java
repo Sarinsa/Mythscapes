@@ -1,13 +1,12 @@
 package com.radish.mythscapes.common.entities.living;
 
 import com.radish.mythscapes.common.core.Mythscapes;
-import com.radish.mythscapes.common.misc.Util;
+import com.radish.mythscapes.common.misc.BiomeUtil;
 import com.radish.mythscapes.common.register.MythItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.item.BoatEntity;
 import net.minecraft.entity.passive.fish.AbstractFishEntity;
 import net.minecraft.entity.passive.fish.AbstractGroupFishEntity;
 import net.minecraft.item.ItemStack;
@@ -23,8 +22,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Locale;
 
 public class PondSerpentEntity extends AbstractGroupFishEntity {
 
@@ -64,7 +61,7 @@ public class PondSerpentEntity extends AbstractGroupFishEntity {
     }
 
     private void setSerpentType(Biome biome) {
-        boolean bool = !(Util.areBiomesEqual(biome, Biomes.LUKEWARM_OCEAN) || Util.areBiomesEqual(biome, Biomes.WARM_OCEAN));
+        boolean bool = !(BiomeUtil.areBiomesEqual(biome, Biomes.LUKEWARM_OCEAN) || BiomeUtil.areBiomesEqual(biome, Biomes.WARM_OCEAN));
         this.setSerpentType(bool ? Type.BLUE.getName() : Type.GREEN.getName());
     }
 

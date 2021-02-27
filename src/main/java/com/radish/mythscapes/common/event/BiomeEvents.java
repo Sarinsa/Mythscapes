@@ -19,8 +19,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.List;
 
-import static com.radish.mythscapes.common.misc.Util.areBiomesEqual;
-import static com.radish.mythscapes.common.misc.Util.hasDictType;
+import static com.radish.mythscapes.common.misc.BiomeUtil.areBiomesEqual;
+import static com.radish.mythscapes.common.misc.BiomeUtil.hasDictType;
 import static com.radish.mythscapes.common.register.MythEntities.*;
 
 public class BiomeEvents {

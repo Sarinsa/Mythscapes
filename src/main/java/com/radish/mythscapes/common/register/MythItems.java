@@ -1,43 +1,26 @@
 package com.radish.mythscapes.common.register;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.radish.mythscapes.client.renderers.tile.MythChestTileEntityRenderer;
 import com.radish.mythscapes.common.blocks.MythChestBlock;
 import com.radish.mythscapes.common.core.Mythscapes;
-import com.radish.mythscapes.common.effects.MythEffect;
 import com.radish.mythscapes.common.entities.misc.MythBoatEntity;
 import com.radish.mythscapes.common.items.*;
 import com.radish.mythscapes.common.items.armor.MythArmorItem;
 import com.radish.mythscapes.common.items.armor.MythArmorTypes;
-import com.radish.mythscapes.common.misc.MythFoods;
+import com.radish.mythscapes.common.items.MythFoods;
 import com.radish.mythscapes.common.misc.MythItemGroup;
-import com.radish.mythscapes.common.tile.MythChestTileEntity;
-import com.radish.mythscapes.common.util.QuadConsumer;
 import net.minecraft.block.Block;
 import net.minecraft.block.ComposterBlock;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.*;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.DrinkHelper;
 import net.minecraft.util.IItemProvider;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.concurrent.Callable;
 import java.util.function.Supplier;
 
 import static com.radish.mythscapes.common.register.MythBlocks.BLISTERBERRY_THISTLE;

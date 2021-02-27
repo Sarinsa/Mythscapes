@@ -11,18 +11,29 @@ public interface IRegistryHelper {
 
     /**
      * Registers an IBrushable instance and associates it with the specified
-     * entity class. Note that we already have a fair amount of brushables registered
-     * for a lot of vanilla animals, and it cannot be overridden.
+     * entity class.
      *
      * @param entityClass The entity class to assign the IBrushable to.
-     * @param iBrushable The IBrushable instance to register.
+     * @param brushable The IBrushable instance to register.
      */
-    void registerBrushable(Class<? extends LivingEntity> entityClass, IBrushable<?> iBrushable);
+    void registerBrushable(Class<? extends LivingEntity> entityClass, IBrushable<?> brushable);
 
     /**
-     * Registers a new snail type for the Pygmy Snail.
+     * If an entity already has an IBrushable associated with it by the time your
+     * plugin is loaded, this method can be used to replace the existing IBrushable.
      *
-     * @param snailType A new instance of an ISnailType
+     * In other words, if you wish to remove an integrated IBrushable for a vanilla entity
+     * Mythscapes already has covered and replace it with your own, this is the way to go.
+     *
+     * @param entityClass The entity class to assign the IBrushable to.
+     * @param newBrushable The new IBrushable instance to replace the existing on with.
+     */
+    void overrideBrushable(Class<? extends LivingEntity> entityClass, IBrushable<?> newBrushable);
+
+    /**
+     * Registers a new snail type for the Pygmy Snail entity.
+     *
+     * @param snailType A new instance of an ISnailType.
      */
     void registerSnailType(ISnailType snailType);
 }

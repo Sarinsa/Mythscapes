@@ -30,15 +30,35 @@ public final class RegistryHelper implements IRegistryHelper {
     }
 
     public void registerBrushable(Class<? extends LivingEntity> entityClass, IBrushable<?> iBrushable) {
+        if (!validSnailType(entityClass, iBrushable))
+            return;
+        MythEntities.BRUSHABLES.putIfAbsent(entityClass, iBrushable);
+    }
+
+    @Override
+    public void overrideBrushable(Class<? extends LivingEntity> entityClass, IBrushable<?> newBrushable) {
+        if (!validSnailType(entityClass, newBrushable))
+            return;
+
+        if (MythEntities.BRUSHABLES.containsKey(entityClass)) {
+            MythEntities.BRUSHABLES.remove(entityClass);
+            MythEntities.BRUSHABLES.put(entityClass, newBrushable);
+        }
+        else {
+            LOGGER.warn("Mythscapes plugin '{}' tried to override a brushable that does not exist.", this.pluginID);
+        }
+    }
+
+    private boolean validSnailType(Class<? extends LivingEntity> entityClass, IBrushable<?> iBrushable) {
         if (entityClass == null || iBrushable == null) {
             LOGGER.warn("Plugin " + this.pluginID + " tried to register null brushable! This can't be right?");
-            return;
+            return false;
         }
         if (MythEntities.BRUSHABLES.containsKey(entityClass)) {
             LOGGER.warn("Plugin " + this.pluginID + " tried to register duplicate brushable for entity class: " + entityClass.getName());
-            return;
+            return false;
         }
-        MythEntities.BRUSHABLES.putIfAbsent(entityClass, iBrushable);
+        return true;
     }
 
     @Override

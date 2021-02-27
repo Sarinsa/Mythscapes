@@ -3,6 +3,7 @@ package com.radish.mythscapes.common.register;
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.worldgen.MythConfiguredFeatures;
 import net.minecraft.util.RegistryKey;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
@@ -23,7 +24,7 @@ public class MythBiomes {
 
     public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, Mythscapes.MODID);
 
-    public static final RegistryObject<Biome> TEST_BIOME = BIOMES.register("static_forest", MythBiomes::createTestBiome);
+    public static final RegistryObject<Biome> TEST_BIOME = BIOMES.register("static_forest", MythBiomes::createStaticForest);
 
 
     public static void registerBiomeInfo() {
@@ -32,22 +33,22 @@ public class MythBiomes {
     }
 
     private static void registerBiomes() {
-        registerBiome(TEST_BIOME);
+        registerBiome(TEST_BIOME, BiomeManager.BiomeType.COOL, 8);
     }
 
     private static void addBiomeToDictionary() {
         BiomeDictionary.addTypes(getRegistryKey(TEST_BIOME), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.OVERWORLD);
     }
 
-    private static void registerBiome(Supplier<Biome> biomeSupplier) {
-        BiomeManager.addAdditionalOverworldBiomes(getRegistryKey(biomeSupplier));
+    private static void registerBiome(Supplier<Biome> biomeSupplier, BiomeManager.BiomeType biomeType, int weight) {
+        BiomeManager.addBiome(biomeType, new BiomeManager.BiomeEntry(getRegistryKey(biomeSupplier), weight));
     }
 
     private static RegistryKey<Biome> getRegistryKey(Supplier<Biome> biomeSupplier) {
         return ((ForgeRegistry<Biome>)ForgeRegistries.BIOMES).getKey(((ForgeRegistry<Biome>)ForgeRegistries.BIOMES).getID(biomeSupplier.get()));
     }
 
-    private static Biome createTestBiome() {
+    private static Biome createStaticForest() {
         return new Biome.Builder()
                 .category(Biome.Category.PLAINS)
                 .depth(0.125F)
@@ -68,4 +69,10 @@ public class MythBiomes {
                 .withGenerationSettings(new BiomeGenerationSettings.Builder().withSurfaceBuilder(ConfiguredSurfaceBuilders.field_244178_j).build())
                 .build();
         }
+
+    private static int getSkyColorWithTemperatureModifier(float temperature) {
+        float modifier = temperature / 3.0F;
+        modifier = MathHelper.clamp(modifier, -1.0F, 1.0F);
+        return MathHelper.hsvToRGB(0.62222224F - modifier * 0.05F, 0.5F + modifier * 0.1F, 1.0F);
+    }
 }

@@ -15,6 +15,7 @@ import static com.radish.mythscapes.common.core.Mythscapes.LOGGER;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
+@SuppressWarnings("all")
 public final class RegistryHelper implements IRegistryHelper {
 
     /**

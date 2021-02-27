@@ -9,7 +9,9 @@
     "EntityMixin",
     "ComposterBlockMixin"
   ],
-  "client": [],
+  "client": [
+    "LivingRendererMixin"
+  ],
   "server": [],
   "injectors": {
     "defaultRequire": 1

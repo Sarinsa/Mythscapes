@@ -1,6 +1,5 @@
 package com.radish.mythscapes.common.misc;
 
-import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.core.config.MythConfig;
 import com.radish.mythscapes.common.entities.living.SnailEntity;
 import com.radish.mythscapes.common.register.MythBlocks;
@@ -19,8 +18,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.ForgeConfig;
-import net.minecraftforge.common.ForgeConfigSpec;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
@@ -31,12 +28,13 @@ public class MixinHooks {
 
     public static void onMoveMinecartOnRail(BlockPos pos, BlockState state, AbstractMinecartEntity entity, CallbackInfo callbackInfo) {
         if (state.isIn(MythBlocks.LAUNCHER_RAIL.get()) && state.get(PoweredRailBlock.POWERED)) {
+            entity.fallDistance = 0.0F;
             World world = entity.getEntityWorld();
             Vector3d position = entity.getPositionVec();
             Vector3d motion = entity.getMotion();
 
             entity.setPosition(position.getX(), position.getY() + 0.30D, position.getZ());
-            entity.setMotion(motion.getX(), 1.4D, motion.getZ());
+            entity.setMotion(motion.getX() * 1.1D, 1.4D, motion.getZ() * 1.1D);
 
             entity.move(MoverType.SELF, entity.getMotion());
 
@@ -77,8 +75,17 @@ public class MixinHooks {
                     if (snail != null) {
                         snail.setPosition(spawnPos.getX() + 0.5D, spawnPos.getY(), spawnPos.getZ() + 0.5D);
 
-                        for (int i = 0; i < 6; ++i) {
-                            world.spawnParticle(ParticleTypes.CLOUD, snail.getPosX(), snail.getPosY() + (snail.getHeight() / 2), snail.getPosZ(), 1, 0.0D, 0.0D, 0.0D, 0);
+                        for (int i = 0; i < 9; ++i) {
+                            world.spawnParticle(
+                                    ParticleTypes.CLOUD,
+                                    snail.getPosX() + rand.nextGaussian(),
+                                    snail.getPosY() + (snail.getHeight() / 2) + (rand.nextGaussian() / 2),
+                                    snail.getPosZ() + rand.nextGaussian(),
+                                    1,
+                                    0.0D,
+                                    0.0D,
+                                    0.0D,
+                                    0);
                         }
                     }
                 }

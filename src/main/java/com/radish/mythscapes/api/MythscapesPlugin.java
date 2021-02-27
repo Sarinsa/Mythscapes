@@ -14,7 +14,16 @@ import java.lang.annotation.Target;
 public @interface MythscapesPlugin {
 
     /**
-     * @return Your mod's id.
+     * The modid value is used to determine whether
+     * this plugin should be considered a vanilla addon or not.
+     *
+     * If the value is left empty, the plugin will always be
+     * attempted to be loaded since it is not expected that
+     * it interacts with anything else than vanilla content.
+     *
+     * Otherwise, this value should match your mod's modid.
+     *
+     * @return Your mod's modid or an empty String.
      */
     String modid() default "";
 }

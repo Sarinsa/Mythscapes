@@ -7,10 +7,7 @@ import com.radish.mythscapes.common.worldgen.MythConfiguredFeatures;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.BiomeGenerationSettings;
-import net.minecraft.world.biome.Biomes;
-import net.minecraft.world.biome.DefaultBiomeFeatures;
-import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Features;
 import net.minecraftforge.common.BiomeDictionary;
@@ -28,6 +25,9 @@ import static com.radish.mythscapes.common.register.MythEntities.*;
 
 public class BiomeEvents {
 
+    /**
+     * Biomes from our mod
+     */
     @SubscribeEvent(priority = EventPriority.HIGH)
     public void setupModBiomes(BiomeLoadingEvent event) {
         ResourceLocation biomeName = event.getName();
@@ -42,9 +42,14 @@ public class BiomeEvents {
             DefaultBiomeFeatures.withLavaAndWaterLakes(generationSettings);
             DefaultBiomeFeatures.withStrongholdAndMineshaft(generationSettings);
             DefaultBiomeFeatures.withOverworldOres(generationSettings);
+            DefaultBiomeFeatures.withMonsterRoom(generationSettings);
+            DefaultBiomeFeatures.withDisks(generationSettings);
+            generationSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_PLAIN);
             generationSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_TALL_GRASS);
             generationSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MythConfiguredFeatures.PATCH_CHARGED_DANDELIONS);
 
+            spawnInfoBuilder.isValidSpawnBiomeForPlayer();
+            DefaultBiomeFeatures.withBatsAndHostiles(spawnInfoBuilder);
             DefaultBiomeFeatures.withPassiveMobs(spawnInfoBuilder);
         }
     }

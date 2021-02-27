@@ -87,8 +87,8 @@ public class Mythscapes {
         event.enqueueWork(() -> {
             MythItems.registerItemData();
             MythBlocks.registerBlockData();
-            MythBiomes.registerBiomeInfo();
             MythConfiguredFeatures.register();
+            MythBiomes.registerBiomeInfo();
             MythEntities.registerData();
             MythSounds.registerParrotMimics();
             DispenserBehavior.register();
@@ -102,6 +102,7 @@ public class Mythscapes {
         ModList.get().getAllScanData().forEach(scanData -> {
             scanData.getAnnotations().forEach(annotationData -> {
 
+                // Look for classes annotated with @MythscapesPlugin
                 if (annotationData.getAnnotationType().getClassName().equals(MythscapesPlugin.class.getName())) {
                     String modid = (String) annotationData.getAnnotationData().getOrDefault("modid", "");
 

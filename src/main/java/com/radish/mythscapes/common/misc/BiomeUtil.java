@@ -6,7 +6,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class Util {
+public class BiomeUtil {
 
     public static boolean areBiomesEqual(Biome biome, RegistryKey<Biome> registryKey) {
         if (biome.getRegistryName() == null) {

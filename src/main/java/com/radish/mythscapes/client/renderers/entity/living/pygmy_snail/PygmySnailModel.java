@@ -14,8 +14,6 @@ public class PygmySnailModel<T extends SnailEntity> extends EntityModel<T> {
     private final ModelRenderer pygmySnail;
     private final ModelRenderer snail;
     private final ModelRenderer shell;
-    //private final ModelRenderer overgrowth;
-    //private final ModelRenderer overgrowthCross;
 
     public PygmySnailModel() {
         textureWidth = 32;
@@ -36,21 +34,6 @@ public class PygmySnailModel<T extends SnailEntity> extends EntityModel<T> {
         shell.setRotationPoint(0.0F, 0.0F, 0.0F);
         snail.addChild(shell);
         shell.setTextureOffset(0, 13).addBox(-2.5F, -5.0F, -2.5F, 5.0F, 5.0F, 5.0F, 0.0F, false);
-
-        /*
-        overgrowth = new ModelRenderer(this);
-        overgrowth.setRotationPoint(-1.0F, 0.0F, 0.5F);
-        shell.addChild(overgrowth);
-        overgrowth.setTextureOffset(0, 14).addBox(1.0F, -7.0F, -4.0F, 0.0F, 5.0F, 9.0F, 0.0F, false);
-
-        overgrowthCross = new ModelRenderer(this);
-        overgrowthCross.setRotationPoint(1.0F, -5.0F, 0.0F);
-        overgrowth.addChild(overgrowthCross);
-        setRotationAngle(overgrowthCross, 0.0F, 0.7854F, 0.0F);
-        overgrowthCross.setTextureOffset(13, 0).addBox(-2.0F, -5.0F, 0.0F, 5.0F, 5.0F, 0.0F, 0.0F, false);
-        overgrowthCross.setTextureOffset(15, 8).addBox(0.0F, -5.0F, -3.0F, 0.0F, 5.0F, 5.0F, 0.0F, false);
-
-         */
     }
 
     @Override

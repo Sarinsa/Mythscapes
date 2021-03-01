@@ -15,7 +15,7 @@ public class PygmySnailTailGrowthModel<T extends SnailEntity> extends EntityMode
         this.textureWidth = 32;
 
         tailGrowth = new ModelRenderer(this);
-        tailGrowth.setRotationPoint(-1.0F, 0.0F, 0.5F);
+        tailGrowth.setRotationPoint(-1.0F, 25.0F, 0.5F);
         tailGrowth.setTextureOffset(0, 14).addBox(1.0F, -7.0F, -4.0F, 0.0F, 5.0F, 9.0F, 0.0F, false);
     }
 
@@ -27,7 +27,7 @@ public class PygmySnailTailGrowthModel<T extends SnailEntity> extends EntityMode
 
     @Override
     public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.tailGrowth.setRotationPoint(-1.0F, 25.0F, 0.5F);
+
     }
 
     @Override

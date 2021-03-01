@@ -52,8 +52,6 @@ public class Mythscapes {
         MythEntities.initTypes();
         CraftingUtility.registerConditions();
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MythConfig.COMMON_SPEC);
-
         this.packetHandler.registerMessages();
 
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -79,6 +77,8 @@ public class Mythscapes {
         MythEffects.POTION_EFFECTS.register(eventBus);
         MythEnchantments.ENCHANTMENTS.register(eventBus);
         MythTileEntities.TILE_ENTITIES.register(eventBus);
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MythConfig.COMMON_SPEC);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {

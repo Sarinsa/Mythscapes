@@ -1,6 +1,7 @@
 package com.radish.mythscapes.common.register;
 
 import com.radish.mythscapes.common.core.Mythscapes;
+import com.radish.mythscapes.common.core.config.MythConfig;
 import com.radish.mythscapes.common.worldgen.MythConfiguredFeatures;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.MathHelper;
@@ -24,7 +25,7 @@ public class MythBiomes {
 
     public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, Mythscapes.MODID);
 
-    public static final RegistryObject<Biome> TEST_BIOME = BIOMES.register("static_forest", MythBiomes::createStaticForest);
+    public static final RegistryObject<Biome> STATIC_FOREST = BIOMES.register("static_forest", MythBiomes::createStaticForest);
 
 
     public static void registerBiomeInfo() {
@@ -33,11 +34,13 @@ public class MythBiomes {
     }
 
     private static void registerBiomes() {
-        registerBiome(TEST_BIOME, BiomeManager.BiomeType.COOL, 8);
+        MythConfig.Common config = MythConfig.COMMON;
+
+        registerBiome(STATIC_FOREST, BiomeManager.BiomeType.COOL, config.getBiomeWeight(STATIC_FOREST));
     }
 
     private static void addBiomeToDictionary() {
-        BiomeDictionary.addTypes(getRegistryKey(TEST_BIOME), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.OVERWORLD);
+        BiomeDictionary.addTypes(getRegistryKey(STATIC_FOREST), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.OVERWORLD);
     }
 
     private static void registerBiome(Supplier<Biome> biomeSupplier, BiomeManager.BiomeType biomeType, int weight) {

@@ -37,7 +37,7 @@ public class BiomeEvents {
         if (biomeName == null)
             return;
 
-        if (biomeName.equals(MythBiomes.TEST_BIOME.get().getRegistryName())) {
+        if (biomeName.equals(MythBiomes.STATIC_FOREST.get().getRegistryName())) {
             DefaultBiomeFeatures.withCavesAndCanyons(generationSettings);
             DefaultBiomeFeatures.withLavaAndWaterLakes(generationSettings);
             DefaultBiomeFeatures.withStrongholdAndMineshaft(generationSettings);

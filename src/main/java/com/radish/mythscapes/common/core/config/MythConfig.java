@@ -1,7 +1,17 @@
 package com.radish.mythscapes.common.core.config;
 
+import com.radish.mythscapes.common.core.Mythscapes;
+import com.radish.mythscapes.common.register.MythBiomes;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.fml.RegistryObject;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.Level;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.function.Supplier;
 
 public class MythConfig {
 
@@ -16,11 +26,21 @@ public class MythConfig {
 
     public static class Common {
 
+        private final HashMap<String, ForgeConfigSpec.IntValue> biomeWeights = new HashMap<>();
+
+        // Snail stuff
         public final ForgeConfigSpec.BooleanValue composterSpawnSnails;
         public final ForgeConfigSpec.IntValue composterSnailMaxCount;
         public final ForgeConfigSpec.IntValue composterSnailCheckRange;
 
+        // Biome weights
+        public final ForgeConfigSpec.IntValue staticForestWeight;
+
         public Common(ForgeConfigSpec.Builder configBuilder) {
+
+            //
+            // SNAIL CATEGORY
+            //
             configBuilder.push("snails");
 
             configBuilder.comment("If enabled, composter blocks will have a chance to spawn a Pygmy Snail on random tick if the composter is not empty");
@@ -34,6 +54,37 @@ public class MythConfig {
             composterSnailCheckRange = configBuilder.defineInRange("composterSnailCheckRange", 25, 1, 50);
 
             configBuilder.pop();
+
+            //
+            // BIOME CATEGORY
+            //
+            configBuilder.push("biomes");
+
+            configBuilder.comment("The weights in chance for each of these biomes to generate in the world");
+            staticForestWeight = createBiomeWeight(MythBiomes.STATIC_FOREST, configBuilder, 3, 0, 100);
+
+            configBuilder.pop();
+        }
+
+        public int getBiomeWeight(Supplier<Biome> biomeSupplier) {
+            Biome biome = biomeSupplier.get();
+
+            if (biome.getRegistryName() == null) {
+                Mythscapes.LOGGER.log(Level.ERROR, "Tried to fetch biome weight from biome with null registry name. Why and how did this happen?");
+                return 0;
+            }
+            else {
+                String biomeName = biome.getRegistryName().getPath();
+                return this.biomeWeights.containsKey(biomeName) ? this.biomeWeights.get(biomeName).get() : 0;
+            }
+        }
+
+        private ForgeConfigSpec.IntValue createBiomeWeight(RegistryObject<Biome> biomeRegistryObject, ForgeConfigSpec.Builder configBuilder, int defaultValue, int min, int max) {
+            String biomeName = biomeRegistryObject.getId().getPath();
+            ForgeConfigSpec.IntValue value = configBuilder.defineInRange(biomeName, defaultValue, min, max);
+
+            this.biomeWeights.put(biomeName, value);
+            return value;
         }
 
         public boolean getComposterSnails() {

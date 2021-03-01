@@ -48,6 +48,10 @@ public class MythBiomes {
         return ((ForgeRegistry<Biome>)ForgeRegistries.BIOMES).getKey(((ForgeRegistry<Biome>)ForgeRegistries.BIOMES).getID(biomeSupplier.get()));
     }
 
+
+    //
+    //  BIOMES
+    //
     private static Biome createStaticForest() {
         return new Biome.Builder()
                 .category(Biome.Category.PLAINS)

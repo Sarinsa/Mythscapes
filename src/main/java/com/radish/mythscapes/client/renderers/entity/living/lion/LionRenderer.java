@@ -13,7 +13,7 @@ public class LionRenderer extends MobRenderer<LionEntity, LionModel<LionEntity>>
 
     public LionRenderer(EntityRendererManager rendererManager) {
         super(rendererManager, new LionModel<>(), 0.7f);
-        this.addLayer(new LionManeLayer(this));
+        this.addLayer(new LionManeLayer<>(this));
     }
 
     @Override

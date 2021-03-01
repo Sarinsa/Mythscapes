@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.radish.mythscapes.api.ISnailType;
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.register.MythItems;
+import com.radish.mythscapes.common.util.TextureUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
@@ -16,7 +17,7 @@ import java.util.Random;
 
 public class Bejeweled implements ISnailType {
 
-    private static final ResourceLocation TEXTURE = Mythscapes.resourceLoc("textures/entity/pygmy_snail/bejeweled.png");
+    private static final ResourceLocation TEXTURE = TextureUtil.entityTexture("pygmy_snail/bejeweled");
     private static final ResourceLocation NAME = Mythscapes.resourceLoc("bejeweled");
 
     @Override

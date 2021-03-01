@@ -3,8 +3,8 @@ package com.radish.mythscapes.api;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -14,16 +14,20 @@ import java.util.Random;
  */
 public interface ISnailType {
 
-    // Currently not used.
     /**
-     * Used to determine if this snail type
-     * should render a "growth" render layer.
-     * For instance, the mushroom snail type
-     * has a "growth" on it's back and the flower
-     * snail type has both a "growth" on its back
-     * and "tail".
+     * This is used to determine if either of the extra
+     * "growth" models should be rendered for this snail type.
+     *
+     * For example, the Flower Forest snail type uses BOTH,
+     * rendering the cross pattern flower on it's back and the
+     * lesser flower on it's tail.
+     *
+     * NONE: Render none of the growth models.
+     * BACK: Render the cross pattern model on the snail's back.
+     * TAIL: Render the flat growth model behind the snail.
+     * BOTH: Render both the back and tail growth model.
      */
-    enum GrowthRenderLayer {
+    enum GrowthRenderType {
         NONE,
         BACK,
         TAIL,
@@ -31,28 +35,24 @@ public interface ISnailType {
     }
 
     /**
-     * @return The GrowthRenderLayer type to be used
-     *         when rendering the Pygmy Snail entity
-     *         depending on snail type.
-     *
-     *         NONE: No rendered growths.
-     *         BACK: Will render the back growth.
-     *         TAIL: Will render the tail growth.
-     *         BOTH: Will render both tail and back growth.
+     * @return The GrowthRenderType to be used
+     *         when rendering the snail.
      */
-    default GrowthRenderLayer getGrowthRenderLayer() {
-        return GrowthRenderLayer.NONE;
+    default GrowthRenderType getGrowthRenderType() {
+        return GrowthRenderType.NONE;
     }
 
     /**
-     * Returns a ResourceLocation pointing to
-     * the texture of this snail type.
+     * @return The ResourceLocation pointing to
+     *         the texture of this snail type.
      */
     ResourceLocation getSnailTexture();
 
     /**
-     * Returns the registry name for this snail
-     * type with your mod's namespace.
+     * @return A ResourceLocation with your mod's
+     *         namespace and an unlocalized name.
+     *
+     *         Example: <code>new ResourceLocation("epic_mod", "super_snail")</code>
      */
     ResourceLocation getName();
 

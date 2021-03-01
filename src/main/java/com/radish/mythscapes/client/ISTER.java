@@ -15,10 +15,10 @@ import java.util.concurrent.Callable;
 import java.util.function.Supplier;
 
 /**
- * Keep all our ISTERs in here to avoid
- * directly referencing them, which would
- * most likely give us a crash due to tile
- * entity types not being registered yet.
+ * Keep all our ISTERs in a separate class here
+ * to avoid class loading going bonkers and
+ * loading this stuff before tile entity types
+ * are registered.
  */
 public class ISTER {
 

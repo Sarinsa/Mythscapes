@@ -229,7 +229,7 @@ public class LionEntity extends AnimalEntity {
     }
 
     public boolean hasMane() {
-        return this.getTimeManeRegrow() <= 0;
+        return  !this.isChild() && this.getTimeManeRegrow() <= 0;
     }
 
     public boolean isLying() {

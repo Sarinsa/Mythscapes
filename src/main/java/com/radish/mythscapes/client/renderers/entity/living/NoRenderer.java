@@ -12,12 +12,14 @@ import net.minecraft.util.ResourceLocation;
  */
 public class NoRenderer<T extends Entity> extends EntityRenderer<T> {
 
+    private static final ResourceLocation BLANK = new ResourceLocation("");
+
     public NoRenderer(EntityRendererManager renderManager) {
         super(renderManager);
     }
 
     @Override
     public ResourceLocation getEntityTexture(T entity) {
-        return new ResourceLocation("");
+        return BLANK;
     }
 }

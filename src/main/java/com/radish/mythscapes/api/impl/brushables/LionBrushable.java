@@ -18,7 +18,7 @@ public class LionBrushable implements IBrushable<LionEntity> {
 
     @Override
     public boolean canBrush(LionEntity lionEntity, World world) {
-        return !lionEntity.isChild() && lionEntity.hasMane();
+        return lionEntity.hasMane();
     }
 
     @Override

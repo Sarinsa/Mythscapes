@@ -7,6 +7,7 @@ import com.radish.mythscapes.common.recipe.conditions.QuarkFlagCondition;
 import com.radish.mythscapes.common.register.MythItems;
 import com.radish.mythscapes.datagen.recipe.builders.NullableItemGroupShapedRecipeBuilder;
 import com.radish.mythscapes.datagen.recipe.builders.NullableItemGroupShapelessRecipeBuilder;
+import com.radish.mythscapes.datagen.recipe.builders.NullableItemGroupSingleItemRecipeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.data.*;
 import net.minecraft.item.Item;
@@ -119,8 +120,7 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
         String ingredientName = itemName(ingredient);
         String resultName = itemName(result.get());
 
-        SingleItemRecipeBuilder
-                .stonecuttingRecipe(Ingredient.fromItems(ingredient), result.get(), count)
+        NullableItemGroupSingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(ingredient), result.get(), count)
                 .addCriterion("has_" + ingredientName, hasItem(ingredient))
                 .build(consumer, resultName + "_from_" + ingredientName + "_stonecutting");
     }
@@ -289,7 +289,7 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
         String ingredientName = itemName(result);
         CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(ingredient), result, experience, 200)
                 .addCriterion("has_" + ingredientName, hasItem(ingredient))
-                .build(consumer, ingredientName + "_from_smelting");
+                .build(consumer, Mythscapes.resourceLoc(ingredientName + "_from_smelting"));
     }
 
     protected void blastingRecipe(IItemProvider ingredient, IItemProvider result, float experience, Consumer<IFinishedRecipe> consumer) {
@@ -298,7 +298,7 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
 
         CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(ingredient), result, experience, 100)
                 .addCriterion("has_" + ingredientName, hasItem(ingredient))
-                .build(consumer, resultName + "_from_" + ingredientName + "_blasting");
+                .build(consumer, Mythscapes.resourceLoc(resultName + "_from_" + ingredientName + "_blasting"));
     }
 
     protected void smokerRecipe(IItemProvider ingredient, IItemProvider result, float experience, Consumer<IFinishedRecipe> consumer) {
@@ -307,7 +307,7 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
 
         CookingRecipeBuilder.cookingRecipe(Ingredient.fromItems(ingredient), result, experience, 100, CookingRecipeSerializer.SMOKING)
                 .addCriterion("has_" + ingredientName, hasItem(ingredient))
-                .build(consumer, resultName + "_from_" + ingredientName + "_smoking");
+                .build(consumer, Mythscapes.resourceLoc(resultName + "_from_" + ingredientName + "_smoking"));
     }
 
     protected void campfireRecipe(IItemProvider ingredient, IItemProvider result, float experience, Consumer<IFinishedRecipe> consumer) {
@@ -316,7 +316,7 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
 
         CookingRecipeBuilder.cookingRecipe(Ingredient.fromItems(ingredient), result, experience, 600, CookingRecipeSerializer.CAMPFIRE_COOKING)
                 .addCriterion("has_" + ingredientName, hasItem(ingredient))
-                .build(consumer, resultName + "_from_" + ingredientName + "_campfire");
+                .build(consumer, Mythscapes.resourceLoc(resultName + "_from_" + ingredientName + "_campfire"));
     }
 
     protected void quarkVerticalSlabRecipe(IItemProvider verticalSlab, IItemProvider normalSlab) {
@@ -337,7 +337,7 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
             NullableItemGroupShapelessRecipeBuilder.shapelessRecipe(normalSlab)
                     .addIngredient(verticalSlab)
                     .addCriterion("has_" + horizontal, hasItem(verticalSlab))
-                    .build(recipeConsumer,  horizontal + "_from_" + vertical);
+                    .build(recipeConsumer,  Mythscapes.resourceLoc(horizontal + "_from_" + vertical));
         });
     }
 
@@ -359,7 +359,7 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
             NullableItemGroupShapelessRecipeBuilder.shapelessRecipe(ingredient)
                     .addIngredient(verticalPlanks)
                     .addCriterion("has_" + horizontal, hasItem(verticalPlanks))
-                    .build(recipeConsumer, horizontal + "_from_" + vertical);
+                    .build(recipeConsumer, Mythscapes.resourceLoc(horizontal + "_from_" + vertical));
         });
     }
 
@@ -443,7 +443,7 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
                     .patternLine("###")
                     .key('#', logs)
                     .addCriterion("has_" + logsName, hasItem(logs))
-                    .build(recipeConsumer, chestName + "_from_" + logsName);
+                    .build(recipeConsumer, Mythscapes.resourceLoc(chestName + "_from_" + logsName));
         });
 
         this.quarkFlagRecipe("variant_chests", recipeConsumer -> {
@@ -453,7 +453,7 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
                     .patternLine("###")
                     .key('#', planks)
                     .addCriterion("has_" + planksName, hasItem(planks))
-                    .build(recipeConsumer, chestName + "_from_" + planksName);
+                    .build(recipeConsumer, Mythscapes.resourceLoc(chestName + "_from_" + planksName));
         });
 
         this.quarkFlagRecipe("variant_chests", recipeConsumer -> {

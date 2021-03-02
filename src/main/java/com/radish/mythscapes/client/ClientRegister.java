@@ -12,6 +12,7 @@ import com.radish.mythscapes.client.renderers.entity.misc.boat.MythBoatRenderer;
 import com.radish.mythscapes.client.renderers.tile.MythChestTileEntityRenderer;
 import com.radish.mythscapes.client.renderers.tile.MythSignTileEntityRenderer;
 import com.radish.mythscapes.client.screen.config.MythConfigScreen;
+import com.radish.mythscapes.common.blocks.compat.MythTintedHedgeBlock;
 import com.radish.mythscapes.common.blocks.compat.TintedLeafCarpetBlock;
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.register.MythBlocks;
@@ -85,6 +86,10 @@ public class ClientRegister {
         TintedLeafCarpetBlock.blockList.forEach((block -> {
             blockColors.register((state, displayReader, blockPos, i) -> block.getLeavesColor(), block);
         }));
+
+        MythTintedHedgeBlock.blockList.forEach((block) -> {
+            blockColors.register((state, displayReader, blockPos, i) -> block.getLeavesColor(), block);
+        });
     }
 
     public static void registerEntityRenderers(Supplier<Minecraft> minecraftSupplier) {
@@ -115,7 +120,7 @@ public class ClientRegister {
         setRenderLayer(MythBlocks.WOLT_LEAF_CARPET.get(), RenderType.getCutoutMipped());
         setRenderLayer(MythBlocks.WOLT_POST.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.WOLT_POST_STRIPPED.get(), RenderType.getCutout());
-
+        setRenderLayer(MythBlocks.WOLT_HEDGE.get(), RenderType.getCutout());
 
         setRenderLayer(MythBlocks.BLISTERBERRY_THISTLE.get(), RenderType.getCutout());
         setRenderLayer(MythBlocks.CHARGED_DANDELION.get(), RenderType.getCutout());

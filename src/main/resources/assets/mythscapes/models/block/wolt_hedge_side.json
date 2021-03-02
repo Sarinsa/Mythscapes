@@ -1,0 +1,6 @@
+{
+  "parent": "mythscapes:block/quark_hedge_side",
+  "textures": {
+    "leaf": "mythscapes:block/wolt_leaves"
+  }
+}

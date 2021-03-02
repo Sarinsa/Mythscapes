@@ -117,6 +117,7 @@ public class MythItems {
     public static final RegistryObject<Item> WOLT_BOOKSHELF = registerBurnableBlockItem(MythBlocks.WOLT_BOOKSHELF, compatProperties(QUARK), 300);
     public static final RegistryObject<Item> WOLT_POST = registerBurnableBlockItem(MythBlocks.WOLT_POST, compatProperties(QUARK), 300);
     public static final RegistryObject<Item> WOLT_POST_STRIPPED = registerBurnableBlockItem(MythBlocks.WOLT_POST_STRIPPED, compatProperties(QUARK), 300);
+    public static final RegistryObject<Item> WOLT_HEDGE = registerBurnableBlockItem(MythBlocks.WOLT_HEDGE, compatProperties(QUARK), 300);
     public static final RegistryObject<Item> WOLT_CHEST = registerChestItem(MythBlocks.WOLT_CHEST, compatProperties(QUARK));
     public static final RegistryObject<Item> WOLT_TRAPPED_CHEST = registerChestItem(MythBlocks.WOLT_TRAPPED_CHEST, compatProperties(QUARK));
     public static final RegistryObject<Item> WOLT_SAPLING = registerBlockItem(MythBlocks.WOLT_SAPLING);

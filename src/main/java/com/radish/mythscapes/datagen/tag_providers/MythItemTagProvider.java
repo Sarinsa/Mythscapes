@@ -95,5 +95,6 @@ public class MythItemTagProvider extends ItemTagsProvider {
         this.copy(MythBlockTags.VERTICAL_SLAB, MythItemTags.VERTICAL_SLAB);
         this.copy(MythBlockTags.PLANKS_VERTICAL_SLAB, MythItemTags.PLANKS_VERTICAL_SLAB);
         this.copy(MythBlockTags.LADDERS, MythItemTags.LADDERS);
+        this.copy(MythBlockTags.HEDGES, MythItemTags.HEDGES);
     }
 }

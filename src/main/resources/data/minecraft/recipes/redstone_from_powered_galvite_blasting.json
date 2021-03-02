@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "item": "mythscapes:powered_galvite"
-  },
-  "result": "minecraft:redstone",
-  "experience": 0.7,
-  "cookingtime": 100
-}

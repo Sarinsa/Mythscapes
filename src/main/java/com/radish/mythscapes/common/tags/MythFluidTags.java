@@ -7,15 +7,15 @@ import net.minecraft.tags.ITag;
 
 public class MythFluidTags {
 
-    public static final ITag.INamedTag<Fluid> CONDUCTIVE = modTag("conductive");
-    public static final ITag.INamedTag<Fluid> SULFUR = modTag("sulfur");
-    public static final ITag.INamedTag<Fluid> SWIMMABLE = modTag("swimmable");
+    public static final ITag.INamedTag<Fluid> CONDUCTIVE = mythTag("conductive");
+    public static final ITag.INamedTag<Fluid> SULFUR = mythTag("sulfur");
+    public static final ITag.INamedTag<Fluid> SWIMMABLE = mythTag("swimmable");
 
     private static ITag.INamedTag<Fluid> forgeTag(String name) {
         return FluidTags.makeWrapperTag("forge:" + name);
     }
 
-    private static ITag.INamedTag<Fluid> modTag(String name) {
+    private static ITag.INamedTag<Fluid> mythTag(String name) {
         return FluidTags.makeWrapperTag(Mythscapes.resourceLoc(name).toString());
     }
 }

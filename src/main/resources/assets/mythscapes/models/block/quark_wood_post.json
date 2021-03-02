@@ -1,5 +1,5 @@
 {
-  "_comment": "Post model from Quark",
+  "_comment": "Model from Quark",
 
   "parent": "minecraft:block/block",
   "textures": {

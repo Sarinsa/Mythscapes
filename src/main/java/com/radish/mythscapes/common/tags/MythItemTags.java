@@ -11,12 +11,13 @@ import net.minecraftforge.common.Tags;
 
 public class MythItemTags {
 
-    public static final ITag.INamedTag<Item> WOLT_LOGS = modTag("wolt_logs");
-    public static final ITag.INamedTag<Item> PRISMARINE = modTag("prismarine");
+    public static final ITag.INamedTag<Item> WOLT_LOGS = mythTag("wolt_logs");
+    public static final ITag.INamedTag<Item> PRISMARINE = mythTag("prismarine");
 
     public static final Tags.IOptionalNamedTag<Item> VERTICAL_SLAB = modTag("vertical_slab", "quark");
     public static final Tags.IOptionalNamedTag<Item> PLANKS_VERTICAL_SLAB = modTag("planks_vertical_slab", "quark");
     public static final Tags.IOptionalNamedTag<Item> LADDERS = modTag("ladders", "quark");
+    public static final Tags.IOptionalNamedTag<Item> HEDGES = modTag("hedges", "quark");
     public static final Tags.IOptionalNamedTag<Item> BOATABLE_CHESTS = modTag("boatable_chests", "quark");
 
 
@@ -24,7 +25,7 @@ public class MythItemTags {
         return ItemTags.makeWrapperTag("forge:" + name);
     }
 
-    private static ITag.INamedTag<Item> modTag(String name) {
+    private static ITag.INamedTag<Item> mythTag(String name) {
         return ItemTags.makeWrapperTag(Mythscapes.resourceLoc(name).toString());
     }
 

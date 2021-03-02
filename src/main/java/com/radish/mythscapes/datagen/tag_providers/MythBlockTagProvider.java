@@ -183,5 +183,9 @@ public class MythBlockTagProvider extends BlockTagsProvider {
         this.getOrCreateBuilder(MythBlockTags.LADDERS)
                 .add(MythBlocks.WOLT_LADDER.get()
         );
+
+        this.getOrCreateBuilder(MythBlockTags.HEDGES)
+                .add(MythBlocks.WOLT_HEDGE.get()
+        );
     }
 }

@@ -144,6 +144,7 @@ public class MythBlockLootTableProvider extends BlockLootTables {
         this.registerDropSelfLootTable(MythBlocks.WOLT_POST.get());
         this.registerLootTable(MythBlocks.WOLT_CHEST.get(), BlockLootTables::droppingWithName);
         this.registerLootTable(MythBlocks.WOLT_TRAPPED_CHEST.get(), BlockLootTables::droppingWithName);
+        this.registerDropSelfLootTable(MythBlocks.WOLT_HEDGE.get());
         this.registerDropSelfLootTable(MythBlocks.WOLT_SAPLING.get());
         this.registerLootTable(MythBlocks.WOLT_LEAVES.get(), (block) -> droppingWithChancesAndSticks(block, MythBlocks.WOLT_SAPLING.get(), DEFAULT_SAPLING_DROP_RATES));
         this.registerDropSelfLootTable(MythBlocks.WOLT_LEAF_CARPET.get());

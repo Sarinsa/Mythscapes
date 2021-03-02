@@ -92,11 +92,12 @@ public class MythLanguageProviderEnglishUS extends MythBaseLangProvider {
         this.addBlock(MythBlocks.WOLT_TRAPDOOR, "Wolt Trapdoor");
         this.addBlock(MythBlocks.WOLT_LADDER, "Wolt Ladder");
         this.addBlock(MythBlocks.WOLT_BOOKSHELF, "Wolt Bookshelf");
+        this.addBlock(MythBlocks.WOLT_SIGN, "Wolt Sign");
         this.addBlock(MythBlocks.WOLT_POST, "Wolt Post");
         this.addBlock(MythBlocks.WOLT_POST_STRIPPED, "Stripped Wolt Post");
-        this.addBlock(MythBlocks.WOLT_SIGN, "Wolt Sign");
         this.addBlock(MythBlocks.WOLT_CHEST, "Wolt Chest");
         this.addBlock(MythBlocks.WOLT_TRAPPED_CHEST, "Wolt Trapped Chest");
+        this.addBlock(MythBlocks.WOLT_HEDGE, "Wolt Hedge");
         this.addBlock(MythBlocks.WOLT_SAPLING, "Wolt Sapling");
         this.addBlock(MythBlocks.WOLT_LEAVES, "Wolt Leaves");
         this.addBlock(MythBlocks.WOLT_LEAF_CARPET, "Wolt Leaf Carpet");

@@ -14,7 +14,8 @@ public class MythscapesAdvancements implements Consumer<Consumer<Advancement>>{
 
     @Override
     public void accept(Consumer<Advancement> consumer) {
-        Advancement root = Advancement.Builder.builder()
+        // Snail achievement
+        Advancement.Builder.builder()
                 .withDisplay(MythItems.SNAIL_BUCKET.get(),
                         textComponent("root.title"),
                         textComponent("root.description"),

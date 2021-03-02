@@ -1,10 +1,10 @@
 package com.radish.mythscapes.common.register;
 
 import com.radish.mythscapes.common.blocks.*;
+import com.radish.mythscapes.common.blocks.compat.*;
 import com.radish.mythscapes.common.blocks.fluid.LiquidSulphurFluidBlock;
 import com.radish.mythscapes.common.blocks.plant.BlisterberryThistleBlock;
 import com.radish.mythscapes.common.blocks.plant.ChargedDandelionBlock;
-import com.radish.mythscapes.common.blocks.plant.LeafCarpetBlock;
 import com.radish.mythscapes.common.blocks.plant.ModLeavesBlock;
 import com.radish.mythscapes.common.blocks.wood.*;
 import com.radish.mythscapes.common.core.Mythscapes;

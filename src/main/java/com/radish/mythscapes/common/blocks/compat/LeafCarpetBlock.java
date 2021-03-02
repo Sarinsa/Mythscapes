@@ -1,4 +1,4 @@
-package com.radish.mythscapes.common.blocks.plant;
+package com.radish.mythscapes.common.blocks.compat;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;

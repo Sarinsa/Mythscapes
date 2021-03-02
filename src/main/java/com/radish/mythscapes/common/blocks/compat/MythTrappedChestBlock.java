@@ -1,5 +1,6 @@
-package com.radish.mythscapes.common.blocks;
+package com.radish.mythscapes.common.blocks.compat;
 
+import com.radish.mythscapes.common.blocks.compat.MythChestBlock;
 import com.radish.mythscapes.common.core.Mythscapes;
 import net.minecraft.block.BlockState;
 import net.minecraft.stats.Stat;

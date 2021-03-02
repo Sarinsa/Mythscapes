@@ -1,4 +1,4 @@
-package com.radish.mythscapes.common.blocks.wood;
+package com.radish.mythscapes.common.blocks.compat;
 
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.core.config.ConfigHelpers;

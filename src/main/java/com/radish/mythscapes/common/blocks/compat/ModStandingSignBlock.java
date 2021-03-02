@@ -1,5 +1,6 @@
-package com.radish.mythscapes.common.blocks.wood;
+package com.radish.mythscapes.common.blocks.compat;
 
+import com.radish.mythscapes.common.blocks.compat.ModAbstractSignBlock;
 import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;

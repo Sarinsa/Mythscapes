@@ -1,4 +1,4 @@
-package com.radish.mythscapes.common.blocks;
+package com.radish.mythscapes.common.blocks.compat;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

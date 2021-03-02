@@ -1,6 +1,6 @@
 package com.radish.mythscapes.common.register;
 
-import com.radish.mythscapes.common.blocks.MythChestBlock;
+import com.radish.mythscapes.common.blocks.compat.MythChestBlock;
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.entities.misc.MythBoatEntity;
 import com.radish.mythscapes.common.items.*;

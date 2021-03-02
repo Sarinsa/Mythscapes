@@ -1,7 +1,7 @@
 package com.radish.mythscapes.datagen.loot_table_providers;
 
 import com.radish.mythscapes.common.blocks.StaticCottonPilesBlock;
-import com.radish.mythscapes.common.blocks.VerticalSlabBlock;
+import com.radish.mythscapes.common.blocks.compat.VerticalSlabBlock;
 import com.radish.mythscapes.common.register.MythBlocks;
 import com.radish.mythscapes.common.register.MythItems;
 import net.minecraft.advancements.criterion.EnchantmentPredicate;
@@ -9,9 +9,6 @@ import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.data.LootTableProvider;
 import net.minecraft.data.loot.BlockLootTables;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Items;
@@ -19,7 +16,6 @@ import net.minecraft.loot.*;
 import net.minecraft.loot.conditions.*;
 import net.minecraft.loot.functions.ApplyBonus;
 import net.minecraft.loot.functions.SetCount;
-import net.minecraft.state.properties.SlabType;
 import net.minecraftforge.common.Tags;
 
 import java.util.HashSet;

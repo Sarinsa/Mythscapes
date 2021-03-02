@@ -1,7 +1,7 @@
 package com.radish.mythscapes.common.items;
 
 import com.radish.mythscapes.client.ISTER;
-import com.radish.mythscapes.common.blocks.MythChestBlock;
+import com.radish.mythscapes.common.blocks.compat.MythChestBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 

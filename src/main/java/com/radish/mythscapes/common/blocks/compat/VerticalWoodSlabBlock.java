@@ -1,6 +1,5 @@
-package com.radish.mythscapes.common.blocks.wood;
+package com.radish.mythscapes.common.blocks.compat;
 
-import com.radish.mythscapes.common.blocks.VerticalSlabBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;

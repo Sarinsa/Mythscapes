@@ -2,7 +2,7 @@ package com.radish.mythscapes.client.renderers.tile;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.radish.mythscapes.common.blocks.MythChestBlock;
+import com.radish.mythscapes.common.blocks.compat.MythChestBlock;
 import com.radish.mythscapes.common.tile.MythChestTileEntity;
 import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
 import it.unimi.dsi.fastutil.ints.Int2IntFunction;

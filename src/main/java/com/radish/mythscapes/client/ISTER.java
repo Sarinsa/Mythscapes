@@ -2,7 +2,7 @@ package com.radish.mythscapes.client;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.radish.mythscapes.client.renderers.tile.MythChestTileEntityRenderer;
-import com.radish.mythscapes.common.blocks.MythChestBlock;
+import com.radish.mythscapes.common.blocks.compat.MythChestBlock;
 import com.radish.mythscapes.common.tile.MythChestTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.IRenderTypeBuffer;

@@ -1,4 +1,4 @@
-package com.radish.mythscapes.common.blocks;
+package com.radish.mythscapes.common.blocks.compat;
 
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.tile.MythChestTileEntity;

@@ -12,7 +12,7 @@ import com.radish.mythscapes.client.renderers.entity.misc.boat.MythBoatRenderer;
 import com.radish.mythscapes.client.renderers.tile.MythChestTileEntityRenderer;
 import com.radish.mythscapes.client.renderers.tile.MythSignTileEntityRenderer;
 import com.radish.mythscapes.client.screen.config.MythConfigScreen;
-import com.radish.mythscapes.common.blocks.plant.TintedLeafCarpetBlock;
+import com.radish.mythscapes.common.blocks.compat.TintedLeafCarpetBlock;
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.register.MythBlocks;
 import com.radish.mythscapes.common.register.MythEntities;

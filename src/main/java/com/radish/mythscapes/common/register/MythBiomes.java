@@ -1,21 +1,15 @@
 package com.radish.mythscapes.common.register;
 
-import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.core.config.MythConfig;
-import com.radish.mythscapes.common.worldgen.MythConfiguredFeatures;
+import com.radish.mythscapes.common.register.registry.BiomeDeferredRegister;
+import com.radish.mythscapes.common.register.registry.BiomeRegistryObject;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.*;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
-import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
-import net.minecraftforge.common.world.MobSpawnInfoBuilder;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistry;
 
@@ -23,9 +17,9 @@ import java.util.function.Supplier;
 
 public class MythBiomes {
 
-    public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, Mythscapes.MODID);
+    public static final BiomeDeferredRegister BIOMES = new BiomeDeferredRegister();
 
-    public static final RegistryObject<Biome> STATIC_FOREST = BIOMES.register("static_forest", MythBiomes::createStaticForest);
+    public static final BiomeRegistryObject STATIC_FIELDS = BIOMES.register("static_fields", MythBiomes::createStaticForest, 2);
 
 
     public static void registerBiomeInfo() {
@@ -34,23 +28,12 @@ public class MythBiomes {
     }
 
     private static void registerBiomes() {
-        MythConfig.Common config = MythConfig.COMMON;
-
-        registerBiome(STATIC_FOREST, BiomeManager.BiomeType.COOL, config.getBiomeWeight(STATIC_FOREST));
+        registerBiome(STATIC_FIELDS, BiomeManager.BiomeType.COOL);
     }
 
     private static void addBiomeToDictionary() {
-        BiomeDictionary.addTypes(getRegistryKey(STATIC_FOREST), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.OVERWORLD);
+        BiomeDictionary.addTypes(getRegistryKey(STATIC_FIELDS.getRegistryObject()), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.OVERWORLD);
     }
-
-    private static void registerBiome(Supplier<Biome> biomeSupplier, BiomeManager.BiomeType biomeType, int weight) {
-        BiomeManager.addBiome(biomeType, new BiomeManager.BiomeEntry(getRegistryKey(biomeSupplier), weight));
-    }
-
-    private static RegistryKey<Biome> getRegistryKey(Supplier<Biome> biomeSupplier) {
-        return ((ForgeRegistry<Biome>)ForgeRegistries.BIOMES).getKey(((ForgeRegistry<Biome>)ForgeRegistries.BIOMES).getID(biomeSupplier.get()));
-    }
-
 
     //
     //  BIOMES
@@ -82,4 +65,14 @@ public class MythBiomes {
         modifier = MathHelper.clamp(modifier, -1.0F, 1.0F);
         return MathHelper.hsvToRGB(0.62222224F - modifier * 0.05F, 0.5F + modifier * 0.1F, 1.0F);
     }
+
+    private static void registerBiome(BiomeRegistryObject biomeRegistryObject, BiomeManager.BiomeType biomeType) {
+        int weight = MythConfig.COMMON.getBiomeWeight(biomeRegistryObject);
+        BiomeManager.addBiome(biomeType, new BiomeManager.BiomeEntry(getRegistryKey(biomeRegistryObject.getRegistryObject()), weight));
+    }
+
+    private static RegistryKey<Biome> getRegistryKey(Supplier<Biome> biomeSupplier) {
+        return ((ForgeRegistry<Biome>)ForgeRegistries.BIOMES).getKey(((ForgeRegistry<Biome>)ForgeRegistries.BIOMES).getID(biomeSupplier.get()));
+    }
+
 }

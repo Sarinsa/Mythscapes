@@ -4,8 +4,11 @@ import com.radish.mythscapes.common.core.Mythscapes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ITag;
+import net.minecraft.util.ResourceLocation;
 
 public class MythEntityTags {
+
+    public static void init() {}
 
     public static final ITag.INamedTag<EntityType<?>> DIES_IN_SULFUR = mythTag("dies_in_sulfur");
     public static final ITag.INamedTag<EntityType<?>> ELECTRIC = mythTag("electric");
@@ -13,7 +16,11 @@ public class MythEntityTags {
     public static final ITag.INamedTag<EntityType<?>> SWOOSH_WHITELIST = mythTag("swoosh_whitelist");
 
     private static ITag.INamedTag<EntityType<?>> forgeTag(String name) {
-        return EntityTypeTags.getTagById("forge:" + name);
+        return EntityTypeTags.getTagById(new ResourceLocation("forge", name).toString());
+    }
+
+    private static ITag.INamedTag<EntityType<?>> modTag(String name, String modid) {
+        return EntityTypeTags.getTagById(new ResourceLocation(modid, name).toString());
     }
 
     private static ITag.INamedTag<EntityType<?>> mythTag(String name) {

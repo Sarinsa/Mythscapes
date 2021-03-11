@@ -18,16 +18,23 @@ import com.radish.mythscapes.common.tags.MythBlockTags;
 import com.radish.mythscapes.common.worldgen.MythConfiguredFeatures;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.EventBus;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.IEventListener;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 @Mod(Mythscapes.MODID)
@@ -114,7 +121,7 @@ public class Mythscapes {
                                 IMythscapesPlugin plugin = (IMythscapesPlugin) pluginClass.newInstance();
                                 registryHelper.setCurrentPluginID(plugin);
                                 plugin.register(registryHelper);
-                                LOGGER.info("Cool beans! Successfully registered plugin at {}", annotationData.getMemberName());
+                                LOGGER.info("Cool beans! Successfully registered plugin at {} with plugin ID: {}", annotationData.getMemberName(), plugin.getPluginName());
                             }
                         }
                         catch (Exception e) {

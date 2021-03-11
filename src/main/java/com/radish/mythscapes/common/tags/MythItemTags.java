@@ -11,6 +11,8 @@ import net.minecraftforge.common.Tags;
 
 public class MythItemTags {
 
+    public static void init() {}
+
     public static final ITag.INamedTag<Item> WOLT_LOGS = mythTag("wolt_logs");
     public static final ITag.INamedTag<Item> PRISMARINE = mythTag("prismarine");
 
@@ -22,7 +24,7 @@ public class MythItemTags {
 
 
     private static ITag.INamedTag<Item> forgeTag(String name) {
-        return ItemTags.makeWrapperTag("forge:" + name);
+        return ItemTags.makeWrapperTag(new ResourceLocation("forge", name).toString());
     }
 
     private static ITag.INamedTag<Item> mythTag(String name) {

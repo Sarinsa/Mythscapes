@@ -2,6 +2,7 @@ package com.radish.mythscapes.common.core.config;
 
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.register.MythBiomes;
+import com.radish.mythscapes.common.register.registry.BiomeRegistryObject;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.RegistryObject;
@@ -33,9 +34,6 @@ public class MythConfig {
         public final ForgeConfigSpec.IntValue composterSnailMaxCount;
         public final ForgeConfigSpec.IntValue composterSnailCheckRange;
 
-        // Biome weights
-        public final ForgeConfigSpec.IntValue staticForestWeight;
-
         public Common(ForgeConfigSpec.Builder configBuilder) {
 
             //
@@ -60,14 +58,14 @@ public class MythConfig {
             //
             configBuilder.push("biomes");
 
-            configBuilder.comment("The weights in chance for each of these biomes to generate in the world");
-            staticForestWeight = createBiomeWeight(MythBiomes.STATIC_FOREST, configBuilder, 3, 0, 100);
+            configBuilder.comment("The weights in chance for each of these biomes to generate in the world. A higher value gives a higher probability.");
+            this.createBiomeWeights(configBuilder);
 
             configBuilder.pop();
         }
 
-        public int getBiomeWeight(Supplier<Biome> biomeSupplier) {
-            Biome biome = biomeSupplier.get();
+        public int getBiomeWeight(BiomeRegistryObject biomeRegistryObject) {
+            Biome biome = biomeRegistryObject.get();
 
             if (biome.getRegistryName() == null) {
                 Mythscapes.LOGGER.log(Level.ERROR, "Tried to fetch biome weight from biome with null registry name. Why and how did this happen?");
@@ -79,12 +77,13 @@ public class MythConfig {
             }
         }
 
-        private ForgeConfigSpec.IntValue createBiomeWeight(RegistryObject<Biome> biomeRegistryObject, ForgeConfigSpec.Builder configBuilder, int defaultValue, int min, int max) {
-            String biomeName = biomeRegistryObject.getId().getPath();
-            ForgeConfigSpec.IntValue value = configBuilder.defineInRange(biomeName, defaultValue, min, max);
+        private void createBiomeWeights(ForgeConfigSpec.Builder configBuilder) {
+            for (BiomeRegistryObject registryObject : MythBiomes.BIOMES.getRegistryObjects()) {
+                String biomeName = registryObject.getRegistryObject().getId().getPath();
+                ForgeConfigSpec.IntValue value = configBuilder.defineInRange(biomeName, registryObject.getDefaultBiomeWeight(), 0, 100);
 
-            this.biomeWeights.put(biomeName, value);
-            return value;
+                this.biomeWeights.put(biomeName, value);
+            }
         }
 
         public boolean getComposterSnails() {

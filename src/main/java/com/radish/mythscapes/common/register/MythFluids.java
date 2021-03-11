@@ -19,8 +19,8 @@ public class MythFluids {
 
 
     public static class Properties {
-        public static final ForgeFlowingFluid.Properties PROPERTIES_SULFUR = new ForgeFlowingFluid.Properties(SULFUR.getStill(), SULFUR.getFlowing(), FluidAttributes
-                        .builder(new ResourceLocation("block/water_still"), new ResourceLocation("block/water_flow"))
+        public static final ForgeFlowingFluid.Properties PROPERTIES_SULFUR = new ForgeFlowingFluid.Properties(SULFUR.getStill(), SULFUR.getFlowing(),
+                FluidAttributes.builder(new ResourceLocation("block/water_still"), new ResourceLocation("block/water_flow"))
                         .color(0xDCBF2E)
                         .rarity(Rarity.COMMON))
                 .block(MythBlocks.LIQUID_SULFUR_FLUID_BLOCK)

@@ -5,11 +5,18 @@ import net.minecraft.block.Block;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.Tags;
 
 public class MythBlockTags {
 
-    public static void init() {}
+    // Yay, initialization
+    public static void init() {
+        MythItemTags.init();
+        MythEntityTags.init();
+        MythFluidTags.init();
+    }
 
     public static final Tags.IOptionalNamedTag<Block> SALT_BLOCKS = forgeTag("salt_blocks");
 

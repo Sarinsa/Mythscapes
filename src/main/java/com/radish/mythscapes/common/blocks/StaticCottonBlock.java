@@ -38,11 +38,11 @@ public class StaticCottonBlock extends Block {
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState state, World world, BlockPos pos, Random random) {
         for(Direction direction : Direction.values()) {
-            BlockPos blockpos = pos.offset(direction);
+            BlockPos blockPos = pos.offset(direction);
 
             // Spawn falling particles under the block
             if (direction == Direction.DOWN) {
-                if (random.nextInt(14) == 0 && world.isAirBlock(blockpos) || world.getBlockState(blockpos).getMaterial().isLiquid()) {
+                if (random.nextInt(14) == 0 && world.isAirBlock(blockPos) || world.getBlockState(blockPos).getMaterial().isLiquid()) {
                     double x = (double)pos.getX() + (double)random.nextFloat();
                     double y = (double)pos.getY() - 0.05D;
                     double z = (double)pos.getZ() + (double)random.nextFloat();
@@ -51,7 +51,7 @@ public class StaticCottonBlock extends Block {
             }
             // Spawn normal cotton particles around the sides of the block
             else {
-                if (random.nextInt(10) == 0 && !world.getBlockState(blockpos).isOpaqueCube(world, blockpos)) {
+                if (random.nextInt(10) == 0 && !world.getBlockState(blockPos).isOpaqueCube(world, blockPos)) {
                     Direction.Axis axis = direction.getAxis();
                     double x = (double)pos.getX() + (axis == Direction.Axis.X ? 0.5D + 0.5625D * (double)direction.getXOffset() : (double)random.nextFloat());
                     double y = (double)pos.getY() + (axis == Direction.Axis.Y ? 0.5D + 0.5625D * (double)direction.getYOffset() : (double)random.nextFloat());

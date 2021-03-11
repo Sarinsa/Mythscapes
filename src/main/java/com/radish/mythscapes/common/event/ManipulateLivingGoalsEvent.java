@@ -1,6 +1,5 @@
 package com.radish.mythscapes.common.event;
 
-import com.radish.mythscapes.common.entities.AvoidEntityWearingBarbarianHoodGoal;
 import com.radish.mythscapes.common.entities.living.LionEntity;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
@@ -8,7 +7,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.*;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -24,11 +22,14 @@ public class ManipulateLivingGoalsEvent {
         LivingEntity entity = event.getEntityLiving();
         EntityType<?> type = entity.getType();
 
+        /*
         if (entity instanceof CreatureEntity) {
             if (((CreatureEntity)entity).goalSelector != null) {
                 ((CreatureEntity)entity).goalSelector.addGoal(1, new AvoidEntityWearingBarbarianHoodGoal<>((CreatureEntity) entity, PlayerEntity.class, 14.0F, 1.0F, 1.1F));
             }
         }
+
+         */
 
         if (entity instanceof VindicatorEntity || entity instanceof PillagerEntity || entity instanceof EvokerEntity || entity instanceof IllusionerEntity) {
             AbstractIllagerEntity illagerEntity = (AbstractIllagerEntity) entity;

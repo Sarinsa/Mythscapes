@@ -24,15 +24,15 @@ public class MythBiomes {
 
     public static void registerBiomeInfo() {
         registerBiomes();
-        addBiomeToDictionary();
+        addBiomesToDictionary();
     }
 
     private static void registerBiomes() {
         registerBiome(STATIC_FIELDS, BiomeManager.BiomeType.COOL);
     }
 
-    private static void addBiomeToDictionary() {
-        BiomeDictionary.addTypes(getRegistryKey(STATIC_FIELDS.getRegistryObject()), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.OVERWORLD);
+    private static void addBiomesToDictionary() {
+        addBiomeToDictionary(STATIC_FIELDS, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.OVERWORLD);
     }
 
     //
@@ -68,11 +68,10 @@ public class MythBiomes {
 
     private static void registerBiome(BiomeRegistryObject biomeRegistryObject, BiomeManager.BiomeType biomeType) {
         int weight = MythConfig.COMMON.getBiomeWeight(biomeRegistryObject);
-        BiomeManager.addBiome(biomeType, new BiomeManager.BiomeEntry(getRegistryKey(biomeRegistryObject.getRegistryObject()), weight));
+        BiomeManager.addBiome(biomeType, new BiomeManager.BiomeEntry(biomeRegistryObject.getRegistryKey(), weight));
     }
 
-    private static RegistryKey<Biome> getRegistryKey(Supplier<Biome> biomeSupplier) {
-        return ((ForgeRegistry<Biome>)ForgeRegistries.BIOMES).getKey(((ForgeRegistry<Biome>)ForgeRegistries.BIOMES).getID(biomeSupplier.get()));
+    private static void addBiomeToDictionary(BiomeRegistryObject biomeRegistryObject, BiomeDictionary.Type... dictionaryTypes) {
+        BiomeDictionary.addTypes(biomeRegistryObject.getRegistryKey(), dictionaryTypes);
     }
-
 }

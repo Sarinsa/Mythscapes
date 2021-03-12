@@ -1,7 +1,10 @@
 package com.radish.mythscapes.common.register.registry;
 
+import net.minecraft.util.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistry;
 
 public class BiomeRegistryObject {
 
@@ -23,5 +26,9 @@ public class BiomeRegistryObject {
 
     public int getDefaultBiomeWeight() {
         return this.defaultBiomeWeight;
+    }
+
+    public RegistryKey<Biome> getRegistryKey() {
+        return ((ForgeRegistry<Biome>) ForgeRegistries.BIOMES).getKey(((ForgeRegistry<Biome>)ForgeRegistries.BIOMES).getID(this.get()));
     }
 }

@@ -39,7 +39,6 @@ minecraft {
 
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-            property "mixin.env.disableRefMap", "true"
 
             arg "-mixin.config=mythscapes.mixins.json"
 
@@ -55,7 +54,6 @@ minecraft {
 
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-            property "mixin.env.disableRefMap", "true"
 
             arg "-mixin.config=mythscapes.mixins.json"
 
@@ -71,7 +69,6 @@ minecraft {
 
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-            property "mixin.env.disableRefMap", "true"
 
             args '--mod', 'mythscapes', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
@@ -104,10 +101,6 @@ repositories {
         name 'Vazkii'
         url "https://maven.blamejared.com/"
     }
-}
-
-mixin {
-    add sourceSets.main, "mythscapes.mixins.refmap.json"
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }

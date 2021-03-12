@@ -20,7 +20,7 @@ public abstract class AbstractMinecartEntityMixin extends Entity implements IFor
         super(entityTypeIn, worldIn);
     }
 
-    @Inject(method = "moveAlongTrack", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "moveAlongTrack(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)V", at = @At("HEAD"), cancellable = true, remap = false)
     public void onMoveMinecartOnRail(BlockPos pos, BlockState state, CallbackInfo callbackInfo) {
         CommonMixinHooks.onMoveMinecartOnRail(pos, state, this.getMinecart(), callbackInfo);
     }

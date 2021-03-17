@@ -12,9 +12,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class MythEffects {
 
-    public static final DeferredRegister<Effect> POTION_EFFECTS = DeferredRegister.create(ForgeRegistries.POTIONS, Mythscapes.MODID);
+    public static final DeferredRegister<Effect> EFFECTS = DeferredRegister.create(ForgeRegistries.POTIONS, Mythscapes.MODID);
 
-    public static final RegistryObject<Effect> VOLATILE = POTION_EFFECTS.register("volatile", () -> new VolatileEffect(EffectType.HARMFUL, 0xC4F247));
-    public static final RegistryObject<Effect> STATIC = POTION_EFFECTS.register("static", () -> new StaticEffect(EffectType.HARMFUL, 0x56E5EF));
-    public static final RegistryObject<Effect> PETRIFIED = POTION_EFFECTS.register("petrified", () -> new PetrifiedEffect(EffectType.NEUTRAL, 0x605F5A));
+    public static final RegistryObject<Effect> VOLATILE = EFFECTS.register("volatile", () -> new VolatileEffect(EffectType.HARMFUL, 0xC4F247));
+    public static final RegistryObject<Effect> STATIC = EFFECTS.register("static", () -> new StaticEffect(EffectType.HARMFUL, 0x56E5EF));
+    public static final RegistryObject<Effect> PETRIFIED = EFFECTS.register("petrified", () -> new PetrifiedEffect(EffectType.NEUTRAL, 0x605F5A));
 }

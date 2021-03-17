@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mythscapes:activated_blisterberry_from_smelting"
+    ]
+  },
+  "criteria": {
+    "has_activated_blisterberry": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mythscapes:blisterberry"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "mythscapes:activated_blisterberry_from_smelting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_activated_blisterberry",
+      "has_the_recipe"
+    ]
+  ]
+}

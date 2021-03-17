@@ -1,0 +1,48 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "modid": "quark",
+          "type": "forge:mod_loaded"
+        },
+        {
+          "flag": "variant_chests",
+          "type": "mythscapes:quark_flag"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "mythscapes:wolt_chest_from_wolt_logs"
+          ]
+        },
+        "criteria": {
+          "has_wolt_logs": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "tag": "mythscapes:wolt_logs"
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "mythscapes:wolt_chest_from_wolt_logs"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_wolt_logs",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

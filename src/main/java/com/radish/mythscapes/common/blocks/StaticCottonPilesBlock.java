@@ -31,15 +31,15 @@ public class StaticCottonPilesBlock extends SnowBlock {
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState state, World world, BlockPos pos, Random random) {
         for(Direction direction : Direction.values()) {
-            BlockPos blockpos = pos.offset(direction);
+            BlockPos blockpos = pos.relative(direction);
 
-            if (random.nextInt(10) == 0 && !world.getBlockState(blockpos).isOpaqueCube(world, blockpos)) {
+            if (random.nextInt(10) == 0 && !world.getBlockState(blockpos).isSolidRender(world, blockpos)) {
                 Direction.Axis axis = direction.getAxis();
-                double x = (double)pos.getX() + (axis == Direction.Axis.X ? 0.5D + 0.5625D * (double)direction.getXOffset() : (double)random.nextFloat());
+                double x = (double)pos.getX() + (axis == Direction.Axis.X ? 0.5D + 0.5625D * (double)direction.getStepX() : (double)random.nextFloat());
                 double y = direction == Direction.UP
-                        ? (double)pos.getY() + (((state.get(LAYERS) * 2) + (double)random.nextFloat()) / 16)
-                        : (double)pos.getY() + (0.05D + (double)random.nextInt(state.get(LAYERS) * 2) / 16);
-                double z = (double)pos.getZ() + (axis == Direction.Axis.Z ? 0.5D + 0.5625D * (double)direction.getZOffset() : (double)random.nextFloat());
+                        ? (double)pos.getY() + (((state.getValue(LAYERS) * 2) + (double)random.nextFloat()) / 16)
+                        : (double)pos.getY() + (0.05D + (double)random.nextInt(state.getValue(LAYERS) * 2) / 16);
+                double z = (double)pos.getZ() + (axis == Direction.Axis.Z ? 0.5D + 0.5625D * (double)direction.getStepZ() : (double)random.nextFloat());
                 world.addParticle(MythParticles.STATIC_COTTON.get(), x, y, z, 0.1D, 0.1D, 0.1D);
             }
         }

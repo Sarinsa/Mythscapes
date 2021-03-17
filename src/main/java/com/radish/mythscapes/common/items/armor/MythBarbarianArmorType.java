@@ -13,22 +13,22 @@ public class MythBarbarianArmorType extends MythBaseArmorType {
     }
 
     @Override
-    public int getDurability(EquipmentSlotType slotIn) {
+    public int getDurabilityForSlot(EquipmentSlotType slotIn) {
         return 100;
     }
 
     @Override
-    public int getDamageReductionAmount(EquipmentSlotType slotIn) {
+    public int getDefenseForSlot(EquipmentSlotType slotIn) {
         return 2;
     }
 
     @Override
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
         return 5;
     }
 
     @Override
-    public Ingredient getRepairMaterial() {
+    public Ingredient getRepairIngredient() {
         return Ingredient.EMPTY;
     }
 
@@ -43,7 +43,7 @@ public class MythBarbarianArmorType extends MythBaseArmorType {
     }
 
     @Override
-    public SoundEvent getSoundEvent() {
-        return SoundEvents.ITEM_ARMOR_EQUIP_LEATHER;
+    public SoundEvent getEquipSound() {
+        return SoundEvents.ARMOR_EQUIP_LEATHER;
     }
 }

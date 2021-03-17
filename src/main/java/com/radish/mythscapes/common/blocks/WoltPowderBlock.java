@@ -32,25 +32,25 @@ public class WoltPowderBlock extends Block {
     }
 
     @Override
-    public void onLanded(IBlockReader world, Entity entity) {
-        World entityWorld = entity.getEntityWorld();
-        BlockPos pos = entity.getPosition();
+    public void updateEntityAfterFallOn(IBlockReader world, Entity entity) {
+        World entityWorld = entity.getCommandSenderWorld();
+        BlockPos pos = entity.blockPosition();
 
         if (!isSwooshableEntity(entity))
             return;
 
-        if (!entityWorld.isRemote) {
-            ((ServerWorld) entityWorld).spawnParticle(ParticleTypes.CLOUD, pos.getX() + 0.5d, pos.getY(), pos.getZ() + 0.5d, 14, 0, 0, 0, 0.2f);
+        if (!entityWorld.isClientSide) {
+            ((ServerWorld) entityWorld).sendParticles(ParticleTypes.CLOUD, pos.getX() + 0.5d, pos.getY(), pos.getZ() + 0.5d, 14, 0, 0, 0, 0.2f);
         }
-        entityWorld.playSound(null, pos, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.9f, 0.1f);
+        entityWorld.playSound(null, pos, SoundEvents.SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.9f, 0.1f);
 
-        Vector3d motion = entity.getMotion();
+        Vector3d motion = entity.getDeltaMovement();
         double motionY = 1.2D;
 
         if (this.isGolden()) {
             motionY = 1.7D;
         }
-        entity.setMotion(new Vector3d(motion.getX(), motionY, motion.getZ()));
+        entity.setDeltaMovement(new Vector3d(motion.x(), motionY, motion.z()));
     }
 
     @Override

@@ -15,14 +15,14 @@ public class MythscapesAdvancements implements Consumer<Consumer<Advancement>>{
     @Override
     public void accept(Consumer<Advancement> consumer) {
         // Snail achievement
-        Advancement.Builder.builder()
-                .withDisplay(MythItems.SNAIL_BUCKET.get(),
+        Advancement.Builder.advancement()
+                .display(MythItems.SNAIL_BUCKET.get(),
                         textComponent("root.title"),
                         textComponent("root.description"),
                         new ResourceLocation("textures/gui/advancements/backgrounds/husbandry.png"),
                         FrameType.TASK, true, true, false)
-                .withCriterion("bucket_snail", InventoryChangeTrigger.Instance.forItems(MythItems.SNAIL_BUCKET.get()))
-                .register(consumer, "mythscapes/root");
+                .addCriterion("bucket_snail", InventoryChangeTrigger.Instance.hasItems(MythItems.SNAIL_BUCKET.get()))
+                .save(consumer, "mythscapes/root");
     }
 
     private static TranslationTextComponent textComponent(String translationKey) {

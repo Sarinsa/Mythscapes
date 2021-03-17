@@ -8,5 +8,4 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class MythFeatures {
 
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, Mythscapes.MODID);
-
 }

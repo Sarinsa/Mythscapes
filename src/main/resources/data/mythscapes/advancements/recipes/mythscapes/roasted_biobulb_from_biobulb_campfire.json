@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mythscapes:roasted_biobulb_from_biobulb_campfire"
+    ]
+  },
+  "criteria": {
+    "has_biobulb": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mythscapes:biobulb"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "mythscapes:roasted_biobulb_from_biobulb_campfire"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_biobulb",
+      "has_the_recipe"
+    ]
+  ]
+}

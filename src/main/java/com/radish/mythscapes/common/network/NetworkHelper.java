@@ -24,7 +24,7 @@ public class NetworkHelper {
      */
     public static void openSignEditorToClient(@NotNull ServerPlayerEntity playerEntity, @NotNull MythSignTileEntity signTileEntity) {
         signTileEntity.setPlayer(playerEntity);
-        PacketHandler.CHANNEL.send(PacketDistributor.ALL.noArg(), new S2CUpdatePlayerEditSignPacket(signTileEntity.getPos(), playerEntity.getUniqueID()));
+        PacketHandler.CHANNEL.send(PacketDistributor.ALL.noArg(), new S2CUpdatePlayerEditSignPacket(signTileEntity.getBlockPos(), playerEntity.getUUID()));
     }
 
     /**

@@ -31,6 +31,6 @@ public class Bog implements ISnailType {
 
     @Override
     public List<ResourceLocation> getSpawnBiomes() {
-        return ImmutableList.of(Biomes.STONE_SHORE.getLocation());
+        return ImmutableList.of(Biomes.STONE_SHORE.location());
     }
 }

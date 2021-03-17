@@ -30,7 +30,7 @@ public class ModFlowerBlock extends FlowerBlock {
      */
     public List<BlockPos> getPosSpreadTo(BlockPos origin) {
         List<BlockPos> posList = new ArrayList<>();
-        origin = origin.down();
+        origin = origin.below();
         for (int i = 0; i < 3; i++) {
             posList.add(origin.west());
             posList.add(origin.south());
@@ -40,7 +40,7 @@ public class ModFlowerBlock extends FlowerBlock {
             posList.add(origin.north().west());
             posList.add(origin.south().east());
             posList.add(origin.south().west());
-            origin = origin.up();
+            origin = origin.above();
         }
         return posList;
     }
@@ -55,11 +55,11 @@ public class ModFlowerBlock extends FlowerBlock {
      *           in
      */
     public List<BlockPos> getPosSpreadTo(BlockPos origin, int radius) {
-        Iterator<BlockPos> iterator = BlockPos.getAllInBox(new AxisAlignedBB(origin).grow(radius)).iterator();
+        Iterator<BlockPos> iterator = BlockPos.betweenClosedStream(new AxisAlignedBB(origin).inflate(radius)).iterator();
         ArrayList<BlockPos> posList = new ArrayList<>();
 
         iterator.forEachRemaining(blockPos -> {
-            posList.add(blockPos.toImmutable());
+            posList.add(blockPos.immutable());
         });
 
         return posList;
@@ -84,7 +84,7 @@ public class ModFlowerBlock extends FlowerBlock {
     }
 
     @Override
-    public Effect getStewEffect() {
+    public Effect getSuspiciousStewEffect() {
         return this.effectSupplier.get();
     }
 }

@@ -22,8 +22,12 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ModAbstractSignBlock extends AbstractSignBlock {
 
+    public static final List<AbstractSignBlock> SIGN_BLOCKS = new ArrayList<>();
     public static final ResourceLocation DEFAULT_TEXTURE = new ResourceLocation("textures/entity/signs/oak.png");
 
     private final String textureName;
@@ -31,18 +35,19 @@ public class ModAbstractSignBlock extends AbstractSignBlock {
     public ModAbstractSignBlock(Properties propertiesIn, String textureName) {
         super(propertiesIn, WoodType.OAK);
         this.textureName = textureName;
+        SIGN_BLOCKS.add(this);
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        ItemStack itemStack = player.getHeldItem(handIn);
-        boolean flag = itemStack.getItem() instanceof DyeItem && player.abilities.allowEdit;
+    public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        ItemStack itemStack = player.getItemInHand(handIn);
+        boolean flag = itemStack.getItem() instanceof DyeItem && player.abilities.mayBuild;
 
-        if (worldIn.isRemote) {
+        if (worldIn.isClientSide) {
             return flag ? ActionResultType.SUCCESS : ActionResultType.CONSUME;
         }
         else {
-            TileEntity tileEntity = worldIn.getTileEntity(pos);
+            TileEntity tileEntity = worldIn.getBlockEntity(pos);
 
             if (tileEntity instanceof MythSignTileEntity) {
                 MythSignTileEntity signTileEntity = (MythSignTileEntity) tileEntity;
@@ -69,7 +74,7 @@ public class ModAbstractSignBlock extends AbstractSignBlock {
                     if (ConfigHelpers.QUARK_CONFIG_HELPER.isPresent()) {
                         QuarkConfigHelper configHelper = ConfigHelpers.QUARK_CONFIG_HELPER.orElse(null);
 
-                        if (configHelper.signEditingEnabled() &&!player.isSneaking() && player.abilities.allowEdit){
+                        if (configHelper.signEditingEnabled() &&!player.isCrouching() && player.abilities.mayBuild){
                             if (configHelper.signEditRequireEmptyHand() && !itemStack.isEmpty())
                                 return ActionResultType.PASS;
 
@@ -87,8 +92,7 @@ public class ModAbstractSignBlock extends AbstractSignBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public BlockRenderType getRenderType(BlockState state) {
+    public BlockRenderType getRenderShape(BlockState state) {
         return BlockRenderType.ENTITYBLOCK_ANIMATED;
     }
 
@@ -97,7 +101,7 @@ public class ModAbstractSignBlock extends AbstractSignBlock {
     }
 
     @Override
-    public TileEntity createNewTileEntity(IBlockReader worldIn) {
+    public TileEntity newBlockEntity(IBlockReader worldIn) {
         return new MythSignTileEntity();
     }
 }

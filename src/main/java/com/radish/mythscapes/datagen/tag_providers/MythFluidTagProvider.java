@@ -16,18 +16,18 @@ public class MythFluidTagProvider extends FluidTagsProvider {
     }
 
     @Override
-    protected void registerTags() {
-        this.getOrCreateBuilder(MythFluidTags.SULFUR).add(
+    protected void addTags() {
+        this.tag(MythFluidTags.SULFUR).add(
                 MythFluids.SULFUR.getStill().get(),
                 MythFluids.SULFUR.getFlowing().get()
         );
-        this.getOrCreateBuilder(MythFluidTags.CONDUCTIVE).add(
+        this.tag(MythFluidTags.CONDUCTIVE).add(
                 Fluids.WATER,
                 Fluids.FLOWING_WATER,
                 MythFluids.SULFUR.getStill().get(),
                 MythFluids.SULFUR.getFlowing().get()
         );
-        this.getOrCreateBuilder(MythFluidTags.SWIMMABLE).addTag(
+        this.tag(MythFluidTags.SWIMMABLE).addTag(
                 FluidTags.WATER
         ).addTag(
                 MythFluidTags.SULFUR

@@ -1,5 +1,7 @@
 package com.radish.mythscapes.common.register;
 
+import com.radish.mythscapes.common.blocks.compat.ModAbstractSignBlock;
+import com.radish.mythscapes.common.blocks.compat.MythChestBlock;
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.register.MythBlocks;
 import com.radish.mythscapes.common.tile.MythChestTileEntity;
@@ -15,24 +17,10 @@ import java.util.function.Supplier;
 
 public class MythTileEntities {
 
-    private static Block[] getSignBlocks() {
-        return new Block[] {
-                MythBlocks.WOLT_SIGN.get(),
-                MythBlocks.WOLT_WALL_SIGN.get()
-        };
-    }
-
-    private static Block[] getChestBlocks() {
-        return new Block[] {
-                MythBlocks.WOLT_CHEST.get(),
-                MythBlocks.WOLT_TRAPPED_CHEST.get()
-        };
-    }
-
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Mythscapes.MODID);
 
-    public static final RegistryObject<TileEntityType<MythSignTileEntity>> SIGN = register("sign", () -> TileEntityType.Builder.create(MythSignTileEntity::new, getSignBlocks()).build(null));
-    public static final RegistryObject<TileEntityType<MythChestTileEntity>> CHEST = register("chest", () -> TileEntityType.Builder.create(MythChestTileEntity::new, getChestBlocks()).build(null));
+    public static final RegistryObject<TileEntityType<MythSignTileEntity>> SIGN = register("sign", () -> TileEntityType.Builder.of(MythSignTileEntity::new, MythChestBlock.CHEST_BLOCKS.toArray(new Block[0])).build(null));
+    public static final RegistryObject<TileEntityType<MythChestTileEntity>> CHEST = register("chest", () -> TileEntityType.Builder.of(MythChestTileEntity::new, ModAbstractSignBlock.SIGN_BLOCKS.toArray(new Block[0])).build(null));
 
     private static <T extends TileEntity> RegistryObject<TileEntityType<T>> register(String name, Supplier<TileEntityType<T>> tileEntityType) {
         return TILE_ENTITIES.register(name, tileEntityType);

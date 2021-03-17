@@ -42,7 +42,7 @@ public abstract class MoveToBlockGoalPrecise<T extends CreatureEntity> extends G
         this.searchLength = length;
         this.field_203112_e = 0;
         this.field_203113_j = p_i48796_5_;
-        this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP));
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP));
 
         this.xOffset = xOffset;
         this.yOffset = yOffset;
@@ -64,14 +64,14 @@ public abstract class MoveToBlockGoalPrecise<T extends CreatureEntity> extends G
     }
 
     protected int getRunDelay(CreatureEntity creatureIn) {
-        return 200 + creatureIn.getRNG().nextInt(200);
+        return 200 + creatureIn.getRandom().nextInt(200);
     }
 
     /**
      * Returns whether an in-progress EntityAIBase should continue executing
      */
     public boolean shouldContinueExecuting() {
-        return this.timeoutCounter >= -this.maxStayTicks && this.timeoutCounter <= 1200 && this.shouldMoveTo(this.creature.world, this.destinationBlock);
+        return this.timeoutCounter >= -this.maxStayTicks && this.timeoutCounter <= 1200 && this.shouldMoveTo(this.creature.level, this.destinationBlock);
     }
 
     /**
@@ -80,17 +80,15 @@ public abstract class MoveToBlockGoalPrecise<T extends CreatureEntity> extends G
     public void startExecuting() {
         this.moveTowardsBlock();
         this.timeoutCounter = 0;
-        this.maxStayTicks = this.creature.getRNG().nextInt(this.creature.getRNG().nextInt(1200) + 1200) + 1200;
+        this.maxStayTicks = this.creature.getRandom().nextInt(this.creature.getRandom().nextInt(1200) + 1200) + 1200;
     }
 
     protected void moveTowardsBlock() {
-        if (!this.creature.getNavigator().tryMoveToXYZ(
+        creature.getNavigation().moveTo(
                 (double)((float)this.destinationBlock.getX()) + this.xOffset,
                 this.destinationBlock.getY() + this.yOffset,
                 (double)((float)this.destinationBlock.getZ()) + this.zOffset,
-                this.movementSpeed)) {
-
-            Mythscapes.LOGGER.info("Cannot pathfind to center");
+                this.movementSpeed); {
         }
     }
 
@@ -99,12 +97,10 @@ public abstract class MoveToBlockGoalPrecise<T extends CreatureEntity> extends G
      * Keep ticking a continuous task that has already been started
      */
     public void tick() {
-        BlockPos destination = this.destinationBlock.add(this.xOffset, this.yOffset, this.zOffset);
-        Vector3d entityPos = this.creature.getPositionVec();
+        BlockPos destination = this.destinationBlock.offset(this.xOffset, this.yOffset, this.zOffset);
+        Vector3d entityPos = this.creature.position();
 
-        double distanceFromDestination = destination.distanceSq(entityPos.x, entityPos.y, entityPos.z, false);
-
-        Mythscapes.LOGGER.info("Distance: " + distanceFromDestination);
+        double distanceFromDestination = destination.distSqr(entityPos.x, entityPos.y, entityPos.z, false);
 
         if (distanceFromDestination > 0.1D) {
             this.isAtDestination = false;
@@ -133,15 +129,15 @@ public abstract class MoveToBlockGoalPrecise<T extends CreatureEntity> extends G
     protected boolean searchForDestination() {
         int i = this.searchLength;
         int j = this.field_203113_j;
-        BlockPos blockpos = this.creature.getPosition();
+        BlockPos blockpos = this.creature.blockPosition();
         BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
 
         for(int k = this.field_203112_e; k <= j; k = k > 0 ? -k : 1 - k) {
             for(int l = 0; l < i; ++l) {
                 for(int i1 = 0; i1 <= l; i1 = i1 > 0 ? -i1 : 1 - i1) {
                     for(int j1 = i1 < l && i1 > -l ? l : 0; j1 <= l; j1 = j1 > 0 ? -j1 : 1 - j1) {
-                        blockpos$mutable.setAndOffset(blockpos, i1, k - 1, j1);
-                        if (this.creature.isWithinHomeDistanceFromPosition(blockpos$mutable) && this.shouldMoveTo(this.creature.world, blockpos$mutable)) {
+                        blockpos$mutable.setWithOffset(blockpos, i1, k - 1, j1);
+                        if (this.creature.isWithinRestriction(blockpos$mutable) && this.shouldMoveTo(this.creature.level, blockpos$mutable)) {
                             this.destinationBlock = blockpos$mutable;
                             return true;
                         }

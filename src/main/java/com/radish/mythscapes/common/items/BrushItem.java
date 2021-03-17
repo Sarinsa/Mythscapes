@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
@@ -31,48 +32,48 @@ public class BrushItem extends Item {
 
     @Override
     @SuppressWarnings("all")
-    public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
-        if (player.getCooldownTracker().hasCooldown(stack.getItem()))
+    public ActionResultType interactLivingEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
+        if (player.getCooldowns().isOnCooldown(stack.getItem()))
             return ActionResultType.FAIL;
 
-        if (entity instanceof TameableEntity) {
-            if (player.isSneaking())
-                return ActionResultType.PASS;
+        if (entity instanceof TameableEntity && player.isCrouching()) {
+            return ActionResultType.PASS;
         }
 
         if (MythEntities.BRUSHABLES.containsKey(entity.getClass())) {
             IBrushable brushable = MythEntities.BRUSHABLES.get(entity.getClass());
-            World world = entity.getEntityWorld();
-            int soothingLevel = EnchantmentHelper.getEnchantmentLevel(MythEnchantments.SOOTHING.get(), stack);
-            int fortuneLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
+            World world = entity.getCommandSenderWorld();
+            int soothingLevel = EnchantmentHelper.getItemEnchantmentLevel(MythEnchantments.SOOTHING.get(), stack);
+            int fortuneLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, stack);
 
             if (brushable.canBrush(entity, world)) {
-                ItemStack droppedStack = brushable.itemDropped(entity, world.rand, fortuneLevel);
+                ItemStack droppedStack = brushable.itemDropped(entity, world.random, fortuneLevel);
 
                 if (droppedStack == null) {
                     droppedStack = ItemStack.EMPTY;
                     Mythscapes.LOGGER.warn("A brushed entity just tried to drop a null ItemStack... Grrrr... (Should be ItemStack.EMPTY)");
                 }
                 for (int i = 0; i < 7; i++) {
-                    double x = this.random.nextGaussian() * 0.02D;
-                    double y = this.random.nextGaussian() * 0.02D;
-                    double z = this.random.nextGaussian() * 0.02D;
-                    world.addParticle(ParticleTypes.HEART, entity.getPosXRandom(1.0D), entity.getPosYRandom() + 0.5D, entity.getPosZRandom(1.0D), x, y, z);
+                    double x = random.nextGaussian() * 0.02D;
+                    double y = random.nextGaussian() * 0.02D;
+                    double z = random.nextGaussian() * 0.02D;
+                    world.addParticle(ParticleTypes.HEART, entity.getRandomX(1.0D), entity.getRandomY() + 0.5D, entity.getRandomZ(1.0D), x, y, z);
                 }
 
-                if (!world.isRemote && !droppedStack.isEmpty()) {
-                    entity.entityDropItem(droppedStack);
+                if (!world.isClientSide && !droppedStack.isEmpty()) {
+                    entity.spawnAtLocation(droppedStack);
                 }
 
                 if (brushable.shouldReceiveRegen(entity))
-                    entity.addPotionEffect(new EffectInstance(Effects.REGENERATION, ((soothingLevel + 1) * 20 * 3)));
+                    entity.addEffect(new EffectInstance(Effects.REGENERATION, ((soothingLevel + 1) * 20 * 3)));
 
-                brushable.onBrushed(entity, entity.getEntityWorld());
-                player.getEntityWorld().playSound(player, entity.getPosition(), SoundEvents.BLOCK_GRASS_HIT, SoundCategory.PLAYERS, 0.9F, 0.9F);
+                brushable.onBrushed(entity, entity.getCommandSenderWorld());
+                player.getCommandSenderWorld().playSound(player, entity.blockPosition(), SoundEvents.GRASS_HIT, SoundCategory.PLAYERS, 0.9F, 0.9F);
 
-                if (!player.abilities.isCreativeMode) {
-                    player.getCooldownTracker().setCooldown(this, cooldownTime);
-                    stack.damageItem(1, entity, e -> e.sendBreakAnimation(hand));
+                if (!player.abilities.instabuild) {
+                    player.getCooldowns().addCooldown(this, cooldownTime);
+                    player.awardStat(Stats.ITEM_USED.get(this));
+                    stack.hurtAndBreak(1, entity, e -> e.broadcastBreakEvent(hand));
                 }
                 return ActionResultType.SUCCESS;
             }

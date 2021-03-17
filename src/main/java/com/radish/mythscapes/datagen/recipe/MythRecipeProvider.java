@@ -10,6 +10,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,8 +22,8 @@ public class MythRecipeProvider extends AbstractRecipeProvider {
         super(dataGenerator);
     }
 
-    @Override
-    public void registerRecipes(@NotNull Consumer<IFinishedRecipe> consumer) {
+    @Override  // Weird mapped name lol
+    public void buildShapelessRecipes(@NotNull Consumer<IFinishedRecipe> consumer) {
         this.consumer = consumer;
 
         // Stonecutting
@@ -113,251 +114,251 @@ public class MythRecipeProvider extends AbstractRecipeProvider {
         this.stonecuttingRecipe(MythItems.CHISELED_POLISHED_TROLLSTONE, MythItems.POLISHED_TROLLSTONE_BRICKS.get(), 1, consumer);
 
         // Shaped
-        this.shapedRecipe(MythItems.POLISHED_GALVITE.get(), 4, MythItems.GALVITE.get())
-                .patternLine("##")
-                .patternLine("##")
-                .key('#', MythItems.GALVITE.get())
-                .build(consumer);
+        this.shaped(MythItems.POLISHED_GALVITE.get(), 4, MythItems.GALVITE.get())
+                .pattern("##")
+                .pattern("##")
+                .define('#', MythItems.GALVITE.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.POLISHED_GALVITE_BRICKS.get(), 4, MythItems.POLISHED_GALVITE.get())
-                .patternLine("##")
-                .patternLine("##")
-                .key('#', MythItems.POLISHED_GALVITE.get())
-                .build(consumer);
+        this.shaped(MythItems.POLISHED_GALVITE_BRICKS.get(), 4, MythItems.POLISHED_GALVITE.get())
+                .pattern("##")
+                .pattern("##")
+                .define('#', MythItems.POLISHED_GALVITE.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.CHISELED_POLISHED_GALVITE.get(), 1, MythItems.POLISHED_GALVITE_SLAB.get())
-                .patternLine("#")
-                .patternLine("#")
-                .key('#', MythItems.POLISHED_GALVITE_SLAB.get())
-                .build(consumer);
+        this.shaped(MythItems.CHISELED_POLISHED_GALVITE.get(), 1, MythItems.POLISHED_GALVITE_SLAB.get())
+                .pattern("#")
+                .pattern("#")
+                .define('#', MythItems.POLISHED_GALVITE_SLAB.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.GALVITE_SHINGLES.get(), 4, MythItems.POLISHED_GALVITE.get())
-                .patternLine("S#")
-                .patternLine("#S")
-                .key('#', MythItems.POLISHED_GALVITE.get())
-                .key('S', MythItems.GALVITE.get())
-                .build(consumer);
+        this.shaped(MythItems.GALVITE_SHINGLES.get(), 4, MythItems.POLISHED_GALVITE.get())
+                .pattern("S#")
+                .pattern("#S")
+                .define('#', MythItems.POLISHED_GALVITE.get())
+                .define('S', MythItems.GALVITE.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.GILDED_GALVITE_BRICKS.get(), 4, MythItems.GILDED_GALVITE.get())
-                .patternLine("##")
-                .patternLine("##")
-                .key('#', MythItems.GILDED_GALVITE.get())
-                .build(consumer);
+        this.shaped(MythItems.GILDED_GALVITE_BRICKS.get(), 4, MythItems.GILDED_GALVITE.get())
+                .pattern("##")
+                .pattern("##")
+                .define('#', MythItems.GILDED_GALVITE.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.BEJEWELED_GALVITE_BRICKS.get(), 4, MythItems.BEJEWELED_GALVITE.get())
-                .patternLine("##")
-                .patternLine("##")
-                .key('#', MythItems.BEJEWELED_GALVITE.get())
-                .build(consumer);
+        this.shaped(MythItems.BEJEWELED_GALVITE_BRICKS.get(), 4, MythItems.BEJEWELED_GALVITE.get())
+                .pattern("##")
+                .pattern("##")
+                .define('#', MythItems.BEJEWELED_GALVITE.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.POWERED_GALVITE_BRICKS.get(), 4, MythItems.POWERED_GALVITE.get())
-                .patternLine("##")
-                .patternLine("##")
-                .key('#', MythItems.POWERED_GALVITE.get())
-                .build(consumer);
+        this.shaped(MythItems.POWERED_GALVITE_BRICKS.get(), 4, MythItems.POWERED_GALVITE.get())
+                .pattern("##")
+                .pattern("##")
+                .define('#', MythItems.POWERED_GALVITE.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.POLISHED_TROLLSTONE.get(), 4, MythItems.TROLLSTONE.get())
-                .patternLine("##")
-                .patternLine("##")
-                .key('#', MythItems.TROLLSTONE.get())
-                .build(consumer);
+        this.shaped(MythItems.POLISHED_TROLLSTONE.get(), 4, MythItems.TROLLSTONE.get())
+                .pattern("##")
+                .pattern("##")
+                .define('#', MythItems.TROLLSTONE.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.POLISHED_TROLLSTONE_BRICKS.get(), 4, MythItems.POLISHED_TROLLSTONE.get())
-                .patternLine("##")
-                .patternLine("##")
-                .key('#', MythItems.POLISHED_TROLLSTONE.get())
-                .build(consumer);
+        this.shaped(MythItems.POLISHED_TROLLSTONE_BRICKS.get(), 4, MythItems.POLISHED_TROLLSTONE.get())
+                .pattern("##")
+                .pattern("##")
+                .define('#', MythItems.POLISHED_TROLLSTONE.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.POLISHED_TROLLSTONE_PILLAR.get(), 2, MythItems.POLISHED_TROLLSTONE.get())
-                .patternLine("#")
-                .patternLine("#")
-                .key('#', MythItems.POLISHED_TROLLSTONE.get())
-                .build(consumer);
+        this.shaped(MythItems.POLISHED_TROLLSTONE_PILLAR.get(), 2, MythItems.POLISHED_TROLLSTONE.get())
+                .pattern("#")
+                .pattern("#")
+                .define('#', MythItems.POLISHED_TROLLSTONE.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.CHISELED_POLISHED_TROLLSTONE.get(), 1, MythItems.POLISHED_TROLLSTONE_SLAB.get())
-                .patternLine("#")
-                .patternLine("#")
-                .key('#', MythItems.POLISHED_TROLLSTONE_SLAB.get())
-                .build(consumer);
+        this.shaped(MythItems.CHISELED_POLISHED_TROLLSTONE.get(), 1, MythItems.POLISHED_TROLLSTONE_SLAB.get())
+                .pattern("#")
+                .pattern("#")
+                .define('#', MythItems.POLISHED_TROLLSTONE_SLAB.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.WOLT_WOOD.get(), 3, MythItems.WOLT_LOG.get())
-                .patternLine("##")
-                .patternLine("##")
-                .key('#', MythItems.WOLT_LOG.get())
-                .build(consumer);
+        this.shaped(MythItems.WOLT_WOOD.get(), 3, MythItems.WOLT_LOG.get())
+                .pattern("##")
+                .pattern("##")
+                .define('#', MythItems.WOLT_LOG.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.WOLT_WOOD_STRIPPED.get(), 3, MythItems.WOLT_LOG_STRIPPED.get())
-                .patternLine("##")
-                .patternLine("##")
-                .key('#', MythItems.WOLT_LOG_STRIPPED.get())
-                .build(consumer);
+        this.shaped(MythItems.WOLT_WOOD_STRIPPED.get(), 3, MythItems.WOLT_LOG_STRIPPED.get())
+                .pattern("##")
+                .pattern("##")
+                .define('#', MythItems.WOLT_LOG_STRIPPED.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.WOLT_DOOR.get(), 3, MythItems.WOLT_PLANKS.get())
-                .setGroup("wooden_door")
-                .patternLine("##")
-                .patternLine("##")
-                .patternLine("##")
-                .key('#', MythItems.WOLT_PLANKS.get())
-                .build(consumer);
+        this.shaped(MythItems.WOLT_DOOR.get(), 3, MythItems.WOLT_PLANKS.get())
+                .group("wooden_door")
+                .pattern("##")
+                .pattern("##")
+                .pattern("##")
+                .define('#', MythItems.WOLT_PLANKS.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.WOLT_TRAPDOOR.get(), 2, MythItems.WOLT_PLANKS.get())
-                .setGroup("wooden_trapdoor")
-                .patternLine("###")
-                .patternLine("###")
-                .key('#', MythItems.WOLT_PLANKS.get())
-                .build(consumer);
+        this.shaped(MythItems.WOLT_TRAPDOOR.get(), 2, MythItems.WOLT_PLANKS.get())
+                .group("wooden_trapdoor")
+                .pattern("###")
+                .pattern("###")
+                .define('#', MythItems.WOLT_PLANKS.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.WOLT_POWDER_BLOCK.get(), 1, MythItems.WOLT_POWDER.get())
-                .patternLine("###")
-                .patternLine("###")
-                .patternLine("###")
-                .key('#', MythItems.WOLT_POWDER.get())
-                .build(consumer);
+        this.shaped(MythItems.WOLT_POWDER_BLOCK.get(), 1, MythItems.WOLT_POWDER.get())
+                .pattern("###")
+                .pattern("###")
+                .pattern("###")
+                .define('#', MythItems.WOLT_POWDER.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.GOLDEN_WOLT_POWDER_BLOCK.get(), 1, MythItems.GOLDEN_WOLT_POWDER.get())
-                .patternLine("###")
-                .patternLine("###")
-                .patternLine("###")
-                .key('#', MythItems.GOLDEN_WOLT_POWDER.get())
-                .build(consumer);
+        this.shaped(MythItems.GOLDEN_WOLT_POWDER_BLOCK.get(), 1, MythItems.GOLDEN_WOLT_POWDER.get())
+                .pattern("###")
+                .pattern("###")
+                .pattern("###")
+                .define('#', MythItems.GOLDEN_WOLT_POWDER.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.BIOBULB_CLUSTER.get(), 1, MythItems.BIOBULB.get())
-                .patternLine("##")
-                .patternLine("##")
-                .key('#', MythItems.BIOBULB.get())
-                .build(consumer);
+        this.shaped(MythItems.BIOBULB_CLUSTER.get(), 1, MythItems.BIOBULB.get())
+                .pattern("##")
+                .pattern("##")
+                .define('#', MythItems.BIOBULB.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.ROASTED_BIOBULB_CLUSTER.get(), 1, MythItems.ROASTED_BIOBULB.get())
-                .patternLine("##")
-                .patternLine("##")
-                .key('#', MythItems.ROASTED_BIOBULB.get())
-                .build(consumer);
+        this.shaped(MythItems.ROASTED_BIOBULB_CLUSTER.get(), 1, MythItems.ROASTED_BIOBULB.get())
+                .pattern("##")
+                .pattern("##")
+                .define('#', MythItems.ROASTED_BIOBULB.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.BIOBULB_LAMP.get(), 1, MythItems.BIOBULB.get())
-                .patternLine(" # ")
-                .patternLine("#B#")
-                .patternLine(" # ")
-                .key('#', Tags.Items.DUSTS_REDSTONE)
-                .key('B', MythItems.BIOBULB.get())
-                .build(consumer);
+        this.shaped(MythItems.BIOBULB_LAMP.get(), 1, MythItems.BIOBULB.get())
+                .pattern(" # ")
+                .pattern("#B#")
+                .pattern(" # ")
+                .define('#', Tags.Items.DUSTS_REDSTONE)
+                .define('B', MythItems.BIOBULB.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.STATIC_COTTON_BLOCK.get(), 1, MythItems.STATIC_COTTON.get())
-                .patternLine("##")
-                .patternLine("##")
-                .key('#', MythItems.STATIC_COTTON.get())
-                .build(consumer);
+        this.shaped(MythItems.STATIC_COTTON_BLOCK.get(), 1, MythItems.STATIC_COTTON.get())
+                .pattern("##")
+                .pattern("##")
+                .define('#', MythItems.STATIC_COTTON.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.STATIC_COTTON_PILES.get(), 6, MythItems.STATIC_COTTON_BLOCK.get())
-                .patternLine("###")
-                .key('#', MythItems.STATIC_COTTON_BLOCK.get())
-                .build(consumer);
+        this.shaped(MythItems.STATIC_COTTON_PILES.get(), 6, MythItems.STATIC_COTTON_BLOCK.get())
+                .pattern("###")
+                .define('#', MythItems.STATIC_COTTON_BLOCK.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.LAUNCHER_RAIL.get(), 6, MythItems.WOLT_POWDER.get())
-                .patternLine("S S")
-                .patternLine("GWG")
-                .patternLine("SRS")
-                .key('S', Tags.Items.RODS_WOODEN)
-                .key('G', MythItems.GOLDEN_WOLT_POWDER.get())
-                .key('W', MythItems.WOLT_POWDER.get())
-                .key('R', Tags.Items.DUSTS_REDSTONE)
-                .build(consumer);
+        this.shaped(MythItems.LAUNCHER_RAIL.get(), 6, MythItems.WOLT_POWDER.get())
+                .pattern("S S")
+                .pattern("GWG")
+                .pattern("SRS")
+                .define('S', Tags.Items.RODS_WOODEN)
+                .define('G', MythItems.GOLDEN_WOLT_POWDER.get())
+                .define('W', MythItems.WOLT_POWDER.get())
+                .define('R', Tags.Items.DUSTS_REDSTONE)
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.SNAIL_SHELL_BLOCK.get(), 1, MythItems.SNAIL_SHELL.get())
-                .patternLine("###")
-                .patternLine("###")
-                .patternLine("###")
-                .key('#', MythItems.SNAIL_SHELL.get())
-                .build(consumer);
+        this.shaped(MythItems.SNAIL_SHELL_BLOCK.get(), 1, MythItems.SNAIL_SHELL.get())
+                .pattern("###")
+                .pattern("###")
+                .pattern("###")
+                .define('#', MythItems.SNAIL_SHELL.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.SNAIL_SHELL_BRICKS.get(), 4, MythItems.SNAIL_SHELL_BLOCK.get())
-                .patternLine("##")
-                .patternLine("##")
-                .key('#', MythItems.SNAIL_SHELL_BLOCK.get())
-                .build(consumer);
+        this.shaped(MythItems.SNAIL_SHELL_BRICKS.get(), 4, MythItems.SNAIL_SHELL_BLOCK.get())
+                .pattern("##")
+                .pattern("##")
+                .define('#', MythItems.SNAIL_SHELL_BLOCK.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.BEJEWELED_SNAIL_SHELL_BLOCK.get(), 1, MythItems.BEJEWELED_SNAIL_SHELL.get())
-                .patternLine("###")
-                .patternLine("###")
-                .patternLine("###")
-                .key('#', MythItems.BEJEWELED_SNAIL_SHELL.get())
-                .build(consumer);
+        this.shaped(MythItems.BEJEWELED_SNAIL_SHELL_BLOCK.get(), 1, MythItems.BEJEWELED_SNAIL_SHELL.get())
+                .pattern("###")
+                .pattern("###")
+                .pattern("###")
+                .define('#', MythItems.BEJEWELED_SNAIL_SHELL.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.BEJEWELED_SNAIL_SHELL_BRICKS.get(), 4, MythItems.BEJEWELED_SNAIL_SHELL_BLOCK.get())
-                .patternLine("##")
-                .patternLine("##")
-                .key('#', MythItems.BEJEWELED_SNAIL_SHELL_BLOCK.get())
-                .build(consumer);
+        this.shaped(MythItems.BEJEWELED_SNAIL_SHELL_BRICKS.get(), 4, MythItems.BEJEWELED_SNAIL_SHELL_BLOCK.get())
+                .pattern("##")
+                .pattern("##")
+                .define('#', MythItems.BEJEWELED_SNAIL_SHELL_BLOCK.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.GOLDEN_WOLT_FRUIT.get(), 1, MythItems.WOLT_FRUIT.get())
-                .patternLine("GGG")
-                .patternLine("GPG")
-                .patternLine("GGG")
-                .key('G', Tags.Items.INGOTS_GOLD)
-                .key('P', MythItems.WOLT_FRUIT.get())
-                .build(consumer);
+        this.shaped(MythItems.GOLDEN_WOLT_FRUIT.get(), 1, MythItems.WOLT_FRUIT.get())
+                .pattern("GGG")
+                .pattern("GPG")
+                .pattern("GGG")
+                .define('G', Tags.Items.INGOTS_GOLD)
+                .define('P', MythItems.WOLT_FRUIT.get())
+                .save(consumer);
 
-        this.shapedRecipe(MythItems.GLOWBALL.get(), 1, MythItems.BIOBULB.get())
-                .patternLine("BBB")
-                .patternLine("BSG")
-                .patternLine("GGG")
-                .key('B', MythItems.BIOBULB.get())
-                .key('S', Items.SNOWBALL)
-                .key('G', Tags.Items.DUSTS_GLOWSTONE)
-                .build(consumer);
+        this.shaped(MythItems.GLOWBALL.get(), 1, MythItems.BIOBULB.get())
+                .pattern("BBB")
+                .pattern("BSG")
+                .pattern("GGG")
+                .define('B', MythItems.BIOBULB.get())
+                .define('S', Items.SNOWBALL)
+                .define('G', Tags.Items.DUSTS_GLOWSTONE)
+                .save(consumer);
 
         this.boatRecipe(MythItems.WOLT_BOAT.get(), MythItems.WOLT_PLANKS.get(), consumer);
 
         // Shapeless
         this.shapelessPlanksRecipe(MythItems.WOLT_PLANKS.get(), MythItemTags.WOLT_LOGS, consumer);
 
-        this.shapelessRecipe(MythItems.WOLT_POWDER.get(), 9, MythItems.WOLT_POWDER_BLOCK.get())
-                .addIngredient(MythItems.WOLT_POWDER_BLOCK.get())
-                .build(consumer, "wolt_powder_from_wolt_powder_block");
+        this.shapeless(MythItems.WOLT_POWDER.get(), 9, MythItems.WOLT_POWDER_BLOCK.get())
+                .requires(MythItems.WOLT_POWDER_BLOCK.get())
+                .save(consumer, "wolt_powder_from_wolt_powder_block");
 
         this.singleIngredientRecipe(MythItems.WOLT_POWDER.get(), 1, MythItems.WOLT_FRUIT.get());
 
-        this.shapelessRecipe(MythItems.GOLDEN_WOLT_POWDER.get(), 9, MythItems.GOLDEN_WOLT_POWDER_BLOCK.get())
-                .addIngredient(MythItems.GOLDEN_WOLT_POWDER_BLOCK.get())
-                .build(consumer, "golden_wolt_powder_from_golden_wolt_powder_block");
+        this.shapeless(MythItems.GOLDEN_WOLT_POWDER.get(), 9, MythItems.GOLDEN_WOLT_POWDER_BLOCK.get())
+                .requires(MythItems.GOLDEN_WOLT_POWDER_BLOCK.get())
+                .save(consumer, "golden_wolt_powder_from_golden_wolt_powder_block");
 
         this.singleIngredientRecipe(MythItems.GOLDEN_WOLT_POWDER.get(), 1, MythItems.GOLDEN_WOLT_FRUIT.get());
 
-        this.shapelessRecipe(MythItems.COTTON_HIDE.get(), 1, MythItems.STATIC_COTTON.get())
-                .addIngredient(Items.LEATHER)
-                .addIngredient(Items.LEATHER)
-                .addIngredient(MythItems.STATIC_COTTON.get())
-                .addIngredient(MythItems.STATIC_COTTON.get())
-                .build(consumer);
+        this.shapeless(MythItems.COTTON_HIDE.get(), 1, MythItems.STATIC_COTTON.get())
+                .requires(Items.LEATHER)
+                .requires(Items.LEATHER)
+                .requires(MythItems.STATIC_COTTON.get())
+                .requires(MythItems.STATIC_COTTON.get())
+                .save(consumer);
 
-        this.shapelessRecipe(MythItems.SNAIL_SHELL.get(), 9, MythItems.SNAIL_SHELL_BLOCK.get())
-                .addIngredient(MythItems.SNAIL_SHELL_BLOCK.get())
-                .build(consumer, "snail_shell_from_snail_shell_block");
+        this.shapeless(MythItems.SNAIL_SHELL.get(), 9, MythItems.SNAIL_SHELL_BLOCK.get())
+                .requires(MythItems.SNAIL_SHELL_BLOCK.get())
+                .save(consumer, "snail_shell_from_snail_shell_block");
 
         this.singleIngredientRecipe(Items.PURPLE_DYE, 1, MythItems.SNAIL_SHELL.get());
 
-        this.shapelessRecipe(MythItems.BEJEWELED_SNAIL_SHELL.get(), 9, MythItems.BEJEWELED_SNAIL_SHELL_BLOCK.get())
-                .addIngredient(MythItems.BEJEWELED_SNAIL_SHELL_BLOCK.get())
-                .build(consumer, "bejeweled_snail_shell_from_bejeweled_snail_shell_block");
+        this.shapeless(MythItems.BEJEWELED_SNAIL_SHELL.get(), 9, MythItems.BEJEWELED_SNAIL_SHELL_BLOCK.get())
+                .requires(MythItems.BEJEWELED_SNAIL_SHELL_BLOCK.get())
+                .save(consumer, "bejeweled_snail_shell_from_bejeweled_snail_shell_block");
 
-        this.shapelessRecipe(MythItems.COTTON_HOOD.get(), 1, MythItems.COTTON_HIDE.get())
-                .addIngredient(MythItems.COTTON_HIDE.get())
-                .addIngredient(Items.LEATHER_HELMET)
-                .build(consumer);
+        this.shapeless(MythItems.COTTON_HOOD.get(), 1, MythItems.COTTON_HIDE.get())
+                .requires(MythItems.COTTON_HIDE.get())
+                .requires(Items.LEATHER_HELMET)
+                .save(consumer);
 
-        this.shapelessRecipe(MythItems.COTTON_COAT.get(), 1, MythItems.COTTON_HIDE.get())
-                .addIngredient(MythItems.COTTON_HIDE.get())
-                .addIngredient(Items.LEATHER_CHESTPLATE)
-                .build(consumer);
+        this.shapeless(MythItems.COTTON_COAT.get(), 1, MythItems.COTTON_HIDE.get())
+                .requires(MythItems.COTTON_HIDE.get())
+                .requires(Items.LEATHER_CHESTPLATE)
+                .save(consumer);
 
-        this.shapelessRecipe(MythItems.COTTON_PANTS.get(), 1, MythItems.COTTON_HIDE.get())
-                .addIngredient(MythItems.COTTON_HIDE.get())
-                .addIngredient(Items.LEATHER_LEGGINGS)
-                .build(consumer);
+        this.shapeless(MythItems.COTTON_PANTS.get(), 1, MythItems.COTTON_HIDE.get())
+                .requires(MythItems.COTTON_HIDE.get())
+                .requires(Items.LEATHER_LEGGINGS)
+                .save(consumer);
 
-        this.shapelessRecipe(MythItems.COTTON_BOOTS.get(), 1, MythItems.COTTON_HIDE.get())
-                .addIngredient(MythItems.COTTON_HIDE.get())
-                .addIngredient(Items.LEATHER_BOOTS)
-                .build(consumer);
+        this.shapeless(MythItems.COTTON_BOOTS.get(), 1, MythItems.COTTON_HIDE.get())
+                .requires(MythItems.COTTON_HIDE.get())
+                .requires(Items.LEATHER_BOOTS)
+                .save(consumer);
 
         this.slabRecipe(MythBlocks.GALVITE_SLAB.get(), MythBlocks.GALVITE.get(), consumer);
         this.slabRecipe(MythBlocks.POLISHED_GALVITE_SLAB.get(), MythBlocks.POLISHED_GALVITE.get(), consumer);
@@ -463,14 +464,14 @@ public class MythRecipeProvider extends AbstractRecipeProvider {
         this.quarkChestRecipe(MythBlocks.WOLT_CHEST.get(), MythBlocks.WOLT_TRAPPED_CHEST.get(), MythBlocks.WOLT_PLANKS.get(), MythItemTags.WOLT_LOGS);
 
         // Mekanism compat
-        this.modCompatRecipeNoAdvancement(recipeConsumer -> {
-            CombinerRecipeBuilder.combining(ItemStackIngredient.deserialize(itemFromName("mekanism:dust_diamond", 3)), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.BEJEWELED_GALVITE.get())).build(recipeConsumer);
-        }, "mekanism");
-        this.modCompatRecipeNoAdvancement(recipeConsumer -> {
+        this.modCompatRecipeNoAdvancement("mekanism", recipeConsumer -> {
+            CombinerRecipeBuilder.combining(ItemStackIngredient.deserialize(itemFromName(new ResourceLocation("mekanism", "dust_diamond"), 3)), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.BEJEWELED_GALVITE.get())).build(recipeConsumer);
+        });
+        this.modCompatRecipeNoAdvancement("mekanism", recipeConsumer -> {
             CombinerRecipeBuilder.combining(ItemStackIngredient.from(Tags.Items.DUSTS_REDSTONE, 12), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.POWERED_GALVITE.get())).build(recipeConsumer);
-        }, "mekanism");
-        this.modCompatRecipeNoAdvancement(recipeConsumer -> {
-            CombinerRecipeBuilder.combining(ItemStackIngredient.deserialize(itemFromName("mekanism:dust_gold", 8)), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.GILDED_GALVITE.get())).build(recipeConsumer);
-        }, "mekanism");
+        });
+        this.modCompatRecipeNoAdvancement("mekanism", recipeConsumer -> {
+            CombinerRecipeBuilder.combining(ItemStackIngredient.deserialize(itemFromName(new ResourceLocation("mekanism", "dust_gold"), 8)), ItemStackIngredient.from(MythItems.GALVITE.get()), new ItemStack(MythItems.GILDED_GALVITE.get())).build(recipeConsumer);
+        });
     }
 }

@@ -27,7 +27,7 @@ public class MythThrowableItem<T extends ProjectileItemEntity> extends Item {
     private int cooldown = 0;
 
     public MythThrowableItem(Supplier<EntityType<T>> entityTypeSupplier) {
-        this(entityTypeSupplier, new Properties().group(MythItemGroup.MOD_ITEM_GROUP).maxStackSize(16));
+        this(entityTypeSupplier, new Properties().tab(MythItemGroup.MOD_ITEM_GROUP).stacksTo(16));
     }
 
     public MythThrowableItem(Supplier<EntityType<T>> entityTypeSupplier, Properties properties) {
@@ -36,28 +36,28 @@ public class MythThrowableItem<T extends ProjectileItemEntity> extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity playerEntity, Hand hand) {
-        ItemStack itemStack = playerEntity.getHeldItem(hand);
+    public ActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
+        ItemStack itemStack = playerEntity.getItemInHand(hand);
         ProjectileItemEntity entity = this.getThrowableType().create(world);
 
         if (entity == null) {
-            return ActionResult.resultPass(itemStack);
+            return ActionResult.pass(itemStack);
         }
         else {
-            entity.setShooter(playerEntity);
-            entity.setPosition(playerEntity.getPosX(), playerEntity.getPosYEye() - (double)0.1F, playerEntity.getPosZ());
-            entity.func_234612_a_(playerEntity, playerEntity.rotationPitch, playerEntity.rotationYaw, 0.0F, 1.5F, 1.0F);
-            world.addEntity(entity);
-            world.playSound(playerEntity, playerEntity.getPosX(), playerEntity.getPosY(), playerEntity.getPosZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-            playerEntity.addStat(Stats.ITEM_USED.get(this));
+            entity.setOwner(playerEntity);
+            entity.setPos(playerEntity.getX(), playerEntity.getEyeY() - (double)0.1F, playerEntity.getZ());
+            entity.shootFromRotation(playerEntity, playerEntity.xRot, playerEntity.yRot, 0.0F, 1.5F, 1.0F);
+            world.addFreshEntity(entity);
+            world.playSound(playerEntity, playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), SoundEvents.SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+            playerEntity.awardStat(Stats.ITEM_USED.get(this));
 
-            if (!playerEntity.abilities.isCreativeMode) {
+            if (!playerEntity.abilities.instabuild) {
                 if (this.cooldown > 0) {
-                    playerEntity.getCooldownTracker().setCooldown(this, this.getCooldown());
+                    playerEntity.getCooldowns().addCooldown(this, this.getCooldown());
                 }
                 itemStack.shrink(1);
             }
-            return ActionResult.resultSuccess(itemStack);
+            return ActionResult.success(itemStack);
         }
     }
 

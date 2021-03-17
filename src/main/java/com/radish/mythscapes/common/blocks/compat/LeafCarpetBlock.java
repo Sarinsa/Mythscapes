@@ -17,17 +17,17 @@ import net.minecraftforge.common.ToolType;
 @SuppressWarnings("deprecation")
 public class LeafCarpetBlock extends Block {
 
-    private static final VoxelShape SHAPE = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 1.0D, 16.0D);
+    private static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 1.0D, 16.0D);
 
     public LeafCarpetBlock(Properties properties) {
         super(properties);
     }
 
     public LeafCarpetBlock() {
-        super(AbstractBlock.Properties.create(Material.CARPET)
-                .notSolid()
-                .zeroHardnessAndResistance()
-                .sound(SoundType.PLANT)
+        super(AbstractBlock.Properties.of(Material.CLOTH_DECORATION)
+                .noOcclusion()
+                .instabreak()
+                .sound(SoundType.GRASS)
                 .harvestTool(ToolType.HOE)
         );
     }
@@ -48,7 +48,7 @@ public class LeafCarpetBlock extends Block {
     }
 
     @Override
-    public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
+    public boolean canBeReplaced(BlockState state, BlockItemUseContext useContext) {
         return true;
     }
 

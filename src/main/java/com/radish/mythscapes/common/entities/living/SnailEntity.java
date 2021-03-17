@@ -43,15 +43,15 @@ import java.util.Random;
 
 public class SnailEntity extends CreatureEntity {
 
-    private static final DataParameter<String> SNAIL_TYPE = EntityDataManager.createKey(SnailEntity.class, DataSerializers.STRING);
-    private static final DataParameter<Boolean> FROM_BUCKET = EntityDataManager.createKey(SnailEntity.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> HAS_EATEN = EntityDataManager.createKey(SnailEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<String> SNAIL_TYPE = EntityDataManager.defineId(SnailEntity.class, DataSerializers.STRING);
+    private static final DataParameter<Boolean> FROM_BUCKET = EntityDataManager.defineId(SnailEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> HAS_EATEN = EntityDataManager.defineId(SnailEntity.class, DataSerializers.BOOLEAN);
 
-    public int timeUntilShellShed = rand.nextInt(8000) + 3000;
+    public int timeUntilShellShed = random.nextInt(8000) + 3000;
 
     public SnailEntity(EntityType<? extends CreatureEntity> type, World world) {
         super(type, world);
-        this.setPathPriority(PathNodeType.WATER, -1.0f);
+        this.setPathfindingMalus(PathNodeType.WATER, -1.0f);
     }
 
     @Override
@@ -62,29 +62,29 @@ public class SnailEntity extends CreatureEntity {
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
+    protected void defineSynchedData() {
+        super.defineSynchedData();
         // Default to jungle type. All of our own snail types are
         // statically initialized, so this should cause no problems.
-        this.dataManager.register(SNAIL_TYPE, SnailTypeRegister.JUNGLE.getName().toString());
-        this.dataManager.register(FROM_BUCKET, false);
-        this.dataManager.register(HAS_EATEN, false);
+        this.entityData.define(SNAIL_TYPE, SnailTypeRegister.JUNGLE.getName().toString());
+        this.entityData.define(FROM_BUCKET, false);
+        this.entityData.define(HAS_EATEN, false);
     }
 
     @Override
-    public int getMaxAir() {
+    public int getMaxAirSupply() {
         return 60;
     }
 
     @Override
-    public void livingTick() {
-        super.livingTick();
-        if (!world.isRemote && --this.timeUntilShellShed <= 0) {
-            ItemStack itemStack = this.getShedDrop(this.rand);
+    public void aiStep() {
+        super.aiStep();
+        if (!level.isClientSide && --this.timeUntilShellShed <= 0) {
+            ItemStack itemStack = this.getShedDrop(this.random);
 
             if (!itemStack.isEmpty()) {
-                this.timeUntilShellShed = this.rand.nextInt(8000) + 3000;
-                this.entityDropItem(itemStack);
+                this.timeUntilShellShed = this.random.nextInt(8000) + 3000;
+                this.spawnAtLocation(itemStack);
             }
         }
     }
@@ -94,20 +94,20 @@ public class SnailEntity extends CreatureEntity {
         super.move(typeIn, pos);
 
         if (this.isOnGround()) {
-            BlockPos below = this.getPosition().down();
+            BlockPos below = this.blockPosition().below();
 
-            if (this.world.getBlockState(below).isIn(MythBlockTags.SALT_BLOCKS)) {
-                this.attackEntityFrom(MythDamageSources.SALT_DEHYDRATION, 1.0f);
+            if (this.level.getBlockState(below).is(MythBlockTags.SALT_BLOCKS)) {
+                this.hurt(MythDamageSources.SALT_DEHYDRATION, 1.0f);
             }
         }
     }
 
     @Override
-    public void onDeath(DamageSource cause) {
-        if (!this.world.isRemote && this.world.getGameRules().getBoolean(GameRules.SHOW_DEATH_MESSAGES) && this.hasCustomName()) {
-            this.world.getPlayers().forEach((playerEntity -> playerEntity.sendMessage(this.getCombatTracker().getDeathMessage(), Util.DUMMY_UUID)));
+    public void die(DamageSource cause) {
+        if (!this.level.isClientSide && this.level.getGameRules().getBoolean(GameRules.RULE_SHOWDEATHMESSAGES) && this.hasCustomName()) {
+            this.level.players().forEach((playerEntity -> playerEntity.sendMessage(this.getCombatTracker().getDeathMessage(), Util.NIL_UUID)));
         }
-        super.onDeath(cause);
+        super.die(cause);
     }
 
     @Override
@@ -115,17 +115,17 @@ public class SnailEntity extends CreatureEntity {
         // No step sound
     }
 
-    public static boolean canSnailSpawn(EntityType<? extends SnailEntity> type, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
-        return pos.getY() > 40 && !world.getBlockState(pos.down()).isIn(MythBlockTags.SALT_BLOCKS);
+    public static boolean checkPygmySnailSpawnRules(EntityType<? extends SnailEntity> type, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
+        return pos.getY() > 40 && !world.getBlockState(pos.below()).is(MythBlockTags.SALT_BLOCKS);
     }
 
     @Override
-    public boolean preventDespawn() {
-        return super.preventDespawn() || this.isFromBucket();
+    public boolean requiresCustomPersistence() {
+        return super.requiresCustomPersistence() || this.isFromBucket();
     }
 
     public boolean isFromBucket() {
-        return this.dataManager.get(FROM_BUCKET);
+        return this.entityData.get(FROM_BUCKET);
     }
 
     /**
@@ -133,23 +133,23 @@ public class SnailEntity extends CreatureEntity {
      *         or not during it's lifespan.
      */
     public boolean hasEaten() {
-        return this.dataManager.get(HAS_EATEN);
+        return this.entityData.get(HAS_EATEN);
     }
 
     public void setHasEaten(boolean hasEaten) {
-        this.dataManager.set(HAS_EATEN, hasEaten);
+        this.entityData.set(HAS_EATEN, hasEaten);
     }
 
     public void setFromBucket(boolean fromBucket) {
-        this.dataManager.set(FROM_BUCKET, fromBucket);
+        this.entityData.set(FROM_BUCKET, fromBucket);
     }
 
     public void setSnailType(ISnailType snailType) {
-        this.dataManager.set(SNAIL_TYPE, snailType.getName().toString());
+        this.entityData.set(SNAIL_TYPE, snailType.getName().toString());
     }
 
     public ISnailType getSnailType() {
-        return SnailTypeRegister.getFromName(this.dataManager.get(SNAIL_TYPE));
+        return SnailTypeRegister.getFromName(this.entityData.get(SNAIL_TYPE));
     }
 
     public ItemStack getShedDrop(Random random) {
@@ -157,14 +157,14 @@ public class SnailEntity extends CreatureEntity {
         return itemStack == null ? new ItemStack(MythItems.SNAIL_SHELL.get()) : itemStack;
     }
 
-    @Override               //processInteract
-    public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
-        if (player.getHeldItem(hand).getItem() == Items.BUCKET) {
-            ItemStack itemStack = player.getHeldItem(hand);
+    @Override
+    public ActionResultType mobInteract(PlayerEntity player, Hand hand) {
+        if (player.getItemInHand(hand).getItem() == Items.BUCKET) {
+            ItemStack itemStack = player.getItemInHand(hand);
 
-            if (!player.abilities.isCreativeMode) {
+            if (!player.abilities.instabuild) {
                 itemStack.shrink(1);
-                player.addStat(Stats.ITEM_USED.get(itemStack.getItem()));
+                player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
             }
             ItemStack snailBucket = new ItemStack(MythItems.SNAIL_BUCKET.get());
             CompoundNBT tag = snailBucket.getOrCreateTag();
@@ -172,24 +172,24 @@ public class SnailEntity extends CreatureEntity {
             snailBucket.setTag(tag);
 
             if (itemStack.isEmpty()) {
-                player.setHeldItem(hand, snailBucket);
+                player.setItemInHand(hand, snailBucket);
             }
             else {
-                if (!player.inventory.addItemStackToInventory(snailBucket)) {
-                    player.dropItem(snailBucket, false);
+                if (!player.inventory.add(snailBucket)) {
+                    player.drop(snailBucket, false);
                 }
             }
             this.remove();
             return ActionResultType.SUCCESS;
         }
-        return super.func_230254_b_(player, hand);
+        return super.mobInteract(player, hand);
     }
 
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld world, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData spawnData, @Nullable CompoundNBT tag) {
-        spawnData = super.onInitialSpawn(world, difficulty, reason, spawnData, tag);
+    public ILivingEntityData finalizeSpawn(IServerWorld world, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData spawnData, @Nullable CompoundNBT tag) {
+        spawnData = super.finalizeSpawn(world, difficulty, reason, spawnData, tag);
         Map<ResourceLocation, List<ISnailType>> spawnList = Mythscapes.getInstance().getSnailTypeRegister().getSpawnBiomes();
-        Biome biome = world.getBiome(this.getPosition());
+        Biome biome = world.getBiome(this.blockPosition());
 
         if (tag != null && tag.contains("SnailType", 8)) {
             this.setSnailType(SnailTypeRegister.getFromName(tag.getString("SnailType")));
@@ -199,34 +199,34 @@ public class SnailEntity extends CreatureEntity {
         }
         else {
             List<ISnailType> snailTypes = spawnList.get(biome.getRegistryName());
-            this.setSnailType(snailTypes.get(this.rand.nextInt(snailTypes.size())));
+            this.setSnailType(snailTypes.get(this.random.nextInt(snailTypes.size())));
         }
         return spawnData;
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundNBT compound) {
+        super.addAdditionalSaveData(compound);
         compound.putString("SnailType", this.getSnailType().getName().toString());
         compound.putBoolean("FromBucket", this.isFromBucket());
         compound.putBoolean("HasEaten", this.hasEaten());
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundNBT compound) {
         String snailType = compound.getString("SnailType");
         this.setSnailType(SnailTypeRegister.getFromName(snailType));
         this.setFromBucket(compound.getBoolean("FromBucket"));
         this.setHasEaten(compound.getBoolean("HasEaten"));
 
-        super.readAdditional(compound);
+        super.readAdditionalSaveData(compound);
     }
 
     public static AttributeModifierMap.MutableAttribute registerEntityAttributes() {
-        return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.FOLLOW_RANGE, 12.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.1D)
-                .createMutableAttribute(Attributes.MAX_HEALTH, 3.0D);
+        return MobEntity.createMobAttributes()
+                .add(Attributes.FOLLOW_RANGE, 12.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.1D)
+                .add(Attributes.MAX_HEALTH, 3.0D);
     }
 
     private static class MoveTowardsComposterGoal<T extends SnailEntity> extends MoveToBlockGoal {
@@ -240,30 +240,30 @@ public class SnailEntity extends CreatureEntity {
         }
 
         @Override
-        public double getTargetDistanceSq() {
+        public double acceptedDistance() {
             return 0.8D;
         }
 
         @Override
-        protected boolean getIsAboveDestination() {
-            return super.getIsAboveDestination() || this.creature.getPosition().equals(this.destinationBlock);
+        protected boolean isReachedTarget() {
+            return super.isReachedTarget() || this.mob.blockPosition().equals(this.blockPos);
         }
 
         @Override
         public void tick() {
             super.tick();
 
-            if (this.getIsAboveDestination()) {
+            if (this.isReachedTarget()) {
                 --this.eatTimer;
 
                 if (this.eatTimer <= 0) {
-                    SnailEntity entity = (SnailEntity) this.creature;
-                    BlockState state = entity.world.getBlockState(this.destinationBlock);
+                    SnailEntity entity = (SnailEntity) this.mob;
+                    BlockState state = entity.level.getBlockState(this.blockPos);
 
-                    int eatAmount = state.get(ComposterBlock.LEVEL) >= 8 ? 2 : 1;
+                    int eatAmount = state.getValue(ComposterBlock.LEVEL) >= 8 ? 2 : 1;
 
-                    if (state.isIn(Blocks.COMPOSTER)) {
-                        entity.world.setBlockState(this.destinationBlock, state.with(ComposterBlock.LEVEL, state.get(ComposterBlock.LEVEL) - eatAmount));
+                    if (state.is(Blocks.COMPOSTER)) {
+                        entity.level.setBlockAndUpdate(this.blockPos, state.setValue(ComposterBlock.LEVEL, state.getValue(ComposterBlock.LEVEL) - eatAmount));
                     }
                     entity.setHasEaten(true);
                 }
@@ -274,9 +274,9 @@ public class SnailEntity extends CreatureEntity {
         }
 
         private void playEffects() {
-            CreatureEntity entity = this.creature;
+            CreatureEntity entity = this.mob;
 
-            entity.world.playSound(null, entity.getPosition(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.NEUTRAL, 0.6F, (entity.getRNG().nextFloat() - entity.getRNG().nextFloat()) * 0.2F + 1.2F);
+            entity.level.playSound(null, entity.blockPosition(), SoundEvents.GENERIC_EAT, SoundCategory.NEUTRAL, 0.6F, (entity.getRandom().nextFloat() - entity.getRandom().nextFloat()) * 0.2F + 1.2F);
 
             // Maybe do this, maybe not, we'll see
             /*
@@ -296,19 +296,19 @@ public class SnailEntity extends CreatureEntity {
         }
 
         @Override
-        protected boolean shouldMoveTo(IWorldReader world, BlockPos pos) {
-            if (((SnailEntity)this.creature).hasEaten())
+        protected boolean isValidTarget(IWorldReader world, BlockPos pos) {
+            if (((SnailEntity)this.mob).hasEaten())
                 return false;
 
-            if (world.isAirBlock(pos.up()) && (world.getBlockState(pos).isIn(Blocks.COMPOSTER))) {
-                return world.getBlockState(pos).get(ComposterBlock.LEVEL) > 0;
+            if (world.isEmptyBlock(pos.above()) && (world.getBlockState(pos).is(Blocks.COMPOSTER))) {
+                return world.getBlockState(pos).getValue(ComposterBlock.LEVEL) > 0;
             }
             return false;
         }
 
         @Override
-        public void startExecuting() {
-            super.startExecuting();
+        public void start() {
+            super.start();
             this.eatTimer = maxEatTimerCount;
         }
     }

@@ -17,13 +17,13 @@ import java.util.function.Supplier;
 public class DispenserBehavior {
 
     public static void register() {
-        DispenserBlock.registerDispenseBehavior(MythItems.ACTIVATED_BLISTERBERRY.get(), createSimple(MythEntities.BLISTERBERRY));
-        DispenserBlock.registerDispenseBehavior(MythItems.STATIC_COTTON.get(), createSimple(MythEntities.STATIC_COTTON));
+        DispenserBlock.registerBehavior(MythItems.ACTIVATED_BLISTERBERRY.get(), createSimple(MythEntities.BLISTERBERRY));
+        DispenserBlock.registerBehavior(MythItems.STATIC_COTTON.get(), createSimple(MythEntities.STATIC_COTTON));
 
-        DispenserBlock.registerDispenseBehavior(MythItems.GLOWBALL.get(), new ProjectileDispenseBehavior() {
+        DispenserBlock.registerBehavior(MythItems.GLOWBALL.get(), new ProjectileDispenseBehavior() {
             @Override
-            protected ProjectileEntity getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
-                return new GlowballEntity(position.getX(), position.getY(), position.getZ(), worldIn);
+            protected ProjectileEntity getProjectile(World worldIn, IPosition position, ItemStack stackIn) {
+                return new GlowballEntity(position.x(), position.y(), position.z(), worldIn);
             }
         });
     }
@@ -31,14 +31,14 @@ public class DispenserBehavior {
     private static <T extends ProjectileEntity> ProjectileDispenseBehavior createSimple(Supplier<EntityType<T>> entityTypeSupplier) {
         return new ProjectileDispenseBehavior() {
             @Override
-            protected ProjectileEntity getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
+            protected ProjectileEntity getProjectile(World worldIn, IPosition position, ItemStack stackIn) {
                 ProjectileEntity entity = entityTypeSupplier.get().create(worldIn);
 
                 if (entity == null) {
-                    entity = new SnowballEntity(worldIn, position.getX(), position.getY(), position.getZ());
+                    entity = new SnowballEntity(worldIn, position.x(), position.y(), position.z());
                 }
-                entity.setPosition(position.getX(), position.getY(), position.getZ());
-                entity.setMotion(1.0f, 1.0f, 1.0f);
+                entity.setPos(position.x(), position.y(), position.z());
+                entity.setDeltaMovement(1.0f, 1.0f, 1.0f);
                 return entity;
             }
         };

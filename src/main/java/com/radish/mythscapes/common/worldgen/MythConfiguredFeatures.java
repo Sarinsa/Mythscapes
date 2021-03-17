@@ -6,10 +6,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
-import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.*;
 
 public class MythConfiguredFeatures {
 
@@ -21,7 +18,7 @@ public class MythConfiguredFeatures {
     public static ConfiguredFeature<?, ?> PATCH_CHARGED_DANDELIONS;
 
     private static void registerFeatures() {
-        PATCH_CHARGED_DANDELIONS = register("patch_charged_dandelion", Feature.RANDOM_PATCH.withConfiguration(FeatureConfigs.PATCH_CHARGED_DANDELIONS_CONFIG));
+        PATCH_CHARGED_DANDELIONS = register("patch_charged_dandelion", Feature.RANDOM_PATCH.configured(FeatureConfigs.PATCH_CHARGED_DANDELIONS_CONFIG));
     }
 
     private static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> register(String name, ConfiguredFeature<FC, ?> configuredFeature) {
@@ -32,7 +29,7 @@ public class MythConfiguredFeatures {
         public static BlockClusterFeatureConfig PATCH_CHARGED_DANDELIONS_CONFIG;
 
         private static void registerConfigs() {
-            PATCH_CHARGED_DANDELIONS_CONFIG = new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MythBlocks.CHARGED_DANDELION.get().getDefaultState().with(ChargedDandelionBlock.AGE, 5)), SimpleBlockPlacer.PLACER).tries(32).build();
+            PATCH_CHARGED_DANDELIONS_CONFIG = new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MythBlocks.CHARGED_DANDELION.get().defaultBlockState().setValue(ChargedDandelionBlock.AGE, 5)), SimpleBlockPlacer.INSTANCE).tries(32).build();
         }
     }
 }

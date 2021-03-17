@@ -37,8 +37,8 @@ public class FishbonesEntity extends MonsterEntity {
 
     public FishbonesEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
-        this.setPathPriority(PathNodeType.WATER, 8.0F);
-        this.stepHeight = 1.0f;
+        this.setPathfindingMalus(PathNodeType.WATER, 8.0F);
+        this.maxUpStep = 1.0f;
     }
 
     @Override
@@ -54,48 +54,48 @@ public class FishbonesEntity extends MonsterEntity {
         this.targetSelector.addGoal(2, new FishbonesNearestAttackableTargetGoal<>(this, AbstractVillagerEntity.class, false));
         this.targetSelector.addGoal(3, new FishbonesNearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.addGoal(3, new FishbonesNearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
-        this.targetSelector.addGoal(4, new FishbonesNearestAttackableTargetGoal<>(this, TurtleEntity.class, 10, true, false, TurtleEntity.TARGET_DRY_BABY));
+        this.targetSelector.addGoal(4, new FishbonesNearestAttackableTargetGoal<>(this, TurtleEntity.class, 10, true, false, TurtleEntity.BABY_ON_LAND_SELECTOR));
     }
 
     @Override
-    public void livingTick() {
-        boolean flag = this.isInDaylight();
+    public void aiStep() {
+        boolean flag = this.isSunBurnTick();
         if (flag) {
-            ItemStack itemstack = this.getItemStackFromSlot(EquipmentSlotType.HEAD);
+            ItemStack itemstack = this.getItemBySlot(EquipmentSlotType.HEAD);
             if (!itemstack.isEmpty()) {
-                if (itemstack.isDamageable()) {
-                    itemstack.setDamage(itemstack.getDamage() + this.rand.nextInt(2));
-                    if (itemstack.getDamage() >= itemstack.getMaxDamage()) {
-                        this.sendBreakAnimation(EquipmentSlotType.HEAD);
-                        this.setItemStackToSlot(EquipmentSlotType.HEAD, ItemStack.EMPTY);
+                if (itemstack.isDamageableItem()) {
+                    itemstack.setDamageValue(itemstack.getDamageValue() + this.random.nextInt(2));
+                    if (itemstack.getDamageValue() >= itemstack.getMaxDamage()) {
+                        this.broadcastBreakEvent(EquipmentSlotType.HEAD);
+                        this.setItemSlot(EquipmentSlotType.HEAD, ItemStack.EMPTY);
                     }
                 }
                 flag = false;
             }
             if (flag)
-                this.setFire(8);
+                this.setSecondsOnFire(8);
         }
-        super.livingTick();
+        super.aiStep();
     }
 
     @Override
-    public CreatureAttribute getCreatureAttribute() {
+    public CreatureAttribute getMobType() {
         return CreatureAttribute.UNDEAD;
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_SKELETON_AMBIENT;
+        return SoundEvents.SKELETON_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENTITY_SKELETON_HURT;
+        return SoundEvents.SKELETON_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_SKELETON_DEATH;
+        return SoundEvents.SKELETON_DEATH;
     }
 
     @Override
@@ -103,15 +103,15 @@ public class FishbonesEntity extends MonsterEntity {
         return 0.0F;
     }
 
-    public static boolean canFishbonesSpawn(EntityType<? extends FishbonesEntity> type, IServerWorld world, SpawnReason reason, BlockPos pos, Random randomIn) {
-        return MonsterEntity.canMonsterSpawnInLight(type, world, reason, pos, randomIn);
+    public static boolean checkFishbonesSpawnRules(EntityType<? extends FishbonesEntity> type, IServerWorld world, SpawnReason reason, BlockPos pos, Random randomIn) {
+        return MonsterEntity.checkMonsterSpawnRules(type, world, reason, pos, randomIn);
     }
 
     @Override
-    public boolean attackEntityAsMob(Entity target) {
-        if (super.attackEntityAsMob(target)) {
+    public boolean doHurtTarget(Entity target) {
+        if (super.doHurtTarget(target)) {
             if (target instanceof LivingEntity)
-                ((LivingEntity)target).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 10 * 20, 0));
+                ((LivingEntity)target).addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 10 * 20, 0));
             return true;
         }
         return false;
@@ -130,8 +130,8 @@ public class FishbonesEntity extends MonsterEntity {
             return false;
         }
         else {
-            Item item = target.getItemStackFromSlot(slotType).getItem();
-            return item.isIn(MythItemTags.PRISMARINE);
+            Item item = target.getItemBySlot(slotType).getItem();
+            return item.is(MythItemTags.PRISMARINE);
         }
     }
 
@@ -140,12 +140,12 @@ public class FishbonesEntity extends MonsterEntity {
     }
 
     public static AttributeModifierMap.MutableAttribute registerEntityAttributes() {
-        return MonsterEntity.func_234295_eP_()
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3.0D)
-                .createMutableAttribute(Attributes.FOLLOW_RANGE, 25.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.28D)
-                .createMutableAttribute(ForgeMod.SWIM_SPEED.get(), 18.0D)
-                .createMutableAttribute(Attributes.MAX_HEALTH, 10.0D);
+        return MonsterEntity.createMonsterAttributes()
+                .add(Attributes.ATTACK_DAMAGE, 3.0D)
+                .add(Attributes.FOLLOW_RANGE, 25.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.28D)
+                .add(ForgeMod.SWIM_SPEED.get(), 18.0D)
+                .add(Attributes.MAX_HEALTH, 10.0D);
     }
 
     private static class FishbonesNearestAttackableTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
@@ -159,22 +159,22 @@ public class FishbonesEntity extends MonsterEntity {
         }
 
         @Override
-        protected void findNearestTarget() {
+        protected void findTarget() {
             LivingEntity entity;
 
-            if (this.targetClass != PlayerEntity.class && this.targetClass != ServerPlayerEntity.class) {
-                entity = this.goalOwner.world.func_225318_b(this.targetClass, this.targetEntitySelector, this.goalOwner, this.goalOwner.getPosX(), this.goalOwner.getPosYEye(), this.goalOwner.getPosZ(), this.getTargetableArea(this.getTargetDistance()));
+            if (this.targetType != PlayerEntity.class && this.targetType != ServerPlayerEntity.class) {
+                entity = this.mob.level.getNearestLoadedEntity(this.targetType, this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ(), this.getTargetSearchArea(this.getFollowDistance()));
             } else {
-                entity = this.goalOwner.world.getClosestPlayer(this.targetEntitySelector, this.goalOwner, this.goalOwner.getPosX(), this.goalOwner.getPosYEye(), this.goalOwner.getPosZ());
+                entity = this.mob.level.getNearestPlayer(this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
             }
             if (!FishbonesEntity.entityHoldingPrismarine(entity)) {
-                this.nearestTarget = entity;
+                this.target = entity;
             }
         }
 
         @Override
-        public boolean shouldContinueExecuting() {
-            return super.shouldContinueExecuting() && !FishbonesEntity.entityHoldingPrismarine(this.target);
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && !FishbonesEntity.entityHoldingPrismarine(this.target);
         }
     }
 
@@ -189,19 +189,19 @@ public class FishbonesEntity extends MonsterEntity {
         public FollowPrismarineHolderGoal(FishbonesEntity entity, double speed) {
             this.fishbones = entity;
             this.moveSpeed = speed;
-            this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
         }
 
         @Override
-        public boolean shouldExecute() {
-            List<LivingEntity> entities = this.fishbones.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, this.fishbones.getBoundingBox().grow(followRange, 6.0D, followRange));
+        public boolean canUse() {
+            List<LivingEntity> entities = this.fishbones.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, this.fishbones.getBoundingBox().inflate(followRange, 6.0D, followRange));
             LivingEntity target = null;
 
             if (!entities.isEmpty()) {
                 for (LivingEntity entity : entities) {
-                    double distance = this.fishbones.getDistanceSq(entity);
+                    double distance = this.fishbones.distanceToSqr(entity);
 
-                    if (distance <= followRange && this.fishbones.getEntitySenses().canSee(entity)) {
+                    if (distance <= followRange && this.fishbones.getSensing().canSee(entity)) {
                         if (FishbonesEntity.entityHoldingPrismarine(entity)) {
                             target = entity;
                             break;
@@ -220,37 +220,37 @@ public class FishbonesEntity extends MonsterEntity {
         }
 
         @Override
-        public boolean shouldContinueExecuting() {
+        public boolean canContinueToUse() {
             if (!this.prismarineHolder.isAlive() || !FishbonesEntity.entityHoldingPrismarine(this.prismarineHolder)) {
                 return false;
             }
             else {
-                double distance = this.fishbones.getDistanceSq(this.prismarineHolder);
+                double distance = this.fishbones.distanceToSqr(this.prismarineHolder);
                 return distance <= followRange;
             }
         }
 
         @Override
-        public void startExecuting() {
+        public void start() {
             this.recalcPathTime = 0;
-            this.fishbones.setAttackTarget(null);
-            this.fishbones.setAggroed(false);
+            this.fishbones.setTarget(null);
+            this.fishbones.setAggressive(false);
         }
 
         @Override
-        public void resetTask() {
+        public void stop() {
             this.prismarineHolder = null;
-            this.fishbones.getNavigator().clearPath();
+            this.fishbones.getNavigation().stop();
         }
 
         @Override
         public void tick() {
-            this.fishbones.getLookController().setLookPositionWithEntity(this.prismarineHolder, 10.0F, (float)this.fishbones.getVerticalFaceSpeed());
+            this.fishbones.getLookControl().setLookAt(this.prismarineHolder, 10.0F, (float)this.fishbones.getMaxHeadXRot());
             if (--this.recalcPathTime <= 0) {
-                this.fishbones.getNavigator().tryMoveToEntityLiving(this.prismarineHolder, this.moveSpeed);
+                this.fishbones.getNavigation().moveTo(this.prismarineHolder, this.moveSpeed);
             }
-            this.fishbones.setAttackTarget(null);
-            this.fishbones.setAggroed(false);
+            this.fishbones.setTarget(null);
+            this.fishbones.setAggressive(false);
         }
     }
 
@@ -265,19 +265,19 @@ public class FishbonesEntity extends MonsterEntity {
         public FollowPrismarineItemGoal(FishbonesEntity entity, double speed) {
             this.fishbones = entity;
             this.moveSpeed = speed;
-            this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
         }
 
         @Override
-        public boolean shouldExecute() {
-            List<ItemEntity> entities = this.fishbones.getEntityWorld().getEntitiesWithinAABB(ItemEntity.class, this.fishbones.getBoundingBox().grow(followRange, 6.0D, followRange));
+        public boolean canUse() {
+            List<ItemEntity> entities = this.fishbones.getCommandSenderWorld().getEntitiesOfClass(ItemEntity.class, this.fishbones.getBoundingBox().inflate(followRange, 6.0D, followRange));
             ItemEntity target = null;
 
             if (!entities.isEmpty()) {
                 for (ItemEntity entity : entities) {
-                    double distance = this.fishbones.getDistanceSq(entity);
+                    double distance = this.fishbones.distanceToSqr(entity);
 
-                    if (distance <= followRange && this.fishbones.getEntitySenses().canSee(entity)) {
+                    if (distance <= followRange && this.fishbones.getSensing().canSee(entity)) {
                         if (FishbonesEntity.isItemEntityPrismarine(entity)) {
                             target = entity;
                             break;
@@ -296,37 +296,37 @@ public class FishbonesEntity extends MonsterEntity {
         }
 
         @Override
-        public boolean shouldContinueExecuting() {
-            if (!this.itemTarget.isAlive() || !this.fishbones.getEntitySenses().canSee(this.itemTarget)) {
+        public boolean canContinueToUse() {
+            if (!this.itemTarget.isAlive() || !this.fishbones.getSensing().canSee(this.itemTarget)) {
                 return false;
             }
             else {
-                double distance = this.fishbones.getDistanceSq(this.itemTarget);
+                double distance = this.fishbones.distanceToSqr(this.itemTarget);
                 return distance <= followRange;
             }
         }
 
         @Override
-        public void startExecuting() {
+        public void start() {
             this.recalcPathTime = 0;
-            this.fishbones.setAttackTarget(null);
-            this.fishbones.setAggroed(false);
+            this.fishbones.setTarget(null);
+            this.fishbones.setAggressive(false);
         }
 
         @Override
-        public void resetTask() {
+        public void stop() {
             this.itemTarget = null;
-            this.fishbones.getNavigator().clearPath();
+            this.fishbones.getNavigation().stop();
         }
 
         @Override
         public void tick() {
-            this.fishbones.getLookController().setLookPositionWithEntity(this.itemTarget, 10.0F, (float)this.fishbones.getVerticalFaceSpeed());
+            this.fishbones.getLookControl().setLookAt(this.itemTarget, 10.0F, (float)this.fishbones.getMaxHeadXRot());
             if (--this.recalcPathTime <= 0) {
-                this.fishbones.getNavigator().tryMoveToEntityLiving(this.itemTarget, this.moveSpeed);
+                this.fishbones.getNavigation().moveTo(this.itemTarget, this.moveSpeed);
             }
-            this.fishbones.setAttackTarget(null);
-            this.fishbones.setAggroed(false);
+            this.fishbones.setTarget(null);
+            this.fishbones.setAggressive(false);
         }
     }
 

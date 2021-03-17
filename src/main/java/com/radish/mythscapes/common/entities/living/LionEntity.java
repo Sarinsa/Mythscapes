@@ -37,10 +37,10 @@ public class LionEntity extends AnimalEntity {
             Items.RABBIT
     );
 
-    private static final DataParameter<Boolean> LYING = EntityDataManager.createKey(LionEntity.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Integer> HUNGER = EntityDataManager.createKey(LionEntity.class, DataSerializers.VARINT);
-    private static final DataParameter<Integer> TIME_APPEASED = EntityDataManager.createKey(LionEntity.class, DataSerializers.VARINT);
-    private static final DataParameter<Integer> TIME_MANE_REGROW = EntityDataManager.createKey(LionEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Boolean> LYING = EntityDataManager.defineId(LionEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Integer> HUNGER = EntityDataManager.defineId(LionEntity.class, DataSerializers.INT);
+    private static final DataParameter<Integer> TIME_APPEASED = EntityDataManager.defineId(LionEntity.class, DataSerializers.INT);
+    private static final DataParameter<Integer> TIME_MANE_REGROW = EntityDataManager.defineId(LionEntity.class, DataSerializers.INT);
 
     // Time until the lion should
     // start lying again.
@@ -62,7 +62,7 @@ public class LionEntity extends AnimalEntity {
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.25f, false));
         this.goalSelector.addGoal(4, new LionEntity.BreedingGoal(this, 1.1D));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
-        this.goalSelector.addGoal(6, new LionEntity.LyingGoal<>(this, (lionEntity) -> lionEntity.isChild() ? 450 : 320));
+        this.goalSelector.addGoal(6, new LionEntity.LyingGoal<>(this, (lionEntity) -> lionEntity.isBaby() ? 450 : 320));
         this.goalSelector.addGoal(8, new LionEntity.WaterAvoidingRandomWalkGoal<>(this, 0.8D));
         this.goalSelector.addGoal(10, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(11, new LookRandomlyGoal(this));
@@ -72,33 +72,33 @@ public class LionEntity extends AnimalEntity {
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(LYING, false);
-        this.dataManager.register(HUNGER, maxHunger);
-        this.dataManager.register(TIME_APPEASED, 0);
-        this.dataManager.register(TIME_MANE_REGROW, 0);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(LYING, false);
+        this.entityData.define(HUNGER, maxHunger);
+        this.entityData.define(TIME_APPEASED, 0);
+        this.entityData.define(TIME_MANE_REGROW, 0);
     }
 
     @Override
     protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
-        return this.isChild() ? 0.6F : 1.20F;
+        return this.isBaby() ? 0.6F : 1.20F;
     }
 
     @Override
-    public void livingTick() {
-        super.livingTick();
+    public void aiStep() {
+        super.aiStep();
 
         if (this.isLying()) {
-            this.isJumping = false;
-            this.moveStrafing = 0.0f;
-            this.moveForward = 0.0f;
+            this.jumping = false;
+            this.xxa = 0.0f;
+            this.zza = 0.0f;
         }
         else {
             --this.nextTimeLying;
         }
 
-        if (this.getHunger() > 0 && this.rand.nextInt(130) == 0) {
+        if (this.getHunger() > 0 && this.random.nextInt(130) == 0) {
             this.setHunger(this.getHunger() - 1);
         }
         if (this.getTimeAppeased() > 0) {
@@ -109,49 +109,49 @@ public class LionEntity extends AnimalEntity {
         }
     }
 
-    @Override               //processInteract
-    public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
-        ItemStack itemstack = player.getHeldItem(hand);
+    @Override
+    public ActionResultType mobInteract(PlayerEntity player, Hand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
 
         if (appeasing.contains(itemstack.getItem()) && !this.isAppeased()) {
-            player.playSound(SoundEvents.ENTITY_CAT_EAT, 1.0F, 0.4F);
-            if (!player.abilities.isCreativeMode)
+            player.playSound(SoundEvents.CAT_EAT, 1.0F, 0.4F);
+            if (!player.abilities.instabuild)
                 itemstack.shrink(1);
             this.newTimeAppeased();
             return ActionResultType.SUCCESS;
         }
         else {
-            return super.func_230254_b_(player, hand);
+            return super.mobInteract(player, hand);
         }
     }
 
-    @Override   //onKillEntity
-    public void func_241847_a(ServerWorld serverWorld, LivingEntity entityLiving) {
-        super.func_241847_a(serverWorld, entityLiving);
+    @Override
+    public void killed(ServerWorld serverWorld, LivingEntity entityLiving) {
+        super.killed(serverWorld, entityLiving);
 
         if (MythEntityTags.LION_PREY.contains(entityLiving.getType()))
             this.setHunger(maxHunger);
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damageSource, float damage) {
-        if ((damageSource.getTrueSource() != null && damageSource.getTrueSource() instanceof LivingEntity) && this.isChild()) {
-            LivingEntity attacker = (LivingEntity) damageSource.getTrueSource();
+    public boolean hurt(DamageSource damageSource, float damage) {
+        if ((damageSource.getEntity() != null && damageSource.getEntity() instanceof LivingEntity) && this.isBaby()) {
+            LivingEntity attacker = (LivingEntity) damageSource.getEntity();
 
-            List<LivingEntity> nearbyLions = this.world.getLoadedEntitiesWithinAABB(LionEntity.class, new AxisAlignedBB(this.getPosition()).grow(14, 5, 14), (entity) -> !entity.isChild());
+            List<LivingEntity> nearbyLions = this.level.getEntitiesOfClass(LionEntity.class, new AxisAlignedBB(this.blockPosition()).inflate(14, 5, 14), (entity) -> !entity.isBaby());
 
             if (!nearbyLions.isEmpty()) {
                 nearbyLions.forEach((entity) -> {
-                    entity.setRevengeTarget(attacker);
+                    entity.setLastHurtByMob(attacker);
                 });
             }
         }
-        return super.attackEntityFrom(damageSource, damage);
+        return super.hurt(damageSource, damage);
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundNBT compound) {
+        super.addAdditionalSaveData(compound);
         compound.putBoolean("Lying", this.isLying());
         compound.putInt("Hunger", this.getHunger());
         compound.putInt("TimeAppeased", this.getTimeAppeased());
@@ -159,24 +159,24 @@ public class LionEntity extends AnimalEntity {
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundNBT compound) {
         this.setLying(compound.getBoolean("Lying"));
         this.setHunger(compound.getInt("Hunger"));
         this.setTimeAppeased(compound.getInt("TimeAppeased"));
         this.setTimeManeRegrow(compound.getInt("TimeManeRegrow"));
 
-        super.readAdditional(compound);
+        super.readAdditionalSaveData(compound);
     }
 
     @Override
-    public boolean isBreedingItem(ItemStack itemStack) {
+    public boolean isFood(ItemStack itemStack) {
         return itemStack.getItem() == Items.COOKED_BEEF;
     }
 
     @Nullable
     @Override
-    public AgeableEntity func_241840_a(ServerWorld serverWorld, AgeableEntity ageableEntity) {
-        return MythEntities.LION.get().create(this.world);
+    public AgeableEntity getBreedOffspring(ServerWorld serverWorld, AgeableEntity ageableEntity) {
+        return MythEntities.LION.get().create(this.level);
     }
 
     @Override
@@ -185,23 +185,23 @@ public class LionEntity extends AnimalEntity {
     }
 
     public void newTimeAppeased() {
-        this.setTimeAppeased(8000 + this.rand.nextInt(3000));
+        this.setTimeAppeased(8000 + this.random.nextInt(3000));
     }
 
     public void newTimeManeRegrow() {
-        this.setTimeManeRegrow(8000 + this.rand.nextInt(2000));
+        this.setTimeManeRegrow(8000 + this.random.nextInt(2000));
     }
 
     protected int newNextTimeLying() {
-        return this.getRNG().nextInt(200) + 100;
+        return this.random.nextInt(200) + 100;
     }
 
     public void setHunger(int hunger) {
-        this.dataManager.set(HUNGER, hunger);
+        this.entityData.set(HUNGER, hunger);
     }
 
     public int getHunger() {
-        return this.dataManager.get(HUNGER);
+        return this.entityData.get(HUNGER);
     }
 
     public boolean isHungry() {
@@ -209,43 +209,43 @@ public class LionEntity extends AnimalEntity {
     }
 
     public int getTimeAppeased() {
-        return this.dataManager.get(TIME_APPEASED);
+        return this.entityData.get(TIME_APPEASED);
     }
 
     public void setTimeAppeased(int ticks) {
-        this.dataManager.set(TIME_APPEASED, ticks);
+        this.entityData.set(TIME_APPEASED, ticks);
     }
 
     public boolean isAppeased() {
-        return this.dataManager.get(TIME_APPEASED) > 0;
+        return this.entityData.get(TIME_APPEASED) > 0;
     }
 
     public int getTimeManeRegrow() {
-        return this.dataManager.get(TIME_MANE_REGROW);
+        return this.entityData.get(TIME_MANE_REGROW);
     }
 
     public void setTimeManeRegrow(int ticks) {
-        this.dataManager.set(TIME_MANE_REGROW, ticks);
+        this.entityData.set(TIME_MANE_REGROW, ticks);
     }
 
     public boolean hasMane() {
-        return  !this.isChild() && this.getTimeManeRegrow() <= 0;
+        return  !this.isBaby() && this.getTimeManeRegrow() <= 0;
     }
 
     public boolean isLying() {
-        return this.dataManager.get(LYING);
+        return this.entityData.get(LYING);
     }
 
     public void setLying(boolean lying) {
-        this.dataManager.set(LYING, lying);
+        this.entityData.set(LYING, lying);
     }
 
     public static AttributeModifierMap.MutableAttribute registerEntityAttributes() {
-        return CreatureEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.FOLLOW_RANGE, 15.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.25D)
-                .createMutableAttribute(Attributes.MAX_HEALTH, 30.0D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 5.0D);
+        return CreatureEntity.createMobAttributes()
+                .add(Attributes.FOLLOW_RANGE, 15.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.25D)
+                .add(Attributes.MAX_HEALTH, 30.0D)
+                .add(Attributes.ATTACK_DAMAGE, 5.0D);
     }
 
     private class LionPanicGoal extends PanicGoal {
@@ -255,14 +255,14 @@ public class LionEntity extends AnimalEntity {
         }
 
         @Override
-        public boolean shouldExecute() {
-            return LionEntity.this.isChild() && super.shouldExecute();
+        public boolean canUse() {
+            return LionEntity.this.isBaby() && super.canUse();
         }
 
         @Override
-        public void startExecuting() {
+        public void start() {
             LionEntity.this.setLying(false);
-            super.startExecuting();
+            super.start();
         }
     }
 
@@ -277,17 +277,17 @@ public class LionEntity extends AnimalEntity {
         }
 
         @Override
-        public boolean shouldContinueExecuting() {
-            if (PlayerEntity.class.isAssignableFrom(this.targetClass)) {
+        public boolean canContinueToUse() {
+            if (PlayerEntity.class.isAssignableFrom(this.targetType)) {
                 return !LionEntity.this.isAppeased();
             }
             else {
-                return super.shouldContinueExecuting();
+                return super.canContinueToUse();
             }
         }
 
-        public boolean shouldExecute() {
-            if (super.shouldExecute() && LionEntity.this.isHungry()) {
+        public boolean canUse() {
+            if (super.canUse() && LionEntity.this.isHungry()) {
                 if (this.target instanceof PlayerEntity) {
                     return !LionEntity.this.isAppeased();
                 }
@@ -311,8 +311,8 @@ public class LionEntity extends AnimalEntity {
         }
 
         @Override
-        public boolean shouldContinueExecuting() {
-            return stillLying() && !lionEntity.isHungry() && lionEntity.isOnGround() && !lionEntity.isAggressive() && !lionEntity.isInWaterOrBubbleColumn();
+        public boolean canContinueToUse() {
+            return stillLying() && !lionEntity.isHungry() && lionEntity.isOnGround() && !lionEntity.isAggressive() && !lionEntity.isInWaterOrBubble();
         }
 
         private boolean stillLying() {
@@ -327,29 +327,29 @@ public class LionEntity extends AnimalEntity {
         }
 
         @Override
-        public boolean shouldExecute() {
+        public boolean canUse() {
             int executionChance = this.executionChanceFunction.applyAsInt(lionEntity);
 
-            if (lionEntity.nextTimeLying <= 0 && lionEntity.getRNG().nextInt(executionChance) == 0) {
-                return !lionEntity.isHungry() && lionEntity.isOnGround() && !lionEntity.isAggressive() && !lionEntity.isInWaterOrBubbleColumn();
+            if (lionEntity.nextTimeLying <= 0 && lionEntity.getRandom().nextInt(executionChance) == 0) {
+                return !lionEntity.isHungry() && lionEntity.isOnGround() && !lionEntity.isAggressive() && !lionEntity.isInWaterOrBubble();
             }
             return false;
         }
 
         @Override
-        public void startExecuting() {
-            this.timeLying = this.lionEntity.getRNG().nextInt(300) + 400;
-            lionEntity.getNavigator().clearPath();
+        public void start() {
+            this.timeLying = this.lionEntity.getRandom().nextInt(300) + 400;
+            lionEntity.getNavigation().stop();
             lionEntity.setLying(true);
-            lionEntity.setAggroed(false);
+            lionEntity.setAggressive(false);
         }
 
         @Override
-        public void resetTask() {
+        public void stop() {
             this.timeLying = 0;
             lionEntity.newNextTimeLying();
             lionEntity.setLying(false);
-            lionEntity.getNavigator().clearPath();
+            lionEntity.getNavigation().stop();
         }
     }
 
@@ -360,14 +360,14 @@ public class LionEntity extends AnimalEntity {
         }
 
         @Override
-        public boolean shouldExecute() {
-            return !LionEntity.this.isAggressive() && super.shouldExecute();
+        public boolean canUse() {
+            return !LionEntity.this.isAggressive() && super.canUse();
         }
 
         @Override
-        public void startExecuting() {
+        public void start() {
             LionEntity.this.setLying(false);
-            super.startExecuting();
+            super.start();
         }
     }
 
@@ -378,8 +378,8 @@ public class LionEntity extends AnimalEntity {
         }
 
         @Override
-        public boolean shouldExecute() {
-            return !LionEntity.this.isLying() && super.shouldExecute();
+        public boolean canUse() {
+            return !LionEntity.this.isLying() && super.canUse();
         }
     }
 
@@ -390,9 +390,9 @@ public class LionEntity extends AnimalEntity {
         }
 
         @Override
-        public void startExecuting() {
+        public void start() {
             LionEntity.this.setLying(false);
-            super.startExecuting();
+            super.start();
         }
     }
 }

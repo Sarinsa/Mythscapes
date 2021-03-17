@@ -13,11 +13,11 @@ public class LionRenderer extends MobRenderer<LionEntity, LionModel<LionEntity>>
 
     public LionRenderer(EntityRendererManager rendererManager) {
         super(rendererManager, new LionModel<>(), 0.7f);
-        this.addLayer(new LionManeLayer<>(this));
+        this.addLayer(new LionManeLayerRenderer<>(this));
     }
 
     @Override
-    public ResourceLocation getEntityTexture(LionEntity entity) {
+    public ResourceLocation getTextureLocation(LionEntity entity) {
         return entity.isAggressive() ? AGGROED : NORMAL;
     }
 }

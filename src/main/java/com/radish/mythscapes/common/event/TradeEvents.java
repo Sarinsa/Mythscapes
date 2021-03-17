@@ -19,7 +19,7 @@ public class TradeEvents {
             event.getTrades().get(5).add(new BasicTrade(5, new ItemStack(MythItems.BRUSH.get()), 3, 0));
             event.getTrades().get(5).removeIf((iTrade -> {
                 MerchantOffer offer = iTrade.getOffer(null, null);
-                return offer != null && offer.getSellingStack().getItem() == Items.PAINTING;
+                return offer != null && offer.getResult().getItem() == Items.PAINTING;
             }));
         }
     }

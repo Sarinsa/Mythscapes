@@ -14,7 +14,7 @@ public class MythEnchantments {
 
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, Mythscapes.MODID);
 
-    public static final EnchantmentType SOOTHING_TYPE = EnchantmentType.create("BRUSH", (item) -> item instanceof BrushItem);
+    public static final EnchantmentType BRUSH = EnchantmentType.create("BRUSH", (item) -> item instanceof BrushItem);
 
-    public static final RegistryObject<Enchantment> SOOTHING = ENCHANTMENTS.register("soothing", () -> new SoothingEnchantment(Enchantment.Rarity.UNCOMMON, SOOTHING_TYPE, EquipmentSlotType.MAINHAND));
+    public static final RegistryObject<Enchantment> SOOTHING = ENCHANTMENTS.register("soothing", () -> new SoothingEnchantment(Enchantment.Rarity.UNCOMMON, BRUSH, EquipmentSlotType.MAINHAND));
 }

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:gilded_galvite_brick_vertical_slab_from_gilded_galvite_stonecutting"
+    ]
+  },
+  "criteria": {
+    "has_gilded_galvite": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mythscapes:gilded_galvite"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:gilded_galvite_brick_vertical_slab_from_gilded_galvite_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_gilded_galvite",
+      "has_the_recipe"
+    ]
+  ]
+}

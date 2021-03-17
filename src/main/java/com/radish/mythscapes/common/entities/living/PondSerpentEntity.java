@@ -48,16 +48,16 @@ public class PondSerpentEntity extends AbstractGroupFishEntity {
         }
     }
 
-    public static DataParameter<String> TYPE = EntityDataManager.createKey(PondSerpentEntity.class, DataSerializers.STRING);
+    public static DataParameter<String> TYPE = EntityDataManager.defineId(PondSerpentEntity.class, DataSerializers.STRING);
 
     public PondSerpentEntity(EntityType<? extends AbstractGroupFishEntity> entityType, World world) {
         super(entityType, world);
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(TYPE, Type.BLUE.getName());
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(TYPE, Type.BLUE.getName());
     }
 
     private void setSerpentType(Biome biome) {
@@ -66,34 +66,34 @@ public class PondSerpentEntity extends AbstractGroupFishEntity {
     }
 
     public void setSerpentType(String type) {
-        this.dataManager.set(TYPE, type);
+        this.entityData.set(TYPE, type);
     }
 
     public Type getSerpentType() {
-        return Type.getFromName(this.dataManager.get(TYPE));
+        return Type.getFromName(this.entityData.get(TYPE));
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundNBT compound) {
+        super.addAdditionalSaveData(compound);
         compound.putString("SerpentType", this.getSerpentType().getName());
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundNBT compound) {
         String type = compound.getString("SerpentType");
         this.setSerpentType(type);
-        super.readAdditional(compound);
+        super.readAdditionalSaveData(compound);
     }
 
     @Override
-    protected void setBucketData(ItemStack bucket) {
-        bucket.getOrCreateChildTag("serpentType").putString("SerpentType", this.getSerpentType().getName());
+    protected void saveToBucketTag(ItemStack bucket) {
+        bucket.getOrCreateTagElement("serpentType").putString("SerpentType", this.getSerpentType().getName());
     }
 
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld world, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData spawnData, @Nullable CompoundNBT tag) {
-        Biome biome = world.getBiome(this.getPosition());
+    public ILivingEntityData finalizeSpawn(IServerWorld world, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData spawnData, @Nullable CompoundNBT tag) {
+        Biome biome = world.getBiome(this.blockPosition());
 
         if (tag != null) {
             Mythscapes.LOGGER.info(tag.toString());
@@ -105,20 +105,20 @@ public class PondSerpentEntity extends AbstractGroupFishEntity {
         else if (tag.contains("serpentType", 10)) {
             this.setSerpentType(tag.getCompound("serpentType").getString("SerpentType"));
         }
-        return super.onInitialSpawn(world, difficulty, reason, spawnData, tag);
+        return super.finalizeSpawn(world, difficulty, reason, spawnData, tag);
     }
 
     public static AttributeModifierMap.MutableAttribute registerEntityAttributes() {
-        return AbstractFishEntity.func_234176_m_();
+        return AbstractFishEntity.createAttributes();
     }
 
     @Override
-    protected ItemStack getFishBucket() {
+    protected ItemStack getBucketItemStack() {
         return new ItemStack(MythItems.POND_SERPENT_FISH_BUCKET.get());
     }
 
     @Override
     protected SoundEvent getFlopSound() {
-        return SoundEvents.ENTITY_COD_FLOP;
+        return SoundEvents.COD_FLOP;
     }
 }

@@ -16,25 +16,19 @@ import com.radish.mythscapes.common.recipe.CraftingUtility;
 import com.radish.mythscapes.common.register.*;
 import com.radish.mythscapes.common.tags.MythBlockTags;
 import com.radish.mythscapes.common.worldgen.MythConfiguredFeatures;
+import com.radish.mythscapes.common.worldgen.MythConfiguredSurfaceBuilders;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.EventBus;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.IEventListener;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 
 @Mod(Mythscapes.MODID)
@@ -77,13 +71,15 @@ public class Mythscapes {
         MythFluids.FLUIDS.register(eventBus);
         MythSounds.SOUNDS.register(eventBus);
         MythBiomes.BIOMES.register(eventBus);
+        MythEffects.EFFECTS.register(eventBus);
         MythPotions.POTIONS.register(eventBus);
         MythEntities.ENTITIES.register(eventBus);
         MythFeatures.FEATURES.register(eventBus);
         MythParticles.PARTICLES.register(eventBus);
-        MythEffects.POTION_EFFECTS.register(eventBus);
+        MythWorldCarvers.CARVERS.register(eventBus);
         MythEnchantments.ENCHANTMENTS.register(eventBus);
         MythTileEntities.TILE_ENTITIES.register(eventBus);
+        MythSurfaceBuilders.SURFACE_BUILDERS.register(eventBus);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MythConfig.COMMON_SPEC);
     }
@@ -95,6 +91,8 @@ public class Mythscapes {
             MythItems.registerItemData();
             MythBlocks.registerBlockData();
             MythConfiguredFeatures.register();
+            MythConfiguredSurfaceBuilders.register();
+            MythWorldCarvers.addCarvableBlocks();
             MythBiomes.registerBiomeInfo();
             MythEntities.registerData();
             MythSounds.registerParrotMimics();

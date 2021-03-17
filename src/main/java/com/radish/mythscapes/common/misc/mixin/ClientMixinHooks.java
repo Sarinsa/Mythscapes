@@ -20,18 +20,18 @@ public class ClientMixinHooks {
      * or override what said mod is doing.
      */
     public static <T extends LivingEntity, M extends EntityModel<T>> void onGetRenderType(T entity, M entityModel, boolean normal, boolean translucent, boolean glowing, CallbackInfoReturnable<RenderType> callbackInfoReturnable) {
-        if (entity.isPotionActive(MythEffects.PETRIFIED.get())) {
+        if (entity.hasEffect(MythEffects.PETRIFIED.get())) {
             RenderType renderType;
             ResourceLocation texture = Mythscapes.resourceLoc("textures/misc/petrified.png");
 
             if (translucent) {
-                renderType = RenderType.getItemEntityTranslucentCull(texture);
+                renderType = RenderType.itemEntityTranslucentCull(texture);
             }
             else if (normal) {
-                renderType = entityModel.getRenderType(texture);
+                renderType = entityModel.renderType(texture);
             }
             else {
-                renderType = glowing ? RenderType.getOutline(texture) : null;
+                renderType = glowing ? RenderType.outline(texture) : null;
             }
             callbackInfoReturnable.setReturnValue(renderType);
         }

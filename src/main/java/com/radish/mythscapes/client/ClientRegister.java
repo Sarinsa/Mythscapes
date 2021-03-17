@@ -63,11 +63,11 @@ public class ClientRegister {
 
     @SubscribeEvent
     public static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
-        ParticleManager manager = Minecraft.getInstance().particles;
+        ParticleManager manager = Minecraft.getInstance().particleEngine;
 
-        manager.registerFactory(MythParticles.STATIC_COTTON.get(), StaticCottonParticle.Factory::new);
-        manager.registerFactory(MythParticles.STATIC_COTTON_FALLING.get(), StaticCottonFallingParticle.Factory::new);
-        manager.registerFactory(MythParticles.STATIC_COTTON_POOF.get(), new StaticCottonPoofParticle.Factory());
+        manager.register(MythParticles.STATIC_COTTON.get(), StaticCottonParticle.Factory::new);
+        manager.register(MythParticles.STATIC_COTTON_FALLING.get(), StaticCottonFallingParticle.Factory::new);
+        manager.register(MythParticles.STATIC_COTTON_POOF.get(), new StaticCottonPoofParticle.Factory());
     }
 
     @SubscribeEvent
@@ -112,20 +112,20 @@ public class ClientRegister {
     }
 
     public static void setBlockRenderTypes() {
-        setRenderLayer(MythBlocks.WOLT_SAPLING.get(), RenderType.getCutout());
-        setRenderLayer(MythBlocks.POTTED_WOLT_SAPLING.get(), RenderType.getCutout());
-        setRenderLayer(MythBlocks.WOLT_DOOR.get(), RenderType.getCutout());
-        setRenderLayer(MythBlocks.WOLT_TRAPDOOR.get(), RenderType.getCutout());
-        setRenderLayer(MythBlocks.WOLT_LADDER.get(), RenderType.getCutout());
-        setRenderLayer(MythBlocks.WOLT_LEAF_CARPET.get(), RenderType.getCutoutMipped());
-        setRenderLayer(MythBlocks.WOLT_POST.get(), RenderType.getCutout());
-        setRenderLayer(MythBlocks.WOLT_POST_STRIPPED.get(), RenderType.getCutout());
-        setRenderLayer(MythBlocks.WOLT_HEDGE.get(), RenderType.getCutout());
+        setRenderLayer(MythBlocks.WOLT_SAPLING.get(), RenderType.cutout());
+        setRenderLayer(MythBlocks.POTTED_WOLT_SAPLING.get(), RenderType.cutout());
+        setRenderLayer(MythBlocks.WOLT_DOOR.get(), RenderType.cutout());
+        setRenderLayer(MythBlocks.WOLT_TRAPDOOR.get(), RenderType.cutout());
+        setRenderLayer(MythBlocks.WOLT_LADDER.get(), RenderType.cutout());
+        setRenderLayer(MythBlocks.WOLT_LEAF_CARPET.get(), RenderType.cutoutMipped());
+        setRenderLayer(MythBlocks.WOLT_POST.get(), RenderType.cutout());
+        setRenderLayer(MythBlocks.WOLT_POST_STRIPPED.get(), RenderType.cutout());
+        setRenderLayer(MythBlocks.WOLT_HEDGE.get(), RenderType.cutout());
 
-        setRenderLayer(MythBlocks.BLISTERBERRY_THISTLE.get(), RenderType.getCutout());
-        setRenderLayer(MythBlocks.CHARGED_DANDELION.get(), RenderType.getCutout());
-        setRenderLayer(MythBlocks.POTTED_CHARGED_DANDELION.get(), RenderType.getCutout());
-        setRenderLayer(MythBlocks.LAUNCHER_RAIL.get(), RenderType.getCutout());
+        setRenderLayer(MythBlocks.BLISTERBERRY_THISTLE.get(), RenderType.cutout());
+        setRenderLayer(MythBlocks.CHARGED_DANDELION.get(), RenderType.cutout());
+        setRenderLayer(MythBlocks.POTTED_CHARGED_DANDELION.get(), RenderType.cutout());
+        setRenderLayer(MythBlocks.LAUNCHER_RAIL.get(), RenderType.cutout());
     }
 
     private static <T extends Entity & IRendersAsItem> void registerSpriteRenderer(EntityType<T> entityType, Supplier<Minecraft> minecraftSupplier) {

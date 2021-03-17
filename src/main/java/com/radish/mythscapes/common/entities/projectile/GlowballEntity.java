@@ -45,13 +45,13 @@ public class GlowballEntity extends ProjectileItemEntity {
     }
 
     @Override
-    protected void onEntityHit(EntityRayTraceResult result) {
-        super.onEntityHit(result);
+    protected void onHitEntity(EntityRayTraceResult result) {
+        super.onHitEntity(result);
         Entity entity = result.getEntity();
 
         if (entity instanceof LivingEntity) {
             LivingEntity target = (LivingEntity)entity;
-            target.addPotionEffect(new EffectInstance(Effects.GLOWING, (20 * 30)));
+            target.addEffect(new EffectInstance(Effects.GLOWING, (20 * 30)));
 
             if (target instanceof PlayerEntity) {
                 EquipmentSlotType slotType = EquipmentSlotType.MAINHAND;
@@ -59,33 +59,31 @@ public class GlowballEntity extends ProjectileItemEntity {
                     slotType = EquipmentSlotType.OFFHAND;
                 }
                 if (target.hasItemInSlot(slotType)) {
-                    ItemStack targetStack = target.getHeldItemMainhand().copy();
-                    Entity thrower = this.func_234616_v_();
+                    ItemStack targetStack = target.getMainHandItem().copy();
+                    Entity thrower = this.getOwner();
 
                     if (thrower != null) {
-                        world.addEntity(new ItemEntity(world, thrower.getPosX(), thrower.getPosY(), thrower.getPosZ(), targetStack));
+                        this.level.addFreshEntity(new ItemEntity(this.level, thrower.getX(), thrower.getY(), thrower.getZ(), targetStack));
                     }
                     else if (this.posSpawned != null) {
-                        world.addEntity(new ItemEntity(world, this.posSpawned.getX(), this.posSpawned.getY(), this.posSpawned.getZ(), targetStack));
+                        this.level.addFreshEntity(new ItemEntity(this.level, this.posSpawned.getX(), this.posSpawned.getY(), this.posSpawned.getZ(), targetStack));
                     }
                 }
             }
-            if (target.isNonBoss()) {
-                target.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(MythItems.GLOWBALL.get()));
+            if (target.canChangeDimensions()) {
+                target.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(MythItems.GLOWBALL.get()));
             }
         }
     }
 
     @Override
-    protected void onImpact(RayTraceResult result) {
-        super.onImpact(result);
-
-        if (!this.world.isRemote)
-            this.remove();
+    protected void onHit(RayTraceResult result) {
+        super.onHit(result);
+        this.remove();
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

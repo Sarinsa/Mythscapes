@@ -12,6 +12,7 @@ import com.radish.mythscapes.common.entities.misc.MythBoatEntity;
 import com.radish.mythscapes.common.entities.projectile.BlisterberryEntity;
 import com.radish.mythscapes.common.entities.projectile.GlowballEntity;
 import com.radish.mythscapes.common.entities.projectile.StaticCottonEntity;
+import net.minecraft.client.renderer.texture.SpriteUploader;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
@@ -31,14 +32,32 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.LinkedHashMap;
+import java.util.concurrent.Callable;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class MythEntities {
 
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Mythscapes.MODID);
 
-    // Should we make a Forge registry for this?
     public static final LinkedHashMap<Class<?>, IBrushable<?>> BRUSHABLES = new LinkedHashMap<>();
+
+    public static EntityType<PondSerpentEntity> POND_SERPENT_TYPE;
+    public static EntityType<LionEntity> LION_TYPE;
+    public static EntityType<FishbonesEntity> FISHBONES_TYPE;
+    public static EntityType<SnailEntity> PYGMY_SNAIL_TYPE;
+    public static EntityType<DeerEntity> DEER_TYPE;
+
+
+    public static final RegistryObject<EntityType<MythBoatEntity>> MYTH_BOAT = register("myth_boat", EntityType.Builder.<MythBoatEntity>of(MythBoatEntity::new, EntityClassification.MISC).sized(1.375f, 0.5625f));
+    public static final RegistryObject<EntityType<BlisterberryEntity>> BLISTERBERRY = register("blisterberry", EntityType.Builder.<BlisterberryEntity>of(BlisterberryEntity::new, EntityClassification.MISC).sized(0.25f, 0.25f));
+    public static final RegistryObject<EntityType<GlowballEntity>> GLOWBALL = register("glowball", EntityType.Builder.<GlowballEntity>of(GlowballEntity::new, EntityClassification.MISC).sized(0.25f, 0.25f));
+    public static final RegistryObject<EntityType<StaticCottonEntity>> STATIC_COTTON = register("static_cotton", EntityType.Builder.<StaticCottonEntity>of(StaticCottonEntity::new, EntityClassification.MISC).sized(0.25f, 0.25f));
+    public static final RegistryObject<EntityType<PondSerpentEntity>> POND_SERPENT = register("pond_serpent", () -> POND_SERPENT_TYPE);
+    public static final RegistryObject<EntityType<LionEntity>> LION = register("lion", () -> LION_TYPE);
+    public static final RegistryObject<EntityType<FishbonesEntity>> FISHBONES = register("fishbones", () -> FISHBONES_TYPE);
+    public static final RegistryObject<EntityType<SnailEntity>> PYGMY_SNAIL = register("pygmy_snail", () -> PYGMY_SNAIL_TYPE);
+    public static final RegistryObject<EntityType<DeerEntity>> DEER = register("deer", () -> DEER_TYPE);
 
     // Initializing the types for living entities that
     // will be used with spawn eggs. While not pretty
@@ -47,24 +66,7 @@ public class MythEntities {
     // objects in other contexts.
     //
     // Fingers crossed that Mojang changes
-    // spawn eggs to not be the stupid.
-    public static EntityType<PondSerpentEntity> POND_SERPENT_TYPE;
-    public static EntityType<LionEntity> LION_TYPE;
-    public static EntityType<FishbonesEntity> FISHBONES_TYPE;
-    public static EntityType<SnailEntity> PYGMY_SNAIL_TYPE;
-    public static EntityType<DeerEntity> DEER_TYPE;
-
-
-    public static final RegistryObject<EntityType<MythBoatEntity>> MYTH_BOAT = register("myth_boat", EntityType.Builder.<MythBoatEntity>create(MythBoatEntity::new, EntityClassification.MISC).size(1.375f, 0.5625f));
-    public static final RegistryObject<EntityType<BlisterberryEntity>> BLISTERBERRY = register("blisterberry", EntityType.Builder.<BlisterberryEntity>create(BlisterberryEntity::new, EntityClassification.MISC).size(0.25f, 0.25f));
-    public static final RegistryObject<EntityType<GlowballEntity>> GLOWBALL = register("glowball", EntityType.Builder.<GlowballEntity>create(GlowballEntity::new, EntityClassification.MISC).size(0.25f, 0.25f));
-    public static final RegistryObject<EntityType<StaticCottonEntity>> STATIC_COTTON = register("static_cotton", EntityType.Builder.<StaticCottonEntity>create(StaticCottonEntity::new, EntityClassification.MISC).size(0.25f, 0.25f));
-    public static final RegistryObject<EntityType<PondSerpentEntity>> POND_SERPENT = register("pond_serpent", () -> POND_SERPENT_TYPE);
-    public static final RegistryObject<EntityType<LionEntity>> LION = register("lion", () -> LION_TYPE);
-    public static final RegistryObject<EntityType<FishbonesEntity>> FISHBONES = register("fishbones", () -> FISHBONES_TYPE);
-    public static final RegistryObject<EntityType<SnailEntity>> PYGMY_SNAIL = register("pygmy_snail", () -> PYGMY_SNAIL_TYPE);
-    public static final RegistryObject<EntityType<DeerEntity>> DEER = register("deer", () -> DEER_TYPE);
-
+    // spawn eggs to not be the big stupid.
     public static void initTypes() {
         POND_SERPENT_TYPE = create("pond_serpent", PondSerpentEntity::new, EntityClassification.CREATURE, 0.5f, 0.3f);
         LION_TYPE = create("lion", LionEntity::new, EntityClassification.CREATURE,1.0f, 1.3f);
@@ -78,13 +80,12 @@ public class MythEntities {
         registerBrushables();
     }
 
-    @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
-        event.put(POND_SERPENT.get(), PondSerpentEntity.registerEntityAttributes().create());
-        event.put(LION.get(), LionEntity.registerEntityAttributes().create());
-        event.put(FISHBONES.get(), FishbonesEntity.registerEntityAttributes().create());
-        event.put(PYGMY_SNAIL.get(), SnailEntity.registerEntityAttributes().create());
-        event.put(DEER.get(), DeerEntity.registerEntityAttributes().create());
+        event.put(POND_SERPENT.get(), PondSerpentEntity.registerEntityAttributes().build());
+        event.put(LION.get(), LionEntity.registerEntityAttributes().build());
+        event.put(FISHBONES.get(), FishbonesEntity.registerEntityAttributes().build());
+        event.put(PYGMY_SNAIL.get(), SnailEntity.registerEntityAttributes().build());
+        event.put(DEER.get(), DeerEntity.registerEntityAttributes().build());
     }
 
     private static void registerBrushables() {
@@ -112,16 +113,16 @@ public class MythEntities {
     }
 
     private static void registerEntityPlacement() {
-        EntitySpawnPlacementRegistry.register(LION.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
-        EntitySpawnPlacementRegistry.register(POND_SERPENT.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractFishEntity::func_223363_b);
-        EntitySpawnPlacementRegistry.register(FISHBONES.get(), EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FishbonesEntity::canFishbonesSpawn);
-        EntitySpawnPlacementRegistry.register(PYGMY_SNAIL.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, SnailEntity::canSnailSpawn);
-        EntitySpawnPlacementRegistry.register(DEER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
+        EntitySpawnPlacementRegistry.register(LION.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::checkAnimalSpawnRules);
+        EntitySpawnPlacementRegistry.register(POND_SERPENT.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AbstractFishEntity::checkFishSpawnRules);
+        EntitySpawnPlacementRegistry.register(FISHBONES.get(), EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FishbonesEntity::checkFishbonesSpawnRules);
+        EntitySpawnPlacementRegistry.register(PYGMY_SNAIL.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, SnailEntity::checkPygmySnailSpawnRules);
+        EntitySpawnPlacementRegistry.register(DEER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::checkAnimalSpawnRules);
     }
 
 
-    private static <I extends Entity> RegistryObject<EntityType<I>> register(String id, EntityType.Builder<I> builder) {
-        return ENTITIES.register(id, () -> builder.build(id));
+    private static <I extends Entity> RegistryObject<EntityType<I>> register(String name, EntityType.Builder<I> builder) {
+        return ENTITIES.register(name, () -> builder.build(name));
     }
 
     private static <I extends Entity> RegistryObject<EntityType<I>> register(String name, Supplier<EntityType<I>> entityTypeSupplier) {
@@ -129,6 +130,6 @@ public class MythEntities {
     }
 
     private static <I extends Entity> EntityType<I> create(String name, EntityType.IFactory<I> factory, EntityClassification entityClassification, float width, float height) {
-        return EntityType.Builder.create(factory, entityClassification).size(width, height).build(name);
+        return EntityType.Builder.of(factory, entityClassification).sized(width, height).build(name);
     }
 }

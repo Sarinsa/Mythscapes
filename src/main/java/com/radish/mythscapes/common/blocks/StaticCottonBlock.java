@@ -31,18 +31,18 @@ public class StaticCottonBlock extends Block {
     }
 
     @Override
-    public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
-        entityIn.onLivingFall(fallDistance, 0.2F);
+    public void fallOn(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
+        entityIn.causeFallDamage(fallDistance, 0.2F);
     }
 
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState state, World world, BlockPos pos, Random random) {
         for(Direction direction : Direction.values()) {
-            BlockPos blockPos = pos.offset(direction);
+            BlockPos blockPos = pos.relative(direction);
 
             // Spawn falling particles under the block
             if (direction == Direction.DOWN) {
-                if (random.nextInt(14) == 0 && world.isAirBlock(blockPos) || world.getBlockState(blockPos).getMaterial().isLiquid()) {
+                if (random.nextInt(14) == 0 && world.isEmptyBlock(blockPos) || world.getBlockState(blockPos).getMaterial().isLiquid()) {
                     double x = (double)pos.getX() + (double)random.nextFloat();
                     double y = (double)pos.getY() - 0.05D;
                     double z = (double)pos.getZ() + (double)random.nextFloat();
@@ -51,11 +51,11 @@ public class StaticCottonBlock extends Block {
             }
             // Spawn normal cotton particles around the sides of the block
             else {
-                if (random.nextInt(10) == 0 && !world.getBlockState(blockPos).isOpaqueCube(world, blockPos)) {
+                if (random.nextInt(10) == 0 && !world.getBlockState(blockPos).isSolidRender(world, blockPos)) {
                     Direction.Axis axis = direction.getAxis();
-                    double x = (double)pos.getX() + (axis == Direction.Axis.X ? 0.5D + 0.5625D * (double)direction.getXOffset() : (double)random.nextFloat());
-                    double y = (double)pos.getY() + (axis == Direction.Axis.Y ? 0.5D + 0.5625D * (double)direction.getYOffset() : (double)random.nextFloat());
-                    double z = (double)pos.getZ() + (axis == Direction.Axis.Z ? 0.5D + 0.5625D * (double)direction.getZOffset() : (double)random.nextFloat());
+                    double x = (double)pos.getX() + (axis == Direction.Axis.X ? 0.5D + 0.5625D * (double)direction.getStepX() : (double)random.nextFloat());
+                    double y = (double)pos.getY() + (axis == Direction.Axis.Y ? 0.5D + 0.5625D * (double)direction.getStepY() : (double)random.nextFloat());
+                    double z = (double)pos.getZ() + (axis == Direction.Axis.Z ? 0.5D + 0.5625D * (double)direction.getStepZ() : (double)random.nextFloat());
                     world.addParticle(MythParticles.STATIC_COTTON.get(), x, y, z, 0.1D, 0.1D, 0.1D);
                 }
             }

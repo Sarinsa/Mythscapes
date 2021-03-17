@@ -17,30 +17,34 @@ public class MythBlockTagProvider extends BlockTagsProvider {
     }
 
     @Override
-    protected void registerTags() {
-        this.getOrCreateBuilder(Tags.Blocks.ORES_GOLD).add(
+    protected void addTags() {
+        this.tag(BlockTags.BASE_STONE_OVERWORLD).add(
+                MythBlocks.GALVITE.get()
+        );
+
+        this.tag(Tags.Blocks.ORES_GOLD).add(
                 MythBlocks.GILDED_GALVITE.get()
         );
 
-        this.getOrCreateBuilder(Tags.Blocks.ORES_DIAMOND).add(
+        this.tag(Tags.Blocks.ORES_DIAMOND).add(
                 MythBlocks.BEJEWELED_GALVITE.get()
         );
 
-        this.getOrCreateBuilder(Tags.Blocks.ORES_REDSTONE).add(
+        this.tag(Tags.Blocks.ORES_REDSTONE).add(
                 MythBlocks.POWERED_GALVITE.get()
         );
 
-        this.getOrCreateBuilder(Tags.Blocks.COBBLESTONE).add(
+        this.tag(Tags.Blocks.COBBLESTONE).add(
                 MythBlocks.GALVITE.get(),
                 MythBlocks.TROLLSTONE.get()
         );
 
-        this.getOrCreateBuilder(BlockTags.PLANKS).add(
+        this.tag(BlockTags.PLANKS).add(
                 MythBlocks.WOLT_PLANKS.get(),
                 MythBlocks.WOLT_VERTICAL_PLANKS.get()
         );
 
-        this.getOrCreateBuilder(BlockTags.SLABS).add(
+        this.tag(BlockTags.SLABS).add(
                 MythBlocks.GALVITE_SLAB.get(),
                 MythBlocks.POLISHED_GALVITE_SLAB.get(),
                 MythBlocks.POLISHED_GALVITE_BRICK_SLAB.get(),
@@ -54,12 +58,12 @@ public class MythBlockTagProvider extends BlockTagsProvider {
                 MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_SLAB.get()
         );
 
-        this.getOrCreateBuilder(BlockTags.WOODEN_SLABS).add(
+        this.tag(BlockTags.WOODEN_SLABS).add(
                 MythBlocks.WOLT_SLAB.get()
                 //MythBlocks.VIRIDIAN_SLAB.get()
         );
 
-        this.getOrCreateBuilder(BlockTags.STAIRS).add(
+        this.tag(BlockTags.STAIRS).add(
                 MythBlocks.GALVITE_STAIRS.get(),
                 MythBlocks.POLISHED_GALVITE_STAIRS.get(),
                 MythBlocks.POLISHED_GALVITE_BRICK_STAIRS.get(),
@@ -73,12 +77,12 @@ public class MythBlockTagProvider extends BlockTagsProvider {
                 MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_STAIRS.get()
         );
 
-        this.getOrCreateBuilder(BlockTags.WOODEN_STAIRS).add(
+        this.tag(BlockTags.WOODEN_STAIRS).add(
                 MythBlocks.WOLT_STAIRS.get()
                 //MythBlocks.VIRIDIAN_STAIRS.get()
         );
 
-        this.getOrCreateBuilder(BlockTags.WALLS).add(
+        this.tag(BlockTags.WALLS).add(
                 MythBlocks.GALVITE_WALL.get(),
                 MythBlocks.POLISHED_GALVITE_WALL.get(),
                 MythBlocks.POLISHED_GALVITE_BRICK_WALL.get(),
@@ -92,76 +96,76 @@ public class MythBlockTagProvider extends BlockTagsProvider {
                 MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_WALL.get()
         );
 
-        this.getOrCreateBuilder(BlockTags.BUTTONS).add(
+        this.tag(BlockTags.BUTTONS).add(
                 MythBlocks.POLISHED_GALVITE_BUTTON.get(),
                 MythBlocks.POLISHED_TROLLSTONE_BUTTON.get()
         );
 
-        this.getOrCreateBuilder(BlockTags.WOODEN_BUTTONS).add(
+        this.tag(BlockTags.WOODEN_BUTTONS).add(
                 MythBlocks.WOLT_BUTTON.get()
                 //MythBlocks.VIRIDIAN_BUTTON.get()
         );
 
-        this.getOrCreateBuilder(BlockTags.PRESSURE_PLATES).add(
+        this.tag(BlockTags.PRESSURE_PLATES).add(
                 MythBlocks.POLISHED_GALVITE_PRESSURE_PLATE.get(),
                 MythBlocks.POLISHED_TROLLSTONE_PRESSURE_PLATE.get()
         );
 
-        this.getOrCreateBuilder(BlockTags.WOODEN_PRESSURE_PLATES).add(
+        this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(
                 MythBlocks.WOLT_PRESSURE_PLATE.get()
         );
 
-        this.getOrCreateBuilder(BlockTags.WOODEN_FENCES).add(
+        this.tag(BlockTags.WOODEN_FENCES).add(
                 MythBlocks.WOLT_FENCE.get()
         );
 
-        this.getOrCreateBuilder(Tags.Blocks.FENCES_WOODEN).add(
+        this.tag(Tags.Blocks.FENCES_WOODEN).add(
                 MythBlocks.WOLT_FENCE.get()
         );
 
-        this.getOrCreateBuilder(BlockTags.FENCE_GATES).add(
+        this.tag(BlockTags.FENCE_GATES).add(
                 MythBlocks.WOLT_FENCE_GATE.get()
         );
 
-        this.getOrCreateBuilder(Tags.Blocks.FENCE_GATES_WOODEN).add(
+        this.tag(Tags.Blocks.FENCE_GATES_WOODEN).add(
                 MythBlocks.WOLT_FENCE_GATE.get()
         );
 
-        this.getOrCreateBuilder(BlockTags.WOODEN_DOORS).add(
+        this.tag(BlockTags.WOODEN_DOORS).add(
                 MythBlocks.WOLT_DOOR.get()
         );
 
-        this.getOrCreateBuilder(BlockTags.WOODEN_TRAPDOORS).add(
+        this.tag(BlockTags.WOODEN_TRAPDOORS).add(
                 MythBlocks.WOLT_TRAPDOOR.get()
         );
 
-        this.getOrCreateBuilder(BlockTags.SMALL_FLOWERS).add(
+        this.tag(BlockTags.SMALL_FLOWERS).add(
                 MythBlocks.CHARGED_DANDELION.get()
         );
 
-        this.getOrCreateBuilder(BlockTags.LEAVES).add(
+        this.tag(BlockTags.LEAVES).add(
                 MythBlocks.WOLT_LEAVES.get()
         );
 
-        this.getOrCreateBuilder(BlockTags.SAPLINGS).add(
+        this.tag(BlockTags.SAPLINGS).add(
                 MythBlocks.WOLT_SAPLING.get()
         );
 
-        this.getOrCreateBuilder(BlockTags.LOGS_THAT_BURN).add(
+        this.tag(BlockTags.LOGS_THAT_BURN).add(
                 MythBlocks.WOLT_LOG.get(),
                 MythBlocks.WOLT_LOG_STRIPPED.get(),
                 MythBlocks.WOLT_WOOD.get(),
                 MythBlocks.WOLT_WOOD_STRIPPED.get()
         );
 
-        this.getOrCreateBuilder(BlockTags.RAILS).add(
+        this.tag(BlockTags.RAILS).add(
                 MythBlocks.LAUNCHER_RAIL.get()
         );
 
-        this.getOrCreateBuilder(MythBlockTags.SALT_BLOCKS).addOptional(
+        this.tag(MythBlockTags.SALT_BLOCKS).addOptional(
                 new ResourceLocation("mekanism", "block_salt"));
 
-        this.getOrCreateBuilder(MythBlockTags.VERTICAL_SLAB).add(
+        this.tag(MythBlockTags.VERTICAL_SLAB).add(
                 MythBlocks.GALVITE_VERTICAL_SLAB.get(),
                 MythBlocks.POLISHED_GALVITE_VERTICAL_SLAB.get(),
                 MythBlocks.POLISHED_GALVITE_BRICK_VERTICAL_SLAB.get(),
@@ -176,15 +180,15 @@ public class MythBlockTagProvider extends BlockTagsProvider {
                 MythBlocks.BEJEWELED_SNAIL_SHELL_BRICK_VERTICAL_SLAB.get()
         );
 
-        this.getOrCreateBuilder(MythBlockTags.PLANKS_VERTICAL_SLAB).add(
+        this.tag(MythBlockTags.PLANKS_VERTICAL_SLAB).add(
                 MythBlocks.WOLT_VERTICAL_SLAB.get()
         );
 
-        this.getOrCreateBuilder(MythBlockTags.LADDERS)
+        this.tag(MythBlockTags.LADDERS)
                 .add(MythBlocks.WOLT_LADDER.get()
         );
 
-        this.getOrCreateBuilder(MythBlockTags.HEDGES)
+        this.tag(MythBlockTags.HEDGES)
                 .add(MythBlocks.WOLT_HEDGE.get()
         );
     }

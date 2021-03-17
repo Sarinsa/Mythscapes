@@ -9,7 +9,7 @@ import net.minecraft.util.SoundEvents;
 public class MythCottonArmorType extends MythBaseArmorType {
 
     @Override
-    public int getDurability(EquipmentSlotType slotType) {
+    public int getDurabilityForSlot(EquipmentSlotType slotType) {
         switch (slotType) {
             case HEAD:
                 return 240;
@@ -24,7 +24,7 @@ public class MythCottonArmorType extends MythBaseArmorType {
     }
 
     @Override
-    public int getDamageReductionAmount(EquipmentSlotType slotType) {
+    public int getDefenseForSlot(EquipmentSlotType slotType) {
         switch (slotType) {
             case HEAD:
             case FEET:
@@ -37,18 +37,18 @@ public class MythCottonArmorType extends MythBaseArmorType {
     }
 
     @Override
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
         return 10;
     }
 
     @Override
-    public SoundEvent getSoundEvent() {
-        return SoundEvents.ITEM_ARMOR_EQUIP_LEATHER;
+    public SoundEvent getEquipSound() {
+        return SoundEvents.ARMOR_EQUIP_LEATHER;
     }
 
     @Override
-    public Ingredient getRepairMaterial() {
-        return Ingredient.fromItems(MythItems.COTTON_HIDE.get());
+    public Ingredient getRepairIngredient() {
+        return Ingredient.of(MythItems.COTTON_HIDE.get());
     }
 
     @Override

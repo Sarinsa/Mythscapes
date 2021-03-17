@@ -27,10 +27,10 @@ public class Jungle implements ISnailType {
     @Override
     public List<ResourceLocation> getSpawnBiomes() {
         return ImmutableList.of(
-                Biomes.JUNGLE.getLocation(),
-                Biomes.JUNGLE_EDGE.getLocation(),
-                Biomes.JUNGLE_HILLS.getLocation(),
-                Biomes.MODIFIED_JUNGLE.getLocation(),
-                Biomes.MODIFIED_JUNGLE_EDGE.getLocation());
+                Biomes.JUNGLE.location(),
+                Biomes.JUNGLE_EDGE.location(),
+                Biomes.JUNGLE_HILLS.location(),
+                Biomes.MODIFIED_JUNGLE.location(),
+                Biomes.MODIFIED_JUNGLE_EDGE.location());
     }
 }

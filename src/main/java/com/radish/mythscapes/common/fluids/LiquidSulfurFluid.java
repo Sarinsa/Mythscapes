@@ -25,12 +25,12 @@ public class LiquidSulfurFluid extends BaseFluid {
     }
 
     @Override
-    public int getLevel(FluidState state) {
+    public int getAmount(FluidState state) {
         return 0;
     }
 
     @Override
-    public IParticleData getDripParticleData() {
+    public IParticleData getDripParticle() {
         return ParticleTypes.DRIPPING_WATER;
     }
 
@@ -38,18 +38,21 @@ public class LiquidSulfurFluid extends BaseFluid {
 
         public Flowing() {
             super();
-            setDefaultState(getStateContainer().getBaseState().with(LEVEL_1_8, 7));
+            this.registerDefaultState(getStateDefinition().any().setValue(LEVEL, 7));
         }
 
-        protected void fillStateContainer(StateContainer.Builder<Fluid, FluidState> builder) {
-            super.fillStateContainer(builder);
-            builder.add(LEVEL_1_8);
+        @Override
+        protected void createFluidStateDefinition(StateContainer.Builder<Fluid, FluidState> builder) {
+            super.createFluidStateDefinition(builder);
+            builder.add(LEVEL);
         }
 
-        public int getLevel(FluidState state) {
-            return state.get(LEVEL_1_8);
+        @Override
+        public int getAmount(FluidState state) {
+            return state.getValue(LEVEL);
         }
 
+        @Override
         public boolean isSource(FluidState state) {
             return false;
         }
@@ -57,10 +60,12 @@ public class LiquidSulfurFluid extends BaseFluid {
 
     public static class Source extends LiquidSulfurFluid {
 
-        public int getLevel(FluidState state) {
+        @Override
+        public int getAmount(FluidState state) {
             return 8;
         }
 
+        @Override
         public boolean isSource(FluidState state) {
             return true;
         }

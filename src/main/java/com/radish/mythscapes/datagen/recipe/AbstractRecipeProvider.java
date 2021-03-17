@@ -77,11 +77,11 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
                     .addCondition(condition)
                     .addRecipe(finishedRecipe)
                     .setAdvancement(ConditionalAdvancement.builder().addCondition(condition).addAdvancement(finishedRecipe))
-                    .build(this.consumer, finishedRecipe.getID());
+                    .build(this.consumer, finishedRecipe.getId());
         });
     }
 
-    public void modCompatRecipe(Consumer<Consumer<IFinishedRecipe>> recipeBuilder, String modid) {
+    public void modCompatRecipe(String modid, Consumer<Consumer<IFinishedRecipe>> recipeBuilder) {
         ICondition condition = new ModLoadedCondition(modid);
 
         recipeBuilder.accept(finishedRecipe -> {
@@ -89,30 +89,32 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
                     .addCondition(condition)
                     .addRecipe(finishedRecipe)
                     .setAdvancement(ConditionalAdvancement.builder().addCondition(condition).addAdvancement(finishedRecipe))
-                    .build(this.consumer, finishedRecipe.getID());
+                    .build(this.consumer, finishedRecipe.getId());
         });
     }
 
-    public void modCompatRecipeNoAdvancement(Consumer<Consumer<IFinishedRecipe>> recipeBuilder, String modid) {
+    public void modCompatRecipeNoAdvancement(String modid, Consumer<Consumer<IFinishedRecipe>> recipeBuilder) {
         ICondition condition = new ModLoadedCondition(modid);
 
         recipeBuilder.accept(finishedRecipe -> {
             ConditionalRecipe.builder()
                     .addCondition(condition)
                     .addRecipe(finishedRecipe)
-                    .build(this.consumer, finishedRecipe.getID());
+                    .build(this.consumer, finishedRecipe.getId());
         });
     }
 
     public void quarkFlagRecipe(String quarkFlag, Consumer<Consumer<IFinishedRecipe>> recipeBuilder) {
+        ICondition modCondition = new ModLoadedCondition(QUARK);
         ICondition condition = new QuarkFlagCondition(quarkFlag);
 
         recipeBuilder.accept(finishedRecipe -> {
             ConditionalRecipe.builder()
+                    .addCondition(modCondition)
                     .addCondition(condition)
                     .addRecipe(finishedRecipe)
-                    .setAdvancement(ConditionalAdvancement.builder().addCondition(condition).addAdvancement(finishedRecipe))
-                    .build(this.consumer, finishedRecipe.getID());
+                    .setAdvancement(ConditionalAdvancement.builder().addCondition(modCondition).addCondition(condition).addAdvancement(finishedRecipe))
+                    .build(this.consumer, finishedRecipe.getId());
         });
     }
 
@@ -120,203 +122,203 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
         String ingredientName = itemName(ingredient);
         String resultName = itemName(result.get());
 
-        NullableItemGroupSingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(ingredient), result.get(), count)
-                .addCriterion("has_" + ingredientName, hasItem(ingredient))
+        NullableItemGroupSingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.of(ingredient), result.get(), count)
+                .unlockedBy("has_" + ingredientName, has(ingredient))
                 .build(consumer, resultName + "_from_" + ingredientName + "_stonecutting");
     }
 
     protected void compatStonecuttingRecipe(String modid, Supplier<Item> result, IItemProvider ingredient, int count, Consumer<IFinishedRecipe> consumer) {
-        this.modCompatRecipe((recipeConsumer) -> {
+        this.modCompatRecipe(modid, (recipeConsumer) -> {
             this.stonecuttingRecipe(result, ingredient, count, consumer);
-        }, modid);
+        });
     }
 
-    protected ShapedRecipeBuilder shapedRecipe(IItemProvider result, int count, IItemProvider criterionItem) {
+    protected ShapedRecipeBuilder shaped(IItemProvider result, int count, IItemProvider criterionItem) {
         String criterionName = itemName(criterionItem);
-        return ShapedRecipeBuilder.shapedRecipe(result, count)
-                .addCriterion("has_" + criterionName, hasItem(criterionItem));
+        return ShapedRecipeBuilder.shaped(result, count)
+                .unlockedBy("has_" + criterionName, has(criterionItem));
     }
 
     protected void stairsRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
         String criterionName = itemName(ingredient);
-        ShapedRecipeBuilder.shapedRecipe(result, 4)
-                .patternLine("  #")
-                .patternLine(" ##")
-                .patternLine("###")
-                .key('#', ingredient)
-                .addCriterion("has_" + criterionName, hasItem(ingredient))
-                .build(consumer);
+        ShapedRecipeBuilder.shaped(result, 4)
+                .pattern("  #")
+                .pattern(" ##")
+                .pattern("###")
+                .define('#', ingredient)
+                .unlockedBy("has_" + criterionName, has(ingredient))
+                .save(consumer);
     }
 
     protected void woodenStairsRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
         String criterionName = itemName(ingredient);
-        ShapedRecipeBuilder.shapedRecipe(result, 4)
-                .setGroup("wooden_stairs")
-                .patternLine("  #")
-                .patternLine(" ##")
-                .patternLine("###")
-                .key('#', ingredient)
-                .addCriterion("has_" + criterionName, hasItem(ingredient))
-                .build(consumer);
+        ShapedRecipeBuilder.shaped(result, 4)
+                .group("wooden_stairs")
+                .pattern("  #")
+                .pattern(" ##")
+                .pattern("###")
+                .define('#', ingredient)
+                .unlockedBy("has_" + criterionName, has(ingredient))
+                .save(consumer);
     }
 
     protected void wallRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
         String criterionName = itemName(ingredient);
-        ShapedRecipeBuilder.shapedRecipe(result, 6)
-                .patternLine("###")
-                .patternLine("###")
-                .key('#', ingredient)
-                .addCriterion("has_" + criterionName, hasItem(ingredient))
-                .build(consumer);
+        ShapedRecipeBuilder.shaped(result, 6)
+                .pattern("###")
+                .pattern("###")
+                .define('#', ingredient)
+                .unlockedBy("has_" + criterionName, has(ingredient))
+                .save(consumer);
     }
 
     protected void pressureplateRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
         String criterionName = itemName(ingredient);
-        ShapedRecipeBuilder.shapedRecipe(result, 1)
-                .patternLine("##")
-                .key('#', ingredient)
-                .addCriterion("has_" + criterionName, hasItem(ingredient))
-                .build(consumer);
+        ShapedRecipeBuilder.shaped(result, 1)
+                .pattern("##")
+                .define('#', ingredient)
+                .unlockedBy("has_" + criterionName, has(ingredient))
+                .save(consumer);
     }
 
     protected void woodenPressureplateRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
         String criterionName = itemName(ingredient);
-        ShapedRecipeBuilder.shapedRecipe(result, 1)
-                .setGroup("wooden_pressure_plate")
-                .patternLine("##")
-                .key('#', ingredient)
-                .addCriterion("has_" + criterionName, hasItem(ingredient))
-                .build(consumer);
+        ShapedRecipeBuilder.shaped(result, 1)
+                .group("wooden_pressure_plate")
+                .pattern("##")
+                .define('#', ingredient)
+                .unlockedBy("has_" + criterionName, has(ingredient))
+                .save(consumer);
     }
 
     protected void buttonRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
         String criterionName = itemName(ingredient);
-        ShapelessRecipeBuilder.shapelessRecipe(result)
-                .addIngredient(ingredient)
-                .addCriterion("has_" + criterionName, hasItem(ingredient))
-                .build(consumer);
+        ShapelessRecipeBuilder.shapeless(result)
+                .requires(ingredient)
+                .unlockedBy("has_" + criterionName, has(ingredient))
+                .save(consumer);
     }
 
     protected void woodenButtonRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
         String criterionName = itemName(ingredient);
-        ShapelessRecipeBuilder.shapelessRecipe(result)
-                .addIngredient(ingredient)
-                .setGroup("wooden_button")
-                .addCriterion("has_" + criterionName, hasItem(ingredient))
-                .build(consumer);
+        ShapelessRecipeBuilder.shapeless(result)
+                .requires(ingredient)
+                .group("wooden_button")
+                .unlockedBy("has_" + criterionName, has(ingredient))
+                .save(consumer);
     }
 
     protected void slabRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
         String criterionName = itemName(ingredient);
-        ShapedRecipeBuilder.shapedRecipe(result, 6)
-                .patternLine("###")
-                .key('#', ingredient)
-                .addCriterion("has_" + criterionName, hasItem(ingredient))
-                .build(consumer);
+        ShapedRecipeBuilder.shaped(result, 6)
+                .pattern("###")
+                .define('#', ingredient)
+                .unlockedBy("has_" + criterionName, has(ingredient))
+                .save(consumer);
     }
 
     protected void woodenSlabRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
         String criterionName = itemName(ingredient);
-        ShapedRecipeBuilder.shapedRecipe(result, 6)
-                .setGroup("wooden_slab")
-                .patternLine("###")
-                .key('#', ingredient)
-                .addCriterion("has_" + criterionName, hasItem(ingredient))
-                .build(consumer);
+        ShapedRecipeBuilder.shaped(result, 6)
+                .group("wooden_slab")
+                .pattern("###")
+                .define('#', ingredient)
+                .unlockedBy("has_" + criterionName, has(ingredient))
+                .save(consumer);
     }
 
     protected void woodenFenceRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
         String criterionName = itemName(ingredient);
-        ShapedRecipeBuilder.shapedRecipe(result, 3)
-                .setGroup("wooden_fence")
-                .patternLine("#S#")
-                .patternLine("#S#")
-                .key('#', ingredient)
-                .key('S', Tags.Items.RODS_WOODEN)
-                .addCriterion("has_" + criterionName, hasItem(ingredient))
-                .build(consumer);
+        ShapedRecipeBuilder.shaped(result, 3)
+                .group("wooden_fence")
+                .pattern("#S#")
+                .pattern("#S#")
+                .define('#', ingredient)
+                .define('S', Tags.Items.RODS_WOODEN)
+                .unlockedBy("has_" + criterionName, has(ingredient))
+                .save(consumer);
     }
 
     protected void woodenFenceGateRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
         String criterionName = itemName(ingredient);
-        ShapedRecipeBuilder.shapedRecipe(result, 1)
-                .setGroup("wooden_fence_gate")
-                .patternLine("S#S")
-                .patternLine("S#S")
-                .key('#', ingredient)
-                .key('S', Tags.Items.RODS_WOODEN)
-                .addCriterion("has_" + criterionName, hasItem(ingredient))
-                .build(consumer);
+        ShapedRecipeBuilder.shaped(result, 1)
+                .group("wooden_fence_gate")
+                .pattern("S#S")
+                .pattern("S#S")
+                .define('#', ingredient)
+                .define('S', Tags.Items.RODS_WOODEN)
+                .unlockedBy("has_" + criterionName, has(ingredient))
+                .save(consumer);
     }
 
     protected void boatRecipe(IItemProvider result, IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
         String criterionName = itemName(ingredient);
-        ShapedRecipeBuilder.shapedRecipe(result, 1)
-                .setGroup("boat")
-                .patternLine("# #")
-                .patternLine("###")
-                .key('#', MythItems.WOLT_PLANKS.get())
-                .addCriterion("has_" + criterionName, hasItem(ingredient))
-                .build(consumer);
+        ShapedRecipeBuilder.shaped(result, 1)
+                .group("boat")
+                .pattern("# #")
+                .pattern("###")
+                .define('#', MythItems.WOLT_PLANKS.get())
+                .unlockedBy("has_" + criterionName, has(ingredient))
+                .save(consumer);
     }
 
-    protected ShapelessRecipeBuilder shapelessRecipe(IItemProvider result, int count, IItemProvider criterionIngredient) {
+    protected ShapelessRecipeBuilder shapeless(IItemProvider result, int count, IItemProvider criterionIngredient) {
         String criterionName = itemName(criterionIngredient);
-        return ShapelessRecipeBuilder.shapelessRecipe(result, count)
-                .addCriterion("has_" + criterionName, hasItem(criterionIngredient));
+        return ShapelessRecipeBuilder.shapeless(result, count)
+                .unlockedBy("has_" + criterionName, has(criterionIngredient));
     }
 
-    protected ShapelessRecipeBuilder shapelessRecipe(IItemProvider result, int count, ITag.INamedTag<Item> criterionTag) {
+    protected ShapelessRecipeBuilder shapeless(IItemProvider result, int count, ITag.INamedTag<Item> criterionTag) {
         String criterionName = criterionTag.getName().getPath();
-        return ShapelessRecipeBuilder.shapelessRecipe(result, count)
-                .addCriterion("has_" + criterionName, hasItem(criterionTag));
+        return ShapelessRecipeBuilder.shapeless(result, count)
+                .unlockedBy("has_" + criterionName, has(criterionTag));
     }
 
     protected void singleIngredientRecipe(IItemProvider result, int count, IItemProvider ingredient) {
-        this.shapelessRecipe(result, count, ingredient)
-                .addIngredient(ingredient)
-                .build(this.consumer);
+        this.shapeless(result, count, ingredient)
+                .requires(ingredient)
+                .save(this.consumer);
     }
 
     protected void shapelessPlanksRecipe(IItemProvider result, ITag.INamedTag<Item> ingredientTag, Consumer<IFinishedRecipe> consumer) {
-        shapelessRecipe(result, 4, ingredientTag)
-                .setGroup("planks")
-                .addIngredient(ingredientTag)
-                .build(consumer);
+        shapeless(result, 4, ingredientTag)
+                .group("planks")
+                .requires(ingredientTag)
+                .save(consumer);
     }
 
     protected void smeltingRecipe(IItemProvider ingredient, IItemProvider result, float experience, Consumer<IFinishedRecipe> consumer) {
         String ingredientName = itemName(result);
-        CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(ingredient), result, experience, 200)
-                .addCriterion("has_" + ingredientName, hasItem(ingredient))
-                .build(consumer, Mythscapes.resourceLoc(ingredientName + "_from_smelting"));
+        CookingRecipeBuilder.smelting(Ingredient.of(ingredient), result, experience, 200)
+                .unlockedBy("has_" + ingredientName, has(ingredient))
+                .save(consumer, Mythscapes.resourceLoc(ingredientName + "_from_smelting"));
     }
 
     protected void blastingRecipe(IItemProvider ingredient, IItemProvider result, float experience, Consumer<IFinishedRecipe> consumer) {
         String ingredientName = itemName(ingredient);
         String resultName = itemName(result);
 
-        CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(ingredient), result, experience, 100)
-                .addCriterion("has_" + ingredientName, hasItem(ingredient))
-                .build(consumer, Mythscapes.resourceLoc(resultName + "_from_" + ingredientName + "_blasting"));
+        CookingRecipeBuilder.blasting(Ingredient.of(ingredient), result, experience, 100)
+                .unlockedBy("has_" + ingredientName, has(ingredient))
+                .save(consumer, Mythscapes.resourceLoc(resultName + "_from_" + ingredientName + "_blasting"));
     }
 
     protected void smokerRecipe(IItemProvider ingredient, IItemProvider result, float experience, Consumer<IFinishedRecipe> consumer) {
         String ingredientName = itemName(ingredient);
         String resultName = itemName(result);
 
-        CookingRecipeBuilder.cookingRecipe(Ingredient.fromItems(ingredient), result, experience, 100, CookingRecipeSerializer.SMOKING)
-                .addCriterion("has_" + ingredientName, hasItem(ingredient))
-                .build(consumer, Mythscapes.resourceLoc(resultName + "_from_" + ingredientName + "_smoking"));
+        CookingRecipeBuilder.cooking(Ingredient.of(ingredient), result, experience, 100, CookingRecipeSerializer.SMOKING_RECIPE)
+                .unlockedBy("has_" + ingredientName, has(ingredient))
+                .save(consumer, Mythscapes.resourceLoc(resultName + "_from_" + ingredientName + "_smoking"));
     }
 
     protected void campfireRecipe(IItemProvider ingredient, IItemProvider result, float experience, Consumer<IFinishedRecipe> consumer) {
         String ingredientName = itemName(ingredient);
         String resultName = itemName(result);
 
-        CookingRecipeBuilder.cookingRecipe(Ingredient.fromItems(ingredient), result, experience, 600, CookingRecipeSerializer.CAMPFIRE_COOKING)
-                .addCriterion("has_" + ingredientName, hasItem(ingredient))
-                .build(consumer, Mythscapes.resourceLoc(resultName + "_from_" + ingredientName + "_campfire"));
+        CookingRecipeBuilder.cooking(Ingredient.of(ingredient), result, experience, 600, CookingRecipeSerializer.CAMPFIRE_COOKING_RECIPE)
+                .unlockedBy("has_" + ingredientName, has(ingredient))
+                .save(consumer, Mythscapes.resourceLoc(resultName + "_from_" + ingredientName + "_campfire"));
     }
 
     protected void quarkVerticalSlabRecipe(IItemProvider verticalSlab, IItemProvider normalSlab) {
@@ -324,20 +326,20 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
         String horizontal = itemName(normalSlab);
 
         this.quarkFlagRecipe("vertical_slabs", recipeConsumer -> {
-            NullableItemGroupShapedRecipeBuilder.shapedRecipe(verticalSlab, 3)
-                    .patternLine("#")
-                    .patternLine("#")
-                    .patternLine("#")
-                    .key('#', normalSlab)
-                    .addCriterion("has_" + vertical, hasItem(normalSlab))
-                    .build(recipeConsumer);
+            NullableItemGroupShapedRecipeBuilder.shaped(verticalSlab, 3)
+                    .pattern("#")
+                    .pattern("#")
+                    .pattern("#")
+                    .define('#', normalSlab)
+                    .unlockedBy("has_" + vertical, has(normalSlab))
+                    .save(recipeConsumer);
         });
 
         this.quarkFlagRecipe("vertical_slabs", recipeConsumer -> {
-            NullableItemGroupShapelessRecipeBuilder.shapelessRecipe(normalSlab)
-                    .addIngredient(verticalSlab)
-                    .addCriterion("has_" + horizontal, hasItem(verticalSlab))
-                    .build(recipeConsumer,  Mythscapes.resourceLoc(horizontal + "_from_" + vertical));
+            NullableItemGroupShapelessRecipeBuilder.shapeless(normalSlab)
+                    .requires(verticalSlab)
+                    .unlockedBy("has_" + horizontal, has(verticalSlab))
+                    .save(recipeConsumer,  Mythscapes.resourceLoc(horizontal + "_from_" + vertical));
         });
     }
 
@@ -346,81 +348,81 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
         String horizontal = itemName(ingredient);
 
         this.quarkFlagRecipe("vertical_planks", recipeConsumer -> {
-            NullableItemGroupShapedRecipeBuilder.shapedRecipe(verticalPlanks, 3)
-                    .patternLine("#")
-                    .patternLine("#")
-                    .patternLine("#")
-                    .key('#', ingredient)
-                    .addCriterion("has_" + vertical, hasItem(ingredient))
-                    .build(recipeConsumer);
+            NullableItemGroupShapedRecipeBuilder.shaped(verticalPlanks, 3)
+                    .pattern("#")
+                    .pattern("#")
+                    .pattern("#")
+                    .define('#', ingredient)
+                    .unlockedBy("has_" + vertical, has(ingredient))
+                    .save(recipeConsumer);
         });
 
         this.quarkFlagRecipe("vertical_planks", recipeConsumer -> {
-            NullableItemGroupShapelessRecipeBuilder.shapelessRecipe(ingredient)
-                    .addIngredient(verticalPlanks)
-                    .addCriterion("has_" + horizontal, hasItem(verticalPlanks))
-                    .build(recipeConsumer, Mythscapes.resourceLoc(horizontal + "_from_" + vertical));
+            NullableItemGroupShapelessRecipeBuilder.shapeless(ingredient)
+                    .requires(verticalPlanks)
+                    .unlockedBy("has_" + horizontal, has(verticalPlanks))
+                    .save(recipeConsumer, Mythscapes.resourceLoc(horizontal + "_from_" + vertical));
         });
     }
 
     protected void woodSignRecipe(IItemProvider woodSign, IItemProvider ingredient) {
-        this.modCompatRecipe(recipeConsumer -> {
-            NullableItemGroupShapedRecipeBuilder.shapedRecipe(woodSign, 3)
-                    .patternLine("###")
-                    .patternLine("###")
-                    .patternLine(" S ")
-                    .key('#', ingredient)
-                    .key('S', Tags.Items.RODS_WOODEN)
-                    .addCriterion("has_" + itemName(ingredient), hasItem(ingredient))
-                    .build(recipeConsumer);
-        }, QUARK);
+        this.modCompatRecipe(QUARK, recipeConsumer -> {
+            NullableItemGroupShapedRecipeBuilder.shaped(woodSign, 3)
+                    .pattern("###")
+                    .pattern("###")
+                    .pattern(" S ")
+                    .define('#', ingredient)
+                    .define('S', Tags.Items.RODS_WOODEN)
+                    .unlockedBy("has_" + itemName(ingredient), has(ingredient))
+                    .save(recipeConsumer);
+        });
     }
 
     protected void quarkLeafCarpetRecipe(IItemProvider leafCarpet, IItemProvider ingredient) {
         this.quarkFlagRecipe("leaf_carpet", recipeConsumer -> {
-            NullableItemGroupShapedRecipeBuilder.shapedRecipe(leafCarpet, 3)
-                    .patternLine("##")
-                    .key('#', ingredient)
-                    .addCriterion("has_" + itemName(ingredient), hasItem(ingredient))
-                    .build(recipeConsumer);
+            NullableItemGroupShapedRecipeBuilder.shaped(leafCarpet, 3)
+                    .pattern("##")
+                    .define('#', ingredient)
+                    .unlockedBy("has_" + itemName(ingredient), has(ingredient))
+                    .save(recipeConsumer);
         });
     }
 
     protected void quarkLadderRecipe(IItemProvider ladder, IItemProvider ingredient) {
         this.quarkFlagRecipe("variant_ladders", recipeConsumer -> {
-            NullableItemGroupShapedRecipeBuilder.shapedRecipe(ladder, 4)
-                    .patternLine("# #")
-                    .patternLine("#P#")
-                    .patternLine("# #")
-                    .key('#', Tags.Items.RODS_WOODEN)
-                    .key('P', ingredient)
-                    .addCriterion("has_" + itemName(ingredient), hasItem(ingredient))
-                    .build(recipeConsumer);
+            NullableItemGroupShapedRecipeBuilder.shaped(ladder, 4)
+                    .pattern("# #")
+                    .pattern("#P#")
+                    .pattern("# #")
+                    .define('#', Tags.Items.RODS_WOODEN)
+                    .define('P', ingredient)
+                    .unlockedBy("has_" + itemName(ingredient), has(ingredient))
+                    .save(recipeConsumer);
         });
     }
 
     protected void quarkWoodenPostRecipe(IItemProvider woodPost, IItemProvider ingredient) {
         this.quarkFlagRecipe("wooden_posts", recipeConsumer -> {
-            NullableItemGroupShapedRecipeBuilder.shapedRecipe(woodPost, 8)
-                    .patternLine("#")
-                    .patternLine("#")
-                    .patternLine("#")
-                    .key('#', ingredient)
-                    .addCriterion("has_" + itemName(ingredient), hasItem(ingredient))
-                    .build(recipeConsumer);
+            NullableItemGroupShapedRecipeBuilder.shaped(woodPost, 8)
+                    .pattern("#")
+                    .pattern("#")
+                    .pattern("#")
+                    .define('#', ingredient)
+                    .unlockedBy("has_" + itemName(ingredient), has(ingredient))
+                    .save(recipeConsumer);
         });
     }
 
     protected void quarkBookshelfRecipe(IItemProvider bookshelf, IItemProvider ingredient) {
         this.quarkFlagRecipe("variant_bookshelves", recipeConsumer -> {
-            NullableItemGroupShapedRecipeBuilder.shapedRecipe(bookshelf, 1)
-                    .patternLine("###")
-                    .patternLine("BBB")
-                    .patternLine("###")
-                    .key('#', ingredient)
-                    .key('B', Items.BOOK)
-                    .addCriterion("has_" + itemName(ingredient), hasItem(ingredient))
-                    .build(recipeConsumer);
+            NullableItemGroupShapedRecipeBuilder.shaped(bookshelf, 1)
+                    .pattern("###")
+                    .pattern("BBB")
+                    .pattern("###")
+                    .define('#', ingredient)
+                    .define('B', Items.BOOK)
+                    .unlockedBy("has_" + itemName(ingredient), has(ingredient))
+                    .save(recipeConsumer);
         });
     }
 
@@ -437,31 +439,31 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
 
 
         this.quarkFlagRecipe("variant_chests", recipeConsumer -> {
-            NullableItemGroupShapedRecipeBuilder.shapedRecipe(chest, 4)
-                    .patternLine("###")
-                    .patternLine("# #")
-                    .patternLine("###")
-                    .key('#', logs)
-                    .addCriterion("has_" + logsName, hasItem(logs))
-                    .build(recipeConsumer, Mythscapes.resourceLoc(chestName + "_from_" + logsName));
+            NullableItemGroupShapedRecipeBuilder.shaped(chest, 4)
+                    .pattern("###")
+                    .pattern("# #")
+                    .pattern("###")
+                    .define('#', logs)
+                    .unlockedBy("has_" + logsName, has(logs))
+                    .save(recipeConsumer, Mythscapes.resourceLoc(chestName + "_from_" + logsName));
         });
 
         this.quarkFlagRecipe("variant_chests", recipeConsumer -> {
-            NullableItemGroupShapedRecipeBuilder.shapedRecipe(chest, 1)
-                    .patternLine("###")
-                    .patternLine("# #")
-                    .patternLine("###")
-                    .key('#', planks)
-                    .addCriterion("has_" + planksName, hasItem(planks))
-                    .build(recipeConsumer, Mythscapes.resourceLoc(chestName + "_from_" + planksName));
+            NullableItemGroupShapedRecipeBuilder.shaped(chest, 1)
+                    .pattern("###")
+                    .pattern("# #")
+                    .pattern("###")
+                    .define('#', planks)
+                    .unlockedBy("has_" + planksName, has(planks))
+                    .save(recipeConsumer, Mythscapes.resourceLoc(chestName + "_from_" + planksName));
         });
 
         this.quarkFlagRecipe("variant_chests", recipeConsumer -> {
-            NullableItemGroupShapelessRecipeBuilder.shapelessRecipe(trappedChest, 1)
-                    .addIngredient(chest)
-                    .addIngredient(Items.TRIPWIRE_HOOK)
-                    .addCriterion("has_" + chestName, hasItem(chest))
-                    .build(recipeConsumer);
+            NullableItemGroupShapelessRecipeBuilder.shapeless(trappedChest, 1)
+                    .requires(chest)
+                    .requires(Items.TRIPWIRE_HOOK)
+                    .unlockedBy("has_" + chestName, has(chest))
+                    .save(recipeConsumer);
         });
     }
 }

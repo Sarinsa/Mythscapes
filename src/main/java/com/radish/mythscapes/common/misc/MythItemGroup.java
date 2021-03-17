@@ -21,7 +21,7 @@ public class  MythItemGroup {
         }
 
         @Override
-        public ItemStack createIcon() {
+        public ItemStack makeIcon() {
             return this.icon.get();
         }
     }

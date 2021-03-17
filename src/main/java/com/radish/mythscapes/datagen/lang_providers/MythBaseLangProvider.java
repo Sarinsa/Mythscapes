@@ -3,6 +3,7 @@ package com.radish.mythscapes.datagen.lang_providers;
 import com.radish.mythscapes.api.ISnailType;
 import com.radish.mythscapes.api.impl.SnailTypeRegister;
 import com.radish.mythscapes.common.core.Mythscapes;
+import com.radish.mythscapes.common.register.registry.BiomeRegistryObject;
 import com.radish.mythscapes.common.register.registry.FluidRegistryObject;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.fluid.FlowingFluid;
@@ -27,7 +28,6 @@ public abstract class MythBaseLangProvider extends LanguageProvider {
     protected void addSnailType(ISnailType snailType, String localized) {
         this.add(SnailTypeRegister.getTranslationKey(snailType), localized);
     }
-
 
     protected final void addFluid(FluidRegistryObject<FlowingFluid> registryObject, String localized) {
         String name = Objects.requireNonNull(registryObject.getStill().get().getRegistryName()).getPath();
@@ -59,9 +59,13 @@ public abstract class MythBaseLangProvider extends LanguageProvider {
         this.add("item.minecraft.tipped_arrow.effect." + name, localized);
     }
 
+    protected void addBiome(BiomeRegistryObject biomeRegistryObject, String localized) {
+        String name = Objects.requireNonNull(biomeRegistryObject.get().getRegistryName()).getPath();
+        this.add("biome." + Mythscapes.MODID + "." + name, localized);
+    }
 
     protected void addPotion(Supplier<Potion> potionSupplier, String localized) {
-        this.add(Util.makeTranslationKey("potion", ForgeRegistries.POTION_TYPES.getKey(potionSupplier.get())), localized);
+        this.add(Util.makeDescriptionId("potion", ForgeRegistries.POTION_TYPES.getKey(potionSupplier.get())), localized);
     }
 
     protected void addDamageSource(String damageSource, String localized) {

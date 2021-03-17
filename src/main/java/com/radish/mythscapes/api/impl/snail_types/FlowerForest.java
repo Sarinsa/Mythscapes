@@ -31,6 +31,6 @@ public class FlowerForest implements ISnailType {
 
     @Override
     public List<ResourceLocation> getSpawnBiomes() {
-        return ImmutableList.of(Biomes.FLOWER_FOREST.getLocation());
+        return ImmutableList.of(Biomes.FLOWER_FOREST.location());
     }
 }

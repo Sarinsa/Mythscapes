@@ -4,6 +4,7 @@ import com.radish.mythscapes.api.ISnailType;
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.register.MythBiomes;
 import com.radish.mythscapes.common.worldgen.MythConfiguredFeatures;
+import com.radish.mythscapes.common.worldgen.MythConfiguredSurfaceBuilders;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
@@ -38,19 +39,20 @@ public class BiomeEvents {
             return;
 
         if (biomeName.equals(MythBiomes.STATIC_FIELDS.get().getRegistryName())) {
-            DefaultBiomeFeatures.withCavesAndCanyons(generationSettings);
-            DefaultBiomeFeatures.withLavaAndWaterLakes(generationSettings);
-            DefaultBiomeFeatures.withStrongholdAndMineshaft(generationSettings);
-            DefaultBiomeFeatures.withOverworldOres(generationSettings);
-            DefaultBiomeFeatures.withMonsterRoom(generationSettings);
-            DefaultBiomeFeatures.withDisks(generationSettings);
-            generationSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_PLAIN);
-            generationSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_TALL_GRASS);
-            generationSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MythConfiguredFeatures.PATCH_CHARGED_DANDELIONS);
+            DefaultBiomeFeatures.addDefaultCarvers(generationSettings);
+            DefaultBiomeFeatures.addDefaultLakes(generationSettings);
+            DefaultBiomeFeatures.addDefaultOverworldLandStructures(generationSettings);
+            DefaultBiomeFeatures.addDefaultOres(generationSettings);
+            DefaultBiomeFeatures.addDefaultMonsterRoom(generationSettings);
+            DefaultBiomeFeatures.addDefaultSoftDisks(generationSettings);
+            generationSettings.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_PLAIN);
+            generationSettings.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_TALL_GRASS);
+            generationSettings.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MythConfiguredFeatures.PATCH_CHARGED_DANDELIONS);
+            generationSettings.surfaceBuilder(MythConfiguredSurfaceBuilders.STATIC);
 
-            spawnInfoBuilder.isValidSpawnBiomeForPlayer();
-            DefaultBiomeFeatures.withBatsAndHostiles(spawnInfoBuilder);
-            DefaultBiomeFeatures.withPassiveMobs(spawnInfoBuilder);
+            spawnInfoBuilder.setPlayerCanSpawn();
+            DefaultBiomeFeatures.commonSpawns(spawnInfoBuilder);
+            DefaultBiomeFeatures.farmAnimals(spawnInfoBuilder);
         }
     }
 

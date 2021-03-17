@@ -13,8 +13,8 @@ public abstract class MythEffect extends Effect {
     }
 
     public static int getDuration(LivingEntity entity, Effect effect) {
-        if (entity.getActivePotionEffect(effect) != null && !effect.isInstant()) {
-            return Objects.requireNonNull(entity.getActivePotionEffect(effect)).getDuration();
+        if (entity.getEffect(effect) != null && !effect.isInstantenous()) {
+            return Objects.requireNonNull(entity.getEffect(effect)).getDuration();
         }
         return 0;
     }

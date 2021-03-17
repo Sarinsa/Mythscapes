@@ -32,8 +32,8 @@ public class Mushroom implements ISnailType {
     @Override
     public List<ResourceLocation> getSpawnBiomes() {
         return ImmutableList.of(
-                Biomes.MUSHROOM_FIELDS.getLocation(),
-                Biomes.MUSHROOM_FIELD_SHORE.getLocation()
+                Biomes.MUSHROOM_FIELDS.location(),
+                Biomes.MUSHROOM_FIELD_SHORE.location()
         );
     }
 }

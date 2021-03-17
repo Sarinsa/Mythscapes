@@ -21,35 +21,35 @@ public class MythHedgeBlock extends ModWoodFenceBlock {
 
     public MythHedgeBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.getDefaultState().with(EXTEND, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(EXTEND, false));
     }
 
     @Override
-    public boolean canConnect(BlockState state, boolean isSideSolid, Direction direction) {
-        return state.getBlock().isIn(MythBlockTags.HEDGES);
+    public boolean connectsTo(BlockState state, boolean isSideSolid, Direction direction) {
+        return state.getBlock().is(MythBlockTags.HEDGES);
     }
 
     @Override
     public boolean canSustainPlant(BlockState state, IBlockReader world, BlockPos pos, Direction facing, IPlantable plantable) {
-        return facing == Direction.UP && !state.get(WATERLOGGED) && plantable.getPlantType(world, pos) == PlantType.PLAINS;
+        return facing == Direction.UP && !state.getValue(WATERLOGGED) && plantable.getPlantType(world, pos) == PlantType.PLAINS;
     }
 
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        IBlockReader world = context.getWorld();
-        BlockPos blockpos = context.getPos();
-        BlockPos down = blockpos.down();
+        IBlockReader world = context.getLevel();
+        BlockPos blockpos = context.getClickedPos();
+        BlockPos down = blockpos.below();
         BlockState downState = world.getBlockState(down);
 
-        return super.getStateForPlacement(context).with(EXTEND, downState.getBlock().isIn(MythBlockTags.HEDGES));
+        return super.getStateForPlacement(context).setValue(EXTEND, downState.getBlock().is(MythBlockTags.HEDGES));
     }
 
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        if (stateIn.get(WATERLOGGED)) {
-            worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+        if (stateIn.getValue(WATERLOGGED)) {
+            worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
         }
-        return facing == Direction.DOWN ? stateIn.with(EXTEND, facingState.getBlock().isIn(MythBlockTags.HEDGES)) : super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+        return facing == Direction.DOWN ? stateIn.setValue(EXTEND, facingState.getBlock().is(MythBlockTags.HEDGES)) : super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
     @Override
@@ -62,8 +62,9 @@ public class MythHedgeBlock extends ModWoodFenceBlock {
         return 5;
     }
 
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        super.fillStateContainer(builder);
+    @Override
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
         builder.add(EXTEND);
     }
 }

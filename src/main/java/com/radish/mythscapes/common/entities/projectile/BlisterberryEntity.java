@@ -32,26 +32,26 @@ public class BlisterberryEntity extends ProjectileItemEntity {
     }
 
     @Override
-    public float getGravityVelocity() {
+    public float getGravity() {
         return 0.04F;
     }
 
 
     @Override
-    protected void onEntityHit(EntityRayTraceResult result) {
-        super.onEntityHit(result);
+    protected void onHitEntity(EntityRayTraceResult result) {
+        super.onHitEntity(result);
         Entity target = result.getEntity();
 
-        target.attackEntityFrom(DamageSource.causeThrownDamage(this, this.func_234616_v_()), 2.0F);
+        target.hurt(DamageSource.thrown(this, this.getOwner()), 2.0F);
     }
 
     @Override
-    public void onImpact(RayTraceResult result) {
-        super.onImpact(result);
+    public void onHit(RayTraceResult result) {
+        super.onHit(result);
 
-        if (!this.world.isRemote) {
-            boolean mobGriefing = ForgeEventFactory.getMobGriefingEvent(this.world, this);
-            this.world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), 2.0f, mobGriefing, Explosion.Mode.NONE);
+        if (!this.level.isClientSide) {
+            boolean mobGriefing = ForgeEventFactory.getMobGriefingEvent(this.level, this);
+            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 2.0f, mobGriefing, Explosion.Mode.NONE);
 
             this.remove();
         }
@@ -63,7 +63,7 @@ public class BlisterberryEntity extends ProjectileItemEntity {
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

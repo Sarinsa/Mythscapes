@@ -13,100 +13,108 @@ import net.minecraft.util.math.MathHelper;
 public class DeerModel<T extends DeerEntity> extends AgeableModel<T> {
 
     public ModelRenderer body;
-    public ModelRenderer frontleftleg;
-    public ModelRenderer frontrightleg;
-    public ModelRenderer backrightleg;
-    public ModelRenderer backleftleg;
+    public ModelRenderer frontLeftLeg;
+    public ModelRenderer frontRightLeg;
+    public ModelRenderer backRightLeg;
+    public ModelRenderer backLeftLeg;
     public ModelRenderer tail;
     public ModelRenderer neck;
     public ModelRenderer head;
     public ModelRenderer snoot;
-    public ModelRenderer antlerleft;
-    public ModelRenderer antlerright;
+    public ModelRenderer antlerLeft;
+    public ModelRenderer antlerRight;
 
     public DeerModel() {
         super(true, 17.0F, 2.5F);
-        this.textureWidth = 77;
-        this.textureHeight = 32;
+        this.texWidth = 77;
+        this.texHeight = 32;
 
-        this.antlerleft = new ModelRenderer(this, 34, -5);
-        this.antlerleft.setRotationPoint(2.5F, -13.9F, 0.5F);
-        this.antlerleft.addBox(0.0F, 0.0F, 0.0F, 0.0F, 10.0F, 8.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(antlerleft, 0.0F, 0.0F, 0.13962634015954636F);
+        this.antlerLeft = new ModelRenderer(this, 34, -5);
+        this.antlerLeft.setPos(2.5F, -13.9F, 0.5F);
+        this.antlerLeft.addBox(0.0F, 0.0F, 0.0F, 0.0F, 10.0F, 8.0F, 0.0F, 0.0F, 0.0F);
+        this.setRotateAngle(antlerLeft, 0.0F, 0.0F, 0.13962634015954636F);
 
-        this.antlerright = new ModelRenderer(this, 34, -5);
-        this.antlerright.setRotationPoint(-2.5F, -13.9F, 0.5F);
-        this.antlerright.addBox(0.0F, 0.0F, 0.0F, 0.0F, 10.0F, 8.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(antlerright, 0.0F, 0.0F, -0.13962634015954636F);
+        this.antlerRight = new ModelRenderer(this, 34, -5);
+        this.antlerRight.setPos(-2.5F, -13.9F, 0.5F);
+        this.antlerRight.addBox(0.0F, 0.0F, 0.0F, 0.0F, 10.0F, 8.0F, 0.0F, 0.0F, 0.0F);
+        this.setRotateAngle(antlerRight, 0.0F, 0.0F, -0.13962634015954636F);
 
-        this.frontrightleg = new ModelRenderer(this, 0, 0);
-        this.frontrightleg.setRotationPoint(1.5F, 8.0F, 1.5F);
-        this.frontrightleg.addBox(-1.5F, 0.0F, -1.5F, 3.0F, 12.0F, 3.0F, 0.0F, 0.0F, 0.0F);
+        this.frontRightLeg = new ModelRenderer(this, 0, 0);
+        this.frontRightLeg.setPos(1.5F, 8.0F, 1.5F);
+        this.frontRightLeg.addBox(-1.5F, 0.0F, -1.5F, 3.0F, 12.0F, 3.0F, 0.0F, 0.0F, 0.0F);
 
         this.neck = new ModelRenderer(this, 52, 20);
-        this.neck.setRotationPoint(4.0F, 2.0F, 2.0F);
+        this.neck.setPos(4.0F, 2.0F, 2.0F);
         this.neck.addBox(-2.0F, -6.0F, -4.0F, 4.0F, 8.0F, 4.0F, 0.0F, 0.0F, 0.0F);
 
         this.tail = new ModelRenderer(this, 67, 19);
-        this.tail.setRotationPoint(4.0F, 0.0F, 18.0F);
+        this.tail.setPos(4.0F, 0.0F, 18.0F);
         this.tail.addBox(-1.0F, 0.0F, 0.0F, 2.0F, 2.0F, 3.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(tail, -0.4363323129985824F, 1.9764588155382245E-16F, 0.0F);
 
         this.body = new ModelRenderer(this, 0, 6);
-        this.body.setRotationPoint(-4.0F, 4.0F, -9.0F);
+        this.body.setPos(-4.0F, 4.0F, -9.0F);
         this.body.addBox(0.0F, 0.0F, 0.0F, 8.0F, 8.0F, 18.0F, 0.0F, 0.0F, 0.0F);
 
         this.head = new ModelRenderer(this, 34, 13);
-        this.head.setRotationPoint(0.0F, 0.0F, -10.5F);
+        this.head.setPos(0.0F, 0.0F, -10.5F);
         this.head.addBox(-2.0F, -4.0F, -3.5F, 4.0F, 4.0F, 7.0F, 0.0F, 0.0F, 0.0F);
 
-        this.backrightleg = new ModelRenderer(this, 61, 0);
-        this.backrightleg.setRotationPoint(1.5F, 8.0F, 15.5F);
-        this.backrightleg.addBox(-1.5F, 0.0F, -1.5F, 3.0F, 12.0F, 3.0F, 0.0F, 0.0F, 0.0F);
+        this.backRightLeg = new ModelRenderer(this, 61, 0);
+        this.backRightLeg.setPos(1.5F, 8.0F, 15.5F);
+        this.backRightLeg.addBox(-1.5F, 0.0F, -1.5F, 3.0F, 12.0F, 3.0F, 0.0F, 0.0F, 0.0F);
 
-        this.backleftleg = new ModelRenderer(this, 61, 0);
-        this.backleftleg.mirror = true;
-        this.backleftleg.setRotationPoint(6.5F, 8.0F, 15.5F);
-        this.backleftleg.addBox(-1.6F, 0.0F, -1.5F, 3.0F, 12.0F, 3.0F, 0.0F, 0.0F, 0.0F);
+        this.backLeftLeg = new ModelRenderer(this, 61, 0);
+        this.backLeftLeg.mirror = true;
+        this.backLeftLeg.setPos(6.5F, 8.0F, 15.5F);
+        this.backLeftLeg.addBox(-1.6F, 0.0F, -1.5F, 3.0F, 12.0F, 3.0F, 0.0F, 0.0F, 0.0F);
 
         this.snoot = new ModelRenderer(this, 0, 18);
-        this.snoot.setRotationPoint(-2.0F, -3.0F, -6.5F);
+        this.snoot.setPos(-2.0F, -3.0F, -6.5F);
         this.snoot.addBox(0.0F, 0.0F, 0.0F, 4.0F, 3.0F, 3.0F, 0.0F, 0.0F, 0.0F);
 
-        this.frontleftleg = new ModelRenderer(this, 0, 0);
-        this.frontleftleg.mirror = true;
-        this.frontleftleg.setRotationPoint(6.5F, 8.0F, 1.5F);
-        this.frontleftleg.addBox(-1.5F, 0.0F, -1.5F, 3.0F, 12.0F, 3.0F, 0.0F, 0.0F, 0.0F);
+        this.frontLeftLeg = new ModelRenderer(this, 0, 0);
+        this.frontLeftLeg.mirror = true;
+        this.frontLeftLeg.setPos(6.5F, 8.0F, 1.5F);
+        this.frontLeftLeg.addBox(-1.5F, 0.0F, -1.5F, 3.0F, 12.0F, 3.0F, 0.0F, 0.0F, 0.0F);
 
-        this.head.addChild(this.antlerleft);
-        this.head.addChild(this.antlerright);
-        this.body.addChild(this.frontrightleg);
+        this.head.addChild(this.antlerLeft);
+        this.head.addChild(this.antlerRight);
+        this.body.addChild(this.frontRightLeg);
         this.body.addChild(this.neck);
         this.body.addChild(this.tail);
-        this.body.addChild(this.backrightleg);
-        this.body.addChild(this.backleftleg);
+        this.body.addChild(this.backRightLeg);
+        this.body.addChild(this.backLeftLeg);
         this.head.addChild(this.snoot);
-        this.body.addChild(this.frontleftleg);
+        this.body.addChild(this.frontLeftLeg);
     }
 
     @Override
-    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.head.rotateAngleX = headPitch * ((float)Math.PI / 180F);
-        this.head.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
+    public void setupAnim(T deer, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        this.head.xRot = headPitch * ((float)Math.PI / 180F);
+        this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
 
-        this.backrightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.backleftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-        this.frontrightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-        this.frontleftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.setAntlerVisibility(deer);
+
+        this.backRightLeg.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.backLeftLeg.xRot = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+        this.frontRightLeg.xRot = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+        this.frontLeftLeg.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+    }
+
+    private void setAntlerVisibility(T deer) {
+        boolean visibleAntlers = deer.hasAntlers();
+        this.antlerRight.visible = visibleAntlers;
+        this.antlerLeft.visible = visibleAntlers;
     }
 
     @Override
-    protected Iterable<ModelRenderer> getHeadParts() {
+    protected Iterable<ModelRenderer> headParts() {
         return ImmutableList.of(this.head);
     }
 
     @Override
-    protected Iterable<ModelRenderer> getBodyParts() {
+    protected Iterable<ModelRenderer> bodyParts() {
         return ImmutableList.of(this.body);
     }
 
@@ -114,8 +122,8 @@ public class DeerModel<T extends DeerEntity> extends AgeableModel<T> {
      * This is a helper function from Tabula to set the rotation of model parts
      */
     public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-        modelRenderer.rotateAngleX = x;
-        modelRenderer.rotateAngleY = y;
-        modelRenderer.rotateAngleZ = z;
+        modelRenderer.xRot = x;
+        modelRenderer.yRot = y;
+        modelRenderer.zRot = z;
     }
 }

@@ -10,6 +10,7 @@ import net.minecraft.advancements.ICriterionInstance;
 import net.minecraft.advancements.IRequirementsStrategy;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
@@ -32,7 +33,7 @@ public class NullableItemGroupShapelessRecipeBuilder {
     private final Item result;
     private final int count;
     private final List<Ingredient> ingredients = Lists.newArrayList();
-    private final Advancement.Builder advancementBuilder = Advancement.Builder.builder();
+    private final Advancement.Builder advancementBuilder = Advancement.Builder.advancement();
     private String group;
 
     public NullableItemGroupShapelessRecipeBuilder(IItemProvider resultIn, int countIn) {
@@ -43,37 +44,37 @@ public class NullableItemGroupShapelessRecipeBuilder {
     /**
      * Creates a new builder for a shapeless recipe.
      */
-    public static NullableItemGroupShapelessRecipeBuilder shapelessRecipe(IItemProvider resultIn) {
+    public static NullableItemGroupShapelessRecipeBuilder shapeless(IItemProvider resultIn) {
         return new NullableItemGroupShapelessRecipeBuilder(resultIn, 1);
     }
 
     /**
      * Creates a new builder for a shapeless recipe.
      */
-    public static NullableItemGroupShapelessRecipeBuilder shapelessRecipe(IItemProvider resultIn, int countIn) {
+    public static NullableItemGroupShapelessRecipeBuilder shapeless(IItemProvider resultIn, int countIn) {
         return new NullableItemGroupShapelessRecipeBuilder(resultIn, countIn);
     }
 
     /**
      * Adds an ingredient that can be any item in the given tag.
      */
-    public NullableItemGroupShapelessRecipeBuilder addIngredient(ITag<Item> tagIn) {
-        return this.addIngredient(Ingredient.fromTag(tagIn));
+    public NullableItemGroupShapelessRecipeBuilder requires(ITag<Item> tagIn) {
+        return this.requires(Ingredient.of(tagIn));
     }
 
     /**
      * Adds an ingredient of the given item.
      */
-    public NullableItemGroupShapelessRecipeBuilder addIngredient(IItemProvider itemIn) {
-        return this.addIngredient(itemIn, 1);
+    public NullableItemGroupShapelessRecipeBuilder requires(IItemProvider itemIn) {
+        return this.requires(itemIn, 1);
     }
 
     /**
      * Adds the given ingredient multiple times.
      */
-    public NullableItemGroupShapelessRecipeBuilder addIngredient(IItemProvider itemIn, int quantity) {
+    public NullableItemGroupShapelessRecipeBuilder requires(IItemProvider itemIn, int quantity) {
         for(int i = 0; i < quantity; ++i) {
-            this.addIngredient(Ingredient.fromItems(itemIn));
+            this.requires(Ingredient.of(itemIn));
         }
 
         return this;
@@ -82,14 +83,14 @@ public class NullableItemGroupShapelessRecipeBuilder {
     /**
      * Adds an ingredient.
      */
-    public NullableItemGroupShapelessRecipeBuilder addIngredient(Ingredient ingredientIn) {
-        return this.addIngredient(ingredientIn, 1);
+    public NullableItemGroupShapelessRecipeBuilder requires(Ingredient ingredientIn) {
+        return this.requires(ingredientIn, 1);
     }
 
     /**
      * Adds an ingredient multiple times.
      */
-    public NullableItemGroupShapelessRecipeBuilder addIngredient(Ingredient ingredientIn, int quantity) {
+    public NullableItemGroupShapelessRecipeBuilder requires(Ingredient ingredientIn, int quantity) {
         for(int i = 0; i < quantity; ++i) {
             this.ingredients.add(ingredientIn);
         }
@@ -99,12 +100,12 @@ public class NullableItemGroupShapelessRecipeBuilder {
     /**
      * Adds a criterion needed to unlock the recipe.
      */
-    public NullableItemGroupShapelessRecipeBuilder addCriterion(String name, ICriterionInstance criterionIn) {
-        this.advancementBuilder.withCriterion(name, criterionIn);
+    public NullableItemGroupShapelessRecipeBuilder unlockedBy(String name, ICriterionInstance criterionIn) {
+        this.advancementBuilder.addCriterion(name, criterionIn);
         return this;
     }
 
-    public NullableItemGroupShapelessRecipeBuilder setGroup(String groupIn) {
+    public NullableItemGroupShapelessRecipeBuilder group(String groupIn) {
         this.group = groupIn;
         return this;
     }
@@ -112,30 +113,30 @@ public class NullableItemGroupShapelessRecipeBuilder {
     /**
      * Builds this recipe into an {@link IFinishedRecipe}.
      */
-    public void build(Consumer<IFinishedRecipe> consumerIn) {
-        this.build(consumerIn, Registry.ITEM.getKey(this.result));
+    public void save(Consumer<IFinishedRecipe> consumerIn) {
+        this.save(consumerIn, Registry.ITEM.getKey(this.result));
     }
 
     /**
-     * Builds this recipe into an {@link IFinishedRecipe}. Use {@link #build(Consumer)} if save is the same as the ID for
+     * Builds this recipe into an {@link IFinishedRecipe}. Use {@link #save(Consumer)} if save is the same as the ID for
      * the result.
      */
-    public void build(Consumer<IFinishedRecipe> consumerIn, String save) {
+    public void save(Consumer<IFinishedRecipe> consumerIn, String save) {
         ResourceLocation resourcelocation = Registry.ITEM.getKey(this.result);
         if ((new ResourceLocation(save)).equals(resourcelocation)) {
             throw new IllegalStateException("Shapeless Recipe " + save + " should remove its 'save' argument");
         } else {
-            this.build(consumerIn, new ResourceLocation(save));
+            this.save(consumerIn, new ResourceLocation(save));
         }
     }
 
     /**
      * Builds this recipe into an {@link IFinishedRecipe}.
      */
-    public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
+    public void save(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
         this.validate(id);
-        String advancementPath = this.result.getGroup() == null ? Mythscapes.MODID : this.result.getGroup().getPath();
-        this.advancementBuilder.withParentId(new ResourceLocation("recipes/root")).withCriterion("has_the_recipe", RecipeUnlockedTrigger.create(id)).withRewards(AdvancementRewards.Builder.recipe(id)).withRequirementsStrategy(IRequirementsStrategy.OR);
+        String advancementPath = this.result.getItemCategory() == null ? Mythscapes.MODID : this.result.getItemCategory().getRecipeFolderName();
+        this.advancementBuilder.parent(new ResourceLocation("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id)).rewards(AdvancementRewards.Builder.recipe(id)).requirements(IRequirementsStrategy.OR);
         consumerIn.accept(new NullableItemGroupShapelessRecipeBuilder.Result(id, this.result, this.count, this.group == null ? "" : this.group, this.ingredients, this.advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + advancementPath + "/" + id.getPath())));
     }
 
@@ -167,7 +168,8 @@ public class NullableItemGroupShapelessRecipeBuilder {
             this.advancementId = advancementIdIn;
         }
 
-        public void serialize(JsonObject json) {
+        @Override
+        public void serializeRecipeData(JsonObject json) {
             if (!this.group.isEmpty()) {
                 json.addProperty("group", this.group);
             }
@@ -175,7 +177,7 @@ public class NullableItemGroupShapelessRecipeBuilder {
             JsonArray jsonarray = new JsonArray();
 
             for(Ingredient ingredient : this.ingredients) {
-                jsonarray.add(ingredient.serialize());
+                jsonarray.add(ingredient.toJson());
             }
 
             json.add("ingredients", jsonarray);
@@ -188,14 +190,16 @@ public class NullableItemGroupShapelessRecipeBuilder {
             json.add("result", jsonobject);
         }
 
-        public IRecipeSerializer<?> getSerializer() {
-            return IRecipeSerializer.CRAFTING_SHAPELESS;
+        @Override
+        public IRecipeSerializer<?> getType() {
+            return IRecipeSerializer.SHAPELESS_RECIPE;
         }
 
         /**
          * Gets the ID for the recipe.
          */
-        public ResourceLocation getID() {
+        @Override
+        public ResourceLocation getId() {
             return this.id;
         }
 
@@ -203,16 +207,18 @@ public class NullableItemGroupShapelessRecipeBuilder {
          * Gets the JSON for the advancement that unlocks this recipe. Null if there is no advancement.
          */
         @Nullable
-        public JsonObject getAdvancementJson() {
-            return this.advancementBuilder.serialize();
+        @Override
+        public JsonObject serializeAdvancement() {
+            return this.advancementBuilder.serializeToJson();
         }
 
         /**
-         * Gets the ID for the advancement associated with this recipe. Should not be null if {@link #getAdvancementJson}
+         * Gets the ID for the advancement associated with this recipe. Should not be null if {@link #serializeAdvancement}
          * is non-null.
          */
         @Nullable
-        public ResourceLocation getAdvancementID() {
+        @Override
+        public ResourceLocation getAdvancementId() {
             return this.advancementId;
         }
     }

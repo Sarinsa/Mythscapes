@@ -26,7 +26,7 @@ public class FishbonesRenderer<T extends FishbonesEntity> extends MobRenderer<T,
     }
 
     @Override
-    public ResourceLocation getEntityTexture(T entity) {
+    public ResourceLocation getTextureLocation(T entity) {
         return TEXTURE;
     }
 }

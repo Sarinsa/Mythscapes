@@ -37,7 +37,7 @@ public class NullableItemGroupShapedRecipeBuilder {
     public final int count;
     public final List<String> pattern = Lists.newArrayList();
     public final Map<Character, Ingredient> key = Maps.newLinkedHashMap();
-    public final Advancement.Builder advancementBuilder = Advancement.Builder.builder();
+    public final Advancement.Builder advancementBuilder = Advancement.Builder.advancement();
     public String group;
 
     public NullableItemGroupShapedRecipeBuilder(IItemProvider resultIn, int countIn) {
@@ -48,35 +48,35 @@ public class NullableItemGroupShapedRecipeBuilder {
     /**
      * Creates a new builder for a shaped recipe.
      */
-    public static NullableItemGroupShapedRecipeBuilder shapedRecipe(IItemProvider resultIn) {
-        return shapedRecipe(resultIn, 1);
+    public static NullableItemGroupShapedRecipeBuilder shaped(IItemProvider resultIn) {
+        return shaped(resultIn, 1);
     }
 
     /**
      * Creates a new builder for a shaped recipe.
      */
-    public static NullableItemGroupShapedRecipeBuilder shapedRecipe(IItemProvider resultIn, int countIn) {
+    public static NullableItemGroupShapedRecipeBuilder shaped(IItemProvider resultIn, int countIn) {
         return new NullableItemGroupShapedRecipeBuilder(resultIn, countIn);
     }
 
     /**
      * Adds a key to the recipe pattern.
      */
-    public NullableItemGroupShapedRecipeBuilder key(Character symbol, ITag<Item> tagIn) {
-        return this.key(symbol, Ingredient.fromTag(tagIn));
+    public NullableItemGroupShapedRecipeBuilder define(Character symbol, ITag<Item> tagIn) {
+        return this.define(symbol, Ingredient.of(tagIn));
     }
 
     /**
      * Adds a key to the recipe pattern.
      */
-    public NullableItemGroupShapedRecipeBuilder key(Character symbol, IItemProvider itemIn) {
-        return this.key(symbol, Ingredient.fromItems(itemIn));
+    public NullableItemGroupShapedRecipeBuilder define(Character symbol, IItemProvider itemIn) {
+        return this.define(symbol, Ingredient.of(itemIn));
     }
 
     /**
      * Adds a key to the recipe pattern.
      */
-    public NullableItemGroupShapedRecipeBuilder key(Character symbol, Ingredient ingredientIn) {
+    public NullableItemGroupShapedRecipeBuilder define(Character symbol, Ingredient ingredientIn) {
         if (this.key.containsKey(symbol)) {
             throw new IllegalArgumentException("Symbol '" + symbol + "' is already defined!");
         } else if (symbol == ' ') {
@@ -90,7 +90,7 @@ public class NullableItemGroupShapedRecipeBuilder {
     /**
      * Adds a new entry to the patterns for this recipe.
      */
-    public NullableItemGroupShapedRecipeBuilder patternLine(String patternIn) {
+    public NullableItemGroupShapedRecipeBuilder pattern(String patternIn) {
         if (!this.pattern.isEmpty() && patternIn.length() != this.pattern.get(0).length()) {
             throw new IllegalArgumentException("Pattern must be the same width on every line!");
         } else {
@@ -102,12 +102,12 @@ public class NullableItemGroupShapedRecipeBuilder {
     /**
      * Adds a criterion needed to unlock the recipe.
      */
-    public NullableItemGroupShapedRecipeBuilder addCriterion(String name, ICriterionInstance criterionIn) {
-        this.advancementBuilder.withCriterion(name, criterionIn);
+    public NullableItemGroupShapedRecipeBuilder unlockedBy(String name, ICriterionInstance criterionIn) {
+        this.advancementBuilder.addCriterion(name, criterionIn);
         return this;
     }
 
-    public NullableItemGroupShapedRecipeBuilder setGroup(String groupIn) {
+    public NullableItemGroupShapedRecipeBuilder group(String groupIn) {
         this.group = groupIn;
         return this;
     }
@@ -115,30 +115,30 @@ public class NullableItemGroupShapedRecipeBuilder {
     /**
      * Builds this recipe into an {@link IFinishedRecipe}.
      */
-    public void build(Consumer<IFinishedRecipe> consumerIn) {
-        this.build(consumerIn, Registry.ITEM.getKey(this.result));
+    public void save(Consumer<IFinishedRecipe> consumerIn) {
+        this.save(consumerIn, Registry.ITEM.getKey(this.result));
     }
 
     /**
-     * Builds this recipe into an {@link IFinishedRecipe}. Use {@link #build(Consumer)} if save is the same as the ID for
+     * Builds this recipe into an {@link IFinishedRecipe}. Use {@link #save(Consumer)} if save is the same as the ID for
      * the result.
      */
-    public void build(Consumer<IFinishedRecipe> consumerIn, String save) {
+    public void save(Consumer<IFinishedRecipe> consumerIn, String save) {
         ResourceLocation resourcelocation = Registry.ITEM.getKey(this.result);
         if ((new ResourceLocation(save)).equals(resourcelocation)) {
             throw new IllegalStateException("Shaped Recipe " + save + " should remove its 'save' argument");
         } else {
-            this.build(consumerIn, new ResourceLocation(save));
+            this.save(consumerIn, new ResourceLocation(save));
         }
     }
 
     /**
      * Builds this recipe into an {@link IFinishedRecipe}.
      */
-    public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
+    public void save(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
         this.validate(id);
-        String advancementPath = this.result.getGroup() == null ? Mythscapes.MODID : this.result.getGroup().getPath();
-        this.advancementBuilder.withParentId(new ResourceLocation("recipes/root")).withCriterion("has_the_recipe", RecipeUnlockedTrigger.create(id)).withRewards(AdvancementRewards.Builder.recipe(id)).withRequirementsStrategy(IRequirementsStrategy.OR);
+        String advancementPath = this.result.getItemCategory() == null ? Mythscapes.MODID : this.result.getItemCategory().getRecipeFolderName();
+        this.advancementBuilder.parent(new ResourceLocation("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id)).rewards(AdvancementRewards.Builder.recipe(id)).requirements(IRequirementsStrategy.OR);
         consumer.accept(new Result(id, this.result, this.count, this.group == null ? "" : this.group, this.pattern, this.key, this.advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + advancementPath + "/" + id.getPath())));
     }
 
@@ -194,7 +194,8 @@ public class NullableItemGroupShapedRecipeBuilder {
             this.advancementId = advancementIdIn;
         }
 
-        public void serialize(JsonObject json) {
+        @Override
+        public void serializeRecipeData(JsonObject json) {
             if (!this.group.isEmpty()) {
                 json.addProperty("group", this.group);
             }
@@ -209,7 +210,7 @@ public class NullableItemGroupShapedRecipeBuilder {
             JsonObject jsonobject = new JsonObject();
 
             for(Map.Entry<Character, Ingredient> entry : this.key.entrySet()) {
-                jsonobject.add(String.valueOf(entry.getKey()), entry.getValue().serialize());
+                jsonobject.add(String.valueOf(entry.getKey()), entry.getValue().toJson());
             }
 
             json.add("key", jsonobject);
@@ -218,18 +219,19 @@ public class NullableItemGroupShapedRecipeBuilder {
             if (this.count > 1) {
                 jsonobject1.addProperty("count", this.count);
             }
-
             json.add("result", jsonobject1);
         }
 
-        public IRecipeSerializer<?> getSerializer() {
-            return IRecipeSerializer.CRAFTING_SHAPED;
+        @Override
+        public IRecipeSerializer<?> getType() {
+            return IRecipeSerializer.SHAPED_RECIPE;
         }
 
         /**
          * Gets the ID for the recipe.
          */
-        public ResourceLocation getID() {
+        @Override
+        public ResourceLocation getId() {
             return this.id;
         }
 
@@ -237,16 +239,18 @@ public class NullableItemGroupShapedRecipeBuilder {
          * Gets the JSON for the advancement that unlocks this recipe. Null if there is no advancement.
          */
         @Nullable
-        public JsonObject getAdvancementJson() {
-            return this.advancementBuilder.serialize();
+        @Override
+        public JsonObject serializeAdvancement() {
+            return this.advancementBuilder.serializeToJson();
         }
 
         /**
-         * Gets the ID for the advancement associated with this recipe. Should not be null if {@link #getAdvancementJson}
+         * Gets the ID for the advancement associated with this recipe. Should not be null if {@link #serializeAdvancement}
          * is non-null.
          */
         @Nullable
-        public ResourceLocation getAdvancementID() {
+        @Override
+        public ResourceLocation getAdvancementId() {
             return this.advancementId;
         }
     }

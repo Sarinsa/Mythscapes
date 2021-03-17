@@ -49,8 +49,8 @@ public final class MythConfigScreen extends Screen {
 
         // Perhaps I'll get around to making an actual in-game config screen at some point, but we have higher priorities at the moment.
         this.addButton(new Button((width / 2) - 30, height - 60, 60, 20, new TranslationTextComponent(GuiTexts.CONFIG_OOF), button -> {
-            minecraft.displayGuiScreen(this.homeScreen);
-            minecraft.getSoundHandler().play(SimpleSound.master(MythSounds.OOF.get(), 1.0F));
+            minecraft.setScreen(this.homeScreen);
+            minecraft.getSoundManager().play(SimpleSound.forUI(MythSounds.OOF.get(), 1.0F));
         }));
         boolean configPresent = this.configPath != null && !this.configPath.isEmpty();
 
@@ -59,7 +59,7 @@ public final class MythConfigScreen extends Screen {
                 return;
 
             File config = new File(this.configPath);
-            Util.getOSType().openFile(config);
+            Util.getPlatform().openFile(config);
         }));
     }
 

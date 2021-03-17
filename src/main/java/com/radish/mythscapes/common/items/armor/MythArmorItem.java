@@ -8,6 +8,6 @@ import net.minecraft.item.Item;
 public class MythArmorItem extends ArmorItem {
 
     public MythArmorItem(MythBaseArmorType armorType, EquipmentSlotType slot) {
-        super(armorType, slot, new Item.Properties().group(MythItemGroup.MOD_ITEM_GROUP));
+        super(armorType, slot, new Item.Properties().tab(MythItemGroup.MOD_ITEM_GROUP));
     }
 }

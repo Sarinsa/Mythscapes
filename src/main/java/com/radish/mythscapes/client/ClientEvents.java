@@ -31,7 +31,7 @@ public class ClientEvents {
     public void onFogDensity(EntityViewRenderEvent.FogDensity event) {
         ClientPlayerEntity playerEntity = mc.get().player;
 
-        if (playerEntity.areEyesInFluid(MythFluidTags.SULFUR)) {
+        if (playerEntity.isEyeInFluid(MythFluidTags.SULFUR)) {
             event.setDensity(0.5f);
             event.setCanceled(true);
         }
@@ -41,7 +41,7 @@ public class ClientEvents {
     public void onFogColor(EntityViewRenderEvent.FogColors event) {
         ClientPlayerEntity playerEntity = mc.get().player;
 
-        if (playerEntity.areEyesInFluid(MythFluidTags.SULFUR)) {
+        if (playerEntity.isEyeInFluid(MythFluidTags.SULFUR)) {
             setFogColors(event, SULFUR_COLORS);
             event.setCanceled(true);
         }
@@ -52,29 +52,22 @@ public class ClientEvents {
         ClientPlayerEntity playerEntity = mc.get().player;
 
         if (event.getType() == RenderGameOverlayEvent.ElementType.HEALTH) {
-            if (playerEntity.isPotionActive(MythEffects.PETRIFIED.get())) {
-                mc.get().getTextureManager().bindTexture(PETRIFIED_HEARTS);
+            if (playerEntity.hasEffect(MythEffects.PETRIFIED.get())) {
+                mc.get().getTextureManager().bind(PETRIFIED_HEARTS);
             }
         }
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     public void onRenderLiving(RenderLivingEvent.Pre<?, ?> event) {
-        if (event.getEntity().isPotionActive(MythEffects.PETRIFIED.get())) {
-            LivingEntity entity = event.getEntity();
-            MatrixStack matrixStack = event.getMatrixStack();
-            double x = entity.getPosX();
-            double y = entity.getPosY();
-            double z = entity.getPosZ();
-            float rotationYaw = entity.getRotationYawHead();
-
-            Minecraft.getInstance().getTextureManager().bindTexture(PETRIFIED_ENTITY);
+        if (event.getEntity().hasEffect(MythEffects.PETRIFIED.get())) {
+            Minecraft.getInstance().getTextureManager().bind(PETRIFIED_ENTITY);
         }
     }
 
     private static void setFogColors(EntityViewRenderEvent.FogColors event, Vector3d colors) {
-        event.setRed((float) colors.getX());
-        event.setGreen((float) colors.getY());
-        event.setBlue((float) colors.getZ());
+        event.setRed((float) colors.x());
+        event.setGreen((float) colors.y());
+        event.setBlue((float) colors.z());
     }
 }

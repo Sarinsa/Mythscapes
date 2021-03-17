@@ -33,7 +33,7 @@ public class BaseFluid extends ForgeFlowingFluid {
     }
 
     @Override
-    public int getLevel(FluidState state) {
+    public int getAmount(FluidState state) {
         return 0;
     }
 }

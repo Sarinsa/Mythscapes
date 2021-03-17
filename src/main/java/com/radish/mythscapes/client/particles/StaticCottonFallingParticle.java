@@ -13,39 +13,39 @@ public class StaticCottonFallingParticle extends AbstractFadingParticle {
 
     protected StaticCottonFallingParticle(ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
         super(world, x, y, z, xSpeed, ySpeed, zSpeed);
-        this.motionX *= 0.1F;
-        this.motionY *= 0.1F;
-        this.motionZ *= 0.1F;
+        this.xd *= 0.1F;
+        this.yd *= 0.1F;
+        this.zd *= 0.1F;
         this.setSize(0.15f, 0.15f);
-        this.setMaxAge(50);
+        this.setLifetime(50);
         this.rotationSpeed = ((float)Math.random() - 0.5F) * 0.1F;
-        this.particleAngle = (float)Math.random() * ((float)Math.PI * 2F);
+        this.roll = (float)Math.random() * ((float)Math.PI * 2F);
     }
 
     @Override
-    public float getScale(float scale) {
-        return this.particleScale * MathHelper.clamp(((float)this.age + scale) / (float)this.maxAge * 32.0F, 0.0F, 1.0F);
+    public float getQuadSize(float scale) {
+        return this.quadSize * MathHelper.clamp(((float)this.age + scale) / (float)this.lifetime * 32.0F, 0.0F, 1.0F);
     }
 
     public void tick() {
         this.subtractAlpha();
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
+        this.xo = this.x;
+        this.yo = this.y;
+        this.zo = this.z;
 
-        if (this.age++ >= this.maxAge) {
-            this.setExpired();
+        if (this.age++ >= this.lifetime) {
+            this.remove();
         }
         else {
-            this.prevParticleAngle = this.particleAngle;
-            this.particleAngle += (float)Math.PI * this.rotationSpeed * 2.0F;
+            this.oRoll = this.roll;
+            this.roll += (float)Math.PI * this.rotationSpeed * 2.0F;
 
             if (this.onGround) {
-                this.prevParticleAngle = this.particleAngle = 0.0F;
+                this.oRoll = this.roll = 0.0F;
             }
-            this.move(this.motionX, this.motionY, this.motionZ);
-            this.motionY -= 0.003F;
-            this.motionY = Math.max(this.motionY, -0.14F);
+            this.move(this.xd, this.yd, this.zd);
+            this.yd -= 0.003F;
+            this.yd = Math.max(this.yd, -0.14F);
         }
     }
 
@@ -57,9 +57,9 @@ public class StaticCottonFallingParticle extends AbstractFadingParticle {
         }
 
         @Override
-        public Particle makeParticle(BasicParticleType type, ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        public Particle createParticle(BasicParticleType type, ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             StaticCottonFallingParticle particle = new StaticCottonFallingParticle(world, x, y, z, xSpeed, ySpeed, zSpeed);
-            particle.selectSpriteRandomly(this.spriteSet);
+            particle.pickSprite(this.spriteSet);
             return particle;
         }
     }

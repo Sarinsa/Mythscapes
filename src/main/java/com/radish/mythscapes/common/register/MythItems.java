@@ -112,7 +112,7 @@ public class MythItems {
     public static final RegistryObject<Item> WOLT_BUTTON = registerBlockItem(MythBlocks.WOLT_BUTTON);
     public static final RegistryObject<Item> WOLT_DOOR = registerTallBlockItem(MythBlocks.WOLT_DOOR);
     public static final RegistryObject<Item> WOLT_TRAPDOOR = registerBlockItem(MythBlocks.WOLT_TRAPDOOR);
-    public static final RegistryObject<Item> WOLT_SIGN = registerItem("wolt_sign", () -> new ModSignItem(compatProperties(QUARK).maxStackSize(16), MythBlocks.WOLT_SIGN.get(), MythBlocks.WOLT_WALL_SIGN.get(), 200));
+    public static final RegistryObject<Item> WOLT_SIGN = registerItem("wolt_sign", () -> new ModSignItem(compatProperties(QUARK).stacksTo(16), MythBlocks.WOLT_SIGN.get(), MythBlocks.WOLT_WALL_SIGN.get(), 200));
     public static final RegistryObject<Item> WOLT_LADDER = registerBurnableBlockItem(MythBlocks.WOLT_LADDER, compatProperties(QUARK), 300);
     public static final RegistryObject<Item> WOLT_BOOKSHELF = registerBurnableBlockItem(MythBlocks.WOLT_BOOKSHELF, compatProperties(QUARK), 300);
     public static final RegistryObject<Item> WOLT_POST = registerBurnableBlockItem(MythBlocks.WOLT_POST, compatProperties(QUARK), 300);
@@ -176,17 +176,17 @@ public class MythItems {
     public static final RegistryObject<Item> GOLDEN_WOLT_FRUIT = registerItem("golden_wolt_fruit", () -> new WoltFruitItem(properties().food(MythFoods.GOLDEN_WOLT_FRUIT), true));
     public static final RegistryObject<Item> WOLT_POWDER = registerItem("wolt_powder", () -> new WoltPowderItem(properties(), false));
     public static final RegistryObject<Item> GOLDEN_WOLT_POWDER = registerItem("golden_wolt_powder", () -> new WoltPowderItem(properties(), true));
-    public static final RegistryObject<Item> GLOWBALL = registerItem("glowball", () -> new GlowballItem(properties().maxStackSize(16)));
-    public static final RegistryObject<Item> LIQUID_SULFUR_BOTTLE = registerItem("liquid_sulfur_bottle", () -> new DrinkableBottleItem(properties().maxStackSize(16), () -> new EffectInstance(MythEffects.VOLATILE.get(), 650)));
-    public static final RegistryObject<Item> POND_SERPENT_FISH_BUCKET = registerItem("pond_serpent_fish_bucket", () -> new FishBucketItem(MythEntities.POND_SERPENT, () -> Fluids.WATER, properties().maxStackSize(1)));
+    public static final RegistryObject<Item> GLOWBALL = registerItem("glowball", () -> new GlowballItem(properties().stacksTo(16)));
+    public static final RegistryObject<Item> LIQUID_SULFUR_BOTTLE = registerItem("liquid_sulfur_bottle", () -> new DrinkableBottleItem(properties().stacksTo(16), () -> new EffectInstance(MythEffects.VOLATILE.get(), 650)));
+    public static final RegistryObject<Item> POND_SERPENT_FISH_BUCKET = registerItem("pond_serpent_fish_bucket", () -> new FishBucketItem(MythEntities.POND_SERPENT, () -> Fluids.WATER, properties().stacksTo(1)));
     public static final RegistryObject<Item> STATIC_COTTON = registerItem("static_cotton", () -> new MythThrowableItem<>(MythEntities.STATIC_COTTON));
     public static final RegistryObject<Item> COTTON_HIDE = registerItem("cotton_hide", () -> new Item(properties()));
     public static final RegistryObject<Item> LION_FUR = registerItem("lion_fur", () -> new Item(properties()));
     public static final RegistryObject<Item> ANTLER = registerItem("antler", () -> new Item(properties()));
     public static final RegistryObject<Item> SNAIL_SHELL = registerItem("snail_shell", () -> new Item(properties()));
     public static final RegistryObject<Item> BEJEWELED_SNAIL_SHELL = registerItem("bejeweled_snail_shell", () -> new Item(properties()));
-    public static final RegistryObject<Item> SNAIL_BUCKET = registerItem("snail_bucket", () -> new SnailBucketItem(properties().maxStackSize(1)));
-    public static final RegistryObject<Item> BRUSH = registerItem("brush", () -> new BrushItem(properties().maxDamage(100)));
+    public static final RegistryObject<Item> SNAIL_BUCKET = registerItem("snail_bucket", () -> new SnailBucketItem(properties().stacksTo(1)));
+    public static final RegistryObject<Item> BRUSH = registerItem("brush", () -> new BrushItem(properties().durability(100)));
 
     // Armor
     public static final RegistryObject<Item> COTTON_HOOD = registerItem("cotton_hood", () -> new MythArmorItem(MythArmorTypes.COTTON, EquipmentSlotType.HEAD));
@@ -200,7 +200,7 @@ public class MythItems {
     //public static final RegistryObject<Item> VIRIDIAN_BOAT = ITEMS.register("viridian_boat", () -> new MythBoatItem(MythBoatEntity.Type.VIRIDIAN));
 
     // Fluid buckets
-    public static final RegistryObject<Item> LIQUID_SULFUR_BUCKET = registerItem("liquid_sulfur_bucket", () -> new BucketItem(MythFluids.SULFUR.getStill(), properties().maxStackSize(1)));
+    public static final RegistryObject<Item> LIQUID_SULFUR_BUCKET = registerItem("liquid_sulfur_bucket", () -> new BucketItem(MythFluids.SULFUR.getStill(), properties().stacksTo(1)));
 
     // Spawn eggs
     public static final RegistryObject<Item> POND_SERPENT_SPAWN_EGG = registerSpawnEgg("pond_serpent_spawn_egg", MythEntities.POND_SERPENT_TYPE, 0x1Fa361, 0xe67008);
@@ -223,11 +223,11 @@ public class MythItems {
     }
 
     private static void registerCompostable(Supplier<? extends IItemProvider> blockSupplier, float chance) {
-        ComposterBlock.CHANCES.put(blockSupplier.get(), chance);
+        ComposterBlock.COMPOSTABLES.put(blockSupplier.get(), chance);
     }
 
     private static Item.Properties properties() {
-        return new Item.Properties().group(MythItemGroup.MOD_ITEM_GROUP);
+        return new Item.Properties().tab(MythItemGroup.MOD_ITEM_GROUP);
     }
 
     private static Item.Properties compatProperties(String modid) {

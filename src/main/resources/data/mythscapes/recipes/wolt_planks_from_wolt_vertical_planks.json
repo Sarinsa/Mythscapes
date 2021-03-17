@@ -1,0 +1,28 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "quark",
+          "type": "forge:mod_loaded"
+        },
+        {
+          "flag": "vertical_planks",
+          "type": "mythscapes:quark_flag"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "mythscapes:wolt_vertical_planks"
+          }
+        ],
+        "result": {
+          "item": "mythscapes:wolt_planks"
+        }
+      }
+    }
+  ]
+}

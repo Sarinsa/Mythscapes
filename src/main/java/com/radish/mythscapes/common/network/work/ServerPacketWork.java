@@ -18,9 +18,9 @@ public class ServerPacketWork {
         if (playerEntity == null)
             return;
 
-        ServerWorld serverWorld = playerEntity.getServerWorld();
+        ServerWorld serverWorld = playerEntity.getLevel();
         BlockPos signPos = message.pos;
-        TileEntity tileEntity = serverWorld.getTileEntity(signPos);
+        TileEntity tileEntity = serverWorld.getBlockEntity(signPos);
 
         if (tileEntity instanceof MythSignTileEntity) {
             MythSignTileEntity signTileEntity = (MythSignTileEntity) tileEntity;
@@ -31,10 +31,10 @@ public class ServerPacketWork {
                 return;
 
             for (int i = 0; i < text.length; i++) {
-                signTileEntity.setText(i, new StringTextComponent(TextFormatting.getTextWithoutFormattingCodes(text[i])));
+                signTileEntity.setText(i, new StringTextComponent(TextFormatting.stripFormatting(text[i])));
             }
-            signTileEntity.markDirty();
-            serverWorld.notifyBlockUpdate(signPos, blockState, blockState, 3);
+            signTileEntity.setChanged();
+            serverWorld.sendBlockUpdated(signPos, blockState, blockState, 3);
 
             NetworkHelper.updateSignTextToClient(signPos, text[0], text[1], text[2], text[3], signTileEntity.getTextColor().getId());
         }

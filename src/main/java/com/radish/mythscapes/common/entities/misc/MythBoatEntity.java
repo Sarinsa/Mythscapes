@@ -59,8 +59,6 @@ public class MythBoatEntity extends BoatEntity {
 
         /**
          * Get a boat type by it's enum ordinal
-         *
-         * @return
          */
         public static MythBoatEntity.Type byId(int id) {
             MythBoatEntity.Type[] types = values();
@@ -82,11 +80,12 @@ public class MythBoatEntity extends BoatEntity {
         }
     }
 
-    public Item getItemBoat() {
+    @Override
+    public Item getDropItem() {
         return this.getMythBoatType().asBoatItem();
     }
 
-    private static final DataParameter<Integer> MYTH_BOAT_TYPE = EntityDataManager.createKey(MythBoatEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> MYTH_BOAT_TYPE = EntityDataManager.defineId(MythBoatEntity.class, DataSerializers.INT);
 
     public MythBoatEntity(EntityType<? extends BoatEntity> type, World world) {
         super(type, world);
@@ -94,28 +93,28 @@ public class MythBoatEntity extends BoatEntity {
 
     public MythBoatEntity(World world, double x, double y, double z) {
         this(MythEntities.MYTH_BOAT.get(), world);
-        this.setPosition(x, y, z);
-        this.setMotion(Vector3d.ZERO);
-        this.prevPosX = x;
-        this.prevPosY = y;
-        this.prevPosZ = z;
+        this.setPos(x, y, z);
+        this.setDeltaMovement(Vector3d.ZERO);
+        this.xo = x;
+        this.yo = y;
+        this.zo = z;
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(MYTH_BOAT_TYPE, Type.WOLT.ordinal());
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(MYTH_BOAT_TYPE, Type.WOLT.ordinal());
     }
 
     @Override
-    protected void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    protected void addAdditionalSaveData(CompoundNBT compound) {
+        super.addAdditionalSaveData(compound);
         compound.putString("MythBoatType", this.getMythBoatType().getName());
     }
 
     @Override
-    protected void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
+    protected void readAdditionalSaveData(CompoundNBT compound) {
+        super.readAdditionalSaveData(compound);
 
         if (compound.contains("MythBoatType", 8)) {
             this.setBoatType(MythBoatEntity.Type.getTypeFromString(compound.getString("BoatType")));
@@ -123,8 +122,8 @@ public class MythBoatEntity extends BoatEntity {
     }
 
     @Override
-    protected void updateFallState(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
-        this.lastYd = this.getMotion().y;
+    protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
+        this.lastYd = this.getDeltaMovement().y;
         if (!this.isPassenger()) {
             if (onGroundIn) {
                 if (this.fallDistance > 3.0F) {
@@ -132,36 +131,37 @@ public class MythBoatEntity extends BoatEntity {
                         this.fallDistance = 0.0F;
                         return;
                     }
-                    this.onLivingFall(this.fallDistance, 1.0F);
-                    if (!this.world.isRemote && !this.isAlive()) {
+                    this.causeFallDamage(this.fallDistance, 1.0F);
+                    if (!this.level.isClientSide && !this.isAlive()) {
                         this.remove();
-                        if (this.world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
+                        if (this.level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
                             for(int i = 0; i < 3; ++i) {
-                                this.entityDropItem(this.getMythBoatType().asPlank());
+                                this.spawnAtLocation(this.getMythBoatType().asPlank());
                             }
 
                             for(int j = 0; j < 2; ++j) {
-                                this.entityDropItem(Items.STICK);
+                                this.spawnAtLocation(Items.STICK);
                             }
                         }
                     }
                 }
                 this.fallDistance = 0.0F;
-            } else if (!this.world.getFluidState(this.getPosition().down()).isTagged(FluidTags.WATER) && y < 0.0D) {
+            } else if (!this.level.getFluidState(this.blockPosition().below()).is(FluidTags.WATER) && y < 0.0D) {
                 this.fallDistance = (float)((double)this.fallDistance - y);
             }
         }
     }
 
     public void setBoatType(MythBoatEntity.Type boatType) {
-        this.dataManager.set(MYTH_BOAT_TYPE, boatType.ordinal());
+        this.entityData.set(MYTH_BOAT_TYPE, boatType.ordinal());
     }
 
     public MythBoatEntity.Type getMythBoatType() {
-        return MythBoatEntity.Type.byId(this.dataManager.get(MYTH_BOAT_TYPE));
+        return MythBoatEntity.Type.byId(this.entityData.get(MYTH_BOAT_TYPE));
     }
 
-    public IPacket<?> createSpawnPacket() {
+    @Override
+    public IPacket<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

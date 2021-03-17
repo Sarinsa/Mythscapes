@@ -24,7 +24,7 @@ public abstract class ComposterBlockMixin extends Block implements ISidedInvento
 
     @Inject(method = "<init>", at = @At("RETURN"))
     public void onConstructed(AbstractBlock.Properties properties, CallbackInfo callbackInfo) {
-        this.ticksRandomly = true;
+        this.isRandomlyTicking = true;
     }
 
     @Inject(method = "tick(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/server/ServerWorld;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random;)V", at = @At("HEAD"), remap = false)

@@ -189,6 +189,8 @@ public class MythLanguageProviderEnglishUS extends MythBaseLangProvider {
         this.addEffect(MythEffects.STATIC, "Static");
         this.addEffect(MythEffects.VOLATILE, "Volatile");
 
+        this.addBiome(MythBiomes.STATIC_FIELDS, "Static Fields");
+
         this.addPotionItem(MythPotions.PETRIFICATION, "Potion of Petrification");
         this.addPotionItem(MythPotions.LONG_PETRIFICATION, "Potion of Petrification");
         this.addSplashPotionItem(MythPotions.PETRIFICATION, "Splash Potion of Petrification");

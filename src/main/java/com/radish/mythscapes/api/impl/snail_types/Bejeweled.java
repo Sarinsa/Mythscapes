@@ -42,6 +42,6 @@ public class Bejeweled implements ISnailType {
 
     @Override
     public List<ResourceLocation> getSpawnBiomes() {
-        return ImmutableList.of(Biomes.BEACH.getLocation());
+        return ImmutableList.of(Biomes.BEACH.location());
     }
 }

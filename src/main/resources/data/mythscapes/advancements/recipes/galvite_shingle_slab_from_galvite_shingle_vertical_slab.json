@@ -3,7 +3,11 @@
     {
       "conditions": [
         {
-          "flag": "vertical_planks",
+          "modid": "quark",
+          "type": "forge:mod_loaded"
+        },
+        {
+          "flag": "vertical_slabs",
           "type": "mythscapes:quark_flag"
         }
       ],
@@ -11,16 +15,16 @@
         "parent": "minecraft:recipes/root",
         "rewards": {
           "recipes": [
-            "minecraft:wolt_planks_from_wolt_vertical_planks"
+            "mythscapes:galvite_shingle_slab_from_galvite_shingle_vertical_slab"
           ]
         },
         "criteria": {
-          "has_wolt_planks": {
+          "has_galvite_shingle_slab": {
             "trigger": "minecraft:inventory_changed",
             "conditions": {
               "items": [
                 {
-                  "item": "mythscapes:wolt_vertical_planks"
+                  "item": "mythscapes:galvite_shingle_vertical_slab"
                 }
               ]
             }
@@ -28,13 +32,13 @@
           "has_the_recipe": {
             "trigger": "minecraft:recipe_unlocked",
             "conditions": {
-              "recipe": "minecraft:wolt_planks_from_wolt_vertical_planks"
+              "recipe": "mythscapes:galvite_shingle_slab_from_galvite_shingle_vertical_slab"
             }
           }
         },
         "requirements": [
           [
-            "has_wolt_planks",
+            "has_galvite_shingle_slab",
             "has_the_recipe"
           ]
         ]

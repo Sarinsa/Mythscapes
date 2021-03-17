@@ -13,7 +13,7 @@ public abstract class AbstractFadingParticle extends SpriteTexturedParticle {
     }
 
     protected Random getRandom() {
-        return this.rand;
+        return this.random;
     }
 
     @Override
@@ -22,8 +22,8 @@ public abstract class AbstractFadingParticle extends SpriteTexturedParticle {
     }
 
     public void subtractAlpha() {
-        double alpha = (1 - ((double)age / (double)maxAge));
-        this.particleAlpha = (float) alpha;
+        double alpha = (1 - ((double)age / (double)lifetime));
+        this.alpha = (float) alpha;
     }
 
     public void tick() {

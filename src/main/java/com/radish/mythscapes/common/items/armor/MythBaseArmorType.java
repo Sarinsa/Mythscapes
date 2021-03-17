@@ -8,13 +8,13 @@ import net.minecraft.util.SoundEvents;
 public abstract class MythBaseArmorType implements IArmorMaterial {
 
     @Override
-    public SoundEvent getSoundEvent() {
-        return SoundEvents.ITEM_ARMOR_EQUIP_IRON;
+    public SoundEvent getEquipSound() {
+        return SoundEvents.ARMOR_EQUIP_IRON;
     }
 
     @Override
     public String getName() {
-        return Mythscapes.MODID + ":" + getRegName();
+        return Mythscapes.resourceLoc(this.getRegName()).toString();
     }
 
     public abstract String getRegName();

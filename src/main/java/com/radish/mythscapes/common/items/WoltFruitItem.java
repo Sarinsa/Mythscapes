@@ -18,10 +18,10 @@ public class WoltFruitItem extends Item {
     }
 
     @Override
-    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
-        Vector3d motion = entityLiving.getMotion();
-        worldIn.playSound(entityLiving.getPosX(), entityLiving.getPosY(), entityLiving.getPosZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 1.0f, 0.1f, false);
-        entityLiving.setMotion(motion.getX(), this.golden ? 1.4d : 1.0d, motion.getZ());
-        return entityLiving.onFoodEaten(worldIn, stack);
+    public ItemStack finishUsingItem(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+        Vector3d motion = entityLiving.getDeltaMovement();
+        worldIn.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), SoundEvents.SNOWBALL_THROW, SoundCategory.NEUTRAL, 1.0f, 0.1f);
+        entityLiving.setDeltaMovement(motion.x(), this.golden ? 1.4d : 1.0d, motion.z());
+        return entityLiving.eat(worldIn, stack);
     }
 }

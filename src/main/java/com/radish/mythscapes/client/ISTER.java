@@ -30,7 +30,7 @@ public class ISTER {
             final Supplier<MythChestTileEntity> supplier = MythChestTileEntity::new;
 
             @Override
-            public void func_239207_a_(ItemStack stack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
+            public void renderByItem(ItemStack stack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
                 MythChestTileEntityRenderer.itemRenderBlock = chestBlock;
                 TileEntityRendererDispatcher.instance.renderItem(supplier.get(), matrixStack, buffer, combinedLight, combinedOverlay);
             }

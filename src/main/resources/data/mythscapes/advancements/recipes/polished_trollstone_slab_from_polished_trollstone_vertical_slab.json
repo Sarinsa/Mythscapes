@@ -1,0 +1,48 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "modid": "quark",
+          "type": "forge:mod_loaded"
+        },
+        {
+          "flag": "vertical_slabs",
+          "type": "mythscapes:quark_flag"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "mythscapes:polished_trollstone_slab_from_polished_trollstone_vertical_slab"
+          ]
+        },
+        "criteria": {
+          "has_polished_trollstone_slab": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "item": "mythscapes:polished_trollstone_vertical_slab"
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "mythscapes:polished_trollstone_slab_from_polished_trollstone_vertical_slab"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_polished_trollstone_slab",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

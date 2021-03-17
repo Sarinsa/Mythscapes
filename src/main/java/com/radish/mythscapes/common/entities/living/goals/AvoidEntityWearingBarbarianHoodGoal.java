@@ -1,4 +1,4 @@
-package com.radish.mythscapes.common.entities;
+package com.radish.mythscapes.common.entities.living.goals;
 
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.register.MythItems;
@@ -15,17 +15,17 @@ public class AvoidEntityWearingBarbarianHoodGoal<T extends LivingEntity> extends
     }
 
     @Override
-    public boolean shouldExecute() {
-        return super.shouldExecute() && this.isPlayerWearingHood();
+    public boolean canUse() {
+        return super.canUse() && this.isPlayerWearingHood();
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
-        return super.shouldContinueExecuting() && this.isPlayerWearingHood();
+    public boolean canContinueToUse() {
+        return super.canContinueToUse() && this.isPlayerWearingHood();
     }
 
     private boolean isPlayerWearingHood() {
-        ItemStack itemStack = this.avoidTarget.getItemStackFromSlot(EquipmentSlotType.HEAD);
+        ItemStack itemStack = this.toAvoid.getItemBySlot(EquipmentSlotType.HEAD);
         Mythscapes.LOGGER.info("Player wearing hood: " + (!itemStack.isEmpty() && itemStack.getItem() == MythItems.BARBARIAN_HOOD.get()));
         Mythscapes.LOGGER.info("Player helmet slot item:" + itemStack.getItem());
         return !itemStack.isEmpty() && itemStack.getItem() == MythItems.BARBARIAN_HOOD.get();

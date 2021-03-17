@@ -16,39 +16,39 @@ public class PygmySnailModel<T extends SnailEntity> extends EntityModel<T> {
     private final ModelRenderer shell;
 
     public PygmySnailModel() {
-        textureWidth = 32;
-        textureHeight = 32;
+        texWidth = 32;
+        texHeight = 32;
 
         pygmySnail = new ModelRenderer(this);
-        pygmySnail.setRotationPoint(0.0F, 24.0F, 0.0F);
+        pygmySnail.setPos(0.0F, 24.0F, 0.0F);
 
         snail = new ModelRenderer(this);
-        snail.setRotationPoint(0.0F, 0.0F, 0.0F);
+        snail.setPos(0.0F, 0.0F, 0.0F);
         pygmySnail.addChild(snail);
-        snail.setTextureOffset(0, 0).addBox(-1.5F, -4.0F, -5.5F, 1.0F, 2.0F, 1.0F, 0.0F, false);
-        snail.setTextureOffset(0, 3).addBox(0.5F, -4.0F, -5.5F, 1.0F, 2.0F, 1.0F, 0.0F, false);
-        snail.setTextureOffset(0, 0).addBox(-1.5F, -2.0F, -5.5F, 3.0F, 2.0F, 7.0F, 0.0F, false);
-        snail.setTextureOffset(18, 7).addBox(-1.5F, -1.0F, 1.5F, 3.0F, 1.0F, 2.0F, 0.0F, false);
+        snail.texOffs(0, 0).addBox(-1.5F, -4.0F, -5.5F, 1.0F, 2.0F, 1.0F, 0.0F, false);
+        snail.texOffs(0, 3).addBox(0.5F, -4.0F, -5.5F, 1.0F, 2.0F, 1.0F, 0.0F, false);
+        snail.texOffs(0, 0).addBox(-1.5F, -2.0F, -5.5F, 3.0F, 2.0F, 7.0F, 0.0F, false);
+        snail.texOffs(18, 7).addBox(-1.5F, -1.0F, 1.5F, 3.0F, 1.0F, 2.0F, 0.0F, false);
 
         shell = new ModelRenderer(this);
-        shell.setRotationPoint(0.0F, 0.0F, 0.0F);
+        shell.setPos(0.0F, 0.0F, 0.0F);
         snail.addChild(shell);
-        shell.setTextureOffset(0, 13).addBox(-2.5F, -5.0F, -2.5F, 5.0F, 5.0F, 5.0F, 0.0F, false);
+        shell.texOffs(0, 13).addBox(-2.5F, -5.0F, -2.5F, 5.0F, 5.0F, 5.0F, 0.0F, false);
     }
 
     @Override
-    public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
+    public void renderToBuffer(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
         pygmySnail.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 
     public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-        modelRenderer.rotateAngleX = x;
-        modelRenderer.rotateAngleY = y;
-        modelRenderer.rotateAngleZ = z;
+        modelRenderer.xRot = x;
+        modelRenderer.yRot = y;
+        modelRenderer.zRot = z;
     }
 
     @Override
-    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         
     }
 }

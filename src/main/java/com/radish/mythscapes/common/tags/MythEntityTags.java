@@ -16,14 +16,14 @@ public class MythEntityTags {
     public static final ITag.INamedTag<EntityType<?>> SWOOSH_WHITELIST = mythTag("swoosh_whitelist");
 
     private static ITag.INamedTag<EntityType<?>> forgeTag(String name) {
-        return EntityTypeTags.getTagById(new ResourceLocation("forge", name).toString());
+        return EntityTypeTags.bind(new ResourceLocation("forge", name).toString());
     }
 
     private static ITag.INamedTag<EntityType<?>> modTag(String name, String modid) {
-        return EntityTypeTags.getTagById(new ResourceLocation(modid, name).toString());
+        return EntityTypeTags.bind(new ResourceLocation(modid, name).toString());
     }
 
     private static ITag.INamedTag<EntityType<?>> mythTag(String name) {
-        return EntityTypeTags.getTagById(Mythscapes.resourceLoc(name).toString());
+        return EntityTypeTags.bind(Mythscapes.resourceLoc(name).toString());
     }
 }

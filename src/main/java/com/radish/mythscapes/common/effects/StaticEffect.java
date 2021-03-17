@@ -19,34 +19,34 @@ public class StaticEffect extends MythEffect {
     }
 
     @Override
-    public void performEffect(LivingEntity entity, int amplifier) {
+    public void applyEffectTick(LivingEntity entity, int amplifier) {
         if (MythEntityTags.ELECTRIC.contains(entity.getType()))
             return;
 
-        World world = entity.getEntityWorld();
-        BlockPos pos = entity.getPosition();
+        World world = entity.getCommandSenderWorld();
+        BlockPos pos = entity.blockPosition();
 
         if (isInConductiveFluid(entity, world)) {
             int duration = getDuration(entity, this);
             float damage = (float) Math.floor((float)duration / (5 * 20));
 
-            List<? extends LivingEntity> entities = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(pos).grow(3));
+            List<? extends LivingEntity> entities = world.getEntitiesOfClass(LivingEntity.class, new AxisAlignedBB(pos).inflate(3));
             for (LivingEntity target : entities) {
                 if (isInConductiveFluid(target, world))
-                    target.attackEntityFrom(MythDamageSources.STATIC_SHOCK, damage);
+                    target.hurt(MythDamageSources.STATIC_SHOCK, damage);
             }
-            entity.removePotionEffect(this);
+            entity.removeEffect(this);
         }
     }
 
     @Override
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
     }
 
 
     private boolean isInConductiveFluid(LivingEntity entity, World world) {
-        FluidState fluidState = world.getFluidState(entity.getPosition());
-        return entity.areEyesInFluid(MythFluidTags.CONDUCTIVE) || (!fluidState.isEmpty() && fluidState.isTagged(MythFluidTags.CONDUCTIVE));
+        FluidState fluidState = world.getFluidState(entity.blockPosition());
+        return entity.isEyeInFluid(MythFluidTags.CONDUCTIVE) || (!fluidState.isEmpty() && fluidState.is(MythFluidTags.CONDUCTIVE));
     }
 }

@@ -39,30 +39,30 @@ public class MythSignTileEntity extends TileEntity {
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
-        super.write(compound);
+    public CompoundNBT save(CompoundNBT compound) {
+        super.save(compound);
 
         for(int i = 0; i < 4; ++i) {
             String s = ITextComponent.Serializer.toJson(this.signText[i]);
             compound.putString("Text" + (i + 1), s);
         }
 
-        compound.putString("Color", this.textColor.getTranslationKey());
+        compound.putString("Color", this.textColor.getName());
         return compound;
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT nbt) {
+    public void load(BlockState state, CompoundNBT nbt) {
         this.isEditable = false;
-        super.read(state, nbt);
-        this.textColor = DyeColor.byTranslationKey(nbt.getString("Color"), DyeColor.BLACK);
+        super.load(state, nbt);
+        this.textColor = DyeColor.byName(nbt.getString("Color"), DyeColor.BLACK);
 
         for(int i = 0; i < 4; ++i) {
             String s = nbt.getString("Text" + (i + 1));
-            ITextComponent itextcomponent = ITextComponent.Serializer.getComponentFromJson(s.isEmpty() ? "\"\"" : s);
-            if (this.world instanceof ServerWorld) {
+            ITextComponent itextcomponent = ITextComponent.Serializer.fromJson(s.isEmpty() ? "\"\"" : s);
+            if (this.level instanceof ServerWorld) {
                 try {
-                    this.signText[i] = TextComponentUtils.func_240645_a_(this.getCommandSource(null), itextcomponent, null, 0);
+                    this.signText[i] = TextComponentUtils.updateForEntity(this.getCommandSource(null), itextcomponent, null, 0);
                 } catch (CommandSyntaxException commandsyntaxexception) {
                     this.signText[i] = itextcomponent;
                 }
@@ -92,17 +92,18 @@ public class MythSignTileEntity extends TileEntity {
     }
 
     @Nullable
+    @Override
     public SUpdateTileEntityPacket getUpdatePacket() {
-        return new SUpdateTileEntityPacket(this.pos, 1000, this.getUpdateTag());
+        return new SUpdateTileEntityPacket(this.worldPosition, 1000, this.getUpdateTag());
     }
 
     @Override
     public CompoundNBT getUpdateTag() {
-        return this.write(new CompoundNBT());
+        return this.save(new CompoundNBT());
     }
 
     @Override
-    public boolean onlyOpsCanSetNbt() {
+    public boolean onlyOpCanSetNbt() {
         return true;
     }
 
@@ -116,7 +117,6 @@ public class MythSignTileEntity extends TileEntity {
         if (!isEditableIn) {
             this.player = null;
         }
-
     }
 
     public void setPlayer(PlayerEntity playerIn) {
@@ -134,7 +134,7 @@ public class MythSignTileEntity extends TileEntity {
             if (style != null && style.getClickEvent() != null) {
                 ClickEvent clickevent = style.getClickEvent();
                 if (clickevent.getAction() == ClickEvent.Action.RUN_COMMAND) {
-                    playerIn.getServer().getCommandManager().handleCommand(this.getCommandSource((ServerPlayerEntity)playerIn), clickevent.getValue());
+                    playerIn.getServer().getCommands().performCommand(this.getCommandSource((ServerPlayerEntity)playerIn), clickevent.getValue());
                 }
             }
         }
@@ -145,7 +145,7 @@ public class MythSignTileEntity extends TileEntity {
     public CommandSource getCommandSource(@Nullable ServerPlayerEntity playerIn) {
         String s = playerIn == null ? "Sign" : playerIn.getName().getString();
         ITextComponent itextcomponent = playerIn == null ? new StringTextComponent("Sign") : playerIn.getDisplayName();
-        return new CommandSource(ICommandSource.DUMMY, Vector3d.copyCentered(this.pos), Vector2f.ZERO, (ServerWorld) this.world, 2, s, itextcomponent, this.world.getServer(), playerIn);
+        return new CommandSource(ICommandSource.NULL, Vector3d.atCenterOf(this.worldPosition), Vector2f.ZERO, (ServerWorld) this.level, 2, s, itextcomponent, this.level.getServer(), playerIn);
     }
 
     public DyeColor getTextColor() {
@@ -156,8 +156,8 @@ public class MythSignTileEntity extends TileEntity {
     public boolean setTextColor(DyeColor newColor) {
         if (newColor != this.getTextColor()) {
             this.textColor = newColor;
-            this.markDirty();
-            this.world.notifyBlockUpdate(this.getPos(), this.getBlockState(), this.getBlockState(), 3);
+            this.setChanged();
+            this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
             return true;
         } else {
             return false;

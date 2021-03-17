@@ -15,22 +15,22 @@ public class VolatileEffect extends MythEffect {
     }
 
     @Override
-    public void performEffect(LivingEntity entity, int amplifier) {
-        if (entity.isBurning()) {
-            World world = entity.getEntityWorld();
-            Vector3d pos = entity.getPositionVec();
+    public void applyEffectTick(LivingEntity entity, int amplifier) {
+        if (entity.isOnFire()) {
+            World world = entity.getCommandSenderWorld();
+            Vector3d pos = entity.position();
 
-            entity.removePotionEffect(this);
-            entity.extinguish();
+            entity.removeEffect(this);
+            entity.clearFire();
 
-            if (!world.isRemote) {
-                world.createExplosion(null, MythDamageSources.VOLATILE_EXPLOSION, null, pos.getX(), pos.getY() + (entity.getHeight() / 2), pos.getZ(), 1.2f, false, Explosion.Mode.NONE);
+            if (!world.isClientSide) {
+                world.explode(null, MythDamageSources.VOLATILE_EXPLOSION, null, pos.x(), pos.y() + (entity.getBbHeight() / 2), pos.z(), 1.2f, false, Explosion.Mode.NONE);
             }
         }
     }
 
     @Override
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
     }
 }

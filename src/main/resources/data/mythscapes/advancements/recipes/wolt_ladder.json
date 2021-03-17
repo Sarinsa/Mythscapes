@@ -3,6 +3,10 @@
     {
       "conditions": [
         {
+          "modid": "quark",
+          "type": "forge:mod_loaded"
+        },
+        {
           "flag": "variant_ladders",
           "type": "mythscapes:quark_flag"
         }

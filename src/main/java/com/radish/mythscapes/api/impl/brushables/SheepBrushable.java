@@ -18,7 +18,7 @@ public class SheepBrushable implements IBrushable<SheepEntity> {
 
     @Override
     public boolean canBrush(SheepEntity sheepEntity, World world) {
-        return !sheepEntity.getSheared();
+        return !sheepEntity.isSheared();
     }
 
     @Override

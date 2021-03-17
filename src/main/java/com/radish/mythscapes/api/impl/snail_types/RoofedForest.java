@@ -27,7 +27,7 @@ public class RoofedForest implements ISnailType {
     @Override
     public List<ResourceLocation> getSpawnBiomes() {
         return ImmutableList.of(
-                Biomes.FOREST.getLocation()
+                Biomes.FOREST.location()
         );
     }
 }

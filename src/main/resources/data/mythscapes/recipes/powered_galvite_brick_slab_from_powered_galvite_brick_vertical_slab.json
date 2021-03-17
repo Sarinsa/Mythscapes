@@ -1,0 +1,28 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "quark",
+          "type": "forge:mod_loaded"
+        },
+        {
+          "flag": "vertical_slabs",
+          "type": "mythscapes:quark_flag"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "mythscapes:powered_galvite_brick_vertical_slab"
+          }
+        ],
+        "result": {
+          "item": "mythscapes:powered_galvite_brick_slab"
+        }
+      }
+    }
+  ]
+}

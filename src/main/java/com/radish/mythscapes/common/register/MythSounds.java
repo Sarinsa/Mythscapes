@@ -28,6 +28,6 @@ public class MythSounds {
     }
 
     private static void registerMimic(Supplier<? extends EntityType<?>> entityTypeSupplier, Supplier<SoundEvent> soundEventSupplier) {
-        ParrotEntity.IMITATION_SOUND_EVENTS.put(entityTypeSupplier.get(), soundEventSupplier.get());
+        ParrotEntity.MOB_SOUND_MAP.put(entityTypeSupplier.get(), soundEventSupplier.get());
     }
 }

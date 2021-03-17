@@ -21,17 +21,17 @@ public class PondSerpentRenderer extends MobRenderer<PondSerpentEntity, PondSerp
     }
 
     @Override
-    public ResourceLocation getEntityTexture(PondSerpentEntity entity) {
+    public ResourceLocation getTextureLocation(PondSerpentEntity entity) {
         return POND_SERPENT_TEXTURES[entity.getSerpentType().ordinal()];
     }
 
     @Override
-    protected void applyRotations(PondSerpentEntity pondSerpentEntity, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
-        super.applyRotations(pondSerpentEntity, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
+    protected void setupRotations(PondSerpentEntity pondSerpentEntity, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
+        super.setupRotations(pondSerpentEntity, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
 
         if (!pondSerpentEntity.isInWater()) {
             matrixStackIn.translate(0.1F, 0.1F, 0.1F);
-            matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90.0F));
+            matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(90.0F));
         }
     }
 }

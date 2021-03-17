@@ -19,9 +19,11 @@ public interface IBrushable<T extends LivingEntity> {
 
     /**
      * @return whether this entity can be brushed or not
-     *         with given conditions.
+     *         in it's current state.
      */
-    boolean canBrush(T livingEntity, World world);
+    default boolean canBrush(T livingEntity, World world) {
+        return true;
+    }
 
     /**
      * @return Whether the brushed entity should

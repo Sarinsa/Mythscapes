@@ -24,11 +24,11 @@ public class MythItemTags {
 
 
     private static ITag.INamedTag<Item> forgeTag(String name) {
-        return ItemTags.makeWrapperTag(new ResourceLocation("forge", name).toString());
+        return ItemTags.bind(new ResourceLocation("forge", name).toString());
     }
 
     private static ITag.INamedTag<Item> mythTag(String name) {
-        return ItemTags.makeWrapperTag(Mythscapes.resourceLoc(name).toString());
+        return ItemTags.bind(Mythscapes.resourceLoc(name).toString());
     }
 
     private static Tags.IOptionalNamedTag<Item> modTag(String name, String modid) {

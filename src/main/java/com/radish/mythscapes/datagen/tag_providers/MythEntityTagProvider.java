@@ -15,8 +15,8 @@ public class MythEntityTagProvider extends EntityTypeTagsProvider {
     }
 
     @Override
-    protected void registerTags() {
-        this.getOrCreateBuilder(MythEntityTags.DIES_IN_SULFUR).add(
+    protected void addTags() {
+        this.tag(MythEntityTags.DIES_IN_SULFUR).add(
                 EntityType.GUARDIAN,
                 EntityType.DOLPHIN,
                 EntityType.SQUID,
@@ -26,11 +26,11 @@ public class MythEntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.TROPICAL_FISH,
                 MythEntities.POND_SERPENT.get()
         );
-        this.getOrCreateBuilder(MythEntityTags.ELECTRIC).add(
+        this.tag(MythEntityTags.ELECTRIC).add(
                 // This is just here for now so that the tag generates
                 EntityType.ENDER_DRAGON
         );
-        this.getOrCreateBuilder(MythEntityTags.LION_PREY).add(
+        this.tag(MythEntityTags.LION_PREY).add(
                 MythEntities.DEER.get(),
                 EntityType.COW,
                 EntityType.SHEEP,
@@ -40,7 +40,7 @@ public class MythEntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.FOX
         );
 
-        this.getOrCreateBuilder(MythEntityTags.SWOOSH_WHITELIST).add(
+        this.tag(MythEntityTags.SWOOSH_WHITELIST).add(
                 EntityType.ARMOR_STAND,
                 EntityType.ITEM,
                 EntityType.BOAT

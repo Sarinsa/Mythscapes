@@ -3,6 +3,10 @@
     {
       "conditions": [
         {
+          "modid": "quark",
+          "type": "forge:mod_loaded"
+        },
+        {
           "flag": "wooden_posts",
           "type": "mythscapes:quark_flag"
         }

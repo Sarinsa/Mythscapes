@@ -16,8 +16,8 @@ public abstract class AbstractHarvestableBlock extends BushBlock implements IGro
         super(properties);
     }
 
-    public boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return super.isValidGround(state, worldIn, pos);
+    public boolean mayPlaceOn(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        return super.mayPlaceOn(state, worldIn, pos);
     }
 
     public abstract IItemProvider getSeed();

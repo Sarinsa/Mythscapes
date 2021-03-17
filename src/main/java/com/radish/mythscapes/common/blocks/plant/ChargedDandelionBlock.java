@@ -26,12 +26,12 @@ import java.util.function.Supplier;
 
 public class ChargedDandelionBlock extends ModFlowerBlock {
 
-    public static final IntegerProperty AGE = BlockStateProperties.AGE_0_5;
+    public static final IntegerProperty AGE = BlockStateProperties.AGE_5;
     public static final BooleanProperty SPREAD = BooleanProperty.create("spread");
 
     public ChargedDandelionBlock(Supplier<Effect> effect, int duration, Properties properties) {
         super(effect, duration, properties);
-        this.setDefaultState(this.getDefaultState().with(AGE, 0).with(SPREAD, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(AGE, 0).setValue(SPREAD, false));
     }
 
     @Override
@@ -45,15 +45,15 @@ public class ChargedDandelionBlock extends ModFlowerBlock {
     }
 
     public boolean isMature(BlockState blockState) {
-        return blockState.get(AGE) == 5;
+        return blockState.getValue(AGE) == 5;
     }
 
     private int getAge(BlockState state) {
-        return state.get(AGE);
+        return state.getValue(AGE);
     }
 
     public boolean shouldSpread(BlockState state) {
-        return state.get(SPREAD);
+        return state.getValue(SPREAD);
     }
 
     private boolean attemptSpread(World world, BlockPos pos) {
@@ -61,33 +61,33 @@ public class ChargedDandelionBlock extends ModFlowerBlock {
 
         for (BlockPos neighborPos : this.getPosSpreadTo(pos)) {
             BlockState neighborState = world.getBlockState(neighborPos);
-            if (neighborState.getBlock().isAir(neighborState, world, neighborPos) && this.isValidGround(world.getBlockState(neighborPos.down()), world, neighborPos)) {
+            if (neighborState.getBlock().isAir(neighborState, world, neighborPos) && this.mayPlaceOn(world.getBlockState(neighborPos.below()), world, neighborPos)) {
                 validPositions.add(neighborPos);
             }
         }
         if (!validPositions.isEmpty()) {
-            BlockPos spreadPos = validPositions.get(world.rand.nextInt(validPositions.size()));
-            world.setBlockState(spreadPos, this.getDefaultState().with(AGE, 0));
+            BlockPos spreadPos = validPositions.get(world.random.nextInt(validPositions.size()));
+            world.setBlockAndUpdate(spreadPos, this.defaultBlockState().setValue(AGE, 0));
         }
         return false;
     }
 
     @Override
     @SuppressWarnings("deprecation")
-    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+    public void entityInside(BlockState state, World world, BlockPos pos, Entity entity) {
         if (isMature(state)) {
             if (entity instanceof LivingEntity) {
                 if (MythEntityTags.ELECTRIC.contains(entity.getType())) {
-                    ((LivingEntity) entity).addPotionEffect(new EffectInstance(MythEffects.STATIC.get(), (20 * 5)));
+                    ((LivingEntity) entity).addEffect(new EffectInstance(MythEffects.STATIC.get(), (20 * 5)));
                 }
-                world.setBlockState(pos, this.getDefaultState().with(AGE, 0).with(SPREAD, true));
+                world.setBlockAndUpdate(pos, this.defaultBlockState().setValue(AGE, 0).setValue(SPREAD, true));
 
-                if (!world.isRemote) {
-                    ((ServerWorld) world).spawnParticle(MythParticles.STATIC_COTTON_POOF.get(),
-                            (pos.getX() + state.getOffset(world, pos).getX()) + 0.5d,
-                            pos.getY() + 0.6d,
-                            (pos.getZ() + state.getOffset(world, pos).getZ()) + 0.5d,
-                            1, 0.0f, 0.0f, 0.0f, 0.0f);
+                if (!world.isClientSide) {
+                    ((ServerWorld) world).sendParticles(MythParticles.STATIC_COTTON_POOF.get(),
+                            (pos.getX() + state.getOffset(world, pos).x()) + 0.5D,
+                            pos.getY() + 0.6D,
+                            (pos.getZ() + state.getOffset(world, pos).z()) + 0.5D,
+                            1, 0.0F, 0.0F, 0.0F, 0.0F);
                 }
             }
         }
@@ -97,18 +97,18 @@ public class ChargedDandelionBlock extends ModFlowerBlock {
     @SuppressWarnings("deprecation")
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
         if (this.shouldSpread(state)) {
-            world.setBlockState(pos, this.getDefaultState().with(SPREAD, this.attemptSpread(world, pos)));
+            world.setBlockAndUpdate(pos, this.defaultBlockState().setValue(SPREAD, this.attemptSpread(world, pos)));
             return;
         }
         if (!this.isMature(state)) {
             if (rand.nextInt(15) == 0) {
-                world.setBlockState(pos, state.with(AGE, this.getAge(state) + 1));
+                world.setBlockAndUpdate(pos, state.setValue(AGE, this.getAge(state) + 1));
             }
         }
     }
 
     @Override
-    public void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    public void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(AGE, SPREAD);
     }
 }

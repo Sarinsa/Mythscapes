@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mythscapes:roasted_biobulb_from_smelting"
+    ]
+  },
+  "criteria": {
+    "has_roasted_biobulb": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mythscapes:biobulb"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "mythscapes:roasted_biobulb_from_smelting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_roasted_biobulb",
+      "has_the_recipe"
+    ]
+  ]
+}

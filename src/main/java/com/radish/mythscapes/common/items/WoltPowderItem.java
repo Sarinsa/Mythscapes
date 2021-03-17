@@ -22,26 +22,27 @@ public class WoltPowderItem extends Item {
         this.golden = golden;
     }
 
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand handIn) {
-        ItemStack itemStack = player.getHeldItem(handIn);
-        Vector3d motion = player.getMotion();
+    @Override
+    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand handIn) {
+        ItemStack itemStack = player.getItemInHand(handIn);
+        Vector3d motion = player.getDeltaMovement();
         double motionY = 1.0d;
         int cooldown = 5;
 
         if (this.golden) {
             motionY = 1.4d;
             cooldown = 15;
-            player.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 20 * 15));
-            player.addPotionEffect(new EffectInstance(Effects.SPEED, 20 * 15));
+            player.addEffect(new EffectInstance(Effects.JUMP, 20 * 15));
+            player.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 20 * 15));
         }
-        world.playSound(player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 1.0f, 0.1f, false);
-        player.setMotion(motion.getX(), motionY, motion.getZ());
-        player.addStat(Stats.ITEM_USED.get(this));
+        world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.SNOWBALL_THROW, SoundCategory.NEUTRAL, 1.0f, 0.1f);
+        player.setDeltaMovement(motion.x(), motionY, motion.z());
+        player.awardStat(Stats.ITEM_USED.get(this));
 
-        if (!player.abilities.isCreativeMode) {
+        if (!player.abilities.instabuild) {
             itemStack.shrink(1);
-            player.getCooldownTracker().setCooldown(this, cooldown * 20);
+            player.getCooldowns().addCooldown(this, cooldown * 20);
         }
-        return ActionResult.resultSuccess(itemStack);
+        return ActionResult.success(itemStack);
     }
 }

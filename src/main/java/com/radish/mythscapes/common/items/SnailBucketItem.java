@@ -35,26 +35,26 @@ public class SnailBucketItem extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-        ItemStack itemStack = player.getHeldItem(hand);
-        BlockRayTraceResult rayTraceResult = rayTrace(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);
+    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+        ItemStack itemStack = player.getItemInHand(hand);
+        BlockRayTraceResult rayTraceResult = getPlayerPOVHitResult(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);
 
         if (rayTraceResult.getType() == RayTraceResult.Type.BLOCK) {
-            BlockPos blockPos = rayTraceResult.getPos();
-            Direction direction = rayTraceResult.getFace();
-            BlockPos facingPos = blockPos.offset(direction);
+            BlockPos blockPos = rayTraceResult.getBlockPos();
+            Direction direction = rayTraceResult.getDirection();
+            BlockPos facingPos = blockPos.relative(direction);
 
-            if (!world.isRemote) {
+            if (!world.isClientSide) {
                 this.spawnSnail((ServerWorld) world, itemStack, player, facingPos);
 
-                if (!player.abilities.isCreativeMode) {
-                    player.setHeldItem(hand, new ItemStack(Items.BUCKET));
+                if (!player.abilities.instabuild) {
+                    player.setItemInHand(hand, new ItemStack(Items.BUCKET));
                 }
-                player.addStat(Stats.ITEM_USED.get(this));
-                return ActionResult.resultSuccess(itemStack);
+                player.awardStat(Stats.ITEM_USED.get(this));
+                return ActionResult.success(itemStack);
             }
         }
-        return ActionResult.resultPass(itemStack);
+        return ActionResult.pass(itemStack);
     }
 
     private void spawnSnail(ServerWorld world, ItemStack itemStack, PlayerEntity player, BlockPos facingPos) {
@@ -62,14 +62,14 @@ public class SnailBucketItem extends Item {
         if (!tag.contains("SnailType", 8))
             tag.putString("SnailType", SnailTypeRegister.getRandom().getName().toString());
 
-        SnailEntity snail = MythEntities.PYGMY_SNAIL.get().spawn(world, tag, itemStack.hasDisplayName() ? itemStack.getDisplayName() : null, player, facingPos, SpawnReason.BUCKET, false, false);
+        SnailEntity snail = MythEntities.PYGMY_SNAIL.get().spawn(world, tag, itemStack.hasCustomHoverName() ? itemStack.getDisplayName() : null, player, facingPos, SpawnReason.BUCKET, false, false);
 
         if (snail != null)
             snail.setFromBucket(true);
     }
 
     @Override
-    public boolean hasEffect(ItemStack stack) {
+    public boolean isFoil(ItemStack stack) {
         return this.getRarity(stack) == Rarity.EPIC;
     }
 
@@ -92,12 +92,12 @@ public class SnailBucketItem extends Item {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void addInformation(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+    public void appendHoverText(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
         ISnailType snailType = this.getSnailType(itemStack);
 
         if (snailType != null) {
             TextFormatting color = snailType.getRarity().color;
-            tooltip.add(new TranslationTextComponent(SnailTypeRegister.getTranslationKey(snailType)).mergeStyle(color));
+            tooltip.add(new TranslationTextComponent(SnailTypeRegister.getTranslationKey(snailType)).withStyle(color));
         }
     }
 }

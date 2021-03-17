@@ -10,10 +10,10 @@ public class StaticCottonParticle extends AbstractFadingParticle {
 
     public StaticCottonParticle(ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
         super(world, x, y, z, xSpeed, ySpeed, zSpeed);
-        this.motionX = (getRandom().nextGaussian() * 0.02) * xSpeed;
-        this.motionY = (getRandom().nextGaussian() * 0.02) * ySpeed;
-        this.motionZ = (getRandom().nextGaussian() * 0.02) * zSpeed;
-        this.setMaxAge(40);
+        this.xd = (getRandom().nextGaussian() * 0.02) * xSpeed;
+        this.yd = (getRandom().nextGaussian() * 0.02) * ySpeed;
+        this.zd = (getRandom().nextGaussian() * 0.02) * zSpeed;
+        this.setLifetime(40);
     }
 
     public static class Factory implements IParticleFactory<BasicParticleType> {
@@ -24,9 +24,9 @@ public class StaticCottonParticle extends AbstractFadingParticle {
         }
 
         @Override
-        public Particle makeParticle(BasicParticleType type, ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        public Particle createParticle(BasicParticleType type, ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             StaticCottonParticle particle = new StaticCottonParticle(world, x, y, z, xSpeed, ySpeed, zSpeed);
-            particle.selectSpriteRandomly(this.spriteSet);
+            particle.pickSprite(this.spriteSet);
             return particle;
         }
     }

@@ -19,7 +19,7 @@ public class NoRenderer<T extends Entity> extends EntityRenderer<T> {
     }
 
     @Override
-    public ResourceLocation getEntityTexture(T entity) {
+    public ResourceLocation getTextureLocation(T entity) {
         return BLANK;
     }
 }

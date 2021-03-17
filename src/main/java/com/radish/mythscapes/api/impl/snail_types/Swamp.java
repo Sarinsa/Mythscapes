@@ -27,8 +27,8 @@ public class Swamp implements ISnailType {
     @Override
     public List<ResourceLocation> getSpawnBiomes() {
         return ImmutableList.of(
-                Biomes.SWAMP.getLocation(),
-                Biomes.SWAMP_HILLS.getLocation()
+                Biomes.SWAMP.location(),
+                Biomes.SWAMP_HILLS.location()
         );
     }
 }

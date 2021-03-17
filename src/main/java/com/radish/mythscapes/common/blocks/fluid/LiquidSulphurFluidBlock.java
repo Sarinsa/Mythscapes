@@ -27,13 +27,13 @@ public class LiquidSulphurFluidBlock extends FlowingFluidBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+    public void entityInside(BlockState state, World world, BlockPos pos, Entity entity) {
         if (entity instanceof LivingEntity) {
-            ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.HUNGER, (20 * 10)));
-            ((LivingEntity) entity).addPotionEffect(new EffectInstance(MythEffects.VOLATILE.get(), (20 * 10)));
+            ((LivingEntity) entity).addEffect(new EffectInstance(Effects.HUNGER, (20 * 10)));
+            ((LivingEntity) entity).addEffect(new EffectInstance(MythEffects.VOLATILE.get(), (20 * 10)));
 
             if (MythEntityTags.DIES_IN_SULFUR.contains(entity.getType())) {
-                entity.attackEntityFrom(DamageSource.GENERIC, 1.0f);
+                entity.hurt(DamageSource.GENERIC, 1.0f);
             }
         }
     }

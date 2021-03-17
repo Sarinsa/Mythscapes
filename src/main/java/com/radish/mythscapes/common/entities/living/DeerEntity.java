@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class DeerEntity extends AnimalEntity {
 
-    private static final DataParameter<Integer> REGROWTH_TIME = EntityDataManager.createKey(DeerEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> REGROWTH_TIME = EntityDataManager.defineId(DeerEntity.class, DataSerializers.INT);
 
     public DeerEntity(EntityType<? extends AnimalEntity> type, World world) {
         super(type, world);
@@ -32,7 +32,7 @@ public class DeerEntity extends AnimalEntity {
     public void registerGoals() {
         this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(2, new DeerEntity.BreedingGoal(this, 1.0D));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 0.8, Ingredient.fromItems(Items.APPLE), true));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 0.8, Ingredient.of(Items.APPLE), true));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, PlayerEntity.class, 10.0F, 1.2D, 1.4D));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, LionEntity.class, 13.0F, 1.2D, 1.4D));
         this.goalSelector.addGoal(5, new PanicGoal(this, 1.2D));
@@ -43,31 +43,31 @@ public class DeerEntity extends AnimalEntity {
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(REGROWTH_TIME, 0);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(REGROWTH_TIME, 0);
     }
 
 
     public static AttributeModifierMap.MutableAttribute registerEntityAttributes() {
-        return CreatureEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.30D)
-                .createMutableAttribute(Attributes.MAX_HEALTH, 10.0D);
+        return CreatureEntity.createMobAttributes()
+                .add(Attributes.MOVEMENT_SPEED, 0.30D)
+                .add(Attributes.MAX_HEALTH, 10.0D);
     }
 
     @Nullable
     @Override
-    public AgeableEntity func_241840_a(ServerWorld serverWorld, AgeableEntity ageableEntity) {
-        return MythEntities.DEER.get().create(this.world);
+    public AgeableEntity getBreedOffspring(ServerWorld serverWorld, AgeableEntity ageableEntity) {
+        return MythEntities.DEER.get().create(this.level);
     }
 
     @Override
     protected float getStandingEyeHeight(Pose pose, EntitySize size) {
-        return this.isChild() ? 0.80F : 1.65F;
+        return this.isBaby() ? 0.80F : 1.65F;
     }
 
     public boolean hasAntlers() {
-        return this.getRegrowthTime() <= 0 && !this.isChild();
+        return this.getRegrowthTime() <= 0 && !this.isBaby();
     }
 
     /**
@@ -76,43 +76,43 @@ public class DeerEntity extends AnimalEntity {
      */
     public void dropAntlers() {
         this.newRegrowthTime();
-        if (!this.world.isRemote) {
-            InventoryHelper.spawnItemStack(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(MythItems.ANTLER.get()));
+        if (!this.level.isClientSide) {
+            InventoryHelper.dropItemStack(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(MythItems.ANTLER.get()));
         }
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundNBT compound) {
+        super.addAdditionalSaveData(compound);
         compound.putInt("RegrowthTime", this.getRegrowthTime());
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
+    public void readAdditionalSaveData(CompoundNBT compound) {
+        super.readAdditionalSaveData(compound);
         this.setRegrowthTime(compound.getInt("RegrowthTime"));
     }
 
     @Override
-    public boolean isBreedingItem(ItemStack itemStack) {
+    public boolean isFood(ItemStack itemStack) {
         return itemStack.getItem() == Items.APPLE;
     }
 
     private int getRegrowthTime() {
-        return this.dataManager.get(REGROWTH_TIME);
+        return this.entityData.get(REGROWTH_TIME);
     }
 
     private void setRegrowthTime(int value) {
-        this.dataManager.set(REGROWTH_TIME, value);
+        this.entityData.set(REGROWTH_TIME, value);
     }
 
     private void newRegrowthTime() {
-        this.setRegrowthTime(8000 + this.rand.nextInt(3000));
+        this.setRegrowthTime(8000 + this.random.nextInt(3000));
     }
 
     @Override
-    public void livingTick() {
-        super.livingTick();
+    public void aiStep() {
+        super.aiStep();
 
         if (!this.hasAntlers()) {
             this.setRegrowthTime(this.getRegrowthTime() - 1);
@@ -126,8 +126,8 @@ public class DeerEntity extends AnimalEntity {
         }
 
         @Override
-        public boolean shouldExecute() {
-            return DeerEntity.this.hasAntlers() && super.shouldExecute();
+        public boolean canUse() {
+            return DeerEntity.this.hasAntlers() && super.canUse();
         }
     }
 }

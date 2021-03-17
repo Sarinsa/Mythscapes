@@ -33,11 +33,11 @@ public class ModSignItem extends WallOrFloorItem {
     }
 
     @Override
-    protected boolean onBlockPlaced(BlockPos pos, World worldIn, @Nullable PlayerEntity player, ItemStack stack, BlockState state) {
-        boolean flag = super.onBlockPlaced(pos, worldIn, player, stack, state);
-        TileEntity tileEntity = worldIn.getTileEntity(pos);
+    protected boolean updateCustomBlockEntityTag(BlockPos pos, World world, @Nullable PlayerEntity player, ItemStack stack, BlockState state) {
+        boolean flag = super.updateCustomBlockEntityTag(pos, world, player, stack, state);
+        TileEntity tileEntity = world.getBlockEntity(pos);
 
-        if (!worldIn.isRemote && !flag && player != null && tileEntity != null) {
+        if (!world.isClientSide && !flag && player != null && tileEntity != null) {
             NetworkHelper.openSignEditorToClient((ServerPlayerEntity) player, (MythSignTileEntity) tileEntity);
         }
         return flag;

@@ -3,6 +3,10 @@
     {
       "conditions": [
         {
+          "modid": "quark",
+          "type": "forge:mod_loaded"
+        },
+        {
           "flag": "vertical_planks",
           "type": "mythscapes:quark_flag"
         }

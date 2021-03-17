@@ -18,14 +18,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class LivingRendererMixin<T extends LivingEntity, M extends EntityModel<T>> extends EntityRenderer<T> implements IEntityRenderer<T, M> {
 
     @Shadow
-    protected M entityModel;
+    protected M model;
 
     protected LivingRendererMixin(EntityRendererManager renderManager) {
         super(renderManager);
     }
 
-    @Inject(method = "func_230496_a_(Lnet/minecraft/entity/LivingEntity;ZZZ)Lnet/minecraft/client/renderer/RenderType;", at = @At(value = "HEAD"), cancellable = true, remap = false)
+    @Inject(method = "getRenderType(Lnet/minecraft/entity/LivingEntity;ZZZ)Lnet/minecraft/client/renderer/RenderType;", at = @At(value = "HEAD"), cancellable = true, remap = false)
     public void onGetRenderType(T entity, boolean normal, boolean translucent, boolean glowing, CallbackInfoReturnable<RenderType> callbackInfoReturnable) {
-        ClientMixinHooks.onGetRenderType(entity, this.entityModel, normal, translucent, glowing, callbackInfoReturnable);
+        ClientMixinHooks.onGetRenderType(entity, this.model, normal, translucent, glowing, callbackInfoReturnable);
     }
 }

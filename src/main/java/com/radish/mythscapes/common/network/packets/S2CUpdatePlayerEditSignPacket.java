@@ -30,11 +30,11 @@ public class S2CUpdatePlayerEditSignPacket {
     }
 
     public static S2CUpdatePlayerEditSignPacket decode(PacketBuffer buffer) {
-        return new S2CUpdatePlayerEditSignPacket(buffer.readBlockPos(), buffer.readUniqueId());
+        return new S2CUpdatePlayerEditSignPacket(buffer.readBlockPos(), buffer.readUUID());
     }
 
     public static void encode(S2CUpdatePlayerEditSignPacket packet, PacketBuffer buffer) {
         buffer.writeBlockPos(packet.pos);
-        buffer.writeUniqueId(packet.uuid);
+        buffer.writeUUID(packet.uuid);
     }
 }

@@ -11,12 +11,12 @@ public class PetrifiedEffect extends MythEffect {
     }
 
     @Override
-    public void performEffect(@NotNull LivingEntity entity, int amplifier) {
+    public void applyEffectTick(@NotNull LivingEntity entity, int amplifier) {
 
     }
 
     @Override
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
     }
 }

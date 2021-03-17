@@ -12,20 +12,20 @@ public class BiomeUtil {
         if (biome.getRegistryName() == null) {
             return false;
         }
-        return biome.getRegistryName().equals(registryKey.getLocation());
+        return biome.getRegistryName().equals(registryKey.location());
     }
 
     public static boolean areBiomesEqual(ResourceLocation biomeName, RegistryKey<Biome> registryKey) {
-        return biomeName.equals(registryKey.getLocation());
+        return biomeName.equals(registryKey.location());
     }
 
     public static boolean hasDictType(Biome biome, BiomeDictionary.Type type) {
         if (biome.getRegistryName() == null)
             return false;
-        return BiomeDictionary.hasType(RegistryKey.getOrCreateKey(ForgeRegistries.Keys.BIOMES, biome.getRegistryName()), type);
+        return BiomeDictionary.hasType(RegistryKey.create(ForgeRegistries.Keys.BIOMES, biome.getRegistryName()), type);
     }
 
     public static boolean hasDictType(ResourceLocation biomeName, BiomeDictionary.Type type) {
-        return BiomeDictionary.hasType(RegistryKey.getOrCreateKey(ForgeRegistries.Keys.BIOMES, biomeName), type);
+        return BiomeDictionary.hasType(RegistryKey.create(ForgeRegistries.Keys.BIOMES, biomeName), type);
     }
 }

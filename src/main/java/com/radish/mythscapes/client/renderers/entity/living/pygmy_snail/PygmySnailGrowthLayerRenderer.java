@@ -22,14 +22,14 @@ public class PygmySnailGrowthLayerRenderer<T extends SnailEntity, M extends Pygm
 
         switch (snailType.getGrowthRenderType()) {
             case TAIL:
-                renderCopyCutoutModel(this.getEntityModel(), this.tailGrowthModel, this.getEntityTexture(snailEntity), matrixStackIn, bufferIn, packedLightIn, snailEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0f, 1.0f, 1.0f);
+                coloredCutoutModelCopyLayerRender(this.getParentModel(), this.tailGrowthModel, this.getTextureLocation(snailEntity), matrixStackIn, bufferIn, packedLightIn, snailEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0f, 1.0f, 1.0f);
                 break;
             case BACK:
-                renderCopyCutoutModel(this.getEntityModel(), this.backGrowthModel, this.getEntityTexture(snailEntity), matrixStackIn, bufferIn, packedLightIn, snailEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0f, 1.0f, 1.0f);
+                coloredCutoutModelCopyLayerRender(this.getParentModel(), this.backGrowthModel, this.getTextureLocation(snailEntity), matrixStackIn, bufferIn, packedLightIn, snailEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0f, 1.0f, 1.0f);
                 break;
             case BOTH:
-                renderCopyCutoutModel(this.getEntityModel(), this.backGrowthModel, this.getEntityTexture(snailEntity), matrixStackIn, bufferIn, packedLightIn, snailEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0f, 1.0f, 1.0f);
-                renderCopyCutoutModel(this.getEntityModel(), this.tailGrowthModel, this.getEntityTexture(snailEntity), matrixStackIn, bufferIn, packedLightIn, snailEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0f, 1.0f, 1.0f);
+                coloredCutoutModelCopyLayerRender(this.getParentModel(), this.backGrowthModel, this.getTextureLocation(snailEntity), matrixStackIn, bufferIn, packedLightIn, snailEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0f, 1.0f, 1.0f);
+                coloredCutoutModelCopyLayerRender(this.getParentModel(), this.tailGrowthModel, this.getTextureLocation(snailEntity), matrixStackIn, bufferIn, packedLightIn, snailEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0f, 1.0f, 1.0f);
                 break;
             default:
         }

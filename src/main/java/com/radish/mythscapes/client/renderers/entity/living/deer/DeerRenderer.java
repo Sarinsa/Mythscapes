@@ -1,7 +1,7 @@
 package com.radish.mythscapes.client.renderers.entity.living.deer;
 
-import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.entities.living.DeerEntity;
+import com.radish.mythscapes.common.util.TextureUtil;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
@@ -9,8 +9,8 @@ import net.minecraft.util.ResourceLocation;
 public class DeerRenderer extends MobRenderer<DeerEntity, DeerModel<DeerEntity>> {
 
     private static final ResourceLocation[] TEXTURES = {
-            Mythscapes.resourceLoc("textures/entity/deer/deer.png"),
-            Mythscapes.resourceLoc("textures/entity/deer/deer_no_antlers.png")
+            TextureUtil.entityTexture("deer/deer"),
+            TextureUtil.entityTexture("deer/deer_no_antlers")
     };
 
     public DeerRenderer(EntityRendererManager renderManager) {
@@ -18,7 +18,7 @@ public class DeerRenderer extends MobRenderer<DeerEntity, DeerModel<DeerEntity>>
     }
 
     @Override
-    public ResourceLocation getEntityTexture(DeerEntity entity) {
+    public ResourceLocation getTextureLocation(DeerEntity entity) {
         return entity.hasAntlers() ? TEXTURES[0] : TEXTURES[1];
     }
 }

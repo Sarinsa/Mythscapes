@@ -27,13 +27,13 @@ public class C2SUpdateSignTextPacket {
     }
 
     public static C2SUpdateSignTextPacket decode(PacketBuffer buffer) {
-        return new C2SUpdateSignTextPacket(buffer.readBlockPos(), buffer.readString(32767), buffer.readString(32767), buffer.readString(32767), buffer.readString(32767));
+        return new C2SUpdateSignTextPacket(buffer.readBlockPos(), buffer.readUtf(32767), buffer.readUtf(32767), buffer.readUtf(32767), buffer.readUtf(32767));
     }
 
     public static void encode(C2SUpdateSignTextPacket packet, PacketBuffer buffer) {
         buffer.writeBlockPos(packet.pos);
 
         for (String s : packet.signText)
-            buffer.writeString(s);
+            buffer.writeUtf(s);
     }
 }

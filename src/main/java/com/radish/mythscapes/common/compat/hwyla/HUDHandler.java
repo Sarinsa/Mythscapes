@@ -28,7 +28,7 @@ public class HUDHandler implements IComponentProvider {
     public void appendBody(List<ITextComponent> tooltip, IDataAccessor accessor, IPluginConfig config) {
         if (config.get(MythscapesHwylaPlugin.CONFIG_CROP_PROGRESS)) {
             if (accessor.getBlock() == MythBlocks.BLISTERBERRY_THISTLE.get()) {
-                int age = accessor.getBlockState().get(BlockStateProperties.AGE_0_5);
+                int age = accessor.getBlockState().getValue(BlockStateProperties.AGE_5);
                 addCropMaturityTooltip(tooltip, age / (float) 5);
             }
         }

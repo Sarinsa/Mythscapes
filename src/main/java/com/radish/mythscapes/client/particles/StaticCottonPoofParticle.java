@@ -24,20 +24,20 @@ public class StaticCottonPoofParticle extends MetaParticle {
 
     public void tick() {
         for(int i = 0; i < 8; ++i) {
-            double xSpeed = this.xSpeed != 0.0D ? this.zSpeed : rand.nextGaussian();
-            double ySpeed = this.ySpeed != 0.0D ? this.ySpeed : rand.nextGaussian() / 2;
-            double zSpeed = this.zSpeed != 0.0D ? this.zSpeed : rand.nextGaussian();
-            this.world.addParticle(MythParticles.STATIC_COTTON.get(), this.posX, this.posY, this.posZ, xSpeed, ySpeed, zSpeed);
+            double xSpeed = this.xSpeed != 0.0D ? this.zSpeed : random.nextGaussian();
+            double ySpeed = this.ySpeed != 0.0D ? this.ySpeed : random.nextGaussian() / 2;
+            double zSpeed = this.zSpeed != 0.0D ? this.zSpeed : random.nextGaussian();
+            this.level.addParticle(MythParticles.STATIC_COTTON.get(), this.x, this.y, this.z, xSpeed, ySpeed, zSpeed);
         }
         ++this.timeSinceStart;
         if (this.timeSinceStart >= 5) {
-            this.setExpired();
+            this.remove();
         }
     }
 
     public static class Factory implements IParticleFactory<BasicParticleType> {
 
-        public Particle makeParticle(BasicParticleType type, ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        public Particle createParticle(BasicParticleType type, ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             return new StaticCottonPoofParticle(world, x, y, z, xSpeed, ySpeed, zSpeed);
         }
     }

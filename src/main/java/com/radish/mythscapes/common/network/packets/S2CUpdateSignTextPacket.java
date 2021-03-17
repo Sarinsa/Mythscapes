@@ -37,14 +37,14 @@ public class S2CUpdateSignTextPacket {
     }
 
     public static S2CUpdateSignTextPacket decode(PacketBuffer buffer) {
-        return new S2CUpdateSignTextPacket(buffer.readBlockPos(), buffer.readString(), buffer.readString(), buffer.readString(), buffer.readString(), buffer.readInt());
+        return new S2CUpdateSignTextPacket(buffer.readBlockPos(), buffer.readUtf(), buffer.readUtf(), buffer.readUtf(), buffer.readUtf(), buffer.readInt());
     }
 
     public static void encode(S2CUpdateSignTextPacket packet, PacketBuffer buffer) {
         buffer.writeBlockPos(packet.pos);
 
         for (String s : packet.signText)
-            buffer.writeString(s);
+            buffer.writeUtf(s);
 
         buffer.writeInt(packet.textColor);
     }

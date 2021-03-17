@@ -1,21 +1,11 @@
 package com.radish.mythscapes.common.event;
 
-import com.radish.mythscapes.common.entities.AvoidEntityWearingBarbarianHoodGoal;
 import com.radish.mythscapes.common.entities.living.DeerEntity;
-import com.radish.mythscapes.common.entities.living.LionEntity;
 import com.radish.mythscapes.common.entities.living.SnailEntity;
 import com.radish.mythscapes.common.fluids.BaseFluid;
 import com.radish.mythscapes.common.register.MythEntities;
 import com.radish.mythscapes.common.register.MythItems;
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.monster.AbstractIllagerEntity;
-import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.GlassBottleItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -30,7 +20,6 @@ import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -43,29 +32,29 @@ public class EntityEvents {
         ItemStack itemStack = event.getItemStack();
 
         if (!itemStack.isEmpty() && itemStack.getItem() == Items.GLASS_BOTTLE) {
-            BlockRayTraceResult result = Item.rayTrace(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);
+            BlockRayTraceResult result = Item.getPlayerPOVHitResult(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);
 
             if (result.getType() == RayTraceResult.Type.BLOCK) {
-                BlockPos pos = result.getPos();
+                BlockPos pos = result.getBlockPos();
 
-                if (world.getFluidState(pos).getFluid() instanceof BaseFluid) {
-                    BaseFluid fluid = (BaseFluid) world.getFluidState(pos).getFluid();
+                if (world.getFluidState(pos).getType() instanceof BaseFluid) {
+                    BaseFluid fluid = (BaseFluid) world.getFluidState(pos).getType();
 
                     if (fluid.getBottleItem() != null) {
                         ItemStack liquidBottle = new ItemStack(fluid.getBottleItem());
 
-                        world.playSound(player, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+                        world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0f, 1.0f);
 
-                        if (!player.abilities.isCreativeMode) {
+                        if (!player.abilities.instabuild) {
                             itemStack.shrink(1);
-                            player.addStat(Stats.ITEM_USED.get(itemStack.getItem()));
+                            player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
                         }
                         if (itemStack.isEmpty()) {
-                            player.setHeldItem(event.getHand(), liquidBottle);
+                            player.setItemInHand(event.getHand(), liquidBottle);
                         }
                         else {
-                            if (!player.inventory.addItemStackToInventory(liquidBottle)) {
-                                player.dropItem(liquidBottle, false);
+                            if (!player.inventory.add(liquidBottle)) {
+                                player.drop(liquidBottle, false);
                             }
                         }
                         event.setCancellationResult(ActionResultType.SUCCESS);
@@ -85,9 +74,9 @@ public class EntityEvents {
                 ItemStack itemStack = event.getItemStack();
                 PlayerEntity player = event.getPlayer();
 
-                if (!player.abilities.isCreativeMode) {
+                if (!player.abilities.instabuild) {
                     itemStack.shrink(1);
-                    player.addStat(Stats.ITEM_USED.get(itemStack.getItem()));
+                    player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
                 }
                 ItemStack snailBucket = new ItemStack(MythItems.SNAIL_BUCKET.get());
                 // Set snail type to itemstack
@@ -96,10 +85,10 @@ public class EntityEvents {
                 snailBucket.setTag(tag);
 
                 if (itemStack.isEmpty()) {
-                    player.setHeldItem(event.getHand(), snailBucket);
+                    player.setItemInHand(event.getHand(), snailBucket);
                 } else {
-                    if (!player.inventory.addItemStackToInventory(snailBucket)) {
-                        player.dropItem(snailBucket, false);
+                    if (!player.inventory.add(snailBucket)) {
+                        player.drop(snailBucket, false);
                     }
                 }
                 snailEntity.remove();

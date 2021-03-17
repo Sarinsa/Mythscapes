@@ -20,21 +20,21 @@ public class MythItemTagProvider extends ItemTagsProvider {
     }
 
     @Override
-    protected void registerTags() {
+    protected void addTags() {
         this.copyTags();
 
-        this.getOrCreateBuilder(MythItemTags.WOLT_LOGS).add(
+        this.tag(MythItemTags.WOLT_LOGS).add(
                 MythItems.WOLT_LOG.get(),
                 MythItems.WOLT_LOG_STRIPPED.get(),
                 MythItems.WOLT_WOOD.get(),
                 MythItems.WOLT_WOOD_STRIPPED.get()
         );
 
-        this.getOrCreateBuilder(ItemTags.BOATS).add(
+        this.tag(ItemTags.BOATS).add(
                 MythItems.WOLT_BOAT.get()
         );
 
-        this.getOrCreateBuilder(MythItemTags.PRISMARINE).add(
+        this.tag(MythItemTags.PRISMARINE).add(
                 Items.PRISMARINE_BRICKS,
                 Items.PRISMARINE_BRICK_SLAB,
                 Items.PRISMARINE_BRICK_STAIRS,
@@ -51,11 +51,11 @@ public class MythItemTagProvider extends ItemTagsProvider {
                 .addOptionalTag(Tags.Items.GEMS_PRISMARINE.getName()
         );
 
-        this.getOrCreateBuilder(Tags.Items.BOOKSHELVES).add(
+        this.tag(Tags.Items.BOOKSHELVES).add(
                 MythItems.WOLT_BOOKSHELF.get()
         );
 
-        this.getOrCreateBuilder(MythItemTags.BOATABLE_CHESTS).add(
+        this.tag(MythItemTags.BOATABLE_CHESTS).add(
                 MythItems.WOLT_CHEST.get()
         );
     }

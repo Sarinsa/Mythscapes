@@ -18,18 +18,18 @@ public class GlowballItem extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity playerEntity, Hand hand) {
-        ItemStack itemStack = playerEntity.getHeldItem(hand);
+    public ActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
+        ItemStack itemStack = playerEntity.getItemInHand(hand);
 
         GlowballEntity entity = new GlowballEntity(playerEntity, world);
-        entity.func_234612_a_(playerEntity, playerEntity.rotationPitch, playerEntity.rotationYaw, 0.0F, 1.5F, 1.0F);
-        world.addEntity(entity);
-        world.playSound(playerEntity, playerEntity.getPosX(), playerEntity.getPosY(), playerEntity.getPosZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-        playerEntity.addStat(Stats.ITEM_USED.get(this));
+        entity.shootFromRotation(playerEntity, playerEntity.xRot, playerEntity.yRot, 0.0F, 1.5F, 1.0F);
+        world.addFreshEntity(entity);
+        world.playSound(playerEntity, playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), SoundEvents.SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+        playerEntity.awardStat(Stats.ITEM_USED.get(this));
 
-        if (!playerEntity.abilities.isCreativeMode) {
+        if (!playerEntity.abilities.instabuild) {
             itemStack.shrink(1);
         }
-        return ActionResult.resultSuccess(itemStack);
+        return ActionResult.success(itemStack);
     }
 }

@@ -15,10 +15,10 @@ public class MythFluidTags {
     public static final ITag.INamedTag<Fluid> SWIMMABLE = mythTag("swimmable");
 
     private static ITag.INamedTag<Fluid> forgeTag(String name) {
-        return FluidTags.makeWrapperTag(new ResourceLocation("forge", name).toString());
+        return FluidTags.bind(new ResourceLocation("forge", name).toString());
     }
 
     private static ITag.INamedTag<Fluid> mythTag(String name) {
-        return FluidTags.makeWrapperTag(Mythscapes.resourceLoc(name).toString());
+        return FluidTags.bind(Mythscapes.resourceLoc(name).toString());
     }
 }

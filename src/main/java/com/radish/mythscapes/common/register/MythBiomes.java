@@ -40,30 +40,30 @@ public class MythBiomes {
     //
     private static Biome createStaticForest() {
         return new Biome.Builder()
-                .category(Biome.Category.PLAINS)
+                .biomeCategory(Biome.Category.PLAINS)
                 .depth(0.125F)
                 .scale(0.05F)
                 .downfall(1.0F)
                 .temperature(0.6F)
                 .precipitation(Biome.RainType.RAIN)
-                .withTemperatureModifier(Biome.TemperatureModifier.NONE)
-                .setEffects(new BiomeAmbience.Builder()
-                        .setFogColor(0xCEFFEF)
-                        .setWaterColor(0x26D0FF)
-                        .setWaterFogColor(0x26D0FF)
-                        .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)
-                        .withSkyColor(0x7FFFD2)
-                        .withGrassColor(0x00D3B6)
+                .temperatureAdjustment(Biome.TemperatureModifier.NONE)
+                .specialEffects(new BiomeAmbience.Builder()
+                        .fogColor(0xCEFFEF)
+                        .waterColor(0x26D0FF)
+                        .waterFogColor(0x26D0FF)
+                        .ambientMoodSound(MoodSoundAmbience.LEGACY_CAVE_SETTINGS)
+                        .skyColor(0x7FFFD2)
+                        .grassColorOverride(0x00D3B6)
                         .build())
-                .withMobSpawnSettings(new MobSpawnInfo.Builder().copy())
-                .withGenerationSettings(new BiomeGenerationSettings.Builder().withSurfaceBuilder(ConfiguredSurfaceBuilders.field_244178_j).build())
+                .mobSpawnSettings(new MobSpawnInfo.Builder().build())
+                .generationSettings(new BiomeGenerationSettings.Builder().surfaceBuilder(ConfiguredSurfaceBuilders.GRASS).build())
                 .build();
         }
 
     private static int getSkyColorWithTemperatureModifier(float temperature) {
         float modifier = temperature / 3.0F;
         modifier = MathHelper.clamp(modifier, -1.0F, 1.0F);
-        return MathHelper.hsvToRGB(0.62222224F - modifier * 0.05F, 0.5F + modifier * 0.1F, 1.0F);
+        return MathHelper.hsvToRgb(0.62222224F - modifier * 0.05F, 0.5F + modifier * 0.1F, 1.0F);
     }
 
     private static void registerBiome(BiomeRegistryObject biomeRegistryObject, BiomeManager.BiomeType biomeType) {

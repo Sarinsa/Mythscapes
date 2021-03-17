@@ -33,37 +33,37 @@ public class DrinkableBottleItem extends Item {
     }
 
     @Override
-    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity livingEntity) {
+    public ItemStack finishUsingItem(ItemStack stack, World world, LivingEntity livingEntity) {
         PlayerEntity playerentity = livingEntity instanceof PlayerEntity ? (PlayerEntity)livingEntity : null;
         if (playerentity instanceof ServerPlayerEntity) {
             CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayerEntity)playerentity, stack);
         }
 
-        if (!worldIn.isRemote && this.effectInstanceSupplier != null) {
+        if (!world.isClientSide && this.effectInstanceSupplier != null) {
             EffectInstance effectinstance = this.effectInstanceSupplier.get();
 
-            if (effectinstance.getPotion().isInstant()) {
-                effectinstance.getPotion().affectEntity(playerentity, playerentity, livingEntity, effectinstance.getAmplifier(), 1.0D);
+            if (effectinstance.getEffect().isInstantenous()) {
+                effectinstance.getEffect().applyInstantenousEffect(playerentity, playerentity, livingEntity, effectinstance.getAmplifier(), 1.0D);
             }
             else {
-                livingEntity.addPotionEffect(new EffectInstance(effectinstance));
+                livingEntity.addEffect(new EffectInstance(effectinstance));
             }
         }
 
         if (playerentity != null) {
-            playerentity.addStat(Stats.ITEM_USED.get(this));
-            if (!playerentity.abilities.isCreativeMode) {
+            playerentity.awardStat(Stats.ITEM_USED.get(this));
+            if (!playerentity.abilities.instabuild) {
                 stack.shrink(1);
             }
         }
 
-        if (playerentity == null || !playerentity.abilities.isCreativeMode) {
+        if (playerentity == null || !playerentity.abilities.instabuild) {
             if (stack.isEmpty()) {
                 return new ItemStack(Items.GLASS_BOTTLE);
             }
 
             if (playerentity != null) {
-                playerentity.inventory.addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE));
+                playerentity.inventory.add(new ItemStack(Items.GLASS_BOTTLE));
             }
         }
         return stack;
@@ -75,12 +75,12 @@ public class DrinkableBottleItem extends Item {
     }
 
     @Override
-    public UseAction getUseAction(ItemStack stack) {
+    public UseAction getUseAnimation(ItemStack stack) {
         return UseAction.DRINK;
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        return DrinkHelper.startDrinking(worldIn, playerIn, handIn);
+    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        return DrinkHelper.useDrink(worldIn, playerIn, handIn);
     }
 }

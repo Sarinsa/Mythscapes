@@ -1,6 +1,5 @@
 package com.radish.mythscapes.common.blocks.compat;
 
-import com.radish.mythscapes.common.blocks.compat.MythChestBlock;
 import com.radish.mythscapes.common.core.Mythscapes;
 import net.minecraft.block.BlockState;
 import net.minecraft.stats.Stat;
@@ -23,7 +22,7 @@ public class MythTrappedChestBlock extends MythChestBlock {
     }
 
     @Override
-    protected ResourceLocation[] create(String woodName) {
+    protected ResourceLocation[] createTextures(String woodName) {
         return new ResourceLocation[] {
                 Mythscapes.resourceLoc("textures/tile/chests/" + woodName + "/" + woodName + "_trapped.png"),
                 Mythscapes.resourceLoc("textures/tile/chests/" + woodName + "/" + woodName + "_trapped_left.png"),
@@ -32,22 +31,22 @@ public class MythTrappedChestBlock extends MythChestBlock {
     }
 
     @Override
-    protected Stat<ResourceLocation> getOpenStat() {
+    protected Stat<ResourceLocation> getOpenChestStat() {
         return Stats.CUSTOM.get(Stats.TRIGGER_TRAPPED_CHEST);
     }
 
     @Override
-    public boolean canProvidePower(BlockState state) {
+    public boolean isSignalSource(BlockState state) {
         return true;
     }
 
     @Override
-    public int getWeakPower(BlockState blockState, IBlockReader blockAccess, BlockPos pos, Direction side) {
-        return MathHelper.clamp(ChestTileEntity.getPlayersUsing(blockAccess, pos), 0, 15);
+    public int getSignal(BlockState blockState, IBlockReader blockAccess, BlockPos pos, Direction side) {
+        return MathHelper.clamp(ChestTileEntity.getOpenCount(blockAccess, pos), 0, 15);
     }
 
     @Override
-    public int getStrongPower(BlockState blockState, IBlockReader blockAccess, BlockPos pos, Direction side) {
-        return side == Direction.UP ? blockState.getWeakPower(blockAccess, pos, side) : 0;
+    public int getDirectSignal(BlockState blockState, IBlockReader blockAccess, BlockPos pos, Direction side) {
+        return side == Direction.UP ? blockState.getSignal(blockAccess, pos, side) : 0;
     }
 }

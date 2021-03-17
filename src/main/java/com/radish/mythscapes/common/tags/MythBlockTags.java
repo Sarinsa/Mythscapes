@@ -31,7 +31,7 @@ public class MythBlockTags {
     }
 
     private static ITag.INamedTag<Block> mythTag(String name) {
-        return BlockTags.makeWrapperTag(Mythscapes.resourceLoc(name).toString());
+        return BlockTags.bind(Mythscapes.resourceLoc(name).toString());
     }
 
     private static Tags.IOptionalNamedTag<Block> modTag(String name, String modid) {

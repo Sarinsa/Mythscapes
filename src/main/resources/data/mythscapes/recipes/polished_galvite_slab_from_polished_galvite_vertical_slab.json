@@ -4,7 +4,11 @@
     {
       "conditions": [
         {
-          "flag": "vertical_planks",
+          "modid": "quark",
+          "type": "forge:mod_loaded"
+        },
+        {
+          "flag": "vertical_slabs",
           "type": "mythscapes:quark_flag"
         }
       ],
@@ -12,11 +16,11 @@
         "type": "minecraft:crafting_shapeless",
         "ingredients": [
           {
-            "item": "mythscapes:wolt_vertical_planks"
+            "item": "mythscapes:polished_galvite_vertical_slab"
           }
         ],
         "result": {
-          "item": "mythscapes:wolt_planks"
+          "item": "mythscapes:polished_galvite_slab"
         }
       }
     }

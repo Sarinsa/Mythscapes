@@ -32,16 +32,16 @@ public class MythPotions {
 
     private static void registerBrewingRecipe(Potion potionIngredient, IItemProvider itemIngredient, Potion potionResult) {
         BrewingRecipeRegistry.addRecipe(new BrewingRecipe(
-                Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), potionIngredient)),
-                Ingredient.fromStacks(new ItemStack(itemIngredient)),
-                PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), potionResult)
+                Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), potionIngredient)),
+                Ingredient.of(new ItemStack(itemIngredient)),
+                PotionUtils.setPotion(new ItemStack(Items.POTION), potionResult)
         ));
     }
 
     private static void registerBrewingRecipe(IItemProvider potionIngredient, IItemProvider itemIngredient, IItemProvider potionResult) {
         BrewingRecipeRegistry.addRecipe(new BrewingRecipe(
-                Ingredient.fromItems(potionIngredient),
-                Ingredient.fromItems(itemIngredient),
+                Ingredient.of(potionIngredient),
+                Ingredient.of(itemIngredient),
                 new ItemStack(potionResult)
         ));
     }

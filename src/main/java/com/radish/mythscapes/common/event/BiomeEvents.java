@@ -44,6 +44,11 @@ public class BiomeEvents {
             DefaultBiomeFeatures.addDefaultOverworldLandStructures(generationSettings);
             DefaultBiomeFeatures.addDefaultMonsterRoom(generationSettings);
             DefaultBiomeFeatures.addDefaultSoftDisks(generationSettings);
+
+            generationSettings.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, MythConfiguredFeatures.GALVITE_DIAMOND_ORE);
+            generationSettings.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, MythConfiguredFeatures.GALVITE_GOLD_ORE);
+            generationSettings.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, MythConfiguredFeatures.GALVITE_REDSTONE_ORE);
+
             generationSettings.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_PLAIN);
             generationSettings.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_TALL_GRASS);
             generationSettings.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MythConfiguredFeatures.PATCH_CHARGED_DANDELIONS);

@@ -90,7 +90,7 @@ public class Mythscapes {
         event.enqueueWork(() -> {
             MythItems.registerItemData();
             MythBlocks.registerBlockData();
-            MythConfiguredFeatures.register();
+            MythConfiguredFeatures.registerFeatures();
             MythConfiguredSurfaceBuilders.register();
             MythWorldCarvers.addCarvableBlocks();
             MythBiomes.registerBiomeInfo();

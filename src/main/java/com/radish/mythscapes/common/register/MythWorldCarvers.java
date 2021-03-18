@@ -19,6 +19,7 @@ public class MythWorldCarvers {
 
     public static void addCarvableBlocks() {
         addCarvable(MythBlocks.GALVITE);
+        addCarvable(MythBlocks.TROLLSTONE);
 
         registerCarvablesToAll();
     }

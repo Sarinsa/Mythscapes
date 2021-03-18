@@ -77,7 +77,7 @@ public class ChargedDandelionBlock extends ModFlowerBlock {
     public void entityInside(BlockState state, World world, BlockPos pos, Entity entity) {
         if (isMature(state)) {
             if (entity instanceof LivingEntity) {
-                if (MythEntityTags.ELECTRIC.contains(entity.getType())) {
+                if (!MythEntityTags.ELECTRIC.contains(entity.getType())) {
                     ((LivingEntity) entity).addEffect(new EffectInstance(MythEffects.STATIC.get(), (20 * 5)));
                 }
                 world.setBlockAndUpdate(pos, this.defaultBlockState().setValue(AGE, 0).setValue(SPREAD, true));

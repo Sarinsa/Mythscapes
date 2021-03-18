@@ -18,10 +18,6 @@ public class MythBlockTagProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags() {
-        this.tag(BlockTags.BASE_STONE_OVERWORLD).add(
-                MythBlocks.GALVITE.get()
-        );
-
         this.tag(Tags.Blocks.ORES_GOLD).add(
                 MythBlocks.GILDED_GALVITE.get()
         );

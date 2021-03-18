@@ -34,6 +34,9 @@ public class MythConfig {
         public final ForgeConfigSpec.IntValue composterSnailMaxCount;
         public final ForgeConfigSpec.IntValue composterSnailCheckRange;
 
+        // Misc stuff
+        public final ForgeConfigSpec.BooleanValue chargedDandelionSpread;
+
         public Common(ForgeConfigSpec.Builder configBuilder) {
 
             //
@@ -50,6 +53,16 @@ public class MythConfig {
             configBuilder.comment("If composter snail spawning is enabled, this value will determine the range in blocks that the composter should check for existing snails." +
                     " For instance, a value of 10 will make the composter check in a 10x10 space around itself");
             composterSnailCheckRange = configBuilder.defineInRange("composterSnailCheckRange", 25, 1, 50);
+
+            configBuilder.pop();
+
+            //
+            // MISC
+            //
+            configBuilder.push("misc");
+
+            configBuilder.comment("Determines whether or not charged dandelions spread after spreading their spores");
+            chargedDandelionSpread = configBuilder.define("charged_dandelion_spread", true);
 
             configBuilder.pop();
 

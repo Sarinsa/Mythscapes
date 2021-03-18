@@ -1,5 +1,6 @@
 package com.radish.mythscapes.common.blocks.plant;
 
+import com.radish.mythscapes.common.core.config.MythConfig;
 import com.radish.mythscapes.common.register.MythEffects;
 import com.radish.mythscapes.common.register.MythParticles;
 import com.radish.mythscapes.common.tags.MythEntityTags;
@@ -80,7 +81,8 @@ public class ChargedDandelionBlock extends ModFlowerBlock {
                 if (!MythEntityTags.ELECTRIC.contains(entity.getType())) {
                     ((LivingEntity) entity).addEffect(new EffectInstance(MythEffects.STATIC.get(), (20 * 5)));
                 }
-                world.setBlockAndUpdate(pos, this.defaultBlockState().setValue(AGE, 0).setValue(SPREAD, true));
+                boolean spreadEnabled = MythConfig.COMMON.chargedDandelionSpread.get();
+                world.setBlockAndUpdate(pos, this.defaultBlockState().setValue(AGE, 0).setValue(SPREAD, spreadEnabled));
 
                 if (!world.isClientSide) {
                     ((ServerWorld) world).sendParticles(MythParticles.STATIC_COTTON_POOF.get(),

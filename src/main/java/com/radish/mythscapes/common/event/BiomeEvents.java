@@ -42,7 +42,6 @@ public class BiomeEvents {
             DefaultBiomeFeatures.addDefaultCarvers(generationSettings);
             DefaultBiomeFeatures.addDefaultLakes(generationSettings);
             DefaultBiomeFeatures.addDefaultOverworldLandStructures(generationSettings);
-            DefaultBiomeFeatures.addDefaultOres(generationSettings);
             DefaultBiomeFeatures.addDefaultMonsterRoom(generationSettings);
             DefaultBiomeFeatures.addDefaultSoftDisks(generationSettings);
             generationSettings.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_PLAIN);

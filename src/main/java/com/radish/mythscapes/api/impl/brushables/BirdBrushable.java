@@ -22,7 +22,7 @@ public class BirdBrushable implements IBrushable<LivingEntity> {
     }
 
     @Override
-    public @NotNull ItemStack itemDropped(LivingEntity livingEntity, Random random, int fortuneLevel) {
+    public ItemStack itemDropped(LivingEntity livingEntity, Random random, int fortuneLevel) {
         return new ItemStack(Items.FEATHER);
     }
 }

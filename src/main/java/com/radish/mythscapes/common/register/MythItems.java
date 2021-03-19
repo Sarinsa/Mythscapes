@@ -38,7 +38,6 @@ public class MythItems {
     public static final RegistryObject<Item> GILDED_GALVITE = registerBlockItem(MythBlocks.GILDED_GALVITE);
     public static final RegistryObject<Item> BEJEWELED_GALVITE = registerBlockItem(MythBlocks.BEJEWELED_GALVITE);
     public static final RegistryObject<Item> POWERED_GALVITE = registerBlockItem(MythBlocks.POWERED_GALVITE);
-
     public static final RegistryObject<Item> GALVITE = registerBlockItem(MythBlocks.GALVITE);
     public static final RegistryObject<Item> GALVITE_SLAB = registerBlockItem(MythBlocks.GALVITE_SLAB);
     public static final RegistryObject<Item> GALVITE_VERTICAL_SLAB = registerBlockItem(MythBlocks.GALVITE_VERTICAL_SLAB, compatProperties(QUARK));
@@ -112,7 +111,6 @@ public class MythItems {
     public static final RegistryObject<Item> WOLT_BUTTON = registerBlockItem(MythBlocks.WOLT_BUTTON);
     public static final RegistryObject<Item> WOLT_DOOR = registerTallBlockItem(MythBlocks.WOLT_DOOR);
     public static final RegistryObject<Item> WOLT_TRAPDOOR = registerBlockItem(MythBlocks.WOLT_TRAPDOOR);
-    public static final RegistryObject<Item> WOLT_SIGN = registerItem("wolt_sign", () -> new ModSignItem(compatProperties(QUARK).stacksTo(16), MythBlocks.WOLT_SIGN.get(), MythBlocks.WOLT_WALL_SIGN.get(), 200));
     public static final RegistryObject<Item> WOLT_LADDER = registerBurnableBlockItem(MythBlocks.WOLT_LADDER, compatProperties(QUARK), 300);
     public static final RegistryObject<Item> WOLT_BOOKSHELF = registerBurnableBlockItem(MythBlocks.WOLT_BOOKSHELF, compatProperties(QUARK), 300);
     public static final RegistryObject<Item> WOLT_POST = registerBurnableBlockItem(MythBlocks.WOLT_POST, compatProperties(QUARK), 300);
@@ -166,7 +164,8 @@ public class MythItems {
     //                                                  ITEMS
     //---------------------------------------------------------------------------------------------------------------------
 
-    // Misc
+    public static final RegistryObject<Item> WOLT_BOAT = registerItem("wolt_boat", () -> new MythBoatItem(MythBoatEntity.Type.WOLT));
+    public static final RegistryObject<Item> WOLT_SIGN = registerItem("wolt_sign", () -> new ModSignItem(compatProperties(QUARK).stacksTo(16), MythBlocks.WOLT_SIGN.get(), MythBlocks.WOLT_WALL_SIGN.get(), 200));
     public static final RegistryObject<Item> POND_SERPENT = registerItem("pond_serpent", () -> new Item(properties().food(MythFoods.POND_SERPENT)));
     public static final RegistryObject<Item> BLISTERBERRY = registerItem("blisterberry", () -> new BlockNamedItem(BLISTERBERRY_THISTLE.get(), properties().food(MythFoods.BLISTERBERRY)));
     public static final RegistryObject<Item> ACTIVATED_BLISTERBERRY = registerItem("activated_blisterberry", () -> new MythThrowableItem<>(MythEntities.BLISTERBERRY).setCooldown(200));
@@ -194,10 +193,6 @@ public class MythItems {
     public static final RegistryObject<Item> COTTON_PANTS = registerItem("cotton_pants", () -> new MythArmorItem(MythArmorTypes.COTTON, EquipmentSlotType.LEGS));
     public static final RegistryObject<Item> COTTON_BOOTS = registerItem("cotton_boots", () -> new MythArmorItem(MythArmorTypes.COTTON, EquipmentSlotType.FEET));
     public static final RegistryObject<Item> BARBARIAN_HOOD = registerItem("barbarian_hood", () -> new MythArmorItem(MythArmorTypes.BARBARIAN, EquipmentSlotType.HEAD));
-
-    // Boats
-    public static final RegistryObject<Item> WOLT_BOAT = registerItem("wolt_boat", () -> new MythBoatItem(MythBoatEntity.Type.WOLT));
-    //public static final RegistryObject<Item> VIRIDIAN_BOAT = ITEMS.register("viridian_boat", () -> new MythBoatItem(MythBoatEntity.Type.VIRIDIAN));
 
     // Fluid buckets
     public static final RegistryObject<Item> LIQUID_SULFUR_BUCKET = registerItem("liquid_sulfur_bucket", () -> new BucketItem(MythFluids.SULFUR.getStill(), properties().stacksTo(1)));

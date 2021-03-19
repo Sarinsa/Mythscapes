@@ -180,8 +180,6 @@ public class MythBlocks {
     public static void registerBlockData() {
         AxeItem.STRIPABLES = new HashMap<>(AxeItem.STRIPABLES);
 
-        registerFlammables();
-
         registerStrippable(WOLT_LOG, WOLT_LOG_STRIPPED);
         registerStrippable(WOLT_WOOD, WOLT_WOOD_STRIPPED);
         registerStrippable(WOLT_POST, WOLT_POST_STRIPPED);
@@ -190,22 +188,6 @@ public class MythBlocks {
 
         registerPottablePlant(CHARGED_DANDELION, POTTED_CHARGED_DANDELION);
         registerPottablePlant(WOLT_SAPLING, POTTED_WOLT_SAPLING);
-    }
-
-    private static void registerFlammables() {
-        // This will probably never be a problem, but who knows.
-        // Some modders have the craziest of ideas.
-        if (!(Blocks.FIRE instanceof FireBlock)) {
-            Mythscapes.LOGGER.warn("The vanilla fire block appears to have been registry replaced by something else that is not " +
-                    "an instance of FireBlock. Mythscapes' burnable blocks will likely not be flammable.");
-            return;
-        }
-
-
-    }
-
-    private static void registerFlammable(Supplier<Block> flammable, int encouragement, int flammability) {
-        ((FireBlock) Blocks.FIRE).setFlammable(flammable.get(), encouragement, flammability);
     }
 
     private static void registerStrippable(Supplier<Block> strippable, Supplier<Block> stripped) {

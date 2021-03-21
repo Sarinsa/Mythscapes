@@ -20,15 +20,15 @@ import javax.annotation.Nullable;
 
 public class WoltPowderBlock extends Block {
 
-    private final boolean golden;
+    private final double launchVelocity;
 
-    public WoltPowderBlock(boolean golden, Properties properties) {
+    public WoltPowderBlock(double launchVelocity, Properties properties) {
         super(properties);
-        this.golden = golden;
+        this.launchVelocity = launchVelocity;
     }
 
-    private boolean isGolden() {
-        return this.golden;
+    private double getLaunchVelocity() {
+        return this.launchVelocity;
     }
 
     @Override
@@ -45,12 +45,7 @@ public class WoltPowderBlock extends Block {
         entityWorld.playSound(null, pos, SoundEvents.SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.9f, 0.1f);
 
         Vector3d motion = entity.getDeltaMovement();
-        double motionY = 1.2D;
-
-        if (this.isGolden()) {
-            motionY = 1.7D;
-        }
-        entity.setDeltaMovement(new Vector3d(motion.x(), motionY, motion.z()));
+        entity.setDeltaMovement(new Vector3d(motion.x(), this.getLaunchVelocity(), motion.z()));
     }
 
     @Override

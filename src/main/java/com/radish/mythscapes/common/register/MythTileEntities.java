@@ -19,8 +19,8 @@ public class MythTileEntities {
 
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Mythscapes.MODID);
 
-    public static final RegistryObject<TileEntityType<MythSignTileEntity>> SIGN = register("sign", () -> TileEntityType.Builder.of(MythSignTileEntity::new, MythChestBlock.CHEST_BLOCKS.toArray(new Block[0])).build(null));
-    public static final RegistryObject<TileEntityType<MythChestTileEntity>> CHEST = register("chest", () -> TileEntityType.Builder.of(MythChestTileEntity::new, ModAbstractSignBlock.SIGN_BLOCKS.toArray(new Block[0])).build(null));
+    public static final RegistryObject<TileEntityType<MythSignTileEntity>> SIGN = register("sign", () -> TileEntityType.Builder.of(MythSignTileEntity::new, ModAbstractSignBlock.SIGN_BLOCKS.toArray(new Block[0])).build(null));
+    public static final RegistryObject<TileEntityType<MythChestTileEntity>> CHEST = register("chest", () -> TileEntityType.Builder.of(MythChestTileEntity::new, MythChestBlock.CHEST_BLOCKS.toArray(new Block[0])).build(null));
 
     private static <T extends TileEntity> RegistryObject<TileEntityType<T>> register(String name, Supplier<TileEntityType<T>> tileEntityType) {
         return TILE_ENTITIES.register(name, tileEntityType);

@@ -6,6 +6,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.potion.*;
 import net.minecraft.util.IItemProvider;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.fml.RegistryObject;
@@ -22,26 +23,26 @@ public class MythPotions {
     public static final RegistryObject<Potion> LONG_PETRIFICATION = register("long_petrified", MythEffects.PETRIFIED, (20 * 25), 0);
 
     public static void registerBrewingRecipes() {
-        registerBrewingRecipe(Potions.AWKWARD, MythBlocks.TROLLSTONE.get(), PETRIFICATION.get());
-        registerBrewingRecipe(PETRIFICATION.get(), Items.GLOWSTONE_DUST, LONG_PETRIFICATION.get());
+        registerBrewingRecipe(PETRIFICATION.get(), Potions.AWKWARD, Ingredient.of(MythBlocks.TROLLSTONE.get()));
+        registerBrewingRecipe(PETRIFICATION.get(), LONG_PETRIFICATION.get(), Ingredient.of(Tags.Items.DUSTS_GLOWSTONE));
     }
 
     private static RegistryObject<Potion> register(String name, Supplier<Effect> effectSupplier, int duration, int amplifier) {
         return POTIONS.register(name, () -> new Potion(new EffectInstance(effectSupplier.get(), duration, amplifier)));
     }
 
-    private static void registerBrewingRecipe(Potion potionIngredient, IItemProvider itemIngredient, Potion potionResult) {
+    private static void registerBrewingRecipe(Potion potionResult, Potion potionIngredient, Ingredient itemIngredient) {
         BrewingRecipeRegistry.addRecipe(new BrewingRecipe(
                 Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), potionIngredient)),
-                Ingredient.of(new ItemStack(itemIngredient)),
+                itemIngredient,
                 PotionUtils.setPotion(new ItemStack(Items.POTION), potionResult)
         ));
     }
 
-    private static void registerBrewingRecipe(IItemProvider potionIngredient, IItemProvider itemIngredient, IItemProvider potionResult) {
+    private static void registerBrewingRecipe(IItemProvider potionResult, Ingredient potionIngredient, Ingredient itemIngredient) {
         BrewingRecipeRegistry.addRecipe(new BrewingRecipe(
-                Ingredient.of(potionIngredient),
-                Ingredient.of(itemIngredient),
+                potionIngredient,
+                itemIngredient,
                 new ItemStack(potionResult)
         ));
     }

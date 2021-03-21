@@ -60,7 +60,7 @@ public class SnailBucketItem extends Item {
     private void spawnSnail(ServerWorld world, ItemStack itemStack, PlayerEntity player, BlockPos facingPos) {
         CompoundNBT tag = itemStack.getOrCreateTag().copy();
         if (!tag.contains("SnailType", 8))
-            tag.putString("SnailType", SnailTypeRegister.getRandom().getName().toString());
+            tag.putString("SnailType", SnailTypeRegister.INSTANCE.getRandom().getName().toString());
 
         SnailEntity snail = MythEntities.PYGMY_SNAIL.get().spawn(world, tag, itemStack.hasCustomHoverName() ? itemStack.getDisplayName() : null, player, facingPos, SpawnReason.BUCKET, false, false);
 
@@ -87,7 +87,7 @@ public class SnailBucketItem extends Item {
         if (compoundNBT != null && compoundNBT.contains("SnailType", 8))
             snailType = compoundNBT.getString("SnailType");
 
-        return SnailTypeRegister.getFromNameOrNull(snailType);
+        return SnailTypeRegister.INSTANCE.getFromNameOrNull(snailType);
     }
 
     @OnlyIn(Dist.CLIENT)

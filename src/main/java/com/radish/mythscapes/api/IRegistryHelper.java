@@ -1,7 +1,7 @@
 package com.radish.mythscapes.api;
 
 import net.minecraft.entity.LivingEntity;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.util.ResourceLocation;
 
 /**
  * This interface contains all the helper methods for
@@ -36,4 +36,17 @@ public interface IRegistryHelper {
      * @param snailType A new instance of an ISnailType.
      */
     void registerSnailType(ISnailType snailType);
+
+    /**
+     * Registers a spawn entry for the specified snail type.
+     *
+     * A spawn entry is needed for your snail type to spawn
+     * naturally in the world.
+     *
+     * @param biomeName The registry name of the biome that this snail type should spawn in.
+     * @param snailType The snail type for this spawn entry.
+     * @param weight The chance for this snail type to be chosen over others that might spawn in the same biome.
+     *               Should be a positive number. (Most of Mythscapes' default snail types have a weight of 100)
+     */
+    void registerSnailSpawn(ResourceLocation biomeName, ISnailType snailType, int weight);
 }

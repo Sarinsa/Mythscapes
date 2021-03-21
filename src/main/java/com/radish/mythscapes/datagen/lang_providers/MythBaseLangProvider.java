@@ -8,7 +8,6 @@ import com.radish.mythscapes.common.register.registry.FluidRegistryObject;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.potion.Potion;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.Util;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -90,5 +89,9 @@ public abstract class MythBaseLangProvider extends LanguageProvider {
 
     protected void addHwylaTooltip(String name, String localized) {
         this.add("tooltip.waila.plugin_mythscapes." + name, localized);
+    }
+
+    protected void addCommandException(String translationKey, String localized) {
+        this.add("commands." + Mythscapes.MODID + "." + translationKey, localized);
     }
 }

@@ -4,6 +4,7 @@ import com.radish.mythscapes.api.IMythscapesPlugin;
 import com.radish.mythscapes.api.MythscapesPlugin;
 import com.radish.mythscapes.api.impl.RegistryHelper;
 import com.radish.mythscapes.api.impl.SnailTypeRegister;
+import com.radish.mythscapes.common.command.MythCommands;
 import com.radish.mythscapes.common.core.config.ConfigHelpers;
 import com.radish.mythscapes.common.core.config.MythConfig;
 import com.radish.mythscapes.common.event.BiomeEvents;
@@ -41,7 +42,6 @@ public class Mythscapes {
     private final PacketHandler packetHandler = new PacketHandler();
 
     private final RegistryHelper registryHelper = new RegistryHelper();
-    private final SnailTypeRegister snailTypeRegister = new SnailTypeRegister();
 
     static {
         MythBlockTags.init();
@@ -65,6 +65,7 @@ public class Mythscapes {
         MinecraftForge.EVENT_BUS.register(new EntityEvents());
         MinecraftForge.EVENT_BUS.register(new TradeEvents());
         MinecraftForge.EVENT_BUS.register(new BiomeEvents());
+        MinecraftForge.EVENT_BUS.addListener(MythCommands::registerCommands);
 
         MythItems.ITEMS.register(eventBus);
         MythBlocks.BLOCKS.register(eventBus);
@@ -86,6 +87,7 @@ public class Mythscapes {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         ConfigHelpers.initHelpers();
+        SnailTypeRegister.INSTANCE.registerInternal();
 
         event.enqueueWork(() -> {
             MythItems.registerItemData();
@@ -99,8 +101,6 @@ public class Mythscapes {
             DispenserBehavior.register();
             MythPotions.registerBrewingRecipes();
         });
-
-        snailTypeRegister.registerInternal();
     }
 
     public void loadComplete(FMLLoadCompleteEvent event) {
@@ -143,9 +143,5 @@ public class Mythscapes {
 
     public RegistryHelper getRegistryHelper() {
         return this.registryHelper;
-    }
-
-    public SnailTypeRegister getSnailTypeRegister() {
-        return this.snailTypeRegister;
     }
 }

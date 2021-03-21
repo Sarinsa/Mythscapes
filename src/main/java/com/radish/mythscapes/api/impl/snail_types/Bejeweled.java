@@ -1,6 +1,5 @@
 package com.radish.mythscapes.api.impl.snail_types;
 
-import com.google.common.collect.ImmutableList;
 import com.radish.mythscapes.api.ISnailType;
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.register.MythItems;
@@ -8,11 +7,9 @@ import com.radish.mythscapes.common.util.TextureUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.Biomes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.Random;
 
 public class Bejeweled implements ISnailType {
@@ -38,10 +35,5 @@ public class Bejeweled implements ISnailType {
     @Override
     public Rarity getRarity() {
         return Rarity.EPIC;
-    }
-
-    @Override
-    public List<ResourceLocation> getSpawnBiomes() {
-        return ImmutableList.of(Biomes.BEACH.location());
     }
 }

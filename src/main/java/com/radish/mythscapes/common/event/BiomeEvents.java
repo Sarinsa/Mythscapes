@@ -1,14 +1,16 @@
 package com.radish.mythscapes.common.event;
 
-import com.radish.mythscapes.api.ISnailType;
-import com.radish.mythscapes.common.core.Mythscapes;
+import com.radish.mythscapes.api.impl.SnailTypeRegister;
+import com.radish.mythscapes.api.impl.SnailSpawnEntry;
 import com.radish.mythscapes.common.register.MythBiomes;
 import com.radish.mythscapes.common.worldgen.MythConfiguredFeatures;
 import com.radish.mythscapes.common.worldgen.MythConfiguredSurfaceBuilders;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.*;
+import net.minecraft.world.biome.Biomes;
+import net.minecraft.world.biome.DefaultBiomeFeatures;
+import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Features;
 import net.minecraftforge.common.BiomeDictionary;
@@ -18,6 +20,7 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.radish.mythscapes.common.misc.BiomeUtil.areBiomesEqual;
@@ -66,17 +69,9 @@ public class BiomeEvents {
 
         if (biomeName != null) {
             if (hasDictType(biomeName, BiomeDictionary.Type.OVERWORLD)) {
-                for (List<ISnailType> list : Mythscapes.getInstance().getSnailTypeRegister().getSpawnBiomes().values()) {
-                    boolean exitSnailLoop = false;
-                    for (ISnailType snailType : list) {
-                        if (snailType.getSpawnBiomes().contains(biomeName)) {
-                            addBiomeSpawn(event, PYGMY_SNAIL.get(), EntityClassification.CREATURE, 72, 1, 4);
-                            exitSnailLoop = true;
-                            break;
-                        }
-                    }
-                    if (exitSnailLoop)
-                        break;
+
+                if (SnailTypeRegister.INSTANCE.isSpawnBiome(biomeName)) {
+                    addBiomeSpawn(event, PYGMY_SNAIL.get(), EntityClassification.CREATURE, 72, 1, 4);
                 }
 
                 if (areBiomesEqual(biomeName, Biomes.SAVANNA) || areBiomesEqual(biomeName, Biomes.SHATTERED_SAVANNA)) {

@@ -2,8 +2,6 @@ package com.radish.mythscapes.common.entities.living;
 
 import com.radish.mythscapes.api.ISnailType;
 import com.radish.mythscapes.api.impl.SnailTypeRegister;
-import com.radish.mythscapes.common.core.Mythscapes;
-import com.radish.mythscapes.common.entities.living.goals.MoveToBlockGoalPrecise;
 import com.radish.mythscapes.common.misc.MythDamageSources;
 import com.radish.mythscapes.common.register.MythItems;
 import com.radish.mythscapes.common.tags.MythBlockTags;
@@ -17,16 +15,12 @@ import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Food;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.particles.BlockParticleData;
-import net.minecraft.particles.ItemParticleData;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
@@ -34,11 +28,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 public class SnailEntity extends CreatureEntity {
@@ -149,7 +140,7 @@ public class SnailEntity extends CreatureEntity {
     }
 
     public ISnailType getSnailType() {
-        return SnailTypeRegister.getFromName(this.entityData.get(SNAIL_TYPE));
+        return SnailTypeRegister.INSTANCE.getFromName(this.entityData.get(SNAIL_TYPE));
     }
 
     public ItemStack getShedDrop(Random random) {
@@ -188,18 +179,17 @@ public class SnailEntity extends CreatureEntity {
     @Override
     public ILivingEntityData finalizeSpawn(IServerWorld world, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData spawnData, @Nullable CompoundNBT tag) {
         spawnData = super.finalizeSpawn(world, difficulty, reason, spawnData, tag);
-        Map<ResourceLocation, List<ISnailType>> spawnList = Mythscapes.getInstance().getSnailTypeRegister().getSpawnBiomes();
         Biome biome = world.getBiome(this.blockPosition());
 
         if (tag != null && tag.contains("SnailType", 8)) {
-            this.setSnailType(SnailTypeRegister.getFromName(tag.getString("SnailType")));
+            this.setSnailType(SnailTypeRegister.INSTANCE.getFromName(tag.getString("SnailType")));
         }
-        else if (reason == SpawnReason.SPAWN_EGG || reason == SpawnReason.SPAWNER || !(spawnList.containsKey(biome.getRegistryName()))) {
-            this.setSnailType(SnailTypeRegister.getRandom());
+        else if (reason == SpawnReason.SPAWN_EGG || reason == SpawnReason.SPAWNER) {
+            this.setSnailType(SnailTypeRegister.INSTANCE.getRandom());
         }
         else {
-            List<ISnailType> snailTypes = spawnList.get(biome.getRegistryName());
-            this.setSnailType(snailTypes.get(this.random.nextInt(snailTypes.size())));
+            ISnailType snailType = SnailTypeRegister.INSTANCE.getWeightedForBiome(biome);
+            this.setSnailType(snailType);
         }
         return spawnData;
     }
@@ -215,7 +205,7 @@ public class SnailEntity extends CreatureEntity {
     @Override
     public void readAdditionalSaveData(CompoundNBT compound) {
         String snailType = compound.getString("SnailType");
-        this.setSnailType(SnailTypeRegister.getFromName(snailType));
+        this.setSnailType(SnailTypeRegister.INSTANCE.getFromName(snailType));
         this.setFromBucket(compound.getBoolean("FromBucket"));
         this.setHasEaten(compound.getBoolean("HasEaten"));
 

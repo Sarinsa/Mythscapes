@@ -237,5 +237,7 @@ public class MythLanguageProviderEnglishUS extends MythBaseLangProvider {
         this.add(GuiTexts.CONFIG_OOF, "Oof");
         this.add(GuiTexts.OPEN_CONFIG, "Open Config");
         this.add(GuiTexts.CONFIG_NOT_PRESENT, "Config N/A");
+
+        this.addCommandException("mythscapes.snailtypes.empty", "The snail type register is empty, and that shouldn't happen, like ever. Please file an issue about this on the mod's github.");
     }
 }

@@ -187,5 +187,6 @@
   "potion.mythscapes.long_petrified": "Potion of Petrification",
   "potion.mythscapes.petrified": "Potion of Petrification",
   "sound_event.mythscapes.entity.lion_idle": "Lion Idle",
-  "sound_event.mythscapes.misc.oof": "Oof"
+  "sound_event.mythscapes.misc.oof": "Oof",
+  "commands.mythscapes.mythscapes.snailtypes.empty": "The snail type register is empty, and that shouldn't happen, like ever. Please file an issue about this on the mod's github."
 }

@@ -81,13 +81,4 @@ public interface ISnailType {
     default Rarity getRarity() {
         return Rarity.COMMON;
     }
-
-    /**
-     * Returns a list of ResourceLocations for the biomes
-     * that this snail type should be able to spawn in.
-     *
-     * Keep in mind that snails will only spawn in biomes
-     * that exist in BiomeDictionary.Type.OVERWORLD.
-     */
-    List<ResourceLocation> getSpawnBiomes();
 }

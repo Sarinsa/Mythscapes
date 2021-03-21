@@ -1,13 +1,9 @@
 package com.radish.mythscapes.api.impl.snail_types;
 
-import com.google.common.collect.ImmutableList;
 import com.radish.mythscapes.api.ISnailType;
 import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.util.TextureUtil;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.Biomes;
-
-import java.util.List;
 
 public class Jungle implements ISnailType {
 
@@ -22,15 +18,5 @@ public class Jungle implements ISnailType {
     @Override
     public ResourceLocation getName() {
         return NAME;
-    }
-
-    @Override
-    public List<ResourceLocation> getSpawnBiomes() {
-        return ImmutableList.of(
-                Biomes.JUNGLE.location(),
-                Biomes.JUNGLE_EDGE.location(),
-                Biomes.JUNGLE_HILLS.location(),
-                Biomes.MODIFIED_JUNGLE.location(),
-                Biomes.MODIFIED_JUNGLE_EDGE.location());
     }
 }

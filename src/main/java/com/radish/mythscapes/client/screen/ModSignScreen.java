@@ -44,6 +44,7 @@ public class ModSignScreen extends Screen {
         this.tileEntity = signTileEntity;
     }
 
+    @Override
     protected void init() {
         this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
         this.addButton(new Button(this.width / 2 - 100, this.height / 4 + 120, 200, 20, DialogTexts.GUI_DONE, (p_238847_1_) -> {
@@ -56,12 +57,14 @@ public class ModSignScreen extends Screen {
         }, TextInputUtil.createClipboardGetter(this.minecraft), TextInputUtil.createClipboardSetter(this.minecraft), (text) -> this.minecraft.font.width(text) <= 90);
     }
 
+    @Override
     public void onClose() {
         this.minecraft.keyboardHandler.setSendRepeatsToGui(false);
         NetworkHelper.updateSignTextToServer(this.tileEntity.getBlockPos(), signText[0], signText[1], signText[2], signText[3]);
         this.tileEntity.setEditable(true);
     }
 
+    @Override
     public void tick() {
         ++this.updateCounter;
         if (!this.tileEntity.getType().isValid(this.tileEntity.getBlockState().getBlock())) {
@@ -75,15 +78,13 @@ public class ModSignScreen extends Screen {
         this.minecraft.setScreen(null);
     }
 
+    @Override
     public boolean charTyped(char codePoint, int modifiers) {
         this.textInputUtil.charTyped(codePoint);
         return true;
     }
 
-    public void closeScreen() {
-        this.close();
-    }
-
+    @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == 265) {
             this.editLine = this.editLine - 1 & 3;
@@ -98,6 +99,7 @@ public class ModSignScreen extends Screen {
         }
     }
 
+    @Override
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         RenderHelper.setupForFlatItems();
         this.renderBackground(matrixStack);

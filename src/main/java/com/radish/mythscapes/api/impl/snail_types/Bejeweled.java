@@ -28,7 +28,7 @@ public class Bejeweled implements ISnailType {
     }
 
     @Override
-    public @Nullable ItemStack getShedDrop(@NotNull Random random) {
+    public @Nullable ItemStack getShedDrop(Random random) {
         return new ItemStack(MythItems.BEJEWELED_SNAIL_SHELL.get());
     }
 

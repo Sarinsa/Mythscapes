@@ -40,9 +40,9 @@ public class WoltPowderBlock extends Block {
             return;
 
         if (!entityWorld.isClientSide) {
-            ((ServerWorld) entityWorld).sendParticles(ParticleTypes.CLOUD, pos.getX() + 0.5d, pos.getY(), pos.getZ() + 0.5d, 14, 0, 0, 0, 0.2f);
+            ((ServerWorld) entityWorld).sendParticles(ParticleTypes.CLOUD, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, 14, 0, 0, 0, 0.2F);
         }
-        entityWorld.playSound(null, pos, SoundEvents.SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.9f, 0.1f);
+        entityWorld.playSound(null, pos, SoundEvents.SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.9F, 0.1F);
 
         Vector3d motion = entity.getDeltaMovement();
         entity.setDeltaMovement(new Vector3d(motion.x(), this.getLaunchVelocity(), motion.z()));

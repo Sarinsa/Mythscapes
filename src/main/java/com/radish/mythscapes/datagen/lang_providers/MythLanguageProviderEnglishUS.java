@@ -206,7 +206,7 @@ public class MythLanguageProviderEnglishUS extends MythBaseLangProvider {
         this.addSnailType(SnailTypeRegister.FLOWER_FOREST, "Flower Forest");
         this.addSnailType(SnailTypeRegister.JUNGLE, "Jungle");
         this.addSnailType(SnailTypeRegister.ROOFED_FOREST, "Roofed Forest");
-        this.addSnailType(SnailTypeRegister.BEJEWELED, "Jeweled");
+        this.addSnailType(SnailTypeRegister.BEJEWELED, "Bejeweled");
         this.addSnailType(SnailTypeRegister.MUSHROOM, "Mushroom");
         this.addSnailType(SnailTypeRegister.SWAMP, "Swamp");
 

@@ -19,8 +19,6 @@ public class EntityHUDHandler implements IEntityComponentProvider {
     public void appendBody(List<ITextComponent> tooltip, IEntityAccessor accessor, IPluginConfig config) {
         if (accessor.getEntity().getType() == MythEntities.PYGMY_SNAIL.get()) {
             SnailEntity snailEntity = ((SnailEntity)accessor.getEntity());
-            //Rarity rarity = snailEntity.getSnailType().getRarity();
-
             tooltip.add(new TranslationTextComponent(SnailTypeRegister.getTranslationKey(snailEntity.getSnailType())));
         }
     }

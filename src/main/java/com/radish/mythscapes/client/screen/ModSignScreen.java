@@ -6,6 +6,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.radish.mythscapes.common.blocks.compat.ModAbstractSignBlock;
 import com.radish.mythscapes.common.blocks.compat.ModStandingSignBlock;
+import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.network.NetworkHelper;
 import com.radish.mythscapes.common.tile.MythSignTileEntity;
 import net.minecraft.block.Block;
@@ -70,6 +71,7 @@ public class ModSignScreen extends Screen {
 
     private void close() {
         this.tileEntity.setChanged();
+        NetworkHelper.updateSignTextToServer(this.tileEntity.getBlockPos(), signText[0], signText[1], signText[2], signText[3]);
         this.minecraft.setScreen(null);
     }
 

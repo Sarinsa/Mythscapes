@@ -6,18 +6,19 @@ import com.radish.mythscapes.common.blocks.compat.MythChestBlock;
 import com.radish.mythscapes.common.tile.MythChestTileEntity;
 import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
 import it.unimi.dsi.fastutil.ints.Int2IntFunction;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ChestBlock;
+import net.minecraft.block.*;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.client.renderer.model.RenderMaterial;
+import net.minecraft.client.renderer.tileentity.ChestTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.DualBrightnessCallback;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.state.properties.ChestType;
 import net.minecraft.tileentity.ChestTileEntity;
+import net.minecraft.tileentity.IChestLid;
 import net.minecraft.tileentity.TileEntityMerger;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -28,7 +29,8 @@ import java.util.Calendar;
 
 // Vanilla copy-pasta
 @SuppressWarnings("all")
-public class MythChestTileEntityRenderer<T extends MythChestTileEntity> extends TileEntityRenderer<T> {
+public class MythChestTileEntityRenderer<T extends MythChestTileEntity & IChestLid> extends TileEntityRenderer<T> {
+
 
     // This is just for funsies
     private static final ResourceLocation DEFAULT = new ResourceLocation("textures/item/blisterberry.png");
@@ -36,52 +38,52 @@ public class MythChestTileEntityRenderer<T extends MythChestTileEntity> extends 
     // Using this for the chest block ISTER
     public static Block itemRenderBlock = null;
 
-    private final ModelRenderer singleLid;
-    private final ModelRenderer singleBottom;
-    private final ModelRenderer singleLatch;
-    private final ModelRenderer rightLid;
-    private final ModelRenderer rightBottom;
-    private final ModelRenderer rightLatch;
-    private final ModelRenderer leftLid;
-    private final ModelRenderer leftBottom;
-    private final ModelRenderer leftLatch;
-    private boolean isChristmas;
+    private final ModelRenderer lid;
+    private final ModelRenderer bottom;
+    private final ModelRenderer lock;
+    private final ModelRenderer doubleLeftLid;
+    private final ModelRenderer doubleLeftBottom;
+    private final ModelRenderer doubleLeftLock;
+    private final ModelRenderer doubleRightLid;
+    private final ModelRenderer doubleRightBottom;
+    private final ModelRenderer doubleRightLock;
+    private boolean xmasTextures;
 
     public MythChestTileEntityRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
         super(rendererDispatcherIn);
 
         Calendar calendar = Calendar.getInstance();
         if (calendar.get(2) + 1 == 12 && calendar.get(5) >= 24 && calendar.get(5) <= 26) {
-            this.isChristmas = true;
+            this.xmasTextures = true;
         }
 
-        this.singleBottom = new ModelRenderer(64, 64, 0, 19);
-        this.singleBottom.addBox(1.0F, 0.0F, 1.0F, 14.0F, 10.0F, 14.0F, 0.0F);
-        this.singleLid = new ModelRenderer(64, 64, 0, 0);
-        this.singleLid.addBox(1.0F, 0.0F, 0.0F, 14.0F, 5.0F, 14.0F, 0.0F);
-        this.singleLid.yRot = 9.0F;
-        this.singleLid.zRot = 1.0F;
-        this.singleLatch = new ModelRenderer(64, 64, 0, 0);
-        this.singleLatch.addBox(7.0F, -1.0F, 15.0F, 2.0F, 4.0F, 1.0F, 0.0F);
-        this.singleLatch.yRot = 8.0F;
-        this.rightBottom = new ModelRenderer(64, 64, 0, 19);
-        this.rightBottom.addBox(1.0F, 0.0F, 1.0F, 15.0F, 10.0F, 14.0F, 0.0F);
-        this.rightLid = new ModelRenderer(64, 64, 0, 0);
-        this.rightLid.addBox(1.0F, 0.0F, 0.0F, 15.0F, 5.0F, 14.0F, 0.0F);
-        this.rightLid.yRot = 9.0F;
-        this.rightLid.zRot = 1.0F;
-        this.rightLatch = new ModelRenderer(64, 64, 0, 0);
-        this.rightLatch.addBox(15.0F, -1.0F, 15.0F, 1.0F, 4.0F, 1.0F, 0.0F);
-        this.rightLatch.yRot = 8.0F;
-        this.leftBottom = new ModelRenderer(64, 64, 0, 19);
-        this.leftBottom.addBox(0.0F, 0.0F, 1.0F, 15.0F, 10.0F, 14.0F, 0.0F);
-        this.leftLid = new ModelRenderer(64, 64, 0, 0);
-        this.leftLid.addBox(0.0F, 0.0F, 0.0F, 15.0F, 5.0F, 14.0F, 0.0F);
-        this.leftLid.yRot = 9.0F;
-        this.leftLid.zRot = 1.0F;
-        this.leftLatch = new ModelRenderer(64, 64, 0, 0);
-        this.leftLatch.addBox(0.0F, -1.0F, 15.0F, 1.0F, 4.0F, 1.0F, 0.0F);
-        this.leftLatch.yRot = 8.0F;
+        this.bottom = new ModelRenderer(64, 64, 0, 19);
+        this.bottom.addBox(1.0F, 0.0F, 1.0F, 14.0F, 10.0F, 14.0F, 0.0F);
+        this.lid = new ModelRenderer(64, 64, 0, 0);
+        this.lid.addBox(1.0F, 0.0F, 0.0F, 14.0F, 5.0F, 14.0F, 0.0F);
+        this.lid.y = 9.0F;
+        this.lid.z = 1.0F;
+        this.lock = new ModelRenderer(64, 64, 0, 0);
+        this.lock.addBox(7.0F, -1.0F, 15.0F, 2.0F, 4.0F, 1.0F, 0.0F);
+        this.lock.y = 8.0F;
+        this.doubleLeftBottom = new ModelRenderer(64, 64, 0, 19);
+        this.doubleLeftBottom.addBox(1.0F, 0.0F, 1.0F, 15.0F, 10.0F, 14.0F, 0.0F);
+        this.doubleLeftLid = new ModelRenderer(64, 64, 0, 0);
+        this.doubleLeftLid.addBox(1.0F, 0.0F, 0.0F, 15.0F, 5.0F, 14.0F, 0.0F);
+        this.doubleLeftLid.y = 9.0F;
+        this.doubleLeftLid.z = 1.0F;
+        this.doubleLeftLock = new ModelRenderer(64, 64, 0, 0);
+        this.doubleLeftLock.addBox(15.0F, -1.0F, 15.0F, 1.0F, 4.0F, 1.0F, 0.0F);
+        this.doubleLeftLock.y = 8.0F;
+        this.doubleRightBottom = new ModelRenderer(64, 64, 0, 19);
+        this.doubleRightBottom.addBox(0.0F, 0.0F, 1.0F, 15.0F, 10.0F, 14.0F, 0.0F);
+        this.doubleRightLid = new ModelRenderer(64, 64, 0, 0);
+        this.doubleRightLid.addBox(0.0F, 0.0F, 0.0F, 15.0F, 5.0F, 14.0F, 0.0F);
+        this.doubleRightLid.y = 9.0F;
+        this.doubleRightLid.z = 1.0F;
+        this.doubleRightLock = new ModelRenderer(64, 64, 0, 0);
+        this.doubleRightLock.addBox(0.0F, -1.0F, 15.0F, 1.0F, 4.0F, 1.0F, 0.0F);
+        this.doubleRightLock.y = 8.0F;
     }
 
     @Override
@@ -100,8 +102,8 @@ public class MythChestTileEntityRenderer<T extends MythChestTileEntity> extends 
             matrixStackIn.translate(0.5D, 0.5D, 0.5D);
             matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(-f));
             matrixStackIn.translate(-0.5D, -0.5D, -0.5D);
-
             TileEntityMerger.ICallbackWrapper<? extends ChestTileEntity> icallbackwrapper;
+
             if (flag) {
                 icallbackwrapper = chestBlock.combine(blockstate, world, tileEntityIn.getBlockPos(), true);
             } else {
@@ -115,8 +117,8 @@ public class MythChestTileEntityRenderer<T extends MythChestTileEntity> extends 
 
             IVertexBuilder vertexBuilder;
 
-            if (this.isChristmas) {
-                vertexBuilder = Atlases.chooseMaterial(tileEntityIn, chesttype, this.isChristmas).buffer(bufferIn, RenderType::entityCutout);
+            if (this.xmasTextures) {
+                vertexBuilder = Atlases.chooseMaterial(tileEntityIn, chesttype, this.xmasTextures).buffer(bufferIn, RenderType::entityCutout);
             }
             else {
                 vertexBuilder = bufferIn.getBuffer(RenderType.entityCutoutNoCull(this.getChestTexture(block, chesttype)));
@@ -124,24 +126,25 @@ public class MythChestTileEntityRenderer<T extends MythChestTileEntity> extends 
 
             if (flag1) {
                 if (chesttype == ChestType.LEFT) {
-                    this.renderModels(matrixStackIn, vertexBuilder, this.leftLid, this.leftLatch, this.leftBottom, f1, i, combinedOverlayIn);
-                } else {
-                    this.renderModels(matrixStackIn, vertexBuilder, this.rightLid, this.rightLatch, this.rightBottom, f1, i, combinedOverlayIn);
+                    this.renderModels(matrixStackIn, vertexBuilder, this.doubleRightLid, this.doubleRightLock, this.doubleRightBottom, f1, i, combinedOverlayIn);
                 }
-            } else {
-                this.renderModels(matrixStackIn, vertexBuilder, this.singleLid, this.singleLatch, this.singleBottom, f1, i, combinedOverlayIn);
+                else {
+                    this.renderModels(matrixStackIn, vertexBuilder, this.doubleLeftLid, this.doubleLeftLock, this.doubleLeftBottom, f1, i, combinedOverlayIn);
+                }
             }
-
+            else {
+                this.renderModels(matrixStackIn, vertexBuilder, this.lid, this.lock, this.bottom, f1, i, combinedOverlayIn);
+            }
             matrixStackIn.popPose();
         }
     }
 
-    private void renderModels(MatrixStack matrixStackIn, IVertexBuilder bufferIn, ModelRenderer chestLid, ModelRenderer chestLatch, ModelRenderer chestBottom, float lidAngle, int combinedLightIn, int combinedOverlayIn) {
-        chestLid.xRot = -(lidAngle * ((float)Math.PI / 2F));
-        chestLatch.xRot = chestLid.xRot;
-        chestLid.render(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
-        chestLatch.render(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
-        chestBottom.render(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+    private void renderModels(MatrixStack matrixStackIn, IVertexBuilder bufferIn, ModelRenderer lid, ModelRenderer lock, ModelRenderer bottom, float lidAngle, int combinedLightIn, int combinedOverlayIn) {
+        lid.xRot = -(lidAngle * ((float)Math.PI / 2F));
+        lock.xRot = lid.xRot;
+        lid.render(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+        lock.render(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+        bottom.render(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
     }
 
     protected ResourceLocation getChestTexture(Block block, ChestType chestType) {

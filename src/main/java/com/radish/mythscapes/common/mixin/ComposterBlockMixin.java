@@ -27,7 +27,7 @@ public abstract class ComposterBlockMixin extends Block implements ISidedInvento
         this.isRandomlyTicking = true;
     }
 
-    @Inject(method = "tick(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/server/ServerWorld;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random;)V", at = @At("HEAD"), remap = false)
+    @Inject(method = "tick(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/server/ServerWorld;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random;)V", at = @At("HEAD"))
     public void onTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand, CallbackInfo callbackInfo) {
         CommonMixinHooks.onComposterBlockTick(state, worldIn, pos, rand);
     }

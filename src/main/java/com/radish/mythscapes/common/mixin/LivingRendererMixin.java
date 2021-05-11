@@ -24,7 +24,7 @@ public abstract class LivingRendererMixin<T extends LivingEntity, M extends Enti
         super(renderManager);
     }
 
-    @Inject(method = "getRenderType(Lnet/minecraft/entity/LivingEntity;ZZZ)Lnet/minecraft/client/renderer/RenderType;", at = @At(value = "HEAD"), cancellable = true, remap = false)
+    @Inject(method = "getRenderType(Lnet/minecraft/entity/LivingEntity;ZZZ)Lnet/minecraft/client/renderer/RenderType;", at = @At(value = "HEAD"), cancellable = true)
     public void onGetRenderType(T entity, boolean normal, boolean translucent, boolean glowing, CallbackInfoReturnable<RenderType> callbackInfoReturnable) {
         ClientMixinHooks.onGetRenderType(entity, this.model, normal, translucent, glowing, callbackInfoReturnable);
     }

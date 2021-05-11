@@ -1,6 +1,7 @@
 package com.radish.mythscapes.common.worldgen;
 
 import com.radish.mythscapes.common.blocks.plant.ChargedDandelionBlock;
+import com.radish.mythscapes.common.core.Mythscapes;
 import com.radish.mythscapes.common.register.MythBlocks;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
@@ -25,6 +26,6 @@ public class MythConfiguredFeatures {
     }
 
     private static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> register(String name, ConfiguredFeature<FC, ?> configuredFeature) {
-        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, name, configuredFeature);
+        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, Mythscapes.resourceLoc(name).toString(), configuredFeature);
     }
 }

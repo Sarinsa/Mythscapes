@@ -1,16 +1,19 @@
 package com.radish.mythscapes.common.network.work;
 
 import com.radish.mythscapes.client.screen.ModSignScreen;
+import com.radish.mythscapes.common.network.packets.S2CUpdateEntityVelocityPacket;
 import com.radish.mythscapes.common.network.packets.S2CUpdatePlayerEditSignPacket;
 import com.radish.mythscapes.common.network.packets.S2CUpdateSignTextPacket;
 import com.radish.mythscapes.common.tile.MythSignTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 
 @SuppressWarnings("all")
 public class ClientPacketWork {
@@ -46,6 +49,18 @@ public class ClientPacketWork {
                 signTileEntity.setText(i, new StringTextComponent(TextFormatting.stripFormatting(message.signText[i])));
             }
             signTileEntity.setTextColor(DyeColor.byId(message.textColor));
+        }
+    }
+
+    public static void handleUpdateEntityVelocity(S2CUpdateEntityVelocityPacket message) {
+        World world = Minecraft.getInstance().level;
+
+        if (world != null) {
+            Entity entity = world.getEntity(message.entityId);
+
+            if (entity != null) {
+                entity.setDeltaMovement(message.xMotion, message.yMotion, message.zMotion);
+            }
         }
     }
 }

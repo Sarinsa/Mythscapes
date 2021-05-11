@@ -7,6 +7,7 @@ import com.radish.mythscapes.common.blocks.plant.BlisterberryThistleBlock;
 import com.radish.mythscapes.common.blocks.plant.ChargedDandelionBlock;
 import com.radish.mythscapes.common.blocks.plant.ModLeavesBlock;
 import com.radish.mythscapes.common.blocks.wood.*;
+import com.radish.mythscapes.common.blocks.wood.tree.WoltTree;
 import com.radish.mythscapes.common.core.Mythscapes;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -116,7 +117,7 @@ public class MythBlocks {
     public static final RegistryObject<Block> WOLT_HEDGE = registerBlock("wolt_hedge", () -> new MythHedgeBlock(AbstractBlock.Properties.copy(WOLT_FENCE.get())));
     public static final RegistryObject<Block> WOLT_CHEST = registerBlock("wolt_chest", () -> new MythChestBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.5F).harvestTool(ToolType.AXE), MythTileEntities.CHEST::get, "wolt"));
     public static final RegistryObject<Block> WOLT_TRAPPED_CHEST = registerBlock("wolt_trapped_chest", () -> new MythTrappedChestBlock(AbstractBlock.Properties.copy(WOLT_CHEST.get()), MythTileEntities.CHEST::get, "wolt"));
-    public static final RegistryObject<Block> WOLT_SAPLING = registerBlock("wolt_sapling", () -> new ModSaplingBlock(AbstractBlock.Properties.of(Material.PLANT, MaterialColor.COLOR_CYAN).sound(SoundType.GRASS).strength(0.0f).noCollission().randomTicks()));
+    public static final RegistryObject<Block> WOLT_SAPLING = registerBlock("wolt_sapling", () -> new ModSaplingBlock(new WoltTree(), AbstractBlock.Properties.of(Material.PLANT, MaterialColor.COLOR_CYAN).sound(SoundType.GRASS).strength(0.0f).noCollission().randomTicks()));
     public static final RegistryObject<Block> WOLT_LEAVES = registerBlock("wolt_leaves", () -> new ModLeavesBlock(AbstractBlock.Properties.of(Material.LEAVES, MaterialColor.COLOR_CYAN).sound(SoundType.GRASS).strength(0.2F).randomTicks().noOcclusion()));
     public static final RegistryObject<Block> WOLT_LEAF_CARPET = registerBlock("wolt_leaf_carpet", LeafCarpetBlock::new);
 

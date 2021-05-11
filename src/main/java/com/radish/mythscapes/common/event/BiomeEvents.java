@@ -35,11 +35,12 @@ public class BiomeEvents {
     @SubscribeEvent(priority = EventPriority.HIGH)
     public void setupModBiomes(BiomeLoadingEvent event) {
         ResourceLocation biomeName = event.getName();
-        BiomeGenerationSettingsBuilder generationSettings = event.getGeneration();
-        MobSpawnInfoBuilder spawnInfoBuilder = event.getSpawns();
 
         if (biomeName == null)
             return;
+
+        BiomeGenerationSettingsBuilder generationSettings = event.getGeneration();
+        MobSpawnInfoBuilder spawnInfoBuilder = event.getSpawns();
 
         if (biomeName.equals(MythBiomes.STATIC_FIELDS.get().getRegistryName())) {
             DefaultBiomeFeatures.addDefaultCarvers(generationSettings);
@@ -48,6 +49,8 @@ public class BiomeEvents {
             DefaultBiomeFeatures.addDefaultMonsterRoom(generationSettings);
             DefaultBiomeFeatures.addDefaultSoftDisks(generationSettings);
 
+            generationSettings.surfaceBuilder(MythConfiguredSurfaceBuilders.STATIC);
+
             generationSettings.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, MythConfiguredFeatures.GALVITE_DIAMOND_ORE);
             generationSettings.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, MythConfiguredFeatures.GALVITE_GOLD_ORE);
             generationSettings.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, MythConfiguredFeatures.GALVITE_REDSTONE_ORE);
@@ -55,7 +58,7 @@ public class BiomeEvents {
             generationSettings.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_PLAIN);
             generationSettings.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_TALL_GRASS);
             generationSettings.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MythConfiguredFeatures.PATCH_CHARGED_DANDELIONS);
-            generationSettings.surfaceBuilder(MythConfiguredSurfaceBuilders.STATIC);
+            generationSettings.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MythConfiguredFeatures.STATIC_PLAINS_TREES);
 
             spawnInfoBuilder.setPlayerCanSpawn();
             DefaultBiomeFeatures.commonSpawns(spawnInfoBuilder);

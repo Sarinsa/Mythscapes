@@ -87,8 +87,6 @@ public class LionEntity extends AnimalEntity {
 
     @Override
     public void aiStep() {
-        super.aiStep();
-
         if (this.isLying()) {
             this.jumping = false;
             this.xxa = 0.0f;
@@ -97,6 +95,8 @@ public class LionEntity extends AnimalEntity {
         else {
             --this.nextTimeLying;
         }
+
+        super.aiStep();
 
         if (this.getHunger() > 0 && this.random.nextInt(130) == 0) {
             this.setHunger(this.getHunger() - 1);

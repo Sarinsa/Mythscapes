@@ -19,6 +19,7 @@ import net.minecraft.loot.functions.SetCount;
 import net.minecraftforge.common.Tags;
 
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 public class MythBlockLootTableProvider extends BlockLootTables {
@@ -146,7 +147,7 @@ public class MythBlockLootTableProvider extends BlockLootTables {
         this.add(MythBlocks.WOLT_TRAPPED_CHEST.get(), BlockLootTables::createNameableBlockEntityTable);
         this.dropSelf(MythBlocks.WOLT_HEDGE.get());
         this.dropSelf(MythBlocks.WOLT_SAPLING.get());
-        this.add(MythBlocks.WOLT_LEAVES.get(), (block) -> createLeavesDrops(block, MythBlocks.WOLT_SAPLING.get(), DEFAULT_SAPLING_DROP_RATES));
+        this.add(MythBlocks.WOLT_LEAVES.get(), (block) -> createWoltLeavesDrop(block, MythBlocks.WOLT_SAPLING.get(), DEFAULT_SAPLING_DROP_RATES));
         this.dropSelf(MythBlocks.WOLT_LEAF_CARPET.get());
 
         /*
@@ -256,5 +257,14 @@ public class MythBlockLootTableProvider extends BlockLootTables {
                                         .when(BlockStateProperty.hasBlockStateProperties(slab)
                                                 .setProperties(StatePropertiesPredicate.Builder.properties()
                                                         .hasProperty(VerticalSlabBlock.SLAB_TYPE, VerticalSlabBlock.Type.DOUBLE)))))));
+    }
+
+    protected static LootTable.Builder createWoltLeavesDrop(Block leaves, Block sapling, float... chances) {
+        return createLeavesDrops(leaves, sapling, chances)
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantRange.exactly(1))
+                        .when(NOT_SILK_TOUCH_OR_SHEARS)
+                        .add(applyExplosionCondition(leaves, ItemLootEntry.lootTableItem(MythItems.WOLT_FRUIT.get()))
+                                .when(TableBonus.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
     }
 }

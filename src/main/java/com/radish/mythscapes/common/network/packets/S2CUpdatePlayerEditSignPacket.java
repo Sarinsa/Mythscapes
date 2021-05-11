@@ -19,7 +19,6 @@ public class S2CUpdatePlayerEditSignPacket {
         this.uuid = uuid;
     }
 
-    @SuppressWarnings("all")
     public static void handle(S2CUpdatePlayerEditSignPacket message, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
 

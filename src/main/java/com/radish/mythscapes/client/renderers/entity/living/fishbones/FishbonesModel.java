@@ -90,8 +90,8 @@ public class FishbonesModel<T extends FishbonesEntity> extends SegmentedModel<T>
         this.legRight.xRot = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
 
         if (entity.isAggressive()) {
-            this.armLeft.xRot = (float)Math.PI / 2;
-            this.armRight.xRot = (float)Math.PI / 2;
+            this.armLeft.xRot = -(float)Math.PI / 2;
+            this.armRight.xRot = -(float)Math.PI / 2;
         }
         else {
             this.armRight.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;

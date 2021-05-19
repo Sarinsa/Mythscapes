@@ -288,10 +288,12 @@ public abstract class AbstractRecipeProvider extends RecipeProvider {
     }
 
     protected void smeltingRecipe(IItemProvider ingredient, IItemProvider result, float experience, Consumer<IFinishedRecipe> consumer) {
-        String ingredientName = itemName(result);
+        String ingredientName = itemName(ingredient);
+        String resultName = itemName(result);
+
         CookingRecipeBuilder.smelting(Ingredient.of(ingredient), result, experience, 200)
                 .unlockedBy("has_" + ingredientName, has(ingredient))
-                .save(consumer, Mythscapes.resourceLoc(ingredientName + "_from_smelting"));
+                .save(consumer, Mythscapes.resourceLoc(resultName + "_from_" + ingredientName + "_smelting"));
     }
 
     protected void blastingRecipe(IItemProvider ingredient, IItemProvider result, float experience, Consumer<IFinishedRecipe> consumer) {

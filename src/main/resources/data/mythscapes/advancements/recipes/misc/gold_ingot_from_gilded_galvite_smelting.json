@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "mythscapes:activated_blisterberry_from_smelting"
+      "mythscapes:gold_ingot_from_gilded_galvite_smelting"
     ]
   },
   "criteria": {
-    "has_activated_blisterberry": {
+    "has_gilded_galvite": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "mythscapes:blisterberry"
+            "item": "mythscapes:gilded_galvite"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "mythscapes:activated_blisterberry_from_smelting"
+        "recipe": "mythscapes:gold_ingot_from_gilded_galvite_smelting"
       }
     }
   },
   "requirements": [
     [
-      "has_activated_blisterberry",
+      "has_gilded_galvite",
       "has_the_recipe"
     ]
   ]

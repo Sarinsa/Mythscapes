@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "mythscapes:diamond_from_smelting"
+      "mythscapes:roasted_biobulb_cluster_from_biobulb_cluster_smelting"
     ]
   },
   "criteria": {
-    "has_diamond": {
+    "has_biobulb_cluster": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "mythscapes:bejeweled_galvite"
+            "item": "mythscapes:biobulb_cluster"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "mythscapes:diamond_from_smelting"
+        "recipe": "mythscapes:roasted_biobulb_cluster_from_biobulb_cluster_smelting"
       }
     }
   },
   "requirements": [
     [
-      "has_diamond",
+      "has_biobulb_cluster",
       "has_the_recipe"
     ]
   ]
